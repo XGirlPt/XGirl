@@ -66,17 +66,17 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
         blur ? "backdrop-blur-lg" : ""
       }`}
     >
-      <div className=" w-full bg-black h-20 ">
-        <div className="sticky flex justify-center align-middle items-center pt-2 ">
-          <Link href="/">
-            <img
-              src="/photos/logo1.png"
-              alt="logo"
-              className="w-36 h-12 justify-center align-middle items-center mt-2"
-            />
-          </Link>
-        </div>
-      </div>
+   <div className="w-full bg-black h-20">
+  <div className="sticky flex justify-center items-center h-full">
+    <Link href="/">
+      <img
+        src="/photos/logo1.png"
+        alt="logo"
+        className="w-36 h-12 object-contain"
+      />
+    </Link>
+  </div>
+</div>
 
       <div className=" w-full bg-pink-800   z-100">
         <div className="flex mx-auto md:mx-20 bg-pink-800 h-12 justify-between items-center">

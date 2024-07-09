@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             </Link>
 
             <Link
-              href="/girls"
+              href="/Acompanhantes"
               className={`nav-link cursor-pointer flex px-3 h-full hover:bg-pink-900 items-center ${
                 pathname === "/girls" || pathname.includes("/girls")
                   ? "bg-pink-900"

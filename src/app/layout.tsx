@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@XGirlOfficial",
-    title: "XGirl - | Classificados Eróticos em Portugal",
+    title: "XGirl - Classificados Eróticos, Acompanhates e Escort em Portugal",
     description:
       "Bem-vindo ao XGirl , a sua principal fonte para os melhores anúncios classificados eróticos em Portugal. Explore a nossa ampla gama de serviços e encontre o que deseja.",
     images: [

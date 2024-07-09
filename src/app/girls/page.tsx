@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import GirlsPage from "./_ui/GirlsPage";
 
 export const metadata: Metadata = {
-  title: "X-Girl - Girls",
+  title: "XGirl - Acompanhantes",
   description:
-    "Bem-vindo ao Dashboard do X-Girl, o melhor site de classificados eróticos em Portugal.",
+    "Bem-vindo a XGirl, o melhor site de classificados eróticos, Acompanhantes e Escort em Portugal.",
 };
 
 export interface PagePageProps {}

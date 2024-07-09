@@ -101,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               }`}
             >
               <p className="font-bold text-sm px-2 cursor-pointer text-white block w-full">
-                Girls
+                Acompanhantes
               </p>
             </Link>
 

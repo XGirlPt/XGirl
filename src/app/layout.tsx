@@ -7,38 +7,38 @@ import { MainProvider } from "@/provider/main-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "X-Girl - Dashboard | Classificados Eróticos em Portugal",
+  title: "XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em Portugal",
   description:
-    "Descubra os melhores anúncios classificados eróticos em Portugal com o X-Girl Dashboard. Explore uma ampla gama de serviços e encontre o que deseja.",
-  authors: [{ name: "X-Girl" }],
+    "Descubra os melhores anúncios classificados eróticos em Portugal com o XGirl. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal.",
+  authors: [{ name: "XGirl" }],
   keywords:
-    "classificados eróticos, acompanhantes, Portugal, serviços eróticos, classificados adultos, X-Girl",
+    "Classificados eróticos Portugal, acompanhantes, Escort, serviços eróticos, classificados adultos, X-Girl",
   openGraph: {
     type: "website",
     locale: "pt_PT",
-    siteName: "X-Girl",
-    title: "X-Girl - Dashboard | Classificados Eróticos em Portugal",
+    siteName: "XGirl",
+    title: "XGirl - Classificados Eróticos, Escort e Acompanhantes em Portugal",
     description:
-      "Bem-vindo ao X-Girl Dashboard, a sua principal fonte para os melhores anúncios classificados eróticos em Portugal. Explore a nossa ampla gama de serviços e encontre o que deseja.",
+      "Bem-vindo ao XGirl, a sua principal fonte para os melhores anúncios classificados eróticos, Escort e Acompanhantes em Portugal. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal.",
       
     images: [
       {
-        url: "https://portal-x-novo-figaym36p-miikepine.vercel.app/imagens/logo.png",
-        alt: "Logótipo X-Girl",
+        url: "/public/logo.png",
+        alt: "Logótipo XGirl",
       },
     ],
-    url: "https://portal-x-novo-figaym36p-miikepine.vercel.app/",
+    url: "https://www.xgirl.pt/",
   },
   twitter: {
     card: "summary_large_image",
     site: "@XGirlOfficial",
-    title: "X-Girl - Dashboard | Classificados Eróticos em Portugal",
+    title: "XGirl - | Classificados Eróticos em Portugal",
     description:
-      "Bem-vindo ao X-Girl Dashboard, a sua principal fonte para os melhores anúncios classificados eróticos em Portugal. Explore a nossa ampla gama de serviços e encontre o que deseja.",
+      "Bem-vindo ao XGirl , a sua principal fonte para os melhores anúncios classificados eróticos em Portugal. Explore a nossa ampla gama de serviços e encontre o que deseja.",
     images: [
       {
-        url: "https://portal-x-novo-figaym36p-miikepine.vercel.app/imagens/logo.png",
-        alt: "Logótipo X-Girl",
+        url: "/public/logo.png",
+        alt: "Logótipo XGirl",
       },
     ],
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
 
 export const additionalMetaTags = [
   { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-  { name: "author", content: "X-Girl" },
+  { name: "author", content: "XGirl" },
   { name: "language", content: "Portuguese" },
   { name: "robots", content: "index, follow" },
   { name: "revised", content: "Friday, July 6th, 2024" },

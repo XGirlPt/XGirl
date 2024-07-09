@@ -90,13 +90,15 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
 
     return (
       <div className="relative w-full">
-        <Slider ref={this.sliderRef} {...settings}>
+        <Slider ref={this.sliderRef} {...settings}
+        className="">
           {profiles.map((profile, index) => (
             <div key={index} className="px-2">
-              <div className="relative">
-                <Link href={`/girls/${profile.nome}`}>
+              <div className="relative ">
+                <Link href={`/girls/${profile.nome}`} className="">
                   <BlurImage
-                    src={profile.photos[0]}
+                    src={profile.photos[0]
+                    }
                     alt={profile.nome}
                     className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl blur-2xl"
                   />

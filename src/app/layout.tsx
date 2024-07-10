@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       
     images: [
       {
-        url: "/favicon.ico",
+        url: "/logoxg.png",
         alt: "Logótipo XGirl",
       },
     ],
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       "Bem-vindo ao XGirl , a sua principal fonte para os melhores anúncios classificados eróticos em Portugal. Explore a nossa ampla gama de serviços e encontre o que deseja.",
     images: [
       {
-        url: "/public/logo.png",
+        url: "/logoxg.png",
         alt: "Logótipo XGirl",
       },
     ],
@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/logoxg.png" />
         {additionalMetaTags.map((tag) => (
           <meta key={tag.name} name={tag.name} content={tag.content} />
         ))}

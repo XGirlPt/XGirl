@@ -23,7 +23,7 @@ export const metadata: Metadata = {
       
     images: [
       {
-        url: "/public/logo.png",
+        url: "/favicon.ico",
         alt: "Logótipo XGirl",
       },
     ],
@@ -64,6 +64,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/logo.png" />
+        {additionalMetaTags.map((tag) => (
+          <meta key={tag.name} name={tag.name} content={tag.content} />
+        ))}
+      </head>
       <body className={`${inter.className}  bg-[#1b1b1b]`}>
         <ReduxProvider>
           <MainProvider>{children}</MainProvider>

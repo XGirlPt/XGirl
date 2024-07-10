@@ -5,7 +5,7 @@ function SEO({ title, description, author, keywords, image, url }) {
   return (
     <Helmet>
       <title>{title}</title>
-      <meta name="Classificados Eróticos, Acompanhantes e Escort em Portugal - XGirl" content={description} />
+      <meta name="XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em Portugal" content={description} />
       <meta name="author" content={author} />
       <meta name="keywords" content={keywords} />
       <meta property="og:title" content={title} />

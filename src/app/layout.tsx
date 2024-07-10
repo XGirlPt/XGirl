@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     title: "XGirl - Classificados Eróticos, Escort e Acompanhantes em Portugal",
     description:
       "Bem-vindo ao XGirl, a sua principal fonte para os melhores anúncios classificados eróticos, Escort e Acompanhantes em Portugal. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal.",
-      
     images: [
       {
         url: "/logoxg.png",
@@ -66,6 +65,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/logoxg.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/logoxg.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/logoxg.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/logoxg.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
         {additionalMetaTags.map((tag) => (
           <meta key={tag.name} name={tag.name} content={tag.content} />
         ))}

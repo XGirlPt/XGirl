@@ -95,7 +95,7 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
           {profiles.map((profile, index) => (
             <div key={index} className="px-2">
               <div className="relative ">
-                <Link href={`/girls/${profile.nome}`} className="">
+                <Link href={`/Acompanhantes/${profile.nome}`} className="">
                   <BlurImage
                     src={profile.photos[0]
                     }

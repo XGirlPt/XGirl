@@ -25,7 +25,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles }) => {
       {shuffledProfiles.slice(0, 5).map((profile, index) => (
         <Link
           key={index}
-          href={`/girls/${profile.nome}`}
+          href={`/Acompanhantes/${profile.nome}`}
           className="border-2 rounded-md border-zinc-700"
         >
           <div className="relative hover:border-none rounded-md overflow-hidden">

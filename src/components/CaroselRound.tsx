@@ -17,7 +17,7 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
   return (
     <div className="flex mx-28 flex-wrap justify-center gap-4 mt-8 mb-10">
       {profilesToDisplay.map((profile, index) => (
-        <Link key={index} href={`/girls/${profile.nome}`}>
+        <Link key={index} href={`/Acompanhantes/${profile.nome}`}>
           <div className="relative flex flex-col items-center cursor-pointer ">
             <div className="relative w-24 h-24 rounded-full cursor-pointer overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105 ">
               {Array.isArray(profile.photos) && profile.photos.length > 0 ? (

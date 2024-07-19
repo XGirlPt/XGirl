@@ -18,9 +18,8 @@ interface LastAnnounceProps {
 }
 
 const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
-  const nomeRedux = useSelector(
-    (state: any) => state.profile?.profileData?.nome
-  );
+  const nomeRedux = useSelector((state: { profile: { profileData: { nome: string } } }) => state.profile?.profileData?.nome);
+
   console.log("nome do redux", nomeRedux);
 
   const shuffledProfiles = profiles.sort(() => Math.random() - 0.5);

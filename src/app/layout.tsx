@@ -68,14 +68,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/logoxg.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/logoxg.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/logoxg.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        {/* <link rel="manifest" href="/site.webmanifest" /> */}
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         {additionalMetaTags.map((tag) => (
           <meta key={tag.name} name={tag.name} content={tag.content} />
         ))}
       </head>
-      <body className={`${inter.className}  bg-[#1b1b1b]`}>
+      <body className={`${inter.className} bg-[#1b1b1b]`}>
         <ReduxProvider>
           <MainProvider>{children}</MainProvider>
         </ReduxProvider>

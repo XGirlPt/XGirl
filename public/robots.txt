@@ -4,8 +4,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /login/
 
-# Host
-Host: https://www.xgirl.pt
-
 # Sitemaps
 Sitemap: https://www.xgirl.pt/sitemap.xml

@@ -92,7 +92,7 @@ const Login = () => {
           localStorage.setItem("userToken", tokenID);
           localStorage.setItem("email", email);
 
-          router.push("/girls");
+          router.push("/Acompanhantes");
         } else {
           console.log("O objeto de usuário retornado está vazio ou undefined.");
         }

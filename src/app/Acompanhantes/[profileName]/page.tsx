@@ -18,6 +18,7 @@ import sanitizeHtml from "sanitize-html";
 import { useParams } from "next/navigation";
 import { Profile } from "@/types";
 import { BlurImage } from "@/components/BlurImage";
+import axios from 'axios';
 
 function UserProfile() {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
@@ -29,6 +30,8 @@ function UserProfile() {
   const [showPartilha, setShowPartilha] = useState(false);
   const [showCertificado, setShowCertificado] = useState(false);
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+
 
   const fetchProfiles = async () => {
     try {
@@ -49,40 +52,23 @@ function UserProfile() {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        // Fetch dos dados do perfil
-        const { data: profileData, error: profileError } = await supabase
-          .from("ProfilesData")
-          .select("*")
-          .eq("nome", decodeURIComponent(profileName))
-          .single();
-
-        if (profileError) {
-          throw profileError;
-        }
-
-        // Fetch das fotos do perfil da tabela profilephoto
-        const { data: photoData, error: photoError } = await supabase
-          .from("profilephoto")
-          .select("*")
-          .eq("userUID", profileData.userUID);
-
-        if (photoError) {
-          throw photoError;
-        }
-
-        // Combine os dados do perfil com os dados das fotos
-        const combinedProfileData = {
-          ...profileData,
-          photoURL: photoData.map((photo) => photo.imageurl),
-        };
-
-        setSelectedProfile(combinedProfileData);
+        const response = await axios.get(`/api/profiles/${encodeURIComponent(profileName as string)}`);
+        setSelectedProfile(response.data);
       } catch (error: any) {
-        console.error("Error fetching profile:", error.message);
+        if (error.response?.status === 403) {
+          setError('Este perfil não foi aprovado.');
+          console.log(error, "este perfil nao esta aprovado")
+        } else if (error.response?.status === 404) {
+          error('Perfil não encontrado.');
+        } else {
+          error('Erro ao buscar o perfil.');
+        }
       }
     }
 
-    fetchProfile();
+    if (profileName) {
+      fetchProfile();
+    }
   }, [profileName]);
 
   const handleLigaMeClick = () => {

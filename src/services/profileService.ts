@@ -6,7 +6,7 @@ export async function fetchProfiles() {
     const { data: profilesData, error: profilesError } = await supabase
       .from("ProfilesData")
       .select("*")
-      .eq('aprovado', true);
+     
 
     if (profilesError) {
       throw profilesError;

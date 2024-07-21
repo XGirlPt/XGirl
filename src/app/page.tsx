@@ -6,7 +6,6 @@ import CaroselG from "@/components/CaroselG";
 import Footer from "@/components/Footer";
 import LastAnnounce from "@/components/LastAnnounce";
 import { fetchProfiles } from "@/services/profileService";
-// import SEO from "@/services/SEO";
 import Maiores from "@/components/Maiores";
 import Map from "@/components/Map";
 import Link from "next/link";

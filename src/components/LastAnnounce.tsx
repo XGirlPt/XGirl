@@ -30,7 +30,7 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
         <Link
           className="border-zinc-700 border-2 rounded-md"
           key={index}
-          href={`/girls/${nomeRedux}`}
+          href={`/Acompanhantes/${nomeRedux}`}
         >
           <div className="relative ">
             <div className="image-container overflow-hidden">

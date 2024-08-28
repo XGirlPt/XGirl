@@ -11,7 +11,7 @@ const ServicosPrestados: React.FC<ServicosPrestadosProps> = ({
   const servico = selectedProfile?.servico;
 
   return (
-    <div className="bg-[#1E2427] grid gap-2 py-6 w-full px-10 mx-10 border border-gray-600 rounded-3xl">
+    <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-gray-600 rounded-3xl">
       <p className="text-pink-800 text-2xl mb-2">Serviços Prestados</p>
       {servico && Array.isArray(servico) ? (
         <div className="grid grid-cols-3 gap-3 w-full">

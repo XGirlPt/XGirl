@@ -5,8 +5,7 @@ export async function fetchProfiles() {
   try {
     const { data: profilesData, error: profilesError } = await supabase
       .from("ProfilesData")
-      .select("*")
-     
+      .select("*");
 
     if (profilesError) {
       throw profilesError;
@@ -21,14 +20,27 @@ export async function fetchProfiles() {
       throw photosError;
     }
 
-    // Combinar dados dos perfis com dados das fotos usando a chave estrangeira
+    // Buscar fotos de verificação
+    const { data: VphotosData, error: VphotosError } = await supabase
+      .from("VPhoto")
+      .select("*");
+
+    if (VphotosError) {
+      throw VphotosError;
+    }
+
+    // Combinar dados dos perfis com dados das fotos e fotos de verificação usando a chave estrangeira
     const combinedProfiles = profilesData.map((profile) => {
       const photos = photosData.filter(
         (photo) => photo.userUID === profile.userUID
       );
+      const VPhotos = VphotosData.filter(
+        (VPhoto) => VPhoto.userUID === profile.userUID
+      );
       return {
         ...profile,
         photos: photos.map((photo) => photo.imageurl), // Supondo que a URL da imagem seja armazenada em 'imageurl'
+        verificationPhotos: VPhotos.map((photo) => photo.imageurl) // Supondo que a URL da imagem de verificação seja armazenada em 'imageurl'
       };
     });
 
@@ -39,7 +51,6 @@ export async function fetchProfiles() {
     throw error;
   }
 }
-
 // END FETCH PROFILE
 
 // FETCH PHOTOS PROFILE START
@@ -61,6 +72,24 @@ export async function fetchProfilePhotos() {
   }
 }
 
+
+// FETCH VERIFICATION PHOTOS PROFILE START
+export async function fetchVPhotos() {
+  try {
+    const { data: VphotosData, error: VphotosError } = await supabase
+      .from("VPhoto")
+      .select("*");
+
+    if (VphotosError) {
+      throw VphotosError;
+    }
+
+    return VphotosData;
+  } catch (error) {
+    console.error("Error fetching verification photos:", error.message);
+    throw error;
+  }
+}
 // END FETCH PHOTOS PROFILE
 
 // FETCH ESTABELECIMENTOS START
@@ -86,8 +115,10 @@ export async function fetchClubs() {
     throw error;
   }
 }
-
 // END FETCH ESTABELECIMENTOS
+
+
+
 
 export const fetchProfileFromDatabase = async (userUID: string) => {
   try {
@@ -114,10 +145,21 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
       throw new Error("Erro ao buscar URLs das fotos do perfil");
     }
 
-    // Combina os dados do perfil do usuário com os URLs das fotos
+    // Recupera os URLs das fotos de verificação do perfil do usuário
+    const { data: VPhotoData, error: VPhotoError } = await supabase
+      .from("VPhoto")
+      .select("imageurl")
+      .eq("userUID", userUID);
+
+    if (VPhotoError) {
+      throw new Error("Erro ao buscar URLs das fotos de verificação do perfil");
+    }
+
+    // Combina os dados do perfil do usuário com os URLs das fotos e fotos de verificação
     const profileWithPhotos = {
       ...profileData,
       photos: photoData.map((photo) => photo.imageurl),
+      verificationPhotos: VPhotoData.map((photo) => photo.imageurl),
     };
 
     console.log("Dados do perfil recuperados:", profileWithPhotos); // Adicione este log para verificar os dados recuperados
@@ -140,7 +182,6 @@ export async function updateProfileData(dataToUpdate, userUID) {
       .update(dataToUpdate)
       .eq("userUID", userUID);
       
-
     console.log("Response from Supabase:", data, error);
 
     if (error) {
@@ -153,7 +194,6 @@ export async function updateProfileData(dataToUpdate, userUID) {
     console.error("Erro ao atualizar o perfil:", error.message);
   }
 }
-
 // END UPDATE DATA PERFIL
 
 // UPDATE PROFILE TAG START
@@ -176,5 +216,23 @@ export async function updateProfileTag(userUID, newTagValue) {
     console.error("Erro ao atualizar a tag do perfil:", error.message);
   }
 }
-
 // END UPDATE PROFILE TAG
+
+// UPDATE VERIFICATION PHOTO START
+export const updateVerificationPhoto = async (photoURL: string, userUID: string) => {
+  try {
+    const { data, error } = await supabase
+      .from("ProfilesData")
+      .update({ verificationPhoto: photoURL })
+      .eq("userUID", userUID);
+
+    if (error) {
+      throw error;
+    }
+
+    console.log("Foto de verificação atualizada com sucesso:", data);
+  } catch (error) {
+    console.error("Erro ao atualizar a foto de verificação:", error.message);
+  }
+};
+// END UPDATE VERIFICATION PHOTO

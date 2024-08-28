@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+"use client"
+import React from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import supabase from "@/database/supabase";
@@ -31,6 +31,8 @@ const RegistoPagamento: React.FC = () => {
   const tatuagemRedux = useSelector(
     (state: any) => state.profile?.profile.tatuagem
   );
+const tarifaredux = useSelector((state: any) => state.profile?.profile.tarifa);
+
   const pelosRedux = useSelector((state: any) => state.profile?.profile.pelos);
   const distritoRedux = useSelector(
     (state: any) => state.profile?.profile.distrito
@@ -54,7 +56,19 @@ const RegistoPagamento: React.FC = () => {
     (state: any) => state.profile?.profile.description
   );
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const verificationPhotoInput = document.getElementById("verificationPhoto") as HTMLInputElement;
+    const verificationPhotoFile = verificationPhotoInput?.files?.[0];
+
+    if (!verificationPhotoFile) {
+      console.error("Nenhuma foto de verificação selecionada.");
+      return;
+    }
+
+    console.log("Objeto do arquivo para upload:", verificationPhotoFile);
+
     try {
       const selectedPayments: string[] = [];
       for (const key in pagamentoRedux) {
@@ -78,108 +92,112 @@ const RegistoPagamento: React.FC = () => {
       }
 
       const userData = {
-        userEmail,
+        userUID,
+        email: userEmail,
         nome: nomeRedux,
         idade: idadeRedux,
+        tarifa: tarifaredux,
         altura: alturaRedux,
         cabelo: cabeloRedux,
         corpo: corpoRedux,
         olhos: olhosRedux,
         origem: origemRedux,
         seios: seiosRedux,
-        tatuagem: tatuagemRedux,
+        tatuagens: tatuagemRedux,
         mamas: mamasRedux,
         pelos: pelosRedux,
         signo: signoRedux,
         distrito: distritoRedux,
         telefone: telefoneRedux,
-        selectedPayments,
-        selectedLingua,
-        selectedServico,
+        pagamento: selectedPayments,
+        servico: selectedServico,
+        lingua: selectedLingua,
         description: descriptionRedux,
+        aprovado: false
       };
 
       console.log("Dados do usuário a serem enviados:", userData);
-      console.log("userUID:", userUID);
-      console.log("url foto redux", photoURLredux);
-      console.log("email redux", userEmail);
-      console.log("pagamentoCheckboxes", pagamentoRedux);
-      console.log("servicoCheckboxes", servicoRedux);
-      console.log("descriptionRedux", descriptionRedux);
 
       const { data: profileData, error: profileError } = await supabase
         .from("ProfilesData")
-        .insert([
-          {
-            userUID,
-            email: userEmail,
-            nome: nomeRedux,
-            idade: idadeRedux,
-            telefone: telefoneRedux,
-            cidade: cidadeRedux,
-            altura: alturaRedux,
-            cabelo: cabeloRedux,
-            corpo: corpoRedux,
-            mamas: mamasRedux,
-            olhos: olhosRedux,
-            origem: origemRedux,
-            seios: seiosRedux,
-            tatuagens: tatuagemRedux,
-            signo: signoRedux,
-            pelos: pelosRedux,
-            distrito: distritoRedux,
-            pagamento: selectedPayments,
-            servico: selectedServico,
-            lingua: selectedLingua,
-            description: descriptionRedux,
-          },
-        ]);
+        .insert([userData]);
 
       if (profileError) {
-        throw new Error(
-          "Erro ao inserir dados na tabela ProfilesData: " +
-            profileError.message
-        );
-      } else {
-        console.log(
-          "Dados inseridos com sucesso na tabela ProfilesData:",
-          profileData
-        );
+        throw new Error("Erro ao inserir dados na tabela ProfilesData: " + profileError.message);
       }
 
-      try {
-        console.log("URLs das fotos a serem inseridas:", photoURLredux);
+      console.log("Dados inseridos com sucesso na tabela ProfilesData:", profileData);
 
-        const photoInsertions = photoURLredux.map((photoURL: string) => ({
-          userUID,
-          imageurl: photoURL,
-        }));
+      // Inserir URLs das fotos na tabela profilephoto
+      const photoInsertionsProfile = photoURLredux.map(photoURL => ({
+        userUID,
+        imageurl: photoURL
+      }));
 
-        const { data: photoData, error: photoError } = await supabase
-          .from("profilephoto")
-          .insert(photoInsertions);
+      const { data: photoData, error: photoError } = await supabase
+        .from("profilephoto")
+        .insert(photoInsertionsProfile);
 
-        if (photoError) {
-          throw new Error(
-            "Erro ao inserir a URL da foto do usuário na tabela profilephoto: " +
-              photoError.message
-          );
-        } else {
-          console.log(
-            "URLs das fotos do usuário inseridas com sucesso na tabela profilephoto:",
-            photoData
-          );
-        }
-      } catch (error: any) {
-        console.error(
-          "Erro ao inserir a URL da foto do usuário na tabela profilephoto:",
-          error.message
-        );
+      if (photoError) {
+        throw new Error("Erro ao inserir URLs das fotos na tabela profilephoto: " + photoError.message);
       }
+
+      console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", photoData);
+
+      // Upload da foto de verificação
+      const { data: uploadData, error: uploadError } = await supabase
+        .storage
+        .from('verificationFoto')
+        .upload(`${userUID}/${verificationPhotoFile.name}`, verificationPhotoFile);
+
+      if (uploadError) {
+        throw new Error("Erro ao fazer upload da foto de verificação: " + uploadError.message);
+      }
+
+      console.log("Foto de verificação carregada com sucesso:", uploadData);
+
+      // Obter o URL da foto de verificação
+      const { data: publicURLData, error: publicURLError } = await supabase
+        .storage
+        .from('verificationFoto')
+        .getPublicUrl(`${userUID}/${verificationPhotoFile.name}`);
+
+      if (publicURLError) {
+        throw new Error("Erro ao obter URL da foto de verificação: " + publicURLError.message);
+      }
+
+      const publicURL = publicURLData?.publicUrl;
+
+      if (!publicURL) {
+        throw new Error("Erro ao obter URL pública da foto de verificação.");
+      }
+
+      console.log("URL pública da foto de verificação:", publicURL);
+
+      // Inserir URL da foto de verificação na tabela VPhoto
+      await insertVerificationPhoto(userUID, publicURL);
     } catch (error: any) {
       console.error("Erro ao adicionar dados:", error.message);
     }
   };
+
+  // Função para inserir URL da foto de verificação na tabela VPhoto
+  async function insertVerificationPhoto(userUID: string, verificationPhotoURL: string) {
+    try {
+      const { data: vPhotoData, error: vPhotoError } = await supabase
+        .from("VPhoto")
+        .insert([{ userUID, imageurl: verificationPhotoURL }]);
+  
+      if (vPhotoError) {
+        throw new Error("Erro ao inserir URL da foto de verificação na tabela VPhoto: " + vPhotoError.message);
+      }
+  
+      console.log("URL da foto de verificação inserida com sucesso na tabela VPhoto:", vPhotoData);
+    } catch (error: any) {
+      console.error("Erro ao adicionar a foto de verificação:", error.message);
+    }
+  }
+
 
   return (
     <div className="text-gray-600 pb-20 min-h-[60vh] bg-[#1b1b1b]">
@@ -226,9 +244,9 @@ const RegistoPagamento: React.FC = () => {
 
         <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-sm">
           <div className="px-10 mt-4">
-          <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
-          <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
-
+           
+            <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
+            <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
           </div>
         </div>
 

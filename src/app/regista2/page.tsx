@@ -89,7 +89,7 @@ const Regista2: React.FC = () => {
               break;
 
             case 3:
-              router.push("/registar-utilizador");
+              router.push("/registo-entrada");
               break;
             default:
               break;
@@ -113,15 +113,15 @@ const Regista2: React.FC = () => {
   }, [router]);
 
   return (
-    <div className="text-gray-900 bg-[#1b1b1b]">
-      <div className="pb-4 bg-[#1b1b1b]">
+    <div className="text-gray-900 bg-[#1b1b1b] rounded-md">
+      <div className="pb-4 bg-[#1b1b1b] rounded-md">
         {/* <Header isLogged={isLoggedIn} /> */}
-        <div className="flex h-full bg-[#1b1b1b] px-44">
+        <div className=" h-full bg-[#1b1b1b] px- justify-center flex">
           {/* LEFT SIDE */}
           <div className="w-1/2 pt-20 mb-10 flex flex-col justify-end items-center">
             <div>
-              <p className="text-pink-800 text-xl mt-20 pb-10 px-6">
-                Portal X é o site de classificados eroticos mais completo de
+              <p className="text-pink-800 text-2xl pb-10 px-6 ">
+                XGirl.pt é o site de classificados eroticos mais completo de
                 Portugal{" "}
               </p>
               <div className="flex">
@@ -164,12 +164,12 @@ const Regista2: React.FC = () => {
           </div>
 
           {/* right size */}
-          <div className="bg-[#1E2427] w-1/2 mb-2 mt-44 border border-zinc-600 flex items-center">
-            <div className="w-full ml-auto">
+          <div className="bg-[#1E2427] w-1/3 mb-2 mt-20 border border-zinc-600 rounded-2xl flex items-center">
+            <div className="w-full my-auto">
               <p className="text-white text-xl px-6 justify-center flex">
-                Cria uma nova conta no PortalX
+                Cria uma nova conta 
               </p>
-              <div className="w-full px-16">
+              <div className="w-full px-6">
                 <div className="px-1 pb-2 pt-1 justify-center align-middle items-center">
                   <div className="items-center">
                     <p className="text-pink-800 py-2">Email* </p>

@@ -32,7 +32,7 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
   console.log("Lingua", lingua);
 
   return (
-    <div className="bg-[#1E2427] px-10 pt-10 pb-10 w-full border border-gray-600 rounded-3xl">
+    <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-gray-600 rounded-3xl">
       <p className="text-pink-800 text-2xl">Idiomas</p>
       {lingua && Array.isArray(lingua) ? (
         <div className="grid grid-cols-2 mt-4">

@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+*.spec.ts
+*.test.ts
 
 # next.js
 /.next/
@@ -24,6 +26,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+logs
+*.log
 
 # local env files
 .env*.local
@@ -34,3 +38,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor directories
+.vscode/
+.idea/

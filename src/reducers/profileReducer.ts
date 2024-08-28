@@ -27,7 +27,12 @@ import {
   UPDATE_PHOTOS,
   UPDATE_PROFILES,
   SET_SELECTED_PROFILE,
+  UPDATE_VERIFICATION_PHOTO,
+  SET_PHOTO_URL_V,
 } from "../actions/ProfileActions";
+
+
+
 
 // Define the state type
 interface Profile {
@@ -54,6 +59,8 @@ interface Profile {
   servico?: string | null;
   description?: string | null;
   photoURL?: string | null;
+  verificationPhoto?: string | null;
+
 }
 
 interface AppState {
@@ -209,7 +216,13 @@ interface UpdateProfilesAction {
 
 interface SetSelectedProfileAction {
   type: typeof SET_SELECTED_PROFILE;
-  payload: Profile;
+  payload: string;
+}
+
+
+interface UpdateVerificationPhotoAction {
+  type: typeof UPDATE_VERIFICATION_PHOTO;
+  payload: string;
 }
 
 // Combine the action types in a union
@@ -241,7 +254,8 @@ type ProfileActionTypes =
   | SetPhotoUrlAction
   | UpdatePhotosAction
   | UpdateProfilesAction
-  | SetSelectedProfileAction;
+  | SetSelectedProfileAction
+  | UpdateVerificationPhotoAction;
 
 // Define the initial state
 const initialState: AppState = {
@@ -254,6 +268,7 @@ const initialState: AppState = {
   profile: {
     userUID: null,
     photos: [],
+    verificationPhoto: null,
   },
 };
 
@@ -264,47 +279,37 @@ const rootReducer = (
 ): AppState => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      console.log("Action payload no LOGIN_SUCCESS:", action.payload);
-      return {
-        ...state,
-        user: action.payload,
-        token: action.payload.token,
-        isLoggedIn: true,
-        error: null,
-        loading: false,
-        email: action.payload.email,
-        profile: {
-          ...state.profile,
-          ...action.payload,
-        },
-      };
+  return {
+    ...state,
+    user: action.payload.user,
+    token: action.payload.token,
+    isLoggedIn: true,
+    email: action.payload.email,
+    profile: {
+      ...state.profile,
+      ...action.payload.profileData,
+    },
+  };
 
-    case LOGIN_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        loading: false,
-      };
-
-    case LOGOUT:
-      return {
-        ...state,
-        user: null,
-        token: null,
-        isLoggedIn: false,
-        error: null,
-        loading: false,
-        email: null,
-        profile: {
+      case LOGIN_FAILURE:
+        return {
+          ...state,
+          error: action.payload,
+          isLoggedIn: false,
+        };
+      case LOGOUT:
+        return {
+          ...state,
+          user: null,
+          token: null,
+          isLoggedIn: false,
           email: null,
-          nome: null,
-          idade: null,
-          altura: null,
-          cabelo: null,
-          userUID: null,
-          photos: [],
-        },
-      };
+          profile: {
+            userUID: null,
+            photos: [],
+          },
+        };
+
 
     case REGISTER_USER:
       return {
@@ -526,11 +531,11 @@ const rootReducer = (
         profiles: action.payload.map((profile) => ({
           ...profile,
           photoURL:
-            profile.photoURL ||
-            "https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/profileFoto/f66101fd-e346-44c8-9cdd-d99d9c01d995/1.3.png.jpg",
+            profile.photoURL,
         })),
       };
 
+     
     case SET_SELECTED_PROFILE:
       return {
         ...state,
@@ -539,6 +544,16 @@ const rootReducer = (
           photoURL: action.payload.photos[0],
         },
       };
+  
+      case UPDATE_VERIFICATION_PHOTO:
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            verificationPhoto: action.payload,
+          },
+        };
+  
 
     default:
       return state;

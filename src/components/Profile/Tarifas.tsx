@@ -24,7 +24,7 @@ const Tarifas: React.FC<TarifasProps> = ({ selectedProfile }) => {
   const pagamentos = selectedProfile?.pagamento;
 
   return (
-    <div className="bg-[#1E2427] px-10 pt-10 pb-10 w-full border border-gray-600 rounded-3xl">
+    <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-gray-600 rounded-3xl">
       <p className="text-pink-800 text-2xl">Tarifas</p>
       <p className="text-white text-lg mt-4 mb-8">
         Tarifas a partir de {tarifaRedux} €

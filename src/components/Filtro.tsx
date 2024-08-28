@@ -23,8 +23,8 @@ const Filtro: React.FC = () => {
   return (
     <>
       {mostrarFiltro && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 bg-blur-20 z-50 h-full min-h-screen">
-          <div className="w-full md:w-2/6 min-h-90 md:min-h-3/4 h-full bg-[#1E2427] rounded-lg shadow-2xl">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 bg-blur-20 z-50 ">
+          <div className="w-full md:w-2/6 h-2/3 md:h-3/4 bg-zinc-900 rounded-lg shadow-2xl ">
             <div className="border-b border-neutral-200 px-4 relative">
               <div className="flex justify-between">
                 <h1 className="text-sm md:text-xl mb-8 mt-6 text-white font-bold">
@@ -41,7 +41,7 @@ const Filtro: React.FC = () => {
 
             {/* FORM START */}
             <form className="mx-6">
-              <div className="grid gap-1 my-1 md:my-2">
+              <div className="grid-cols-3 gap-1 my-1 md:my-2">
                 <div className="flex gap-4 mb-0">
                   <FiltroAge />
                   <FiltroPrice />

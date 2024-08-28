@@ -25,4 +25,5 @@ export interface Profile {
   mamas: string;
   signo: string;
   pagamento: string[];
+  verificationPhotoURL: string;
 }

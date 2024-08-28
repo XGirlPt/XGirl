@@ -29,29 +29,37 @@ export const SET_PHOTO_URL = "SET_PHOTO_URL";
 export const UPDATE_SIGNO = "UPDATE_SIGNO";
 export const UPDATE_PROFILES = "UPDATE_PROFILES";
 export const SET_SELECTED_PROFILE = "SET_SELECTED_PROFILE";
+export const UPDATE_VERIFICATION_PHOTO = "UPDATE_VERIFICATION_PHOTO";
 
-export const loginSuccess = (userData: any) => {
-  console.log("loginSuccess payload:", userData); // Isso imprimirá o payload que está sendo passado para a ação
+
+export const loginSuccess = (userData: { email: string; token: string; user: any }) => {
+  if (!userData || !userData.token || !userData.email) {
+    console.error("Dados de login incompletos:", userData);
+    return {
+      type: LOGIN_FAILURE,
+      payload: "Dados de login incompletos",
+    };
+  }
 
   return {
     type: LOGIN_SUCCESS,
-
-    payload: {
-      user: userData.user,
-      token: userData.token,
-      email: userData.email,
-    },
+    payload: userData
   };
 };
 
 export const loginFailure = (error: any) => ({
   type: LOGIN_FAILURE,
-  payload: error,
+  payload: error
 });
 
-export const logout = () => ({
-  type: LOGOUT,
-});
+export const logout = () => {
+  localStorage.removeItem('userToken');
+  localStorage.removeItem('email');
+  return {
+    type: LOGOUT,
+  };
+};
+
 
 export const registerUser = (userUID: string, email: string) => ({
   type: REGISTER_USER,
@@ -203,3 +211,9 @@ export const setSelectedProfile = (profile: any) => ({
   type: SET_SELECTED_PROFILE, // Este tipo precisa ser tratado em seu reducer
   payload: profile,
 });
+
+export const updateVerificationPhoto = (photo: any) => ({
+  type: UPDATE_VERIFICATION_PHOTO,
+  payload: photo,
+});
+

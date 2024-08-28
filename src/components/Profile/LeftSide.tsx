@@ -77,7 +77,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
   }, []);
 
   return (
-    <div className="md:w-1/3 align-middle min-h-screen justify-center sticky top-56  z-10 h-full ">
+    <div className="md:w-1/3 align-middle min-h-screen flex justify-center sticky top-56  z-10 h-full ">
       <div className="md:relative justify-center items-center  ">
         {selectedProfile ? (
           Array.isArray(selectedProfile?.photoURL) &&
@@ -86,7 +86,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
             <BlurImage
               src={selectedProfile?.photoURL[0]}
               alt={selectedProfile?.nome}
-              className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover blur-2xl"
+              className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover "
             />
           ) : selectedProfile?.photoURL ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -115,7 +115,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
             <VscVerifiedFilled size={32} className="text-green-400 ml-2" />
           </p>
         </div> */}
-        <div className="flex justify-center items-center w-full absolute  pr-8 -mt-24 ">
+        <div className="flex justify-center items-center w-full absolute -mt-16 ">
           <div className="bg-[#1E2427] h-42 md:w-[240px] p-6 px-6  rounded-2xl border border-zinc-400 justify-center items-center">
             <p className="text-yellow-500 text-sm underline italic text-center mb-1">
               Last Status

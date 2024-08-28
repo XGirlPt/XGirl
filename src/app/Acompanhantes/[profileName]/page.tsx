@@ -117,8 +117,8 @@ function UserProfile() {
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="h-full bg-[#1b1b1b] md:flex flex-col user-profile">
-          <div className="md:flex mx-36 mt-10 relative">
+        <div className="w-screen bg-black md:flex flex-col user-profile">
+          <div className="md:flex m-24 mt-10 relative">
             {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
@@ -154,7 +154,7 @@ function UserProfile() {
 
             <div className="sm:w-full md:w-2/3">
               <div className="grid gap-10 items-center">
-                <div className="bg-[#1E2427] gap-2 py-6 w-full min-h-[600px] px-10 mx-10 border border-gray-600 rounded-3xl">
+                <div className="bg-zinc-900 gap-2 py-6 w-full min-h-[300px] px-10 ml-10 mr-24 border border-pink-800 rounded-3xl">
                   <div className="flex mb-6">
                     <p className="text-pink-800 text-2xl mb-2">
                       Fotografias reais
@@ -193,7 +193,7 @@ function UserProfile() {
                     selectedProfile.photoURL &&
                     (Array.isArray(selectedProfile.photoURL) &&
                     selectedProfile.photoURL.length > 0 ? (
-                      <div className="grid grid-cols-3  gap-6">
+                      <div className="grid grid-cols-3  gap-2">
                         {selectedProfile.photoURL.map((media, index) =>
                           media.endsWith(".mp4", ".mov" as any) ? ( // Verifica se o arquivo é um vídeo
                             <video
@@ -221,7 +221,7 @@ function UserProfile() {
       key={index}
       src={media}
       alt={`Foto ${index + 1}`}
-      className="w-40 h-auto object-cover cursor-pointer rounded-2xl border border-zinc-500 transition-opacity duration-100 ease-in-out hover:opacity-75 hover:scale-110 blur-2xl"
+      className="w-40 h-auto object-cover cursor-pointer rounded-2xl border border-zinc-500 transition-opacity duration-100 ease-in-out hover:opacity-75 hover:scale-110 "
       onClick={() => handlePhotoClick(index)}
       width={160} // Ajuste o valor de largura conforme necessário
       height={120} // Ajuste o valor de altura conforme necessário
@@ -243,7 +243,7 @@ function UserProfile() {
 
                 <ServicosPrestados selectedProfile={selectedProfile} />
 
-                <div className="bg-[#1E2427] grid gap-2 py-6 w-full px-10 mx-10 border border-gray-600 rounded-3xl">
+                <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-gray-600 rounded-3xl">
                   <p className="text-pink-800 text-2xl">Descrição</p>
                   <div className="gap-4 mt-6">
                     <div

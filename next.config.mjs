@@ -6,6 +6,10 @@ const nextConfig = {
   images: {
     domains: ['ulcggrutwonkxbiuigdu.supabase.co'],
   },
+
 };
 
 export default nextConfig;
+
+
+

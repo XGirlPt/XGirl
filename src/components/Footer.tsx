@@ -1,10 +1,21 @@
 import Link from "next/link";
 
+
 function Footer() {
   return (
-    <div className="bg-[#1E2427] w-full h-52 my-0 pb-0 mb-0 pt-4">
+    <div className="bg-[#1E2427] w-full h-64 my-0 pb-0 mb-0 pt-4">
       <div className="w-full flex justify-end ">
-        <div className="w-1/2 flex justify-center ">
+      
+        <div className="w-full flex justify-center ">
+        <div className="sticky flex justify-center items-center h-full w-1/3">
+    <Link href="/" className="">
+      <img
+        src="/photos/logo1.png"
+        alt="logo"
+        className="w-36 h-12 object-contain"
+      />
+    </Link>
+  </div>
           <div className="mx-auto">
             <p className="text-xl text-white py-2 ">Links Rápidos</p>
             <Link

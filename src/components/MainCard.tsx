@@ -21,7 +21,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles }) => {
   const shuffledProfiles = profiles.sort(() => Math.random() - 0.5);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-2 md:gap-8 mt-10 pb-16 md:pb-16 blur-xl">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-2 md:gap-8 mt-10 pb-16 md:pb-16 ">
       {shuffledProfiles.slice(0, 5).map((profile, index) => (
         <Link
           key={index}

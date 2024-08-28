@@ -33,7 +33,7 @@ const FiltroAge: React.FC<FiltroAgeProps> = ({
             <div className="relative mt-1">
               <p className="text-pink-800">Idade</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-zinc-700 z-100 text-xs ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+                className={`relative w-full mt-1 bg-pink-900 text-white z-100 text-xs ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">Selecionar idade</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

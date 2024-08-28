@@ -8,6 +8,7 @@ import {
   loginSuccess,
   loginFailure,
   addProfileData,
+  logout,
 } from "@/actions/ProfileActions";
 import { fetchProfileFromDatabase } from "@/services/profileService";
 import Header from "@/components/Header";
@@ -28,8 +29,17 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
-    if (token) {
-      dispatch(loginSuccess(token));
+    const email = localStorage.getItem("email");
+
+    if (token && email) {
+      const userData = {
+        email,
+        token,
+        user: { email }
+      };
+      dispatch(loginSuccess(userData));
+    } else {
+      dispatch(logout());
     }
   }, [dispatch]);
 
@@ -41,21 +51,20 @@ const Login = () => {
           router.push(returnUrl);
           localStorage.removeItem("returnUrl");
         } else {
-          router.push("/");
+          router.push("/minha-conta");
         }
       } else {
+        dispatch(logout());
         router.push("/login");
       }
     };
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      handleAuthStateChange
-    );
+    const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [router]);
+  }, [router, dispatch]);
 
   const fetchProfileData = async (userUID: string) => {
     try {
@@ -66,7 +75,8 @@ const Login = () => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault(); // Previne o comportamento padrão do formulário
     try {
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
@@ -81,18 +91,18 @@ const Login = () => {
           const userUID = user.user.id;
           fetchProfileData(userUID);
 
-          dispatch(
-            loginSuccess({
-              email: user.user.email,
-              userUID: user.user.id,
-            })
-          );
+          const userData = {
+            email: user.user.email,
+            token: user.session.refresh_token,
+            user: user.user
+          };
 
-          const tokenID = user.session.refresh_token;
-          localStorage.setItem("userToken", tokenID);
-          localStorage.setItem("email", email);
+          dispatch(loginSuccess(userData));
 
-          router.push("/Acompanhantes");
+          localStorage.setItem("userToken", user.session.refresh_token);
+          localStorage.setItem("email", user.user.email || '');
+
+          router.push("/minha-conta");
         } else {
           console.log("O objeto de usuário retornado está vazio ou undefined.");
         }
@@ -107,8 +117,17 @@ const Login = () => {
     const checkUserToken = async () => {
       try {
         const token = localStorage.getItem("userToken");
-        if (token) {
-          dispatch(loginSuccess(token));
+        const email = localStorage.getItem("email");
+
+        if (token && email) {
+          const userData = {
+            email,
+            token,
+            user: { email }
+          };
+          dispatch(loginSuccess(userData));
+        } else {
+          dispatch(logout());
         }
       } catch (error: any) {
         console.error("Erro ao verificar o token do usuário:", error.message);
@@ -126,40 +145,42 @@ const Login = () => {
             <p className="text-pink-800 text-3xl flex justify-center py-6">
               Conecta-te ao X-Girl
             </p>
-
-            <div className="mt-2">
-              <p className="text-pink-800 pb-2">Email*</p>
-              <input
-                className="w-full bg-zinc-600 text-white h-10 rounded-md pl-4 outline-pink-800 focus:outline-pink-800"
-                placeholder="Email"
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-
-            <div className="mt-6 justify-between">
-              <div className="flex justify-between align-bottom">
-                <p className="text-pink-800 pb-2">Password* </p>
-                <span className="text-pink-800 flex cursor-pointer text-xs hover:text-pink-900 hover:underline items-end pb-2 align-bottom justify-end">
-                  Esqueceste da palavra passe?
-                </span>
+            <form onSubmit={handleLogin}>
+              <div className="mt-2">
+                <p className="text-pink-800 pb-2">Email*</p>
+                <input
+                  className="w-full bg-zinc-600 text-white h-10 rounded-md pl-4 outline-pink-800 focus:outline-pink-800"
+                  placeholder="Email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  autoComplete="email"
+                />
               </div>
 
-              <input
-                className="w-full bg-zinc-600 py-2 rounded-md pl-4 text-white outline-pink-800"
-                placeholder="Insere a tua Password"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            </div>
+              <div className="mt-6 justify-between">
+                <div className="flex justify-between align-bottom">
+                  <p className="text-pink-800 pb-2">Password* </p>
+                  <span className="text-pink-800 flex cursor-pointer text-xs hover:text-pink-900 hover:underline items-end pb-2 align-bottom justify-end">
+                    Esqueceste da palavra passe?
+                  </span>
+                </div>
 
-            <div
-              className="flex justify-center items-center align-bottom rounded-md cursor-pointer text-white w-full bg-pink-800 py-2 mb-6 mt-6 mr-4 md:mr-10 hover:bg-pink-900"
-              onClick={handleLogin}
-            >
-              <button>Conectar</button>
-            </div>
+                <input
+                  className="w-full bg-zinc-600 py-2 rounded-md pl-4 text-white outline-pink-800"
+                  placeholder="Insere a tua Password"
+                  type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  autoComplete="current-password"
+                />
+              </div>
+
+              <div
+                className="flex justify-center items-center align-bottom rounded-md cursor-pointer text-white w-full bg-pink-800 py-2 mb-6 mt-6 mr-4 md:mr-10 hover:bg-pink-900"
+              >
+                <button type="submit">Conectar</button>
+              </div>
+            </form>
             <div className="flex justify-center text-white text-lg pb-8">
               <p>Ainda não tens uma conta?</p>
               <Link

@@ -67,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <>
    
-      <div className="text-gray-600 bg-[#1b1b1b] w-screen">
+      <div className="text-gray-600 bg-black w-screen">
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
 
         <div className=" mt-4 w-full">
@@ -96,7 +96,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <div className={`  ${paddingClass}`}>
           <p className="text-white text-3xl flex mt-8">Novidades</p>
         </div>
-        <div className={` blur-2xl ${paddingClass}`}>
+        <div className={`  ${paddingClass}`}>
           <LastAnnounce profiles={profiles} />
         </div>
       </div>

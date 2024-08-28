@@ -31,7 +31,7 @@ function GirlsPage() {
   }, [searchParams]);
 
   return (
-    <div className="text-gray-600 bg-[#1b1b1b]">
+    <div className="text-gray-600 bg-black">
       <div className="px-36">
         <p className="text-pink-800 text-3xl text-center justify-center pt-4">
           Escort Girls, Massagistas Eróticas e Acompanhantes de Luxo em Portugal

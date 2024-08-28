@@ -23,21 +23,28 @@ const HeaderG: React.FC<HeaderGProps> = ({
   };
 
   const handleNextProfile = () => {
-    setCurrentProfileIndex((prevIndex) => (prevIndex + 1) % profiles.length);
-    router.push(`/Acompanhantes/${profiles[currentProfileIndex + 1].nome}`);
+    // Verifica se há um próximo perfil válido
+    const nextIndex = (currentProfileIndex + 1) % profiles.length;
+    const nextProfile = profiles[nextIndex];
+    
+    if (nextProfile) {
+      setCurrentProfileIndex(nextIndex);
+      router.push(`/Acompanhantes/${nextProfile.nome}`);
+    }
   };
 
   const handlePrevProfile = () => {
-    setCurrentProfileIndex((prevIndex) => {
-      if (prevIndex > 0) {
-        router.push(`/Acompanhantes/${profiles[currentProfileIndex - 1].nome}`);
-        return prevIndex - 1;
-      } else {
-        router.push(`/Acompanhantes/${profiles[profiles.length - 1].nome}`);
-        return profiles.length - 1;
-      }
-    });
+    // Verifica se há um perfil anterior válido
+    const prevIndex = (currentProfileIndex - 1 + profiles.length) % profiles.length;
+    const prevProfile = profiles[prevIndex];
+    
+    if (prevProfile) {
+      setCurrentProfileIndex(prevIndex);
+      router.push(`/Acompanhantes/${prevProfile.nome}`);
+    }
   };
+
+  
   const currentProfile = profiles[currentProfileIndex];
 
   return (
@@ -45,11 +52,11 @@ const HeaderG: React.FC<HeaderGProps> = ({
       <div className="flex mx-auto md:mx-20 justify-between align-middle bg-[#1E2427] h-14 items-center">
         <div className="ml-10">
           <button
-            className="flex px-8 mt-2 py-1 shadow-sm border border-pink-800 text-md rounded-md items-center text-pink-800 bg-[#2b3945] hover:bg-pink-800 hover:text-[#2b3945] transition duration-300 ease-in-out transform"
+            className="flex px-6 mt-1 py-1 shadow-sm border border-pink-800 text-sm rounded-md items-center nk-800 text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
             onClick={handlePrevProfile}
           >
             <IoIosArrowRoundBack size={22} className="mr-2" />
-            Voltar
+            Perfil Anterior
           </button>
         </div>
 
@@ -72,7 +79,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
         <div className="ml-10">
           <button
             onClick={handleNextProfile}
-            className="flex px-8 mt-2 py-1 shadow-sm border border-pink-800 text-md rounded-md items-center text-pink-800 bg-[#2b3945] hover:bg-pink-800 hover:text-[#2b3945] transition duration-300 ease-in-out transform"
+            className="flex px-6 mt-1 py-1 shadow-sm border border-pink-800 text-sm rounded-md items-center text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
           >
             Próximo Perfil
             <IoIosArrowRoundForward size={22} className="ml-2" />

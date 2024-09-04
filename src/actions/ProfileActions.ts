@@ -24,6 +24,7 @@ export const UPDATE_PAGAMENTO = "UPDATE_PAGAMENTO";
 export const UPDATE_SERVICO = "UPDATE_SERVICO";
 export const UPDATE_LINGUA = "UPDATE_LINGUA";
 export const UPDATE_CIDADE = "UPDATE_CIDADE";
+export const UPDATE_TAG = "UPDATE_TAG"
 export const UPDATE_DESCRIPTION = "UPDATE_DESCRIPTION";
 export const SET_PHOTO_URL = "SET_PHOTO_URL";
 export const UPDATE_SIGNO = "UPDATE_SIGNO";
@@ -183,6 +184,10 @@ export const updateCidade = (cidade: any) => ({
   payload: cidade,
 });
 
+export const updateTag = (tag: any) => ({
+  type: UPDATE_TAG,
+  payload: tag,
+});
 export const updateDescription = (description: any) => ({
   type: UPDATE_DESCRIPTION,
   payload: description,

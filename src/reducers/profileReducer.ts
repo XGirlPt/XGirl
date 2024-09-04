@@ -1,3 +1,4 @@
+import { updateTarifa } from './../actions/ProfileActions';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -18,6 +19,7 @@ import {
   UPDATE_PELOS,
   UPDATE_IDADE,
   UPDATE_CIDADE,
+  UPDATE_TAG,
   SET_PHOTO_URL,
   UPDATE_DESCRIPTION,
   UPDATE_LINGUA,
@@ -29,6 +31,7 @@ import {
   SET_SELECTED_PROFILE,
   UPDATE_VERIFICATION_PHOTO,
   SET_PHOTO_URL_V,
+  UPDATE_TARIFA
 } from "../actions/ProfileActions";
 
 
@@ -44,6 +47,7 @@ interface Profile {
   altura?: number | null;
   cabelo?: string | null;
   cidade?: string | null;
+  tag?: string | null;
   mamas?: string | null;
   distrito?: string | null;
   origem?: string | null;
@@ -60,6 +64,7 @@ interface Profile {
   description?: string | null;
   photoURL?: string | null;
   verificationPhoto?: string | null;
+  tarifa?: string | null;
 
 }
 
@@ -117,6 +122,11 @@ interface UpdateIdadeAction {
 interface UpdateCidadeAction {
   type: typeof UPDATE_CIDADE;
   payload: string;
+}
+
+interface UpdateTagAction {
+  type: typeof UPDATE_TAG;
+  payload: string
 }
 
 interface UpdateMamasAction {
@@ -199,6 +209,11 @@ interface UpdateDescriptionAction {
   payload: string;
 }
 
+interface updateTarifaAction {
+  type: typeof UPDATE_TARIFA;
+  payload: string
+}
+
 interface SetPhotoUrlAction {
   type: typeof SET_PHOTO_URL;
   payload: string[];
@@ -235,6 +250,7 @@ type ProfileActionTypes =
   | UpdateNomeAction
   | UpdateIdadeAction
   | UpdateCidadeAction
+  | UpdateTagAction
   | UpdateMamasAction
   | UpdateAlturaAction
   | UpdateDistritoAction
@@ -269,6 +285,7 @@ const initialState: AppState = {
     userUID: null,
     photos: [],
     verificationPhoto: null,
+    tag: null,
   },
 };
 
@@ -359,6 +376,15 @@ const rootReducer = (
           cidade: action.payload,
         },
       };
+
+      case UPDATE_TAG:
+        return {
+        ...state,
+          profile: {
+            ...state.profile,
+            tag: action.payload,
+          },
+        };
 
     case UPDATE_MAMAS:
       console.log("Ação UPDATE_MAMAS foi chamada. Novo valor:", action.payload);
@@ -561,3 +587,5 @@ const rootReducer = (
 };
 
 export default rootReducer;
+
+

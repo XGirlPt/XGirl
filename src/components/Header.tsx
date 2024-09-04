@@ -31,8 +31,14 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   );
 
   const [filtroAberto, setFiltroAberto] = useState<boolean>(false);
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState<boolean>(false);
+
   const router = useRouter();
   const pathname = usePathname();
+
+  const toggleLanguageDropdown = () => {
+    setLanguageDropdownOpen(!languageDropdownOpen);
+  };
 
   const toggleFiltro = () => {
     setFiltroAberto(!filtroAberto);
@@ -121,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     
               <div className="hover:bg-pink-900 cursor-pointer flex h-full items-center">
                 <button
-                  className="font-. text-md px-2 cursor-pointer w-full flex items-center text-white"
+                  className="font-bold text-md px-2 cursor-pointer w-full flex items-center text-white"
                   onClick={toggleFiltro}
                 >
                   <IoIosOptions className="text-white mr-1" />
@@ -198,22 +204,27 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               <div className="relative ml-4">
                 <button
                   className="flex items-center text-white"
-                >
+                  onClick={toggleLanguageDropdown}               
+               >
                   <MdLanguage className="text-xl" />
                   <IoIosArrowDown className="text-xl ml-1" />
                 </button>
                
-                  {/* <ul className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg py-2">
-                    <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                      Português
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                      English
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                      Español
-                    </li>
-                  </ul> */}
+               
+                {languageDropdownOpen && (
+                <ul className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg py-2">
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                    Português
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                    English
+                  </li>
+                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                    Español
+                  </li>
+                </ul>
+               )}
+              
                
               </div>
             </div>

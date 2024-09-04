@@ -96,11 +96,11 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
             <div key={index} className="px-2">
               <div className="relative ">
                 <Link href={`/Acompanhantes/${profile.nome}`} className="">
-                  <BlurImage
+                  <img
                     src={profile.photos[0]
                     }
                     alt={profile.nome}
-                    className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl blur-2xl"
+                    className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl "
                   />
                 </Link>
                 <p className="absolute bottom-6 left-0 right-0 text-white text-center py-2">

@@ -113,10 +113,10 @@ const Regista2: React.FC = () => {
   }, [router]);
 
   return (
-    <div className="text-gray-900 bg-[#1b1b1b] rounded-md">
-      <div className="pb-4 bg-[#1b1b1b] rounded-md">
+    <div className="text-gray-900 bg-black rounded-md">
+      <div className="pb-4 bg-black rounded-md">
         {/* <Header isLogged={isLoggedIn} /> */}
-        <div className=" h-full bg-[#1b1b1b] px- justify-center flex">
+        <div className=" h-full bg-black px- justify-center flex">
           {/* LEFT SIDE */}
           <div className="w-1/2 pt-20 mb-10 flex flex-col justify-end items-center">
             <div>
@@ -164,7 +164,7 @@ const Regista2: React.FC = () => {
           </div>
 
           {/* right size */}
-          <div className="bg-[#1E2427] w-1/3 mb-2 mt-20 border border-zinc-600 rounded-2xl flex items-center">
+          <div className="bg-zinc-900 w-1/3 mb-2 mt-20 border border-zinc-600 rounded-2xl flex items-center">
             <div className="w-full my-auto">
               <p className="text-white text-xl px-6 justify-center flex">
                 Cria uma nova conta 

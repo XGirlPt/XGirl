@@ -151,16 +151,16 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-75 backdrop-blur-md">
-      <div className="bg-[#1E2427] h-4/5 mt-32 mb-32 border border-zinc-600 rounded-xl max-w-screen-lg shadow-md w-full overflow-y-scroll">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
+      <div className="bg-[#1E2427] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-xl max-w-screen-lg shadow-lg w-full overflow-y-auto">
         <div className="p-8">
-          <div className="mb-8 border border-gray-500 p-8">
-            <p className="text-2xl text-pink-800 mb-2">Fotos</p>
-            <p className="text-white mb-4">Podes adicionar até 10 Fotos</p>
-            <div className="mb-8">
+          <div className="mb-8 border border-gray-600 p-6 rounded-lg bg-zinc-800">
+            <p className="text-2xl text-pink-800 mb-2 font-semibold">Fotos</p>
+            <p className="text-white mb-4 text-sm">Podes adicionar até 10 Fotos</p>
+            <div className="mb-8 flex items-center space-x-4">
               <label
                 htmlFor="upload-photo"
-                className="inline-block text-white bg-green-600 px-4 py-2 rounded-md cursor-pointer"
+                className="text-white bg-green-600 px-4 py-2 rounded-md cursor-pointer hover:bg-green-500 transition duration-300"
               >
                 + Adicionar Fotos...
                 <input
@@ -173,48 +173,49 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
               </label>
               <Link
                 href="/registo-contacto"
-                className="inline-block ml-4 text-white bg-gray-400 px-4 py-2 rounded-md cursor-pointer"
+                className="text-white bg-gray-400 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-300 transition duration-300"
               >
                 ? Regras
               </Link>
             </div>
-            <div className="grid grid-cols-4 gap-10">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
               {Array.isArray(selectedPhotos) &&
                 selectedPhotos.map((photoURL, index) => (
-                  <div key={index} className="relative">
+                  <div key={index} className="relative group">
                     <IoTrashBin
                       size={24}
-                      className="absolute top-0 right-0 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1"
+                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1 rounded-full transition-opacity duration-300"
                       onClick={() => handleDeletePhoto(index)}
                     />
                     <BlurImage
                       src={photoURL}
                       alt={`Foto ${index}`}
-                      className="w-full h-24 object-cover rounded-md border border-gray-600 "
+                      className="w-full h-24 object-cover rounded-md border border-gray-600"
                     />
                   </div>
                 ))}
             </div>
           </div>
         </div>
-        <div className="flex justify-between px-8 pb-8">
-          <div className="w-32">
-            <p
-              className="text-white bg-gray-600 px-4 py-2 rounded-md cursor-pointer"
-              onClick={handleVoltar}
-            >
-              Voltar
-            </p>
-          </div>
-          <div className="w-32">
-            <p className="text-white bg-pink-800 px-4 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-900 hover:scale-105">
-              Guardar
-            </p>
-          </div>
+        <div className="flex justify-between px-8 pb-2 bg-[#1E2427] border-t border-zinc-600 rounded-b-xl">
+          <button
+            className="text-white bg-gray-600 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-500 transition duration-300"
+            onClick={handleVoltar}
+          >
+            Voltar
+          </button>
+          <button
+            className="text-white bg-pink-800 px-4 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-900 hover:scale-105"
+            // onClick={handleGuardar}
+          >
+            Guardar
+          </button>
         </div>
       </div>
     </div>
   );
+  
+
 };
 
 export default ModificarFotos;

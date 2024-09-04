@@ -152,26 +152,26 @@ function UserProfile() {
               />
             )}
 
-            <div className="sm:w-full md:w-2/3">
+            <div className="sm:w-full md:w-3/6">
               <div className="grid gap-10 items-center">
-                <div className="bg-zinc-900 gap-2 py-6 w-full min-h-[300px] px-10 ml-10 mr-24 border border-pink-800 rounded-3xl">
+                <div className="bg-zinc-900 gap-2 py-6 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl">
                   <div className="flex mb-6">
                     <p className="text-pink-800 text-2xl mb-2">
-                      Fotografias reais
+                      Fotografias de {selectedProfile?.nome}
                     </p>
 
                     {loading ? (
-                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-gray-600">
+                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
                         <p className="text-white">Carregando...</p>
                       </div>
                     ) : isCertified === null ? (
-                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-gray-600">
+                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
                         <p className="text-white">Carregando...</p>
                       </div>
                     ) : (
                       <div
                         className={`ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer ${
-                          isCertified ? "bg-green-600 hover:opacity-80" : "bg-red-600 hover:opacity-80"
+                          isCertified ? "bg-green-700 hover:opacity-80" : "bg-red-700 hover:opacity-80"
                         }`}
                       >
                         <p
@@ -243,7 +243,7 @@ function UserProfile() {
 
                 <ServicosPrestados selectedProfile={selectedProfile} />
 
-                <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-gray-600 rounded-3xl">
+                <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
                   <p className="text-pink-800 text-2xl">Descrição</p>
                   <div className="gap-4 mt-6">
                     <div

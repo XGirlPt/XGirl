@@ -8,6 +8,9 @@ import Image from "next/image";
 const AdminPage: React.FC = () => {
   const [pendingProfiles, setPendingProfiles] = useState<Profile[]>([]);
   const [approvedProfiles, setApprovedProfiles] = useState<Profile[]>([]);
+  const [inactiveProfiles, setInactiveProfiles] = useState<Profile[]>([]);
+  const [ActiveProfiles, setActiveProfiles] = useState<Profile[]>([]);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -17,6 +20,8 @@ const AdminPage: React.FC = () => {
   const fetchProfiles = async () => {
     await fetchPendingProfiles();
     await fetchApprovedProfiles();
+    await fetchInactiveProfiles(); 
+    await fetchActiveProfiles();
   };
 
   const fetchPendingProfiles = async () => {
@@ -161,9 +166,122 @@ console.log(verificationPhotoURL, "foto de verificacao")
       .eq('id', id);
 
     if (error) {
-      console.error("Error disapproving profile:", error);
+      console.error("Error disapproving profile:", error)
     } else {
       fetchProfiles();
+    }
+  };
+
+  const handleDeactivate = async (id: number) => {
+    const { error } = await supabase
+      .from('ProfilesData')
+      .update({ inactive: true })
+      .eq('id', id);
+
+    if (error) {
+      console.error("Error deactivating profile:", error);
+    } else {
+      fetchProfiles();
+    }
+  };
+
+  const fetchInactiveProfiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('ProfilesData')
+        .select('*')
+        .eq('inactive', true); // Filtrar perfis onde bloqueado é true
+  
+      if (error) {
+        throw error;
+      }
+  
+      const profilesWithPhotos = await Promise.all(data.map(async (profile: Profile) => {
+        // Buscar foto de perfil
+        const { data: profilePhotoData, error: profilePhotoError } = await supabase
+          .from("profilephoto")
+          .select("*")
+          .eq("userUID", profile.userUID);
+  
+        if (profilePhotoError) {
+          console.error("Error fetching profile photos:", profilePhotoError);
+        }
+  
+        const profilePhotoURL = profilePhotoData && profilePhotoData.length > 0 ? profilePhotoData[0].imageurl : null;
+  
+        // Buscar foto de verificação
+        const { data: verificationPhotoData, error: verificationPhotoError } = await supabase
+          .from("VPhoto")
+          .select("*")
+          .eq("userUID", profile.userUID);
+  
+        if (verificationPhotoError) {
+          console.error("Error fetching verification photos:", verificationPhotoError);
+        }
+  
+        const verificationPhotoURL = verificationPhotoData && verificationPhotoData.length > 0 ? verificationPhotoData[0].imageurl : null;
+  
+        return {
+          ...profile,
+          photoURL: profilePhotoURL,
+          verificationPhotoURL: verificationPhotoURL,
+        };
+      }));
+  
+      console.log("Fetched Active profiles:", profilesWithPhotos);
+      setInactiveProfiles(profilesWithPhotos);
+    } catch (error) {
+      console.error("Error fetching active profiles:", error.message);
+    }
+  };
+  
+  const fetchActiveProfiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('ProfilesData')
+        .select('*')
+        .eq('inactive', false); // Filtrar perfis onde bloqueado é true
+  
+      if (error) {
+        throw error;
+      }
+  
+      const profilesWithPhotos = await Promise.all(data.map(async (profile: Profile) => {
+        // Buscar foto de perfil
+        const { data: profilePhotoData, error: profilePhotoError } = await supabase
+          .from("profilephoto")
+          .select("*")
+          .eq("userUID", profile.userUID);
+  
+        if (profilePhotoError) {
+          console.error("Error fetching profile photos:", profilePhotoError);
+        }
+  
+        const profilePhotoURL = profilePhotoData && profilePhotoData.length > 0 ? profilePhotoData[0].imageurl : null;
+  
+        // Buscar foto de verificação
+        const { data: verificationPhotoData, error: verificationPhotoError } = await supabase
+          .from("VPhoto")
+          .select("*")
+          .eq("userUID", profile.userUID);
+  
+        if (verificationPhotoError) {
+          console.error("Error fetching verification photos:", verificationPhotoError);
+        }
+  
+        const verificationPhotoURL = verificationPhotoData && verificationPhotoData.length > 0 ? verificationPhotoData[0].imageurl : null;
+  
+        return {
+          ...profile,
+          photoURL: profilePhotoURL,
+          verificationPhotoURL: verificationPhotoURL,
+        };
+      }));
+  
+      console.log("Fetched blocked profiles:", profilesWithPhotos);
+      setActiveProfiles(profilesWithPhotos);
+    } catch (error) {
+      console.error("Error fetching blocked profiles:", error.message);
     }
   };
 
@@ -250,7 +368,7 @@ console.log(verificationPhotoURL, "foto de verificacao")
         ) : (
           <ul className="space-y-4">
             {approvedProfiles.map((profile) => (
-              <li key={profile.id} className="flex items-center justificar-between p-4 bg-gray-700 rounded-lg shadow-md">
+              <li key={profile.id} className="flex items-center justify-between p-4 bg-gray-700 rounded-lg shadow-md">
                 <div className="flex items-center space-x-4">
                   <div className="flex space-x-4">
                     {profile.photoURL ? (
@@ -307,6 +425,129 @@ console.log(verificationPhotoURL, "foto de verificacao")
           </ul>
         )}
       </div>
+
+      <div>
+  <h1 className="text-3xl font-bold text-white mb-4 mt-10">Perfis Activos</h1>
+  {ActiveProfiles.length === 0 ? (
+    <p className="text-white">Nenhum perfil Activo</p>
+  ) : (
+    <ul className="space-y-4">
+      {ActiveProfiles.map((profile) => (
+        <li key={profile.id} className="flex items-center justify-between p-4 bg-gray-700 rounded-lg shadow-md">
+          <div className="flex items-center space-x-4">
+            <div className="flex space-x-4">
+              {profile.photoURL ? (
+                <Image
+                  src={profile.photoURL}
+                  alt={`Profile Photo`}
+                  className="w-16 h-16 object-cover rounded-full"
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <p className="text-white">Sem fotos</p>
+              )}
+              {profile.verificationPhotoURL ? (
+                <Image
+                  src={profile.verificationPhotoURL}
+                  alt={`Verification Photo`}
+                  className="w-16 h-16 object-cover rounded-full"
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <p className="text-white">Sem foto de verificação</p>
+              )}
+            </div>
+            <div className="text-white">
+              <p className="font-semibold">Nome: {profile.nome}</p>
+              <p className="font-semibold">Idade: {profile.idade}</p>
+              <p className="font-semibold">Cidade: {profile.cidade}</p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <button 
+              onClick={() => viewProfile(profile.nome)} 
+              className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300"
+            >
+              Ver Perfil
+            </button>
+           
+            <button 
+            onClick={() => handleDeactivate(profile.id)}
+            className="p-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duração-300"
+>
+            
+              Desactivar Perfil
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+
+      <div>
+  <h1 className="text-3xl font-bold text-white mb-4 mt-10">Perfis Inactivos</h1>
+  {inactiveProfiles.length === 0 ? (
+    <p className="text-white">Nenhum perfil Inactivo</p>
+  ) : (
+    <ul className="space-y-4">
+      {inactiveProfiles.map((profile) => (
+        <li key={profile.id} className="flex items-center justify-between p-4 bg-gray-700 rounded-lg shadow-md">
+          <div className="flex items-center space-x-4">
+            <div className="flex space-x-4">
+              {profile.photoURL ? (
+                <Image
+                  src={profile.photoURL}
+                  alt={`Profile Photo`}
+                  className="w-16 h-16 object-cover rounded-full"
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <p className="text-white">Sem fotos</p>
+              )}
+              {profile.verificationPhotoURL ? (
+                <Image
+                  src={profile.verificationPhotoURL}
+                  alt={`Verification Photo`}
+                  className="w-16 h-16 object-cover rounded-full"
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <p className="text-white">Sem foto de verificação</p>
+              )}
+            </div>
+            <div className="text-white">
+              <p className="font-semibold">Nome: {profile.nome}</p>
+              <p className="font-semibold">Idade: {profile.idade}</p>
+              <p className="font-semibold">Cidade: {profile.cidade}</p>
+            </div>
+          </div>
+          <div className="flex space-x-2">
+            <button 
+              onClick={() => viewProfile(profile.nome)} 
+              className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300"
+            >
+              Ver Perfil
+            </button>
+           
+            <button 
+              onClick={() => viewProfile(profile.nome)} 
+              className="p-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors duração-300"
+            >
+              Activar Perfil
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
     </div>
   );
 }

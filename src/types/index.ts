@@ -7,7 +7,7 @@ export interface Profile {
   description?: string;
   localidade?: string;
   tag?: string;
-  tagTimestamp?: Date;
+  tagtimestamp?: Date;
   Tarifa: number;
   lingua: string[];
   telefone: string;
@@ -26,4 +26,6 @@ export interface Profile {
   signo: string;
   pagamento: string[];
   verificationPhotoURL: string;
+  inactive: boolean;
+  aprovado: boolean
 }

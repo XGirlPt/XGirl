@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
+import { IoInformationCircle } from "react-icons/io5";
 
 interface CertificadoProps {
   setShowCertificado: (show: boolean) => void;
@@ -23,7 +24,7 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
     <>
       {mostrarCertificado && (
         <div className="fixed inset-0 flex justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
-          <div className="w-full md:w-3/6 h-46 md:h-2/5 mt-36 bg-[#1E2427] rounded-lg shadow-2xl">
+          <div className="w-full md:w-3/6 h-46 md:h-3/5 mt-36 bg-[#1E2427] rounded-lg shadow-2xl">
             <div className="flex justify-between items-center">
               <h1 className="text-sm md:text-lg mx-10 items-center mt-8 align-middle mb-4 text-white font-bold">
                 Perfil Certificado
@@ -40,9 +41,26 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
             </div>
             <div className="border border-zinc-700 border-solid border-t-0 w-full"></div>
 
-            <div className="mt-6 px-10 text-white">
+            <div className="mt-6 px-10 text-white mb-10">
               <span>
-                Um perfil "Certificado" significa que as fotos foram validadas
+                Um perfil 
+                <p
+                        className="ml-4 p-2 w-36 rounded-md flex h-8 items-center cursor-pointer bg-green-600 hover:opacity-80" 
+                      >
+                        <p
+                          className="text-white" >
+                          Certificado 
+                        </p>
+                        <p>
+                          <IoInformationCircle
+                            size={26}
+                            className="text-white ml-2"
+                          />
+                        </p>
+                      </p>
+                      
+                      
+                       significa que as fotos foram validadas
                 por um moderador da equipe{" "}
                 <span className="text-pink-800">XGirl</span> e correspondem à
                 realidade.
@@ -56,7 +74,7 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
               </span>
               <br />
               <br />
-              <span>Perfil certificado = Encontro 100% satisfeito.</span>
+              <span >Perfil certificado = Encontro 100% satisfeito.</span>
             </div>
           </div>
         </div>

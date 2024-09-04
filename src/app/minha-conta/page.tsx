@@ -2,14 +2,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUser, FaCog, FaEye, FaCamera } from "react-icons/fa";
 import supabase from "@/database/supabase";
-import Header from "@/components/Header";
-import HeaderLoged from "@/components/Register/HeaderLoged";
 import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
+import SidebarConta from "@/components/SidebarConta";
 
 interface MinhaContaProps {}
 
@@ -17,19 +16,16 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
   const [showContacto, setShowContacto] = useState(false);
   const [showFotos, setShowFotos] = useState(false);
+  const [notificationVisible, setNotificationVisible] = useState(true);
 
-  const userEmailRedux = useSelector(
-    (state: any) => state.profile?.user?.user?.email
-  );
-  const cidadeRedux = useSelector(
-    (state: any) => state.profile?.profile?.cidade
-  );
+  const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
+  const tagRedux = useSelector((state: any) => state.profile?.profile?.tag);
+  const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
-  const photoURLsRedux = useSelector(
-    (state: any) => state.profile?.profile?.photos
-  );
+  const photoURLsRedux = useSelector((state: any) => state.profile?.profile?.photos);
 
   const [nome, setNome] = useState<string | undefined>(nomeRedux);
+  const [newTag, setNewTag] = useState<string>("");
 
   useEffect(() => {
     setNome(nomeRedux);
@@ -53,6 +49,14 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     setShowContacto(false);
   };
 
+  const handleDefinicoes = () => {
+    // Logic for "Definições"
+  };
+
+  const handleVerPerfil = () => {
+    // Logic for "Ver Perfil"
+  };
+
   const handleVoltar = () => {
     setShowModificar(false);
     setShowContacto(false);
@@ -66,10 +70,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         error,
       } = await supabase.auth.getSession();
       if (error || !session) {
-        console.log(
-          "Sessão não iniciada ou erro ao verificar a sessão:",
-          error
-        );
+        console.log("Sessão não iniciada ou erro ao verificar a sessão:", error);
       } else {
         console.log("Sessão iniciada:", session);
         console.log("Usuário:", session.user);
@@ -80,88 +81,112 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   }, []);
 
   return (
-    <div className="text-gray-600 bg-[#1b1b1b] flex flex-col min-h-screen pb-10">
-      <HeaderLoged />
-      <div className="mx-10">
-        <div className="flex-1">
-          <p className="text-3xl text-white">O Meu Perfil</p>
+    <div>
+    <div className="grid min-h-screen mt-24 grid-cols-[theme(spacing.64)_1fr]">
+      {/* Notification Bar */}
+      {notificationVisible && (
+        <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
+          <span>⚠️ Seu perfil está expirando em breve. Atualize suas informações.</span>
+          <button
+            onClick={() => setNotificationVisible(false)}
+            className="text-lg"
+          >
+            &times;
+          </button>
         </div>
-      </div>
-      <div className="mx-10">
-        <div className="bg-[#1E2427] mb-10 grid gap-2 py-6 w-1/2 px-10 border mt-6 border-gray-600 rounded-md mx-auto">
-          <p className="mb-2 text-white text-lg">
-            Valida o teu email {userEmailRedux} para continuares a receber
-            notificações
-          </p>
-          <div className="py-2 px-2 mt-4 bg-pink-800 hover:bg-pink-900 text-white cursor pointer rounded-md w-64 flex items-center align-middle cursor-pointer justify-center">
-            Enviar email de Verificação
-          </div>
-        </div>
-      </div>
-      {showModificar && (
-        <ModificarPerfil
-          handleVoltar={handleVoltar}
-          onClose={() => setShowModificar(false)}
-        />
       )}
-      {showContacto && (
-        <ModificarContacto
-          handleVoltar={handleVoltar}
-          onClose={() => setShowContacto(false)}
+
+      <div className="flex flex-row">
+        {/* Sidebar */}
+        <SidebarConta
+          handleModificar={handleModificar}
+          showModificar={showModificar}
+          handleContacto={handleContacto}
+          showContacto={showContacto}
+          handleFotos={handleFotos}
+          showFotos={showFotos}
+          handleDefinicoes={handleDefinicoes}
+          handleVerPerfil={handleVerPerfil}
         />
-      )}
-      {showFotos && <ModificarFotos handleVoltar={handleVoltar} />}
-      <div className="mx-10">
-        <div className="bg-[#1E2427] grid w-1/2 border mt-2 border-gray-600 rounded-md mx-auto">
-          <div className="flex py-2 bg-red-400 text-white px-4 rounded-t-md justify-center">
-            Perfil Expira Brevemente
-          </div>
-          <div className="flex h-56 border border-gray-600">
-            <div className="w-1/4 relative">
-              {photoURLsRedux?.length > 0 && (
-                <BlurImage
-                  src={photoURLsRedux[0]}
-                  alt={`Foto de ${nomeRedux}`}
-                  className="w-full h-full object-cover "
-                  style={{ maxHeight: "100%", maxWidth: "100%" }}
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          <div className="flex flex-col items-center">
+            {/* Profile Header */}
+            <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6">
+              <div className="flex flex-col md:flex-row items-center">
+                <div className="relative w-32 h-32 mb-4 md:mb-0 md:mr-6">
+                  {photoURLsRedux?.length > 0 ? (
+                    <BlurImage
+                      src={photoURLsRedux[0]}
+                      alt={`Foto de ${nomeRedux}`}
+                      className="w-full h-full rounded-full object-cover shadow-md"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-full bg-gray-600 flex items-center justify-center">
+                      <FaUser className="text-5xl text-gray-400" />
+                    </div>
+                  )}
+                  <button className="absolute bottom-0 right-0 bg-pink-600 text-white p-2 rounded-full shadow-md hover:bg-pink-700 transition-colors">
+                    <FaCamera />
+                  </button>
+                </div>
+                <div className="text-center md:text-left">
+                  <h1 className="text-3xl font-bold">{nomeRedux}</h1>
+                  <p className="flex items-center justify-center md:justify-start text-pink-600 mt-2">
+                    <FaMapMarkerAlt className="mr-2" />
+                    {cidadeRedux}
+                  </p>
+                  <p className="text-gray-400 mt-1">{tagRedux}</p>
+                </div>
+              </div>
+              {/* Status Update */}
+              <div className="mt-6 bg-gray-700 p-4 rounded-lg">
+                <h2 className="text-xl font-semibold mb-2">Estado Atual</h2>
+                <p className="text-gray-300 mb-4">
+                  {tagRedux || "Sem estado definido"}
+                </p>
+                <h2 className="text-xl font-semibold mb-2">Atualiza o teu Estado</h2>
+                <div className="flex flex-col sm:flex-row items-center">
+                  <input
+                    type="text"
+                    className="w-full sm:w-auto flex-1 p-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    value={newTag}
+                    onChange={(e) => setNewTag(e.target.value)}
+                    placeholder="Escreva o novo estado"
+                  />
+                  <button className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors">
+                    Actualizar Estado
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Panels */}
+            <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6">
+              {showModificar && (
+                <ModificarPerfil
+                  handleVoltar={handleVoltar}
+                  onClose={() => setShowModificar(false)}
                 />
               )}
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-2 text-white">
-                <p className="text-xl font-bold flex justify-center">
-                  {nomeRedux}
-                </p>
-                <p className="text-md flex items-center align-middle justify-center">
-                  <FaMapMarkerAlt size={12} className="text-pink-800 mr-1" />{" "}
-                  {cidadeRedux}
-                </p>
-              </div>
-            </div>
-            <div className="w-3/4 flex flex-col">
-              <div
-                className="h-1/4 border border-gray-600 pl-4 flex items-center hover:bg-pink-800 cursor-pointer"
-                onClick={handleModificar}
-              >
-                <p className="text-white">O Meu Perfil - Informações Gerais</p>
-              </div>
-              <div
-                className="h-1/4 border border-gray-600 pl-4 flex items-center hover:bg-pink-800 cursor-pointer"
-                onClick={handleContacto}
-              >
-                <p className="text-white">O Meu Perfil - Outras Informações</p>
-              </div>
-              <div
-                className="h-1/4 border border-gray-600 pl-4 flex items-center hover:bg-pink-800 cursor-pointer"
-                onClick={handleFotos}
-              >
-                <p className="text-white">Gerir as minhas Fotos</p>
-              </div>
-              <div className="h-1/4 border border-gray-600 pl-4 flex items-center hover:bg-pink-800 cursor-pointer">
-                <p className="text-white">Apagar o Meu Perfil</p>
-              </div>
+              {showContacto && (
+                <ModificarContacto
+                  handleVoltar={handleVoltar}
+                  onClose={() => setShowContacto(false)}
+                />
+              )}
+              {showFotos && <ModificarFotos handleVoltar={handleVoltar} />}
+              {!showModificar && !showContacto && !showFotos && (
+                <div className="text-center text-gray-400">
+                  Selecione uma opção no menu para modificar as suas informações.
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        </main>
       </div>
+    </div>
     </div>
   );
 };

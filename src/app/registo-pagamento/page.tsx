@@ -113,7 +113,8 @@ const tarifaredux = useSelector((state: any) => state.profile?.profile.tarifa);
         servico: selectedServico,
         lingua: selectedLingua,
         description: descriptionRedux,
-        aprovado: false
+        aprovado: false,
+        inactivo: false
       };
 
       console.log("Dados do usuário a serem enviados:", userData);

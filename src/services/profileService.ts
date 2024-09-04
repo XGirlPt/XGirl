@@ -5,7 +5,8 @@ export async function fetchProfiles() {
   try {
     const { data: profilesData, error: profilesError } = await supabase
       .from("ProfilesData")
-      .select("*");
+      .select("*")
+      .eq('inactive', false);
 
     if (profilesError) {
       throw profilesError;
@@ -139,7 +140,8 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
     const { data: photoData, error: photoError } = await supabase
       .from("profilephoto")
       .select("imageurl")
-      .eq("userUID", userUID);
+      .eq("userUID", userUID)
+    
 
     if (photoError) {
       throw new Error("Erro ao buscar URLs das fotos do perfil");

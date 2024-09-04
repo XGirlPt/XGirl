@@ -158,9 +158,14 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     <div className="fixed inset-0 flex items-center justify-center align-middle z-50 bg-opacity-75 backdrop-blur-md ">
       <ToastContainer />
       <div className="bg-[#1E2427] h-4/5 mt-32 mb-32 border border-zinc-600 rounded-xl max-w-screen-lg shadow-md w-full overflow-y-scroll">
+      <div className="bg-pink-800 text-white text-center py-4 rounded-t-lg">
+          <h2 className="text-xl font-semibold">Modificar Perfil</h2>
+        </div>
         <div className="flex w-full justify-between ">
+          
+       
           <div className="flex flex-col w-full mx-6 pt-4">
-            <div className="w-full mt-0">
+            <div className="w-44 mt-0">
               <FiltroPrice />
             </div>
             <div className="w-3/4 mt-2 gap-4">

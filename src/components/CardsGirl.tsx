@@ -24,8 +24,8 @@ const CardsGirl: React.FC<CardsGirlProps> = ({ profiles }) => {
               alt={profile.nome}
               className="w-full h-96 object-cover rounded-md blur-2xl"
             />
-            <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
-              <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}
+            <p className="flex items-center absolute bottom-0 lefd-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
+              <FaMapMarkerAlt className="text-pink-800 mr-2" />{profile.cidade}
             </p>
             <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-xl px-2 rounded whitespace-nowrap flex items-center">
               {profile.nome}

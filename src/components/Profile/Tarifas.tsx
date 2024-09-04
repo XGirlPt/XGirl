@@ -20,16 +20,17 @@ const Tarifas: React.FC<TarifasProps> = ({ selectedProfile }) => {
   const tarifaRedux = useSelector(
     (state: any) => state.profile && state.profile.tarifa
   );
+console.log("tarifa: ", tarifaRedux)
 
   const pagamentos = selectedProfile?.pagamento;
 
   return (
-    <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-gray-600 rounded-3xl">
+    <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-zinc-700 rounded-3xl">
       <p className="text-pink-800 text-2xl">Tarifas</p>
       <p className="text-white text-lg mt-4 mb-8">
         Tarifas a partir de {tarifaRedux} €
       </p>
-      <p className="text-pink-800 text-2xl">Métodos de pagamento:</p>
+      <p className="text-pink-800 text-2xl">Aceita:</p>
       {pagamentos && Array.isArray(pagamentos) ? (
         <div className="grid grid-cols-2 mt-4">
           {pagamentos.map((pagamento, index) => (

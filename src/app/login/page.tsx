@@ -1,21 +1,16 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import supabase from "@/database/supabase";
-import { useDispatch } from "react-redux";
-import {
-  loginSuccess,
-  loginFailure,
-  addProfileData,
-} from "@/actions/ProfileActions";
-import { fetchProfileFromDatabase } from "@/services/profileService";
-import Header from "@/components/Header";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+'use client'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import supabase from '@/database/supabase';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, loginFailure, addProfileData } from '@/actions/ProfileActions';
+import { fetchProfileFromDatabase } from '@/services/profileService';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Login = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaVerified, setCaptchaVerified] = useState<boolean>(false);
   const router = useRouter();
@@ -40,7 +35,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem('userToken');
     if (token) {
       dispatch(loginSuccess(token));
     }
@@ -48,22 +43,20 @@ const Login = () => {
 
   useEffect(() => {
     const handleAuthStateChange = async (event: string) => {
-      if (event === "SIGNED_IN") {
-        const returnUrl = localStorage.getItem("returnUrl");
+      if (event === 'SIGNED_IN') {
+        const returnUrl = localStorage.getItem('returnUrl');
         if (returnUrl) {
           router.push(returnUrl);
-          localStorage.removeItem("returnUrl");
+          localStorage.removeItem('returnUrl');
         } else {
-          router.push("/");
+          router.push('/');
         }
       } else {
-        router.push("/login");
+        router.push('/login');
       }
     };
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      handleAuthStateChange
-    );
+    const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
     return () => {
       authListener.subscription.unsubscribe();
@@ -75,7 +68,7 @@ const Login = () => {
       const data = await fetchProfileFromDatabase(userUID);
       dispatch(addProfileData(data));
     } catch (error: any) {
-      console.error("Erro ao buscar dados do perfil:", error.message);
+      console.error('Erro ao buscar dados do perfil:', error.message);
     }
   };
 
@@ -84,7 +77,7 @@ const Login = () => {
       console.error('Captcha não verificado. Por favor, complete o captcha.');
       return;
     }
-  
+
     try {
       const verifyCaptchaResponse = await fetch('/api/verify-captcha', {
         method: 'POST',
@@ -93,25 +86,22 @@ const Login = () => {
         },
         body: JSON.stringify({ captchaToken }),
       });
-  
-      if (!verifyCaptchaResponse.ok) {
-        const text = await verifyCaptchaResponse.text();
-        console.error('Erro ao verificar o CAPTCHA:', text);
-        return;
-      }
-  
-      const captchaResult = await verifyCaptchaResponse.json();
-  
+
+      const text = await verifyCaptchaResponse.text();
+      console.log('Resposta da API de Verificação:', text);
+
+      const captchaResult = JSON.parse(text);
+
       if (!captchaResult.success) {
         console.error('Erro ao verificar o CAPTCHA:', captchaResult.message);
         return;
       }
-  
+
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-  
+
       if (error) {
         console.error('Erro ao fazer login:', error.message);
         dispatch(loginFailure(error));
@@ -119,18 +109,18 @@ const Login = () => {
         if (user) {
           const userUID = user.user.id;
           fetchProfileData(userUID);
-  
+
           dispatch(
             loginSuccess({
               email: user.user.email,
               userUID: user.user.id,
             })
           );
-  
+
           const tokenID = user.session.refresh_token;
           localStorage.setItem('userToken', tokenID);
           localStorage.setItem('email', email);
-  
+
           router.push('/Acompanhantes');
         } else {
           console.log('O objeto de usuário retornado está vazio ou undefined.');
@@ -145,12 +135,12 @@ const Login = () => {
   useEffect(() => {
     const checkUserToken = async () => {
       try {
-        const token = localStorage.getItem("userToken");
+        const token = localStorage.getItem('userToken');
         if (token) {
           dispatch(loginSuccess(token));
         }
       } catch (error: any) {
-        console.error("Erro ao verificar o token do usuário:", error.message);
+        console.error('Erro ao verificar o token do usuário:', error.message);
       }
     };
 
@@ -178,7 +168,7 @@ const Login = () => {
 
             <div className="mt-6 justify-between">
               <div className="flex justify-between align-bottom">
-                <p className="text-pink-800 pb-2">Passwordwddww* </p>
+                <p className="text-pink-800 pb-2">Passwordwddww*</p>
                 <span className="text-pink-800 flex cursor-pointer text-xs hover:text-pink-900 hover:underline items-end pb-2 align-bottom justify-end">
                   Esqueceste da palavra passe?
                 </span>
@@ -195,7 +185,7 @@ const Login = () => {
 
             <div className="flex justify-center mt-6">
               <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || "d64e2e6a-e810-461e-8012-1ac42f9e4054"}
+                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || 'd64e2e6a-e810-461e-8012-1ac42f9e4054'}
                 onVerify={handleCaptchaVerify}
                 onExpire={handleCaptchaExpire}
               />

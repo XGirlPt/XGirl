@@ -1,26 +1,15 @@
-// pages/api/verify-captcha.ts
-
-import type { NextApiRequest, NextApiResponse } from 'next';
+// app/api/verify-captcha/route.ts
+import { NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 
-interface VerifyCaptchaResponse {
-  success: boolean;
-  [key: string]: any;
-
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ success: false, message: 'Método não permitido' });
-  }
-
-  const { captchaToken } = req.body;
-
-  if (!captchaToken) {
-    return res.status(400).json({ success: false, message: 'Token do captcha não fornecido' });
-  }
-
+export async function POST(request: Request) {
   try {
+    const { captchaToken } = await request.json();
+
+    if (!captchaToken) {
+      return NextResponse.json({ success: false, message: 'Token do captcha não fornecido' }, { status: 400 });
+    }
+
     const secret = process.env.HCAPTCHA_SECRET_KEY;
     if (!secret) {
       throw new Error('HCaptcha secret key não configurada.');
@@ -30,14 +19,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       method: 'POST',
     });
 
-    const data: VerifyCaptchaResponse = await response.json();
+    const data = await response.json();
 
     if (data.success) {
-      return res.status(200).json({ success: true });
+      return NextResponse.json({ success: true });
     } else {
-      return res.status(400).json({ success: false, message: 'Falha na verificação do captcha' });
+      return NextResponse.json({ success: false, message: 'Falha na verificação do captcha' }, { status: 400 });
     }
-  } catch (error: any) {
-    return res.status(500).json({ success: false, message: error.message });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }

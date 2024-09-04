@@ -81,57 +81,63 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (!captchaVerified || !captchaToken) {
-      console.error("Captcha não verificado. Por favor, complete o captcha.");
+      console.error('Captcha não verificado. Por favor, complete o captcha.');
       return;
     }
-
+  
     try {
-      const verifyCaptchaResponse = await fetch("/api/verify-captcha", {
-        method: "POST",
+      const verifyCaptchaResponse = await fetch('/api/verify-captcha', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ captchaToken }),
       });
-
-      const captchaResult = await verifyCaptchaResponse.json();
-
-      if (!captchaResult.success) {
-        console.error("Erro ao verificar o CAPTCHA:", captchaResult.message);
+  
+      if (!verifyCaptchaResponse.ok) {
+        const text = await verifyCaptchaResponse.text();
+        console.error('Erro ao verificar o CAPTCHA:', text);
         return;
       }
-
+  
+      const captchaResult = await verifyCaptchaResponse.json();
+  
+      if (!captchaResult.success) {
+        console.error('Erro ao verificar o CAPTCHA:', captchaResult.message);
+        return;
+      }
+  
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-
+  
       if (error) {
-        console.error("Erro ao fazer login:", error.message);
+        console.error('Erro ao fazer login:', error.message);
         dispatch(loginFailure(error));
       } else {
         if (user) {
           const userUID = user.user.id;
           fetchProfileData(userUID);
-
+  
           dispatch(
             loginSuccess({
               email: user.user.email,
               userUID: user.user.id,
             })
           );
-
+  
           const tokenID = user.session.refresh_token;
-          localStorage.setItem("userToken", tokenID);
-          localStorage.setItem("email", email);
-
-          router.push("/Acompanhantes");
+          localStorage.setItem('userToken', tokenID);
+          localStorage.setItem('email', email);
+  
+          router.push('/Acompanhantes');
         } else {
-          console.log("O objeto de usuário retornado está vazio ou undefined.");
+          console.log('O objeto de usuário retornado está vazio ou undefined.');
         }
       }
     } catch (error: any) {
-      console.error("Erro ao fazer login:", error.message);
+      console.error('Erro ao fazer login:', error.message);
       dispatch(loginFailure(error));
     }
   };

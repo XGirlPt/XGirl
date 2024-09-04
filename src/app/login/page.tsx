@@ -172,7 +172,7 @@ const Login = () => {
 
             <div className="mt-6 justify-between">
               <div className="flex justify-between align-bottom">
-                <p className="text-pink-800 pb-2">Passwordwww* </p>
+                <p className="text-pink-800 pb-2">Passwordwddww* </p>
                 <span className="text-pink-800 flex cursor-pointer text-xs hover:text-pink-900 hover:underline items-end pb-2 align-bottom justify-end">
                   Esqueceste da palavra passe?
                 </span>

@@ -77,7 +77,7 @@ const Login = () => {
       console.error('Captcha não verificado. Por favor, complete o captcha.');
       return;
     }
-
+  
     try {
       const verifyCaptchaResponse = await fetch('/api/verify-captcha', {
         method: 'POST',
@@ -86,22 +86,25 @@ const Login = () => {
         },
         body: JSON.stringify({ captchaToken }),
       });
-
-      const text = await verifyCaptchaResponse.text();
-      console.log('Resposta da API de Verificação:', text);
-
-      const captchaResult = JSON.parse(text);
-
+  
+      if (!verifyCaptchaResponse.ok) {
+        const text = await verifyCaptchaResponse.text();
+        console.error('Erro ao verificar o CAPTCHA:', text);
+        return;
+      }
+  
+      const captchaResult = await verifyCaptchaResponse.json();
+  
       if (!captchaResult.success) {
         console.error('Erro ao verificar o CAPTCHA:', captchaResult.message);
         return;
       }
-
+  
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-
+  
       if (error) {
         console.error('Erro ao fazer login:', error.message);
         dispatch(loginFailure(error));
@@ -109,18 +112,18 @@ const Login = () => {
         if (user) {
           const userUID = user.user.id;
           fetchProfileData(userUID);
-
+  
           dispatch(
             loginSuccess({
               email: user.user.email,
               userUID: user.user.id,
             })
           );
-
+  
           const tokenID = user.session.refresh_token;
           localStorage.setItem('userToken', tokenID);
           localStorage.setItem('email', email);
-
+  
           router.push('/Acompanhantes');
         } else {
           console.log('O objeto de usuário retornado está vazio ou undefined.');

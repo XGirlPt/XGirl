@@ -198,7 +198,7 @@ const Login = () => {
               <button>Conectar</button>
             </div>
             <div className="flex justify-center text-white text-lg pb-8">
-              <p>Ainda não tens uma conta?</p>
+              <p>Ainda não tens uma conta???</p>
               <Link
                 href="/regista"
                 className="text-pink-800 ml-2 cursor-pointer hover:text-pink-900 hover:underline"

@@ -2,14 +2,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { FaMapMarkerAlt, FaUser, FaCog, FaEye, FaCamera } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaUser,
+  FaCog,
+  FaEye,
+  FaCamera,
+} from "react-icons/fa";
 import supabase from "@/database/supabase";
 import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
-import SidebarConta from '../../components/sidebarConta';
-
+import SidebarConta from "@/components/SidebarConta";
 
 interface MinhaContaProps {}
 
@@ -18,6 +23,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showContacto, setShowContacto] = useState(false);
   const [showFotos, setShowFotos] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
   const tagRedux = useSelector((state: any) => state.profile?.profile?.tag);
@@ -82,8 +88,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   }, []);
 
   return (
-    <div>
-    <div className="grid min-h-screen mt-24 grid-cols-[theme(spacing.64)_1fr]">
+    <div className="bg-gray-900 text-gray-100">
       {/* Notification Bar */}
       {notificationVisible && (
         <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
@@ -97,9 +102,12 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         </div>
       )}
 
-      <div className="flex flex-row">
+      <div className="flex">
         {/* Sidebar */}
-        <SidebarConta
+        <SidebarConta className="flex-1 p-6 transition-all duration-300 md:ml-64 "
+
+
+          sidebarOpen={sidebarOpen}
           handleModificar={handleModificar}
           showModificar={showModificar}
           handleContacto={handleContacto}
@@ -111,10 +119,15 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         />
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main
+          className={`flex-1 p-6 transition-all duration-300 md:ml-64 ${
+            sidebarOpen ? "ml-64" : ""
+          }`}
+          style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
+        >
           <div className="flex flex-col items-center">
             {/* Profile Header */}
-            <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6">
+            <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
               <div className="flex flex-col md:flex-row items-center">
                 <div className="relative w-32 h-32 mb-4 md:mb-0 md:mr-6">
                   {photoURLsRedux?.length > 0 ? (
@@ -187,7 +200,6 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           </div>
         </main>
       </div>
-    </div>
     </div>
   );
 };

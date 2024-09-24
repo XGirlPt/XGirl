@@ -152,69 +152,73 @@ const Login = () => {
   }, [dispatch]);
 
   return (
-    <div className="text-gray-600 bg-[#1b1b1b]">
-      <div className="pb-0 bg-[#1b1b1b]">
-        <div className="flex justify-center items-center pb-20">
-          <div className="bg-[#1E2427] border border-zinc-600 w-1/3 h-1/4 px-10 mt-24 rounded-md">
-            <p className="text-pink-800 text-3xl flex justify-center py-6">
-              Conecta-te ao X-Girl
-            </p>
-
-            <div className="mt-2">
-              <p className="text-pink-800 pb-2">Email*</p>
-              <input
-                className="w-full bg-zinc-600 text-white h-10 rounded-md pl-4 outline-pink-800 focus:outline-pink-800"
-                placeholder="Email"
-                value={email}
-                onChange={handleEmailChange}
-              />
-            </div>
-
-            <div className="mt-6 justify-between">
-              <div className="flex justify-between align-bottom">
-                <p className="text-pink-800 pb-2">Password*</p>
-                <span className="text-pink-800 flex cursor-pointer text-xs hover:text-pink-900 hover:underline items-end pb-2 align-bottom justify-end">
-                  Esqueceste da palavra passe?
-                </span>
-              </div>
-
-              <input
-                className="w-full bg-zinc-600 py-2 rounded-md pl-4 text-white outline-pink-800"
-                placeholder="Insere a tua Password"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            </div>
-
-            <div className="flex justify-center mt-6">
-              <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || 'd64e2e6a-e810-461e-8012-1ac42f9e4054'}
-                onVerify={handleCaptchaVerify}
-                onExpire={handleCaptchaExpire}
-              />
-            </div>
-
-            <div
-              className="flex justify-center items-center align-bottom rounded-md cursor-pointer text-white w-full bg-pink-800 py-2 mb-6 mt-6 mr-4 md:mr-10 hover:bg-pink-900"
-              onClick={handleLogin}
-            >
-              <button>Conectar</button>
-            </div>
-            <div className="flex justify-center text-white text-lg pb-8">
-              <p>Ainda não tens uma conta???</p>
-              <Link
-                href="/regista"
-                className="text-pink-800 ml-2 cursor-pointer hover:text-pink-900 hover:underline"
-              >
-                Regista-te
-              </Link>
-            </div>
+    <div className="flex  justify-center mt-10 min-h-screen bg-black text-white">
+      <div className="w-full max-w-md p-8 bg-zinc-900 rounded-lg shadow-lg h-1/3">
+        <h1 className="text-pink-800 text-3xl font-bold mb-6 text-center">
+          Conecta-te ao X-Girl
+        </h1>
+  
+        <div className="mb-6">
+          <label className="block text-pink-800 text-sm font-semibold mb-2" htmlFor="email">
+            Email*
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full bg-zinc-700 text-white h-12 rounded-md pl-4 outline-none focus:outline-pink-800"
+          />
+        </div>
+  
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-2">
+            <label className="text-pink-800 text-sm font-semibold" htmlFor="password">
+              Password*
+            </label>
+            <span className="text-pink-800 text-xs cursor-pointer hover:text-pink-900 hover:underline">
+              Esqueceste a palavra passe?
+            </span>
           </div>
+          <input
+            id="password"
+            type="password"
+            placeholder="Insere a tua Password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="w-full bg-zinc-700 text-white h-12 rounded-md pl-4 outline-none focus:outline-pink-800"
+          />
+        </div>
+  
+        <div className="mb-6 flex justify-between">
+          <HCaptcha
+            sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || 'd64e2e6a-e810-461e-8012-1ac42f9e4054'}
+            onVerify={handleCaptchaVerify}
+            onExpire={handleCaptchaExpire}
+          />
+        </div>
+  
+        <button
+          onClick={handleLogin}
+          className="w-full bg-pink-800 text-white py-2 rounded-md hover:bg-pink-900 focus:outline-none"
+        >
+          Conectar
+        </button>
+  
+        <div className="mt-6 text-center text-white text-lg">
+          <p>Ainda não tens uma conta?</p>
+          <Link
+            href="/regista"
+            className="text-pink-800 ml-2 cursor-pointer hover:text-pink-900"
+          >
+            Regista-te
+          </Link>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Login;

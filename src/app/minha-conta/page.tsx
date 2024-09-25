@@ -18,6 +18,19 @@ import SidebarConta from "@/components/SidebarConta";
 
 interface MinhaContaProps {}
 
+interface SidebarContaProps {
+  SidebarOpen: boolean;
+  handleModificar: () => void;
+  showModificar: boolean;
+  handleContacto: () => void;
+  showContacto: boolean;
+  handleFotos: () => void;
+  showFotos: boolean;
+  handleDefinicoes: () => void;
+  handleVerPerfil: () => void;
+}
+
+
 const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
   const [showContacto, setShowContacto] = useState(false);
@@ -104,24 +117,22 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
       <div className="flex">
         {/* Sidebar */}
-        <SidebarConta className="flex-1 p-6 transition-all duration-300 md:ml-64 "
-
-
-          sidebarOpen={sidebarOpen}
-          handleModificar={handleModificar}
-          showModificar={showModificar}
-          handleContacto={handleContacto}
-          showContacto={showContacto}
-          handleFotos={handleFotos}
-          showFotos={showFotos}
-          handleDefinicoes={handleDefinicoes}
-          handleVerPerfil={handleVerPerfil}
-        />
+        <SidebarConta
+  SidebarOpen={SidebarOpen}
+  handleModificar={handleModificar}
+  showModificar={showModificar}
+  handleContacto={handleContacto}
+  showContacto={showContacto}
+  handleFotos={handleFotos}
+  showFotos={showFotos}
+  handleDefinicoes={handleDefinicoes}
+  handleVerPerfil={handleVerPerfil}
+/>
 
         {/* Main Content */}
         <main
           className={`flex-1 p-6 transition-all duration-300 md:ml-64 ${
-            sidebarOpen ? "ml-64" : ""
+            SidebarOpen ? "ml-64" : ""
           }`}
           style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
         >

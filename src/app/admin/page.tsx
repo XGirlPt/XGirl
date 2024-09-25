@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 import { supabase } from "../../database/supabase";
 import { Profile } from "@/types";
 import Image from "next/image";
-import SidebarAdmin from "../../components/SideBarAdmin";
+import SideBarAdmin from "../../components/SideBarAdmin";
+import Certificado from "@/components/Certificado";
 
 const AdminPage: React.FC = () => {
   const [pendingProfiles, setPendingProfiles] = useState<Profile[]>([]);
@@ -32,7 +33,7 @@ const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('aprovado', false);
+        .eq('certificado', false);
 
       if (error) {
         throw error;
@@ -50,7 +51,7 @@ const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('aprovado', true);
+        .eq('certificado', true);
 
       if (error) {
         throw error;
@@ -116,7 +117,7 @@ const AdminPage: React.FC = () => {
   const handleApprove = async (id: number) => {
     const { error } = await supabase
       .from('ProfilesData')
-      .update({ aprovado: true })
+      .update({ certificado: true })
       .eq('id', id);
 
     if (error) {
@@ -150,7 +151,7 @@ const AdminPage: React.FC = () => {
       case "approved":
         return renderProfileList(approvedProfiles, "Perfis Verificados");
       case "inactive":
-        return renderProfileList(inactiveProfiles, "Perfis Inativos", handleApprove, handleReject);
+        return renderProfileList(inactiveProfiles, "Perfis Nao Verificados", handleApprove, handleReject);
       case "active":
         return renderProfileList(activeProfiles, "Perfis Ativos");
       default:
@@ -229,7 +230,7 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="bg-gray-900 min-h-screen flex">
-      <SidebarAdmin setActiveSection={setActiveSection} />
+      <SideBarAdmin activeSection={activeSection} setActiveSection={setActiveSection}  />
       <main className="flex-1 p-10">
         <h1 className="text-4xl font-bold text-white">Painel de Administração</h1>
         {renderProfiles()}

@@ -18,8 +18,10 @@ import SidebarConta from "@/components/SidebarConta";
 
 interface MinhaContaProps {}
 
+
+
 interface SidebarContaProps {
-  SidebarOpen: boolean;
+  sidebarOpen: boolean;
   handleModificar: () => void;
   showModificar: boolean;
   handleContacto: () => void;
@@ -30,6 +32,17 @@ interface SidebarContaProps {
   handleVerPerfil: () => void;
 }
 
+const SidebarConta: React.FC<SidebarContaProps> = ({
+  sidebarOpen,
+  handleModificar,
+  showModificar,
+  handleContacto,
+  showContacto,
+  handleFotos,
+  showFotos,
+  handleDefinicoes,
+  handleVerPerfil,
+}) 
 
 const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
@@ -100,6 +113,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     getSession();
   }, []);
 
+  
   return (
     <div className="bg-gray-900 text-gray-100">
       {/* Notification Bar */}
@@ -118,7 +132,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
       <div className="flex">
         {/* Sidebar */}
         <SidebarConta
-  SidebarOpen={SidebarOpen}
+  sidebarOpen={sidebarOpen}
   handleModificar={handleModificar}
   showModificar={showModificar}
   handleContacto={handleContacto}
@@ -132,7 +146,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         {/* Main Content */}
         <main
           className={`flex-1 p-6 transition-all duration-300 md:ml-64 ${
-            SidebarOpen ? "ml-64" : ""
+            sidebarOpen ? "ml-64" : ""
           }`}
           style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
         >
@@ -214,5 +228,6 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     </div>
   );
 };
+
 
 export default MinhaConta;

@@ -7,7 +7,8 @@ import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
-import SidebarConta from "@/components/SidebarConta";
+import SidebarConta from "../../components/SidebarConta";
+
 import Definicoes from "../Definicoes/page";
 
 interface MinhaContaProps {}

@@ -10,6 +10,8 @@ interface SidebarContaProps {
   showFotos: boolean;
   handleDefinicoes: () => void;
   handleVerPerfil: () => void;
+  sidebarOpen: boolean;
+
 }
 
 const SidebarConta: React.FC<SidebarContaProps> = ({
@@ -23,14 +25,14 @@ const SidebarConta: React.FC<SidebarContaProps> = ({
   handleVerPerfil,
 }) => {
   return (
-    <aside className="h-full bg-green-100 p-8 fixed">
-      <div className="flex items-center justify-center h-screen border-b border-gray-700">
+    <aside className=" bg-gray-800 p-8 ">
+      {/* <div className="flex items-center justify-center h-screen border-b border-gray-700">
         <img
           src="/photos/logo1.png"
           alt="logo"
           className="w-32 h-12 object-contain"
         />
-      </div>
+      </div> */}
       <nav className="flex-1 px-4 py-6 space-y-2">
         <button
           onClick={handleModificar}

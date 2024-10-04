@@ -8,9 +8,10 @@ interface SidebarAdminProps {
 
 const SidebarAdmin: React.FC<SidebarAdminProps> = ({ setActiveSection, activeSection }) => {
   return (
-    <aside className="bg-gray-800 w-64 p-6 rounded-lg shadow-lg">
+    <aside className="bg-gray-800 w-64 p-6  shadow-lg fixed h-full">
       <h2 className="text-2xl font-bold text-white mb-6 text-center">Administração</h2>
       <nav className="flex flex-col space-y-4">
+        
         <button
           onClick={() => setActiveSection("pending")}
           className={`flex items-center space-x-2 w-full text-left p-3 rounded transition-colors duration-300 ${
@@ -20,6 +21,8 @@ const SidebarAdmin: React.FC<SidebarAdminProps> = ({ setActiveSection, activeSec
           <FaUsers />
           <span>Perfis Pendentes</span>
         </button>
+
+
         <button
           onClick={() => setActiveSection("approved")}
           className={`flex items-center space-x-2 w-full text-left p-3 rounded transition-colors duration-300 ${
@@ -30,22 +33,35 @@ const SidebarAdmin: React.FC<SidebarAdminProps> = ({ setActiveSection, activeSec
           <span>Perfis Aprovados</span>
         </button>
         <button
-          onClick={() => setActiveSection("inactive")}
+          onClick={() => setActiveSection("rejected")}
           className={`flex items-center space-x-2 w-full text-left p-3 rounded transition-colors duration-300 ${
-            activeSection === "inactive" ? "bg-gray-700" : "hover:bg-gray-700"
+            activeSection === "rejected" ? "bg-gray-700" : "hover:bg-gray-700"
           } text-white`}
         >
           <FaUserSlash />
-          <span>Perfis Inativos</span>
+          <span>Perfis Rejeitados</span>
         </button>
+        <p className="my-4 border_t border-gray-400 w-full  text-gray-400">
+
+        </p>
         <button
-          onClick={() => setActiveSection("active")}
+          onClick={() => setActiveSection("certified")}
           className={`flex items-center space-x-2 w-full text-left p-3 rounded transition-colors duration-300 ${
-            activeSection === "active" ? "bg-gray-700" : "hover:bg-gray-700"
+            activeSection === "certified" ? "bg-gray-700" : "hover:bg-gray-700"
           } text-white`}
         >
           <FaTimesCircle />
-          <span>Perfis Ativos</span>
+          <span>Perfis Certificados</span>
+        </button>
+
+        <button
+          onClick={() => setActiveSection("noncertified")}
+          className={`flex items-center space-x-2 w-full text-left p-3 rounded transition-colors duration-300 ${
+            activeSection === "noncertified" ? "bg-gray-700" : "hover:bg-gray-700"
+          } text-white`}
+        >
+          <FaTimesCircle />
+          <span>Perfis Nao Certificados</span>
         </button>
       </nav>
     </aside>

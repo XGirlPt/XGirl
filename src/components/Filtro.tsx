@@ -23,58 +23,36 @@ const Filtro: React.FC = () => {
   return (
     <>
       {mostrarFiltro && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 bg-blur-20 z-50 ">
-          <div className="w-full md:w-2/6 h-2/3 md:h-3/4 bg-zinc-900 rounded-lg shadow-2xl ">
-            <div className="border-b border-neutral-200 px-4 relative">
-              <div className="flex justify-between">
-                <h1 className="text-sm md:text-xl mb-8 mt-6 text-white font-bold">
-                  Filtros
-                </h1>
-                <button className="text-bold font-bold" onClick={fecharFiltro}>
-                  <ImCross
-                    size={16}
-                    className="text-red hover:text-pink-800 transition-transform font-bold"
-                  />
-                </button>
-              </div>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 transition-all duration-300">
+          <div className="w-full md:w-3/5 lg:w-2/5 h-auto bg-gray-800 rounded-lg shadow-2xl p-6">
+            <div className="flex justify-between items-center border-b border-gray-700 pb-4">
+              <h1 className="text-xl text-white font-semibold">Filtros</h1>
+              <button onClick={fecharFiltro} className="text-red-500 hover:text-red-400">
+                <ImCross size={20} />
+              </button>
             </div>
 
             {/* FORM START */}
-            <form className="mx-6">
-              <div className="grid-cols-3 gap-1 my-1 md:my-2">
-                <div className="flex gap-4 mb-0">
-                  <FiltroAge />
-                  <FiltroPrice />
-                </div>
-
-                <div className="flex gap-4 mb-0">
-                  <FiltroLingua />
-                  <FiltroPelos />
-                </div>
-
-                <div className="flex gap-4 mb-0">
-                  <FiltroMamas />
-                  <FiltroPeito />
-                </div>
-
-                <div className="flex gap-4 mb-0">
-                  <FiltroPelos />
-                  <FiltroOlhos />
-                </div>
-                <div className="flex gap-4 mb-0">
-                  <FiltroAltura />
-                  <FiltroCorpo />
-                </div>
-
-                <div className="flex gap-4 mb-0">
-                  <FiltroTatuagem />
-                  <FiltroOrigem />
-                </div>
+            <form className="mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <FiltroAge />
+                <FiltroPrice />
+                <FiltroLingua />
+                <FiltroPelos />
+                <FiltroMamas />
+                <FiltroPeito />
+                <FiltroOlhos />
+                <FiltroAltura />
+                <FiltroCorpo />
+                <FiltroTatuagem />
+                <FiltroOrigem />
               </div>
 
-              <div className="flex justify-center items-center align-bottom rounded-md cursor-pointer text-white w-full bg-pink-800 py-2 mt-4 mr-4 md:mr-10 hover:bg-pink-900">
-                <LuFilter className="mr-1 font-bold" size={18} />
-                <button>Aplicar Filtros</button>
+              <div className="flex justify-end mt-6">
+                <button className="flex items-center justify-center w-full md:w-auto bg-pink-600 text-white py-2 px-4 rounded-md shadow-lg transition duration-200 hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                  <LuFilter className="mr-2" size={20} />
+                  Aplicar Filtros
+                </button>
               </div>
             </form>
             {/* FORM END */}

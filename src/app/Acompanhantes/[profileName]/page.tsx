@@ -33,7 +33,10 @@ function UserProfile() {
 
   const fetchProfiles = async () => {
     try {
-      const { data, error } = await supabase.from("ProfilesData").select("*");
+      const { data, error } = await supabase
+      .from("ProfilesData")
+      .select("*");
+      
       if (error) {
         throw error;
       }
@@ -75,7 +78,7 @@ function UserProfile() {
           photoURL: photoData.map((photo) => photo.imageurl),
         };
 
-        setIsCertified(profileData.aprovado); // Atualize o estado com a certificação
+        setIsCertified(profileData.certificado); // Atualize o estado com a certificação
         setSelectedProfile(combinedProfileData); // Atualize o perfil selecionado
       } catch (error: any) {
         console.error("Error fetching profile:", error.message);

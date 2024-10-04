@@ -6,14 +6,19 @@ import { Profile } from "@/types";
 import Image from "next/image";
 import SideBarAdmin from "../../components/SideBarAdmin";
 import Certificado from "@/components/Certificado";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPage: React.FC = () => {
   const [pendingProfiles, setPendingProfiles] = useState<Profile[]>([]);
   const [approvedProfiles, setApprovedProfiles] = useState<Profile[]>([]);
   const [inactiveProfiles, setInactiveProfiles] = useState<Profile[]>([]);
-  const [activeProfiles, setActiveProfiles] = useState<Profile[]>([]);
+  const [certificatedProfiles, setCertificatedProfiles] = useState<Profile[]>([]);
+  const [NoncertificatedProfiles, setNoncertificatedProfiles] = useState<Profile[]>([]);
+
   const [activeSection, setActiveSection] = useState<string>("pending"); 
   const [expandedProfile, setExpandedProfile] = useState<number | null>(null);
+
 
   const router = useRouter();
 
@@ -25,7 +30,8 @@ const AdminPage: React.FC = () => {
     await fetchPendingProfiles();
     await fetchApprovedProfiles();
     await fetchInactiveProfiles(); 
-    await fetchActiveProfiles();
+    await fetchcertificatedProfiles();
+    await fetchNonCertificatedProfiles();
   };
 
   const fetchPendingProfiles = async () => {
@@ -33,7 +39,7 @@ const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('certificado', false);
+        .is('status', null);
 
       if (error) {
         throw error;
@@ -51,7 +57,7 @@ const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('certificado', true);
+        .eq('status', true);
 
       if (error) {
         throw error;
@@ -69,7 +75,7 @@ const AdminPage: React.FC = () => {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('inactive', true);
+        .eq('status', false);
 
       if (error) {
         throw error;
@@ -82,23 +88,43 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const fetchActiveProfiles = async () => {
+  const fetchcertificatedProfiles = async () => {
     try {
       const { data, error } = await supabase
         .from('ProfilesData')
         .select('*')
-        .eq('inactive', false);
+        .eq('certificado', true);
 
       if (error) {
         throw error;
       }
 
       const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
-      setActiveProfiles(profilesWithPhotos);
+      setCertificatedProfiles(profilesWithPhotos);
     } catch (error) {
       console.error("Error fetching active profiles:", error.message);
     }
   };
+
+
+  const fetchNonCertificatedProfiles = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('ProfilesData')
+        .select('*')
+        .eq('certificado', false);
+
+      if (error) {
+        throw error;
+      }
+
+      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+      setNoncertificatedProfiles(profilesWithPhotos);
+    } catch (error) {
+      console.error("Error fetching active profiles:", error.message);
+    }
+  };
+ 
 
   const fetchProfilePhotos = async (profile: Profile) => {
     const { data: profilePhotoData, error: profilePhotoError } = await supabase
@@ -115,49 +141,112 @@ const AdminPage: React.FC = () => {
   };
 
   const handleApprove = async (id: number) => {
-    const { error } = await supabase
-      .from('ProfilesData')
-      .update({ certificado: true })
-      .eq('id', id);
-
-    if (error) {
-      console.error("Error approving profile:", error);
-    } else {
-      fetchProfiles();
+    try {
+      const { error } = await supabase
+        .from('ProfilesData')
+        .update({ status: true })
+        .eq('id', id);
+  
+      if (error) {
+        throw error;
+      } else {
+        const approvedProfile = pendingProfiles.find((profile) => profile.id === id)
+        || pendingProfiles.find((profile) => profile.id === id)
+        || inactiveProfiles.find((profile) => profile.id === id);;
+        
+        fetchProfiles();
+        if (approvedProfile) {
+          toast.success(`O perfil de ${approvedProfile.nome} foi aprovado.`);
+        }
+      }
+    } catch (error) {
+      console.error("Error approving profile:", error.message);
+      toast.error('Erro ao aprovar o perfil. Tente novamente.');
     }
   };
-
+  
+  
   const handleReject = async (id: number) => {
-    const { error } = await supabase
-      .from('ProfilesData')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error("Error rejecting profile:", error);
-    } else {
-      fetchProfiles();
+    try {
+      const { error } = await supabase
+        .from('ProfilesData')
+        .update({ status: false })
+        .eq('id', id);
+  
+      if (error) {
+        throw error;
+      } else {
+        const rejectedProfile = approvedProfiles.find((profile) => profile.id === id)
+          || pendingProfiles.find((profile) => profile.id === id)
+          || inactiveProfiles.find((profile) => profile.id === id);
+  
+        fetchProfiles();
+        if (rejectedProfile) {
+          toast.success(`O perfil de ${rejectedProfile.nome} foi rejeitado com sucesso.`);
+        }
+      }
+    } catch (error) {
+      console.error("Error rejecting profile:", error.message);
+      toast.error('Erro ao rejeitar o perfil. Tente novamente.');
     }
   };
+
+
+  const handleRejectCertificado = async (id: number) => {
+    try {
+      const { error } = await supabase
+        .from('ProfilesData')
+        .update({ certificado: false })
+        .eq('id', id);
+  
+      if (error) {
+        throw error;
+      } else {
+        const rejectedProfile = certificatedProfiles.find((profile) => profile.id === id);
+  
+        fetchProfiles();
+        if (rejectedProfile) {
+          toast.success(`O perfil de ${rejectedProfile.nome} foi rejeitado com sucesso.`);
+        }
+      }
+    } catch (error) {
+      console.error("Error rejecting profile:", error.message);
+      toast.error('Erro ao rejeitar o perfil. Tente novamente.');
+    }
+  };
+
+  const handleAceptCertificado = async (id: number) => {
+    try {
+      const { error } = await supabase
+        .from('ProfilesData')
+        .update({ certificado: true })
+        .eq('id', id);
+  
+      if (error) {
+        throw error;
+      } else {
+        const rejectedProfile = approvedProfiles.find((profile) => profile.id === id)
+       
+         certificatedProfiles.find((profile) => profile.id === id);
+  
+        fetchProfiles();
+        if (rejectedProfile) {
+          toast.success(`O perfil de ${rejectedProfile.nome} foi certificado com sucesso.`);
+        }
+      }
+    } catch (error) {
+      console.error("Error rejecting profile:", error.message);
+      toast.error('Erro ao rejeitar o perfil. Tente novamente.');
+    }
+  };
+  
 
   const toggleExpandProfile = (id: number) => {
     setExpandedProfile(expandedProfile === id ? null : id);
   };
 
-  const renderProfiles = () => {
-    switch (activeSection) {
-      case "pending":
-        return renderProfileList(pendingProfiles, "Perfis Pendentes de Verificação", handleApprove, handleReject);
-      case "approved":
-        return renderProfileList(approvedProfiles, "Perfis Verificados");
-      case "inactive":
-        return renderProfileList(inactiveProfiles, "Perfis Nao Verificados", handleApprove, handleReject);
-      case "active":
-        return renderProfileList(activeProfiles, "Perfis Ativos");
-      default:
-        return <p className="text-white">Selecione uma seção</p>;
-    }
-  };
+  
+
 
   const renderProfileList = (
     profiles: Profile[],
@@ -165,60 +254,80 @@ const AdminPage: React.FC = () => {
     approveHandler?: (id: number) => void,
     rejectHandler?: (id: number) => void
   ) => (
-    <div className="mb-8 ml-10">
-      <h1 className="text-3xl font-bold text-white mb-8 mt-8">{title}</h1>
+    <div className="ml-10">
+      <h2 className="text-2xl text-white mb-4">{title}</h2>
       {profiles.length === 0 ? (
         <p className="text-white">Nenhum perfil nesta seção</p>
       ) : (
         <ul className="space-y-4">
           {profiles.map((profile) => (
-            <li key={profile.id} className="flex flex-col p-4 bg-gray-700 rounded-lg shadow-md">
-              <div className="flex items-center justify-between">
+            <li
+              key={profile.id}
+              className="flex flex-col p-6 bg-gray-800 rounded-lg shadow-lg space-y-4"
+            >
+              <div className="flex items-center space-x-6">
                 {profile.photoURL ? (
                   <Image
                     src={profile.photoURL}
                     alt={`Profile Photo`}
-                    className="w-16 h-16 object-cover rounded-full"
-                    width={64}
-                    height={64}
+                    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
+                    width={80}
+                    height={80}
                   />
                 ) : (
                   <p className="text-white">Sem fotos</p>
                 )}
-                <div className="text-white flex-1 ml-4">
-                  <p className="font-semibold">Nome: {profile.nome}</p>
+                <div className="flex-1 text-white">
+                  <p className="font-semibold text-xl">Nome: {profile.nome}</p>
                   <p>Email: {profile.email}</p>
                   <p>UserUID: {profile.userUID}</p>
                 </div>
-                <button
-                  onClick={() => toggleExpandProfile(profile.id)}
-                  className="p-2 rounded-lg bg-gray-500 text-white hover:bg-gray-600 transition-colors duration-300"
-                >
-                  {expandedProfile === profile.id ? '▲' : '▼'} 
-                </button>
-                {approveHandler && (
+
+                <div className="flex items-center space-x-4">
+                  {/* Seta para expandir/colapsar */}
                   <button
-                    onClick={() => approveHandler(profile.id)}
-                    className="p-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors duration-300"
+                    onClick={() => toggleExpandProfile(profile.id)}
+                    className="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-500 transition-all duration-300 flex items-center justify-center w-10 h-10"
+                    aria-label="Expandir/Colapsar perfil"
                   >
-                    Aprovar Verificação
+                    {expandedProfile === profile.id ? '▲' : '▼'}
                   </button>
-                )}
-                {rejectHandler && (
-                  <button
-                    onClick={() => rejectHandler(profile.id)}
-                    className="p-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"
-                  >
-                    Rejeitar Verificação
-                  </button>
-                )}
+                  {/* Botões Aprovar/Rejeitar */}
+                  {approveHandler && (
+                    <button
+                      onClick={() => approveHandler(profile.id)}
+                      className="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-all duration-300"
+                    >
+                      Aprovar
+                    </button>
+                  )}
+                  {rejectHandler && (
+                    <button
+                      onClick={() => rejectHandler(profile.id)}
+                      className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all duration-300"
+                    >
+                      Rejeitar
+                    </button>
+                  )}
+                </div>
               </div>
+
+              {/* Informações adicionais (expand/collapse) */}
               {expandedProfile === profile.id && (
-                <div className="mt-2 text-white">
+                <div className="bg-gray-700 p-4 rounded-lg space-y-2 text-white">
                   <p>Idade: {profile.idade}</p>
                   <p>Cidade: {profile.cidade}</p>
+                  <p>Distrito: {profile.distrito}</p>
+                  <p>Lingua: {profile.lingua}</p>
+                  <p>Origem: {profile.origem}</p>
+                  <p>Mamas: {profile.mamas}</p>
+                  <p>Altura: {profile.altura}</p>
                   <p>Tatuagens: {profile.tatuagens}</p>
-                  {/* Adicione mais informações aqui, se necessário */}
+                  <p>Pelos: {profile.pelos}</p>
+                  <p>Olhos: {profile.olhos}</p>
+                  <p>Silicone: {profile.seios}</p>
+                  <p>Signo: {profile.signo}</p>
+                  <p>Preço: {profile.tarifa}</p>
                 </div>
               )}
             </li>
@@ -228,15 +337,49 @@ const AdminPage: React.FC = () => {
     </div>
   );
 
+  const renderProfiles = () => {
+    switch (activeSection) {
+      case "pending":
+        return renderProfileList(pendingProfiles, "Perfis Pendentes", handleApprove, handleReject);
+      case "approved":
+        return renderProfileList(approvedProfiles, "Perfis Aprovados", undefined, handleReject); // Rejeitar aqui também
+      case "rejected":
+        return renderProfileList(inactiveProfiles, "Perfis Não Aprovados", handleApprove, undefined);
+      case "certified":
+        return renderProfileList(certificatedProfiles, "Perfis Certificados", undefined, handleRejectCertificado); // Rejeitar aqui também
+      
+        case "noncertified":
+        return renderProfileList(NoncertificatedProfiles, "Perfis Não Cerficados", handleAceptCertificado, undefined);
+      default:
+        return <p className="text-white">Selecione uma seção</p>;
+    }
+  };
+
   return (
-    <div className="bg-gray-900 min-h-screen flex">
-      <SideBarAdmin activeSection={activeSection} setActiveSection={setActiveSection}  />
-      <main className="flex-1 p-10">
+    <div className="min-h-screen flex bg-gray-900">
+      <ToastContainer />
+
+  {/* Sidebar fixada */}
+  <div className="bg-gray-300 w-64 sticky top-0">
+    <SideBarAdmin activeSection={activeSection} setActiveSection={setActiveSection} />
+  </div>
+
+  <div className="flex-1">
+    <main className="relative">
+      {/* Painel de Administração fixo no topo */}
+      <div className="bg-gray-900 top-0 left-0 right-0 p-6 z-10 border-b border-gray-800 sticky">
         <h1 className="text-4xl font-bold text-white">Painel de Administração</h1>
+      </div>
+
+      {/* Conteúdo de Perfis com Scroll */}
+      <div className="mt-4 px-10">
         {renderProfiles()}
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
+</div>
+
   );
-};
+}
 
 export default AdminPage;

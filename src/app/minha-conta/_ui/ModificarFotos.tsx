@@ -12,6 +12,7 @@ import { BlurImage } from "@/components/BlurImage";
 
 interface ModificarFotosProps {
   handleVoltar: () => void;
+  handleGuardar: () => void;
 }
 
 async function addWatermark(
@@ -48,7 +49,7 @@ async function addWatermark(
   }
 }
 
-const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
+const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGuardar }) => {
   const dispatch = useDispatch();
   const photoURLsRedux = useSelector(
     (state: any) => state.profile?.profile.photos
@@ -152,68 +153,71 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="bg-[#1E2427] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-xl max-w-screen-lg shadow-lg w-full overflow-y-auto">
-        <div className="p-8">
-          <div className="mb-8 border border-gray-600 p-6 rounded-lg bg-zinc-800">
-            <p className="text-2xl text-pink-800 mb-2 font-semibold">Fotos</p>
-            <p className="text-white mb-4 text-sm">Podes adicionar até 10 Fotos</p>
-            <div className="mb-8 flex items-center space-x-4">
-              <label
-                htmlFor="upload-photo"
-                className="text-white bg-green-600 px-4 py-2 rounded-md cursor-pointer hover:bg-green-500 transition duration-300"
-              >
-                + Adicionar Fotos...
-                <input
-                  type="file"
-                  id="upload-photo"
-                  style={{ display: "none" }}
-                  onChange={handleFileUpload}
-                  multiple
-                />
-              </label>
-              <Link
-                href="/registo-contacto"
-                className="text-white bg-gray-400 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-300 transition duration-300"
-              >
-                ? Regras
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-              {Array.isArray(selectedPhotos) &&
-                selectedPhotos.map((photoURL, index) => (
-                  <div key={index} className="relative group">
-                    <IoTrashBin
-                      size={24}
-                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1 rounded-full transition-opacity duration-300"
-                      onClick={() => handleDeletePhoto(index)}
-                    />
-                    <BlurImage
-                      src={photoURL}
-                      alt={`Foto ${index}`}
-                      className="w-full h-24 object-cover rounded-md border border-gray-600"
-                    />
-                  </div>
-                ))}
-            </div>
+      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
+        <div className="p-10">
+          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Gerir Fotos</h2>
+          <p className="text-gray-400 mb-6 text-center">Podes adicionar até 10 Fotos</p>
+  
+          <div className="flex justify-center mb-8">
+            <label
+              htmlFor="upload-photo"
+              className="text-white bg-green-500 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-green-400 hover:shadow-xl flex items-center space-x-2 cursor-pointer"
+            >
+              <span>+ Adicionar Fotos...</span>
+              <input
+                type="file"
+                id="upload-photo"
+                style={{ display: "none" }}
+                onChange={handleFileUpload}
+                multiple
+              />
+            </label>
+            <Link
+              href="/registo-contacto"
+              className="text-white bg-gray-600 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 hover:shadow-xl flex items-center space-x-2 ml-4"
+            >
+              <span>? Regras</span>
+            </Link>
+          </div>
+  
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {Array.isArray(selectedPhotos) &&
+              selectedPhotos.map((photoURL, index) => (
+                <div key={index} className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
+                  <IoTrashBin
+                    size={26}
+                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
+                    onClick={() => handleDeletePhoto(index)}
+                  />
+                  <BlurImage
+                    src={photoURL}
+                    alt={`Foto ${index}`}
+                    className="w-full h-32 object-cover rounded-lg border border-gray-600"
+                  />
+                </div>
+              ))}
           </div>
         </div>
-        <div className="flex justify-between px-8 pb-2 bg-[#1E2427] border-t border-zinc-600 rounded-b-xl">
+  
+        <div className="flex justify-between items-center px-8 py-4 bg-[#2A2D32] rounded-b-3xl">
           <button
-            className="text-white bg-gray-600 px-4 py-2 rounded-md cursor-pointer hover:bg-gray-500 transition duration-300"
+            className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
             onClick={handleVoltar}
           >
-            Voltar
+            <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-800 px-4 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-900 hover:scale-105"
-            // onClick={handleGuardar}
+            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
+            onClick={handleFileUpload}
           >
-            Guardar
+            <span>Guardar</span>
           </button>
         </div>
       </div>
     </div>
   );
+  
+  
   
 
 };

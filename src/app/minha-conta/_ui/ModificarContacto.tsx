@@ -155,47 +155,34 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center align-middle z-50 bg-opacity-75 backdrop-blur-md ">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
       <ToastContainer />
-      <div className="bg-[#1E2427] h-4/5 mt-32 mb-32 border border-zinc-600 rounded-xl max-w-screen-lg shadow-md w-full overflow-y-scroll">
-      <div className="bg-pink-800 text-white text-center py-4 rounded-t-lg">
-          <h2 className="text-xl font-semibold">Modificar Perfil</h2>
-        </div>
-        <div className="flex w-full justify-between ">
-          
-       
-          <div className="flex flex-col w-full mx-6 pt-4">
-            <div className="w-44 mt-0">
+      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
+        <div className="p-10">
+          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Modificar Perfil</h2>
+  
+          <div className="flex flex-col mb-6">
+            <div className="w-44 mb-4">
               <FiltroPrice />
             </div>
-            <div className="w-3/4 mt-2 gap-4">
-              <p className="text-md text-pink-800">Meio de contacto</p>
+            <p className="text-md text-pink-800 font-semibold">Meio de contacto</p>
+            <div className="w-full mt-2">
+              <p className="text-md text-pink-800 font-semibold">Meios de Pagamento</p>
+              <CheckPagamento />
             </div>
-            <div className="w-full mt-6">
-              <p className="text-md text-pink-800">Meios de Pagamento</p>
-              <CheckPagamento
-              // selectedPagamento={selectedPagamento}
-              // setSelectedPagamento={setSelectedPagamento}
-              // onChange={handlePaymentChange}
-              />
+            <div className="w-full mt-4">
+              <p className="text-md text-pink-800 font-semibold">Linguas</p>
+              <CheckLinguas />
             </div>
-            <div className="w-full mt-6">
-              <p className="text-md text-pink-800">Linguas</p>
-              <CheckLinguas
-              // selectedLingua={selectedLingua}
-              // setSelectedLingua={setSelectedLingua}
-              // onChange={handleLinguaChange}
-              />
-            </div>
-            <div className="w-full mt-6">
-              <p className="text-md text-pink-800">Servicos</p>
+            <div className="w-full mt-4">
+              <p className="text-md text-pink-800 font-semibold">Servicos</p>
               <CheckServico
                 selectedServico={selectedServico}
                 setSelectedServico={setSelectedServico}
               />
             </div>
-            <div className="w-full mt-6">
-              <p className="text-md text-pink-800">Descrição</p>
+            <div className="w-full mt-4">
+              <p className="text-md text-pink-800 font-semibold">Descrição</p>
               <FroalaEditor
                 id="editor"
                 config={{
@@ -217,29 +204,27 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
             </div>
           </div>
         </div>
-        <div className="flex justify-between w-full mb-2 mt-2 my-10 py-2 px-10">
-            <div className="w-26 mb-2">
-              <p
-                className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out transform hover:scale-105 hover:bg-gray-500"
-                onClick={handleVoltar}
-              >
-                Voltar
-              </p>
-            </div>
-
-            <div className="w-26 mb-2">
-              <p
-                className="text-md text-white bg-pink-800 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-900 ease-in-out transform hover:scale-105"
-                onClick={handleGuardar}
-                
-              >
-                Guardar
-              </p>
-            </div>
-          </div>
-    </div>
+  
+        <div className="flex justify-between items-center px-8 py-4 bg-[#2A2D32] rounded-b-3xl">
+          <button
+            className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
+            onClick={handleVoltar}
+          >
+            <span>Voltar</span>
+          </button>
+          <button
+            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
+            onClick={handleGuardar}
+          >
+            <span>Guardar</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
+  
+  
+  
 };
 
 export default ModificarContacto;

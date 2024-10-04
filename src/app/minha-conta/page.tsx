@@ -1,48 +1,16 @@
-"use client";
-/* eslint-disable @next/next/no-img-element */
+"use client"
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  FaMapMarkerAlt,
-  FaUser,
-  FaCog,
-  FaEye,
-  FaCamera,
-} from "react-icons/fa";
+import { FaMapMarkerAlt, FaUser, FaCamera } from "react-icons/fa";
 import supabase from "@/database/supabase";
 import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
 import SidebarConta from "@/components/SidebarConta";
+import Definicoes from "../Definicoes/page";
 
 interface MinhaContaProps {}
-
-
-
-interface SidebarContaProps {
-  sidebarOpen: boolean;
-  handleModificar: () => void;
-  showModificar: boolean;
-  handleContacto: () => void;
-  showContacto: boolean;
-  handleFotos: () => void;
-  showFotos: boolean;
-  handleDefinicoes: () => void;
-  handleVerPerfil: () => void;
-}
-
-const SidebarConta: React.FC<SidebarContaProps> = ({
-  sidebarOpen,
-  handleModificar,
-  showModificar,
-  handleContacto,
-  showContacto,
-  handleFotos,
-  showFotos,
-  handleDefinicoes,
-  handleVerPerfil,
-}) 
 
 const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
@@ -50,45 +18,19 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showFotos, setShowFotos] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [newTag, setNewTag] = useState<string>("");
 
   const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
   const tagRedux = useSelector((state: any) => state.profile?.profile?.tag);
   const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
   const photoURLsRedux = useSelector((state: any) => state.profile?.profile?.photos);
-
+  
   const [nome, setNome] = useState<string | undefined>(nomeRedux);
-  const [newTag, setNewTag] = useState<string>("");
 
   useEffect(() => {
     setNome(nomeRedux);
   }, [nomeRedux]);
-
-  const handleModificar = () => {
-    setShowModificar(true);
-    setShowContacto(false);
-    setShowFotos(false);
-  };
-
-  const handleContacto = () => {
-    setShowContacto(true);
-    setShowModificar(false);
-    setShowFotos(false);
-  };
-
-  const handleFotos = () => {
-    setShowFotos(true);
-    setShowModificar(false);
-    setShowContacto(false);
-  };
-
-  const handleDefinicoes = () => {
-    // Logic for "Definições"
-  };
-
-  const handleVerPerfil = () => {
-    // Logic for "Ver Perfil"
-  };
 
   const handleVoltar = () => {
     setShowModificar(false);
@@ -96,12 +38,33 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     setShowFotos(false);
   };
 
+  // New function to handle updating the tag
+  const handleAtualizarEstado = async (userUID: number) => {
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError || !session) {
+      console.error("Erro ao obter sessão:", sessionError);
+      return;
+    }
+  
+    const userId = session.user.id; // Use o ID do usuário da sessão
+    console.log("userId:", userId); // Verifique se isso é o que você espera
+  
+    const { data, error } = await supabase
+      .from('profiles') // Certifique-se de que 'profiles' é o nome correto da sua tabela
+      .update({ tag: newTag }) // Atualiza a coluna 'tag' com o novo valor
+      .eq('userUID', userId); // Certifique-se de que o ID corresponde à coluna correta
+  
+    if (error) {
+      console.error("Erro ao atualizar o estado:", error.message || error);
+    } else {
+      console.log("Estado atualizado com sucesso:", data);
+      setNewTag(""); // Limpa o campo após a atualização
+    }
+  };
+
   useEffect(() => {
     const getSession = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
+      const { data: { session }, error } = await supabase.auth.getSession();
       if (error || !session) {
         console.log("Sessão não iniciada ou erro ao verificar a sessão:", error);
       } else {
@@ -113,7 +76,6 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     getSession();
   }, []);
 
-  
   return (
     <div className="bg-gray-900 text-gray-100">
       {/* Notification Bar */}
@@ -129,23 +91,23 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         </div>
       )}
 
-      <div className="flex">
+      <div className="flex ">
         {/* Sidebar */}
         <SidebarConta
-  sidebarOpen={sidebarOpen}
-  handleModificar={handleModificar}
-  showModificar={showModificar}
-  handleContacto={handleContacto}
-  showContacto={showContacto}
-  handleFotos={handleFotos}
-  showFotos={showFotos}
-  handleDefinicoes={handleDefinicoes}
-  handleVerPerfil={handleVerPerfil}
-/>
+          sidebarOpen={sidebarOpen}
+          handleModificar={() => setShowModificar(true)}
+          showModificar={showModificar}
+          handleContacto={() => setShowContacto(true)}
+          showContacto={showContacto}
+          handleFotos={() => setShowFotos(true)}
+          showFotos={showFotos}
+          handleDefinicoes={() => {}}
+          handleVerPerfil={() => {}}
+        />
 
         {/* Main Content */}
         <main
-          className={`flex-1 p-6 transition-all duration-300 md:ml-64 ${
+          className={`flex-1 pb-20 transition-all duration-300 ${
             sidebarOpen ? "ml-64" : ""
           }`}
           style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
@@ -194,7 +156,10 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                     onChange={(e) => setNewTag(e.target.value)}
                     placeholder="Escreva o novo estado"
                   />
-                  <button className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors">
+                  <button 
+                    onClick={handleAtualizarEstado}
+                    className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
+                  >
                     Actualizar Estado
                   </button>
                 </div>
@@ -228,6 +193,5 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     </div>
   );
 };
-
 
 export default MinhaConta;

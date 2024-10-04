@@ -8,7 +8,7 @@ export interface Profile {
   localidade?: string;
   tag?: string;
   tagtimestamp?: Date;
-  Tarifa: number;
+  tarifa: number;
   lingua: string[];
   telefone: string;
   email: string;
@@ -27,5 +27,5 @@ export interface Profile {
   pagamento: string[];
   verificationPhotoURL: string;
   inactive: boolean;
-  aprovado: boolean
+  certificado: boolean
 }

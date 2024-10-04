@@ -6,13 +6,13 @@ import supabase from '@/database/supabase';
 import { useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure, addProfileData } from '@/actions/ProfileActions';
 import { fetchProfileFromDatabase } from '@/services/profileService';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+// import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaVerified, setCaptchaVerified] = useState<boolean>(false);
+  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  // const [captchaVerified, setCaptchaVerified] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -24,15 +24,15 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const handleCaptchaVerify = (token: string) => {
-    setCaptchaToken(token);
-    setCaptchaVerified(true);
-  };
+  // const handleCaptchaVerify = (token: string) => {
+  //   setCaptchaToken(token);
+  //   setCaptchaVerified(true);
+  // };
 
-  const handleCaptchaExpire = () => {
-    setCaptchaToken(null);
-    setCaptchaVerified(false);
-  };
+  // const handleCaptchaExpire = () => {
+  //   setCaptchaToken(null);
+  //   setCaptchaVerified(false);
+  // };
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
@@ -73,33 +73,33 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    if (!captchaVerified || !captchaToken) {
-      console.error('Captcha não verificado. Por favor, complete o captcha.');
-      return;
-    }
-    console.log('Captcha Token:', captchaToken);
+    // if (!captchaVerified || !captchaToken) {
+    //   console.error('Captcha não verificado. Por favor, complete o captcha.');
+    //   return;
+    // }
+    // console.log('Captcha Token:', captchaToken);
 
-    try {
-      const verifyCaptchaResponse = await fetch('/api/verify-captcha', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ captchaToken }),
-      });
+    // try {
+    //   const verifyCaptchaResponse = await fetch('/api/verify-captcha', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ captchaToken }),
+      // });
   
-      if (!verifyCaptchaResponse.ok) {
-        const text = await verifyCaptchaResponse.text();
-        console.error('Erro ao verificar o CAPTCHA:', text);
-        return;
-      }
+      // if (!verifyCaptchaResponse.ok) {
+      //   const text = await verifyCaptchaResponse.text();
+      //   console.error('Erro ao verificar o CAPTCHA:', text);
+      //   return;
+      // }
   
-      const captchaResult = await verifyCaptchaResponse.json();
+      // const captchaResult = await verifyCaptchaResponse.json();
   
-      if (!captchaResult.success) {
-        console.error('Erro ao verificar o CAPTCHA:', captchaResult.message);
-        return;
-      }
+      // if (!captchaResult.success) {
+      //   console.error('Erro ao verificar o CAPTCHA:', captchaResult.message);
+      //   return;
+      // }
   
       const { data: user, error } = await supabase.auth.signInWithPassword({
         email,
@@ -130,10 +130,10 @@ const Login = () => {
           console.log('O objeto de usuário retornado está vazio ou undefined.');
         }
       }
-    } catch (error: any) {
-      console.error('Erro ao fazer login:', error.message);
-      dispatch(loginFailure(error));
-    }
+    // } catch (error: any) {
+    //   console.error('Erro ao fazer login:', error.message);
+    //   dispatch(loginFailure(error));
+    // }
   };
 
   useEffect(() => {
@@ -191,13 +191,13 @@ const Login = () => {
           />
         </div>
   
-        <div className="mb-6 flex justify-between">
+        {/* <div className="mb-6 flex justify-between">
           <HCaptcha
             sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || 'd64e2e6a-e810-461e-8012-1ac42f9e4054'}
             onVerify={handleCaptchaVerify}
             onExpire={handleCaptchaExpire}
           />
-        </div>
+        </div> */}
   
         <button
           onClick={handleLogin}

@@ -6,11 +6,12 @@ import {
   updateLingua,
   updatePagamento,
   updateDescription,
+  updateTarifa,
 } from "@/actions/ProfileActions";
 import CheckPagamento from "@/components/Register/CheckPagamento";
 import CheckLinguas from "@/components/Register/CheckLinguas";
 import CheckServico from "@/components/Register/CheckServico";
-import FiltroPrice from "@/components/Filtros/FiltroPrice";
+import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 import { updateProfileData } from "@/services/profileService";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from 'react-toastify';
@@ -38,6 +39,11 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   const linguaRedux = useSelector(
     (state: any) => state.profile?.profile?.lingua
   );
+
+  const tarifaRedux = useSelector(
+    (state: any) => state.profile?.profile?.tarifa
+  );
+
   const servicoRedux = useSelector(
     (state: any) => state.profile?.profile?.servico
   );
@@ -51,6 +57,11 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   const [selectedLingua, setSelectedLingua] = useState<string[]>(
     linguaRedux || []
   );
+
+  const [selectedTarifa, setSelectedTarifa] = useState<string[]>(
+    tarifaRedux || []
+  );
+
   const [selectedServico, setSelectedServico] = useState<string[]>(
     servicoRedux || []
   );
@@ -77,11 +88,16 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     }
   }, [linguaRedux]);
 
+ 
+
   useEffect(() => {
     if (servicoRedux) {
       setSelectedServico(servicoRedux);
     }
   }, [servicoRedux]);
+
+
+
 
   const handlePaymentChange = (updatedPagamento: string[]) => {
     dispatch(updatePagamento(updatedPagamento));
@@ -98,6 +114,11 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     setSelectedLingua(updatedLingua);
   };
 
+  const handleTarifaChange = (updatedTarifa: string[]) => {
+    dispatch(updateTarifa(updatedTarifa));
+    setSelectedTarifa(updatedTarifa);
+  };
+
   const handleServicoChange = (updatedServico: string[]) => {
     dispatch(updateServico(updatedServico));
     setSelectedServico(updatedServico);
@@ -112,6 +133,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
       pagamento: selectedPagamento,
       lingua: selectedLingua,
       servico: selectedServico,
+      tarifa: selectedTarifa,
       description,
     };
 
@@ -131,6 +153,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
       dispatch(updateLingua(selectedLingua));
       dispatch(updateServico(selectedServico));
       dispatch(updateDescription(description));
+      dispatch(updateTarifa(selectedTarifa))
       // onClose();
       console.log(
         "Informações de contato atualizadas com sucesso na base de dados!"
@@ -163,7 +186,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   
           <div className="flex flex-col mb-6">
             <div className="w-44 mb-4">
-              <FiltroPrice />
+              <FiltroTarifa />
             </div>
             <p className="text-md text-pink-800 font-semibold">Meio de contacto</p>
             <div className="w-full mt-2">

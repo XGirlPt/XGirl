@@ -1,4 +1,5 @@
 import supabase from "../database/supabase";
+import { Profile } from "@/types";
 
 // FETCH PROFILE START
 export async function fetchProfiles() {
@@ -221,20 +222,30 @@ export async function updateProfileTag(userUID, newTagValue) {
 // END UPDATE PROFILE TAG
 
 // UPDATE VERIFICATION PHOTO START
-export const updateVerificationPhoto = async (photoURL: string, userUID: string) => {
-  try {
-    const { data, error } = await supabase
-      .from("ProfilesData")
-      .update({ verificationPhoto: photoURL })
-      .eq("userUID", userUID);
 
-    if (error) {
-      throw error;
-    }
 
-    console.log("Foto de verificação atualizada com sucesso:", data);
-  } catch (error) {
-    console.error("Erro ao atualizar a foto de verificação:", error.message);
-  }
-};
+// export const fetchNonCertificatedProfiles = async (
+//   setNoncertificatedProfiles: (profiles: Profile[]) => void
+// ) => {
+//   try {
+//     const { data, error } = await supabase
+//       .from('ProfilesData')
+//       .select('*')
+//       .eq('certificado', false);
+
+//     if (error) {
+//       throw error;
+//     }
+
+//     const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+//     setNoncertificatedProfiles(profilesWithPhotos);
+//   } catch (error) {
+//     console.error("Error fetching non-certificated profiles:", error.message);
+//   }
+// };
+
+
 // END UPDATE VERIFICATION PHOTO
+
+
+

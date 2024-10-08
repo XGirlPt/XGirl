@@ -18,9 +18,10 @@ interface TarifasProps {
 
 const Tarifas: React.FC<TarifasProps> = ({ selectedProfile }) => {
   const tarifaRedux = useSelector(
-    (state: any) => state.profile && state.profile.tarifa
+    (state: any) => state.profile && state.profile?.profile?.tarifa
   );
 console.log("tarifa: ", tarifaRedux)
+
 
   const pagamentos = selectedProfile?.pagamento;
 

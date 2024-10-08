@@ -1,4 +1,3 @@
-import { updateTarifa } from './../actions/ProfileActions';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -264,6 +263,7 @@ type ProfileActionTypes =
   | UpdatePelosAction
   | UpdateCabeloAction
   | UpdateLinguaAction
+  | updateTarifaAction
   | UpdatePagamentoAction
   | UpdateServicoAction
   | UpdateDescriptionAction
@@ -272,6 +272,7 @@ type ProfileActionTypes =
   | UpdateProfilesAction
   | SetSelectedProfileAction
   | UpdateVerificationPhotoAction;
+  
 
 // Define the initial state
 const initialState: AppState = {
@@ -503,6 +504,15 @@ const rootReducer = (
           lingua: action.payload,
         },
       };
+
+      case UPDATE_TARIFA:
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            tarifa: action.payload,
+          },
+        };
 
     case UPDATE_PAGAMENTO:
       return {

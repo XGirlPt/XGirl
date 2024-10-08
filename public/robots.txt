@@ -1,8 +1,5 @@
-# *
 User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /login/
+Disallow: /
 
 # Sitemaps
 Sitemap: https://www.xgirl.pt/sitemap.xml

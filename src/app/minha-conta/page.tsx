@@ -8,8 +8,11 @@ import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
 import SidebarConta from "../../components/SidebarConta";
-
+import { useDispatch } from "react-redux";
+import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface MinhaContaProps {}
 
@@ -20,12 +23,17 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [notificationVisible, setNotificationVisible] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [newTag, setNewTag] = useState<string>("");
+  const [certificado, setCertificado] = useState<boolean | null>(null); // Guardar o estado do certificado
+
 
   const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
   const tagRedux = useSelector((state: any) => state.profile?.profile?.tag);
   const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
   const photoURLsRedux = useSelector((state: any) => state.profile?.profile?.photos);
+
+
+  const dispatch = useDispatch(); // Instanciar o dispatch
   
   const [nome, setNome] = useState<string | undefined>(nomeRedux);
 
@@ -39,28 +47,113 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     setShowFotos(false);
   };
 
+
+  const [activeContent, setActiveContent] = useState("minhaConta");
+
+  const handleDefinicoes = () => {
+    setActiveContent("definicoes"); // Altera o conteúdo para definições
+  };
+
   // New function to handle updating the tag
-  const handleAtualizarEstado = async (userUID: number) => {
+  const handleAtualizarEstado = async () => {
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     if (sessionError || !session) {
       console.error("Erro ao obter sessão:", sessionError);
       return;
     }
   
-    const userId = session.user.id; // Use o ID do usuário da sessão
-    console.log("userId:", userId); // Verifique se isso é o que você espera
+    const userUID = session.user.id; // Use o ID do usuário da sessão
+    console.log("userId:", userUID); // Verifique se isso é o que você espera
   
+
+
+
+    
     const { data, error } = await supabase
-      .from('profiles') // Certifique-se de que 'profiles' é o nome correto da sua tabela
+      .from('ProfilesData') // Certifique-se de que 'profiles' é o nome correto da sua tabela
       .update({ tag: newTag }) // Atualiza a coluna 'tag' com o novo valor
-      .eq('userUID', userId); // Certifique-se de que o ID corresponde à coluna correta
+      .eq("userUID", userUID);
   
     if (error) {
       console.error("Erro ao atualizar o estado:", error.message || error);
     } else {
       console.log("Estado atualizado com sucesso:", data);
+      dispatch(updateTag(newTag)); // Atualizar a tag no Redux
+
       setNewTag(""); // Limpa o campo após a atualização
+      toast.success("Nova tag foi alterada com sucesso!");
+
     }
+  };
+
+
+  useEffect(() => {
+    const fetchCertificado = async () => {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session) {
+        console.error("Erro ao obter sessão:", sessionError);
+        return;
+      }
+
+      const userUID = session.user.id;
+
+      const { data, error } = await supabase
+        .from('ProfilesData') // Substitua pelo nome correto da sua tabela
+        .select('certificado')
+        .eq('userUID', userUID)
+        .single();
+
+      if (error) {
+        console.error("Erro ao buscar certificado:", error.message || error);
+      } else {
+        setCertificado(data?.certificado); // Atualiza o estado com o valor do certificado
+      }
+    };
+
+    fetchCertificado();
+  }, []);
+
+  // Função para determinar a cor e mensagem da notificação com base no valor de "certificado"
+  const renderNotification = () => {
+    if (certificado === true) {
+      return (
+        <div className="bg-green-600 text-white px-4 py-3 flex justify-between items-center">
+          <span>✅ O teu perfil está certificado.</span>
+          <button
+            onClick={() => setCertificado(null)}
+            className="text-lg"
+          >
+            &times;
+          </button>
+        </div>
+      );
+    } else if (certificado === null) {
+      return (
+        <div className="bg-yellow-600 text-white px-4 py-3 flex justify-between items-center">
+          <span>⚠️ O teu perfil aguarda verificação da nossa equipa.</span>
+          <button
+            onClick={() => setCertificado(null)}
+            className="text-lg"
+          >
+            &times;
+          </button>
+        </div>
+      );
+    } else if (certificado === false) {
+      return (
+        <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
+          <span>❌ O teu perfil não está certificado. Adiciona uma foto de verificação para certificar o teu perfil.</span>
+          <button
+            onClick={() => setCertificado(null)}
+            className="text-lg"
+          >
+            &times;
+          </button>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   useEffect(() => {
@@ -79,18 +172,9 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
   return (
     <div className="bg-gray-900 text-gray-100">
+       <ToastContainer />
       {/* Notification Bar */}
-      {notificationVisible && (
-        <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
-          <span>⚠️ Seu perfil está expirando em breve. Atualize suas informações.</span>
-          <button
-            onClick={() => setNotificationVisible(false)}
-            className="text-lg"
-          >
-            &times;
-          </button>
-        </div>
-      )}
+      {renderNotification()}
 
       <div className="flex ">
         {/* Sidebar */}
@@ -113,6 +197,10 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           }`}
           style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
         >
+
+{activeContent === "definicoes" ? (
+          <Definicoes /> // Renderiza o componente de definições
+        ) : (
           <div className="flex flex-col items-center">
             {/* Profile Header */}
             <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
@@ -157,12 +245,12 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                     onChange={(e) => setNewTag(e.target.value)}
                     placeholder="Escreva o novo estado"
                   />
-                  <button 
-                    onClick={handleAtualizarEstado}
-                    className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
-                  >
-                    Actualizar Estado
-                  </button>
+                 <button 
+  onClick={handleAtualizarEstado} // Sem passar userUID
+  className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
+>
+  Actualizar Estado
+</button>
                 </div>
               </div>
             </div>
@@ -180,8 +268,9 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                   handleVoltar={handleVoltar}
                   onClose={() => setShowContacto(false)}
                 />
-              )}
-              {showFotos && <ModificarFotos handleVoltar={handleVoltar} />}
+              )} 
+              {showFotos && <ModificarFotos      
+ handleVoltar={handleVoltar} />}
               {!showModificar && !showContacto && !showFotos && (
                 <div className="text-center text-gray-400">
                   Selecione uma opção no menu para modificar as suas informações.
@@ -189,6 +278,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
               )}
             </div>
           </div>
+           )}
         </main>
       </div>
     </div>

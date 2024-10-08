@@ -35,7 +35,8 @@ function UserProfile() {
     try {
       const { data, error } = await supabase
       .from("ProfilesData")
-      .select("*");
+      .select("*")
+      .eq('status', true);
       
       if (error) {
         throw error;
@@ -59,36 +60,50 @@ function UserProfile() {
           .select("*")
           .eq("nome", decodeURIComponent(profileName))
           .single();
-
+  
         if (profileError) {
           throw profileError;
         }
-
+  
         const { data: photoData, error: photoError } = await supabase
           .from("profilephoto")
           .select("*")
-          .eq("userUID", profileData.userUID);
-
+          .eq("userUID", profileData.userUID)
+         
+  
         if (photoError) {
           throw photoError;
         }
+  
+        // Log dos dados de fotos recebidos para inspecionar
+        console.log("Dados de fotos recebidos do Supabase:", photoData);
+  
+        const photoURLs = photoData.map((photo) => photo.imageurl);
+        console.log("URLs das fotos mapeadas:", photoURLs);
+    
 
         const combinedProfileData = {
           ...profileData,
-          photoURL: photoData.map((photo) => photo.imageurl),
+          photoURL: photoData.map((photo) => photo.imageurl) || [], // Garante que seja sempre um array
         };
+  
+        // Log dos dados combinados (perfil + fotos)
+        console.log("Dados combinados do perfil:", combinedProfileData);
+  
+
 
         setIsCertified(profileData.certificado); // Atualize o estado com a certificação
         setSelectedProfile(combinedProfileData); // Atualize o perfil selecionado
       } catch (error: any) {
-        console.error("Error fetching profile:", error.message);
+        console.error("Erro ao buscar perfil:", error.message);
       } finally {
         setLoading(false); // Encerra o carregamento
       }
     }
-
+  
     fetchProfile();
   }, [profileName]);
+  
 
   const handleLigaMeClick = () => setShowLiga(!showLiga);
   const handleCertificadoClick = () => setShowCertificado(!showCertificado);
@@ -192,54 +207,46 @@ function UserProfile() {
                       </div>
                     )}
                   </div>
-                  {selectedProfile &&
-                    selectedProfile.photoURL &&
-                    (Array.isArray(selectedProfile.photoURL) &&
-                    selectedProfile.photoURL.length > 0 ? (
-                      <div className="grid grid-cols-3  gap-2">
-                        {selectedProfile.photoURL.map((media, index) =>
-                          media.endsWith(".mp4", ".mov" as any) ? ( // Verifica se o arquivo é um vídeo
-                            <video
-                              key={index}
-                              autoPlay
-                              controlsList="nodownload"
-                              onMouseOver={(e) => e.stopPropagation()}
-                              className="w-auto h-48 rounded-2xl border border-zinc-500"
-                            >
-                              <source
-                                src={media}
-                                type={
-                                  media.endsWith(".mp4")
-                                    ? "video/mp4"
-                                    : media.endsWith(".webm")
-                                    ? "video/webm"
-                                    : "video/ogg"
-                                }
-                              />
-                              Seu navegador não suporta o elemento de vídeo.
-                            </video>
-                          ) : (
-                            // Se não for um vídeo, trata-se de uma imagem
-                            <Image
-      key={index}
-      src={media}
-      alt={`Foto ${index + 1}`}
-      className="w-40 h-auto object-cover cursor-pointer rounded-2xl border border-zinc-500 transition-opacity duration-100 ease-in-out hover:opacity-75 hover:scale-110 "
-      onClick={() => handlePhotoClick(index)}
-      width={160} // Ajuste o valor de largura conforme necessário
-      height={120} // Ajuste o valor de altura conforme necessário
-    />
-                          )
-                        )}
-                      
-                      </div>
-                    ) : (
-                      <BlurImage
-                        src={selectedProfile.photoURL[0]}
-                        alt={selectedProfile.nome}
-                        className="w-full h-96 object-cover rounded-2xl border border-zinc-500"
-                      />
-                    ))}
+                  {selectedProfile && selectedProfile.photoURL && selectedProfile.photoURL.length > 0 ? (
+  <div className="grid grid-cols-3 gap-2">
+    {selectedProfile.photoURL.map((media, index) => {
+      // Verificar se o arquivo é vídeo
+      const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
+
+      return isVideo ? (
+        <video
+          key={index}
+          autoPlay
+          controlsList="nodownload"
+          className="w-auto h-48 rounded-2xl border border-zinc-500"
+        >
+          <source
+            src={media}
+            type={media.endsWith(".mp4") ? "video/mp4" : media.endsWith(".webm") ? "video/webm" : "video/ogg"}
+          />
+          Seu navegador não suporta o elemento de vídeo.
+        </video>
+      ) : (
+        // Renderizar imagem se não for vídeo
+        <Image
+          key={index}
+          src={media}
+          alt={`Foto ${index + 1}`}
+          className="w-40 h-auto object-cover cursor-pointer rounded-2xl border border-zinc-500 transition-opacity duration-100 ease-in-out hover:opacity-75 hover:scale-110"
+          onClick={() => handlePhotoClick(index)}
+          width={160}
+          height={120}
+        />
+      );
+    })}
+  </div>
+) : (
+  <BlurImage
+    src={selectedProfile?.photoURL?.[0] || "/placeholder.jpg"} // Verificar se há uma imagem para exibir
+    alt={selectedProfile?.nome || "Placeholder"}
+    className="w-full h-96 object-cover rounded-2xl border border-zinc-500"
+  />
+)}
                 </div>
 
                 <Sobre selectedProfile={selectedProfile as any} />

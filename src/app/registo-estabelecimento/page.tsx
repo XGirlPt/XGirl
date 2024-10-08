@@ -6,7 +6,7 @@ import supabase from "@/database/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ListCategoriaBar from "@/components/Register/ListCategoriaBar";
-import FiltroPrice from "@/components/Filtros/FiltroPrice";
+import FiltroPrice from "@/components/Filtros/FiltroTarifa";
 import FiltroDistrito from "@/components/Register/FiltroDistrito";
 import { updateClubsNome, updateClubsTelefone } from "@/actions/ClubsActions";
 

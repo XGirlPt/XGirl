@@ -19,7 +19,7 @@ export function MainProvider(props: MainProviderProps) {
     <>
       <Header />
       <main className="min-h-[60vh]">{children}</main>
-      <footer className="pt-10 bg-[#1b1b1b]">
+      <footer className="pt-10 ">
         <Footer />
       </footer>
     </>

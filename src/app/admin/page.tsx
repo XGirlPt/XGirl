@@ -8,6 +8,8 @@ import SideBarAdmin from "../../components/SideBarAdmin";
 import Certificado from "@/components/Certificado";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
 
 const AdminPage: React.FC = () => {
   const [pendingProfiles, setPendingProfiles] = useState<Profile[]>([]);
@@ -20,7 +22,23 @@ const AdminPage: React.FC = () => {
   const [expandedProfile, setExpandedProfile] = useState<number | null>(null);
 
 
+  const [searchTerm, setSearchTerm] = useState<string>(""); // Novo estado para o termo de pesquisa
+
+
   const router = useRouter();
+
+  const userEmail = useSelector((state: any) => state.profile?.profile.email);
+
+  useEffect(() => {
+    const authorizedEmails = process.env.NEXT_PUBLIC_AUTHORIZED_EMAILS?.split(",") || [];
+  
+    // Verifique se o usuário está autenticado e autorizado
+    if (!userEmail || !authorizedEmails.includes(userEmail)) {
+      // Redireciona para a página de login ou para onde desejar
+      router.push("/login");
+    }
+  }, [userEmail, router]);
+
 
   useEffect(() => {
     fetchProfiles();
@@ -246,7 +264,11 @@ const AdminPage: React.FC = () => {
   };
 
   
-
+  const filteredProfiles = (profiles: Profile[]) => {
+    return profiles.filter(profile =>
+      profile.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
 
   const renderProfileList = (
     profiles: Profile[],
@@ -256,11 +278,18 @@ const AdminPage: React.FC = () => {
   ) => (
     <div className="ml-10">
       <h2 className="text-2xl text-white mb-4">{title}</h2>
-      {profiles.length === 0 ? (
+      <input
+        type="text"
+        placeholder="Procurar perfis..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="mb-4 px-4 py-2 rounded-lg bg-gray-200 text-gray-900 w-full"
+      />
+      {filteredProfiles(profiles).length === 0 ? (
         <p className="text-white">Nenhum perfil nesta seção</p>
       ) : (
         <ul className="space-y-4">
-          {profiles.map((profile) => (
+          {filteredProfiles(profiles).map((profile) => (
             <li
               key={profile.id}
               className="flex flex-col p-6 bg-gray-800 rounded-lg shadow-lg space-y-4"
@@ -340,16 +369,16 @@ const AdminPage: React.FC = () => {
   const renderProfiles = () => {
     switch (activeSection) {
       case "pending":
-        return renderProfileList(pendingProfiles, "Perfis Pendentes", handleApprove, handleReject);
+        return renderProfileList(pendingProfiles, `Perfis Pendentes (${pendingProfiles.length})`, handleApprove, handleReject);
       case "approved":
-        return renderProfileList(approvedProfiles, "Perfis Aprovados", undefined, handleReject); // Rejeitar aqui também
+        return renderProfileList(approvedProfiles, `Perfis Aprovados (${approvedProfiles.length})` , undefined, handleReject); // Rejeitar aqui também
       case "rejected":
-        return renderProfileList(inactiveProfiles, "Perfis Não Aprovados", handleApprove, undefined);
+        return renderProfileList(inactiveProfiles, `Perfis Nao Aprovados (${inactiveProfiles.length})`, handleApprove, undefined);
       case "certified":
-        return renderProfileList(certificatedProfiles, "Perfis Certificados", undefined, handleRejectCertificado); // Rejeitar aqui também
+        return renderProfileList(certificatedProfiles, `Perfis Certificados (${certificatedProfiles.length})`, undefined, handleRejectCertificado); // Rejeitar aqui também
       
         case "noncertified":
-        return renderProfileList(NoncertificatedProfiles, "Perfis Não Cerficados", handleAceptCertificado, undefined);
+        return renderProfileList(NoncertificatedProfiles, `Perfis Nao Certificados (${NoncertificatedProfiles.length})`, handleAceptCertificado, undefined);
       default:
         return <p className="text-white">Selecione uma seção</p>;
     }

@@ -9,7 +9,7 @@ import CheckDeslocacoes from "@/components/Register/CheckDeslocacoes";
 import CheckPagamento from "@/components/Register/CheckPagamento";
 import CheckLinguas from "@/components/Register/CheckLinguas";
 import CheckServico from "@/components/Register/CheckServico";
-import FiltroPrice from "@/components/Filtros/FiltroPrice";
+import FiltroPrice from "@/components/Filtros/FiltroTarifa";
 import {
   updateDescription,
   updatePagamento,

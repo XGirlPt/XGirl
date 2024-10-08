@@ -188,6 +188,7 @@ export const updateTag = (tag: any) => ({
   type: UPDATE_TAG,
   payload: tag,
 });
+
 export const updateDescription = (description: any) => ({
   type: UPDATE_DESCRIPTION,
   payload: description,
@@ -203,8 +204,7 @@ export const updateProfiles = (profiles: any) => {
   // Adicione uma verificação para garantir que cada perfil tem um campo photos definido para testes
   const enhancedProfiles = profiles.map((profile: any) => ({
     ...profile,
-    photoURL:
-      "https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/profileFoto/f66101fd-e346-44c8-9cdd-d99d9c01d995/1.3.png", // Substitua "url_da_foto_do_perfil.jpg" pelo URL real da foto do perfil
+    photoURL: profile.photoURL
   }));
   return {
     type: UPDATE_PROFILES,

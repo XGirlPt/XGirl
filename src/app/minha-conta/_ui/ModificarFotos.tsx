@@ -9,10 +9,15 @@ import { createCanvas, loadImage } from "canvas"; // Importe createCanvas e load
 import watermarkImage from "../../../../public/logo.png"; // Importe a imagem da marca d'água
 import Link from "next/link";
 import { BlurImage } from "@/components/BlurImage";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+
 
 interface ModificarFotosProps {
   handleVoltar: () => void;
-  handleGuardar: () => void;
+  // handleGuardar: () => void;
+  
 }
 
 async function addWatermark(
@@ -49,35 +54,33 @@ async function addWatermark(
   }
 }
 
-const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGuardar }) => {
+const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
   const dispatch = useDispatch();
   const photoURLsRedux = useSelector(
     (state: any) => state.profile?.profile.photos
   );
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
-  const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
+  // const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
 
-  useEffect(() => {
-    setSelectedPhotos(photoURLsRedux || []);
-  }, [photoURLsRedux]);
+ 
 
   async function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files.length > 0) {
       const files = Array.from(event.target.files);
       const selected = files.slice(0, 10);
       const uploadedPhotoURLs: string[] = [];
-
+  
       const uploadPromises = selected.map(async (file) => {
         const filePath = `${userUID}/${file.name
           .toLowerCase()
           .replace(/ /g, "_")
           .replace(/\./g, "_")}`;
-
+  
         console.log("filePath", filePath);
         try {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-
+  
           await new Promise<void>((resolve) => {
             reader.onload = async () => {
               const watermarkedURL = await addWatermark(
@@ -87,16 +90,16 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGua
               );
               const watermarkedFile = await fetch(watermarkedURL);
               const blob = await watermarkedFile.blob();
-
+  
               const { data, error } = await supabase.storage
                 .from("profileFoto")
                 .upload(filePath, blob);
               console.log(data, error);
               if (error) throw new Error(error.message);
-
+  
               const publicURLFoto = `https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/profileFoto/${filePath}`;
               uploadedPhotoURLs.push(publicURLFoto);
-
+  
               resolve();
             };
           });
@@ -104,45 +107,83 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGua
           console.error("Erro durante o upload:", error.message);
         }
       });
-
+  
       await Promise.all(uploadPromises);
-      const newSelectedPhotos = [...selectedPhotos, ...uploadedPhotoURLs];
-      setSelectedPhotos(newSelectedPhotos);
-      dispatch(updatePhotos(newSelectedPhotos));
+  
+      // Inserir URLs das fotos na tabela profilephoto
+      const photoInsertionsProfile = uploadedPhotoURLs.map((photoURL) => ({
+        userUID,
+        imageurl: photoURL,
+      }));
+  
+      try {
+        const { data: photoData, error: photoError } = await supabase
+          .from("profilephoto")
+          .insert(photoInsertionsProfile);
+  
+        if (photoError) {
+          throw new Error("Erro ao inserir URLs das fotos na tabela profilephoto: " + photoError.message);
+        }
+  
+        console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", photoData);
+  
+        // Atualizar o Redux com as novas URLs de fotos
+        const newPhotoURLs = [...photoURLsRedux, ...uploadedPhotoURLs];
+        dispatch(updatePhotos(newPhotoURLs));
+  
+      } catch (error: any) {
+        console.error("Erro ao inserir URLs das fotos na tabela:", error.message);
+      }
     }
   }
 
   const handleDeletePhoto = async (index: number) => {
     try {
-      const updatedPhotosArray = [...selectedPhotos];
+      const updatedPhotosArray = [...photoURLsRedux];
+  
+      // Verificar se a foto existe no índice especificado
       if (updatedPhotosArray[index]) {
         const photoURLToDelete = updatedPhotosArray[index];
-        const fileName = photoURLToDelete.split("/").pop();
-        const filePath = `profileFoto/${userUID}/${fileName}`;
-
+        const fileName = photoURLToDelete.split("/").pop(); // Extrai o nome do arquivo da URL
+        
+        if (!fileName) {
+          throw new Error("Nome do arquivo não encontrado no URL.");
+        }
+  
+        const filePath = `${userUID}/${fileName}`; // Usa o fileName para construir o filePath
+  
+        console.log("Tentando deletar do storage com filePath:", filePath);
+  
+        // Remover a foto do storage da Supabase
         const { error: storageError } = await supabase.storage
           .from("profileFoto")
           .remove([filePath]);
-        if (storageError)
-          throw new Error(
-            "Erro ao remover foto do storage: " + storageError.message
-          );
-
+  
+        if (storageError) {
+          console.error("Erro ao deletar do storage:", storageError.message);
+          throw new Error("Erro ao remover foto do storage: " + storageError.message);
+        }
+  
+        console.log("Foto deletada do storage com sucesso:", fileName);
+  
+        // Remover a foto do banco de dados
         const { error: dbError } = await supabase
           .from("profilephoto")
           .delete()
           .match({ imageurl: photoURLToDelete, userUID });
-        if (dbError)
+  
+        if (dbError) {
+          console.error("Erro ao deletar do banco de dados:", dbError.message);
           throw new Error("Erro ao remover foto da tabela: " + dbError.message);
-
+        }
+  
+        console.log("Foto deletada da tabela com sucesso:", photoURLToDelete);
+  
+        // Atualizar o estado do Redux com as fotos restantes
         updatedPhotosArray.splice(index, 1);
-        setSelectedPhotos(updatedPhotosArray);
         dispatch(updatePhotos(updatedPhotosArray));
-
-        console.log(
-          "Foto excluída com sucesso do storage e da tabela:",
-          photoURLToDelete
-        );
+  
+        console.log("Foto excluída com sucesso do storage e da tabela:", photoURLToDelete);
       } else {
         console.error("A foto não existe no índice especificado.");
       }
@@ -151,13 +192,29 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGua
     }
   };
 
+
+  const handleGuardar = () => {
+    // Aqui vai a lógica de salvar as alterações
+    console.log("Fotos guardadas com sucesso!");
+    toast.success('Alteração efetuada com sucesso!', {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });  };
+  
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
       <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
         <div className="p-10">
           <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Gerir Fotos</h2>
           <p className="text-gray-400 mb-6 text-center">Podes adicionar até 10 Fotos</p>
-  
+          <ToastContainer />
           <div className="flex justify-center mb-8">
             <label
               htmlFor="upload-photo"
@@ -181,8 +238,8 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGua
           </div>
   
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.isArray(selectedPhotos) &&
-              selectedPhotos.map((photoURL, index) => (
+          {Array.isArray(photoURLsRedux) &&
+              photoURLsRedux.map((photoURL: string, index: number) => (
                 <div key={index} className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                   <IoTrashBin
                     size={26}
@@ -207,17 +264,17 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar, handleGua
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
-            onClick={handleFileUpload}
+            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
+            onClick={handleGuardar} // Chame a função com o toaster
           >
-            <span>Guardar</span>
+            Guardar
           </button>
         </div>
       </div>
     </div>
   );
   
-  
+ 
   
 
 };

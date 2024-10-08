@@ -1,37 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTarifa } from "../../actions/ProfileActions";
 
-const priceOptions = [
-  { id: 1, name: "Até 50€", unavailable: false },
-  { id: 2, name: "De 50€ a 100€", unavailable: false },
-  { id: 3, name: "De 101€ a 200€", unavailable: false },
-  { id: 4, name: "De 201€ a 500€", unavailable: true },
-  { id: 5, name: "+ 500€", unavailable: false },
+const tarifaOptions = [
+  { id: 1, name: "a partir de 50€", value: 50, unavailable: false },
+  { id: 2, name: "a partir de 100€", value: 100, unavailable: false },
+  { id: 3, name: "a partir de 200€", value: 200, unavailable: false },
+  { id: 4, name: "a partir de 500€", value: 500, unavailable: true },
+  { id: 5, name: "+ 500€", value: 501, unavailable: false },
 ];
 
-interface FiltroPriceProps {
+interface FiltroTarifaProps {
   bgColor?: string;
   buttonPadding?: string;
   rounded?: string;
+  onChange?: (value: string) => void;
+
 }
 
-const FiltroPrice: React.FC<FiltroPriceProps> = ({
+const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
   bgColor = "bg-slate-600",
   buttonPadding = "py-1",
   rounded = "rounded-md",
+  onChange,
 }) => {
+  const dispatch = useDispatch();
+  const tarifaRedux = useSelector((state: any) => state.profile?.profile?.tarifa);
+  console.log("tarifa do redux", tarifaRedux);
+
+  const handleTarifaChange = (newValue: number) => {
+    dispatch(updateTarifa(newValue));
+    if (onChange) {
+      // Caso precise enviar como string em outro lugar
+    }
+  };
+
   return (
+    
     <div className="w-full mb-2 md:mb-4">
       <Listbox
-        onChange={(selectedOption) => {
+        onChange={(selectedOption: any) => {
+          handleTarifaChange(selectedOption.value)
           console.log(selectedOption);
         }}
         // @ts-ignore
-        id="price"
-        name="price"
+        id="tarifa"
+        name="tarifa"
       >
+
+
+        
         {({ open }) => (
           <>
             <div className="relative mt-1">
@@ -39,7 +60,7 @@ const FiltroPrice: React.FC<FiltroPriceProps> = ({
               <Listbox.Button
                 className={`relative w-full mt-1 bg-zinc-700 z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
-                <span className="block truncate">------</span>
+                <span className="block truncate">{tarifaRedux}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <ChevronUpDownIcon
                     className="h-5 w-5 text-pink-800"
@@ -57,11 +78,11 @@ const FiltroPrice: React.FC<FiltroPriceProps> = ({
                 <Listbox.Options
                   static
                   className={`
-                                        absolute mt-1 max-h-60 w-full overflow-auto bg-zinc-700 text-white text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
-                                        ${open ? "block" : "hidden"}
+                  absolute mt-1 max-h-60 w-full overflow-auto bg-zinc-700 text-white text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
+                  ${open ? "block" : "hidden"}
                                     `}
                 >
-                  {priceOptions.map((option, optionIdx) => (
+                  {tarifaOptions.map((option, optionIdx) => (
                     <Listbox.Option
                       key={optionIdx}
                       className={({ active }) =>
@@ -102,4 +123,4 @@ const FiltroPrice: React.FC<FiltroPriceProps> = ({
   );
 };
 
-export default FiltroPrice;
+export default FiltroTarifa;

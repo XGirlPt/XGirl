@@ -68,6 +68,8 @@ const SidebarConta: React.FC<SidebarContaProps> = ({
           <FaCog className="mr-3" />
           Definições
         </button>
+
+        
         <button
           onClick={handleVerPerfil}
           className="flex items-center w-full p-2 rounded-md hover:bg-pink-800 transition-colors"

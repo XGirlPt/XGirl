@@ -145,6 +145,12 @@ const tarifaredux = useSelector((state: any) => state.profile?.profile.tarifa);
 
       console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", photoData);
 
+
+
+
+
+
+      
       // Upload da foto de verificação
       const { data: uploadData, error: uploadError } = await supabase
         .storage
@@ -156,6 +162,15 @@ const tarifaredux = useSelector((state: any) => state.profile?.profile.tarifa);
       }
 
       console.log("Foto de verificação carregada com sucesso:", uploadData);
+
+
+
+
+
+
+
+
+
 
       // Obter o URL da foto de verificação
       const { data: publicURLData, error: publicURLError } = await supabase

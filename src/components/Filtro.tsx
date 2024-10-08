@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LuFilter } from "react-icons/lu";
 import { ImCross } from "react-icons/im";
 import FiltroAge from "./Filtros/FiltroAge";
-import FiltroPrice from "./Filtros/FiltroPrice";
+import FiltroTarifa from "./Filtros/FiltroTarifa";
 import FiltroLingua from "./Filtros/FiltroLingua";
 import FiltroPeito from "./Filtros/FiltroPeito";
 import FiltroMamas from "./Filtros/FiltroMamas";
@@ -36,7 +36,7 @@ const Filtro: React.FC = () => {
             <form className="mt-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <FiltroAge />
-                <FiltroPrice />
+                <FiltroTarifa />
                 <FiltroLingua />
                 <FiltroPelos />
                 <FiltroMamas />

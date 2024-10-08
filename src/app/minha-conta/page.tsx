@@ -7,14 +7,16 @@ import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
-import SideBarConta from '@/components/SideBarConta';
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import SideBarConta from "../../components/SideBarConta"
+
 
 interface MinhaContaProps {}
+
 
 const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);

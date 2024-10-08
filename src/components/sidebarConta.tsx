@@ -1,7 +1,7 @@
 import React from "react";
 import { FaInfoCircle, FaUser, FaCamera, FaCog, FaEye } from "react-icons/fa";
 
-interface SidebarContaProps {
+interface SideBarContaProps {
   handleModificar: () => void;
   showModificar: boolean;
   handleContacto: () => void;
@@ -14,7 +14,7 @@ interface SidebarContaProps {
 
 }
 
-const SidebarConta: React.FC<SidebarContaProps> = ({
+const SideBarConta: React.FC<SideBarContaProps> = ({
   handleModificar,
   showModificar,
   handleContacto,
@@ -85,4 +85,4 @@ const SidebarConta: React.FC<SidebarContaProps> = ({
   );
 };
 
-export default SidebarConta;
+export default SideBarConta;

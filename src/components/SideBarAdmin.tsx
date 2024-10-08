@@ -1,12 +1,12 @@
 import React from "react";
 import { FaUsers, FaCheckCircle, FaTimesCircle, FaUserSlash } from "react-icons/fa";
 
-interface SidebarAdminProps {
+interface SideBarAdminProps {
   setActiveSection: (section: string) => void;
   activeSection: string; // Adicione a prop para saber a seção ativa
 }
 
-const SidebarAdmin: React.FC<SidebarAdminProps> = ({ setActiveSection, activeSection }) => {
+const SideBarAdmin: React.FC<SideBarAdminProps> = ({ setActiveSection, activeSection }) => {
   return (
     <aside className="bg-gray-800 w-64 p-6  shadow-lg fixed h-full">
       <h2 className="text-2xl font-bold text-white mb-6 text-center">Administração</h2>
@@ -68,4 +68,4 @@ const SidebarAdmin: React.FC<SidebarAdminProps> = ({ setActiveSection, activeSec
   );
 };
 
-export default SidebarAdmin;
+export default SideBarAdmin;

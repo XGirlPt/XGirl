@@ -7,7 +7,7 @@ import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
-import SideBarConta from "../../components/SidebarConta";
+import SideBarConta from "@/components/SidebarConta";
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";

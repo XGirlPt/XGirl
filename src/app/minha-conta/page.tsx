@@ -7,7 +7,7 @@ import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
-import SidebarConta from "../../components/SidebarConta";
+import SideBarConta from "../../components/SidebarConta";
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";
@@ -178,7 +178,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
       <div className="flex ">
         {/* Sidebar */}
-        <SidebarConta
+        <SideBarConta
           sidebarOpen={sidebarOpen}
           handleModificar={() => setShowModificar(true)}
           showModificar={showModificar}

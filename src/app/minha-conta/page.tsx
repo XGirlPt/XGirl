@@ -12,7 +12,7 @@ import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-// import SideBarConta from "@/components/SideBarConta";
+import SideBarConta from "@/components/SideBarConta";
 
 
 interface MinhaContaProps {}
@@ -180,7 +180,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
       <div className="flex ">
         {/* Sidebar */}
-        {/* <SideBarConta
+        <SideBarConta
           SideBarOpen={SideBarOpen}
           handleModificar={() => setShowModificar(true)}
           showModificar={showModificar}
@@ -190,7 +190,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           showFotos={showFotos}
           handleDefinicoes={() => {}}
           handleVerPerfil={() => {}}
-        /> */}
+        />
 
         {/* Main Content */}
         <main

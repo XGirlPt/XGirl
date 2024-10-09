@@ -12,7 +12,7 @@ import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "../Definicoes/page";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import SideBarConta from "../../components/SideBarConta"
+import SideBarConta from "@/components/SideBarConta";
 
 
 interface MinhaContaProps {}
@@ -23,7 +23,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showContacto, setShowContacto] = useState(false);
   const [showFotos, setShowFotos] = useState(false);
   const [notificationVisible, setNotificationVisible] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [SideBarOpen, setSideBarOpen] = useState(false);
   const [newTag, setNewTag] = useState<string>("");
   const [certificado, setCertificado] = useState<boolean | null>(null); // Guardar o estado do certificado
 
@@ -181,7 +181,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
       <div className="flex ">
         {/* Sidebar */}
         <SideBarConta
-          sidebarOpen={sidebarOpen}
+          SideBarOpen={SideBarOpen}
           handleModificar={() => setShowModificar(true)}
           showModificar={showModificar}
           handleContacto={() => setShowContacto(true)}
@@ -195,7 +195,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         {/* Main Content */}
         <main
           className={`flex-1 pb-20 transition-all duration-300 ${
-            sidebarOpen ? "ml-64" : ""
+            SideBarOpen ? "ml-64" : ""
           }`}
           style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
         >

@@ -10,7 +10,7 @@ interface SideBarContaProps {
   showFotos: boolean;
   handleDefinicoes: () => void;
   handleVerPerfil: () => void;
-  sidebarOpen: boolean;
+  SideBarOpen: boolean;
 
 }
 
@@ -79,7 +79,6 @@ const SideBarConta: React.FC<SideBarContaProps> = ({
         </button>
       </nav>
       <div className="px-4 py-4 border-t border-gray-700">
-        {/* Add any additional sidebar content here */}
       </div>
     </aside>
   );

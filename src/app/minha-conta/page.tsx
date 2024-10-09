@@ -188,7 +188,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           showContacto={showContacto}
           handleFotos={() => setShowFotos(true)}
           showFotos={showFotos}
-          handleDefinicoes={() => {}}
+          // handleDefinicoes={() => {}}
           handleVerPerfil={() => {}}
         />
 

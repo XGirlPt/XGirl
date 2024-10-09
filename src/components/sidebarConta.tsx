@@ -8,7 +8,7 @@ interface SideBarContaProps {
   showContacto: boolean;
   handleFotos: () => void;
   showFotos: boolean;
-  handleDefinicoes: () => void;
+//   handleDefinicoes: () => void;
   handleVerPerfil: () => void;
   SideBarOpen: boolean;
 
@@ -21,7 +21,7 @@ const SideBarConta: React.FC<SideBarContaProps> = ({
   showContacto,
   handleFotos,
   showFotos,
-  handleDefinicoes,
+//   handleDefinicoes,
   handleVerPerfil,
 }) => {
   return (
@@ -62,7 +62,6 @@ const SideBarConta: React.FC<SideBarContaProps> = ({
           Alterar Fotos
         </button>
         <button
-          onClick={handleDefinicoes}
           className="flex items-center w-full p-2 rounded-md hover:bg-pink-800 transition-colors"
         >
           <FaCog className="mr-3" />

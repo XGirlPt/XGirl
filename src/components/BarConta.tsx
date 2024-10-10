@@ -1,5 +1,14 @@
 import React from "react";
-import { FaInfoCircle, FaUser, FaCamera, FaCog, FaEye } from "react-icons/fa";
+import {
+  FaInfoCircle,
+  FaUser,
+  FaCamera,
+  FaCog,
+  FaEye,
+  FaVideo,
+} from "react-icons/fa";
+import { useRouter } from "next/router"; // Importar useRouter
+
 
 interface BarContaProps {
   handleModificar: () => void;
@@ -8,10 +17,9 @@ interface BarContaProps {
   showContacto: boolean;
   handleFotos: () => void;
   showFotos: boolean;
-//   handleDefinicoes: () => void;
   handleVerPerfil: () => void;
-  BarOpen: boolean;
-
+  handleStories: () => void;
+  showStories: boolean;
 }
 
 const BarConta: React.FC<BarContaProps> = ({
@@ -21,64 +29,83 @@ const BarConta: React.FC<BarContaProps> = ({
   showContacto,
   handleFotos,
   showFotos,
-//   handleDefinicoes,
   handleVerPerfil,
+  handleStories,
+  showStories,
 }) => {
   return (
-    <aside className=" bg-gray-800 p-8 ">
-      {/* <div className="flex items-center justify-center h-screen border-b border-gray-700">
+    <aside className="bg-gradient-to-b from-gray-900 to-gray-700 px-6 mt-10 w-72 shadow-xl flex flex-col ">
+      {/* Logo/Brand Section */}
+      <div className="flex justify-center mb-14">
         <img
           src="/photos/logo1.png"
           alt="logo"
-          className="w-32 h-12 object-contain"
+          className="w-40 h-auto object-contain"
         />
-      </div> */}
-      <nav className="flex-1 px-4 py-6 space-y-2">
+      </div>
+
+      {/* Navigation */}
+      <nav className="space-y-4">
         <button
           onClick={handleModificar}
-          className={`flex items-center w-full p-2 rounded-md hover:bg-pink-700 transition-colors ${
-            showModificar ? "bg-pink-700" : ""
+          className={`flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg ${
+            showModificar ? "bg-pink-500" : "bg-gray-800"
           }`}
         >
-          <FaInfoCircle className="mr-3" />
-          Informações Geraisssssssssss
-        </button>
-        <button
-          onClick={handleContacto}
-          className={`flex items-center w-full p-2 rounded-md hover:bg-pink-700 transition-colors ${
-            showContacto ? "bg-pink-700" : ""
-          }`}
-        >
-          <FaUser className="mr-3" />
-          Outras Informações
-        </button>
-        <button
-          onClick={handleFotos}
-          className={`flex items-center w-full p-2 rounded-md hover:bg-pink-800 transition-colors ${
-            showFotos ? "bg-pink-700" : ""
-          }`}
-        >
-          <FaCamera className="mr-3" />
-          Alterar Fotos
-        </button>
-        <button
-          className="flex items-center w-full p-2 rounded-md hover:bg-pink-800 transition-colors"
-        >
-          <FaCog className="mr-3" />
-          Definições
+          <FaInfoCircle className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Informações</span>
         </button>
 
-        
+        <button
+          onClick={handleContacto}
+          className={`flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg ${
+            showContacto ? "bg-pink-500" : "bg-gray-800"
+          }`}
+        >
+          <FaUser className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Outras Info</span>
+        </button>
+
+        <button
+          onClick={handleFotos}
+          className={`flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg ${
+            showFotos ? "bg-pink-500" : "bg-gray-800"
+          }`}
+        >
+          <FaCamera className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Alterar Fotos</span>
+        </button>
+
+        <button
+          onClick={handleStories}
+          className={`flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg ${
+            showStories ? "bg-pink-500" : "bg-gray-800"
+          }`}
+        >
+          <FaVideo className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Os Meus Stories</span>
+        </button>
+
+        <button className="flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg bg-gray-800">
+          <FaCog className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Definições</span>
+        </button>
+
         <button
           onClick={handleVerPerfil}
-          className="flex items-center w-full p-2 rounded-md hover:bg-pink-800 transition-colors"
+          className="flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg bg-gray-800"
         >
-          <FaEye className="mr-3" />
-          Ver Perfil
+          <FaEye className="text-2xl" />
+          <span className="ml-4 hidden lg:block">Ver Perfil</span>
         </button>
       </nav>
-      <div className="px-4 py-4 border-t border-gray-700">
-      </div>
+
+      {/* Footer */}
+      {/* <div className="mt-6">
+        <button className="flex items-center justify-center w-full p-4 text-sm rounded-xl bg-pink-600 hover:bg-pink-500 text-white shadow-lg transition-all">
+          Logout
+        </button>
+      </div> */}
     </aside>
   );
 };

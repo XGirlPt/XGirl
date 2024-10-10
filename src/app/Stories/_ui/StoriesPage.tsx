@@ -7,9 +7,8 @@ import Footer from "@/components/Footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
 import { Profile } from "@/types";
-import MainCard from "@/components/MainCard";
 
-function GirlsPage() {
+function StoriesPage() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const searchParams = useSearchParams();
@@ -40,11 +39,10 @@ function GirlsPage() {
       </div>
       <CaroselRound profiles={filteredProfiles} />
       <div className="px-36">
-        {/* <CardsGirl profiles={filteredProfiles} /> */}
-        <MainCard  profiles={filteredProfiles}/>
+        <CardsGirl profiles={filteredProfiles} />
       </div>
     </div>
   );
 }
 
-export default GirlsPage;
+export default StoriesPage;

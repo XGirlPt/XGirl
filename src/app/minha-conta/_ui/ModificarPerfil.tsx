@@ -289,133 +289,258 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
 
   // LISTBOX ONCHANGE END
 
+  // return (
+  //   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
+  //     <ToastContainer />
+  
+  //     <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
+  //       <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Modificar Perfil</h2>
+  
+  //       <div className="flex justify-between">
+  //         <div className="flex w-1/2">
+  //           <div className="flex flex-col justify-between w-full mx-6 items-start">
+  //             {/* Nome */}
+  //             <div className="w-full mt-2">
+  //               <p className="text-pink-800 font-semibold">Nome*</p>
+  //               <input
+  //                 className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
+  //                 value={nome}
+  //                 onChange={handleNomeChange}
+  //                 placeholder="Insira seu nome"
+  //               />
+  //             </div>
+  
+  //             {/* Idade */}
+  //             <div className="w-full flex flex-col">
+  //               <div className="flex items-end">
+  //                 <p className="text-pink-800 font-semibold">Idade</p>
+  //                 <p className="text-xs text-green-600 ml-4">Certifica a tua idade e ganha um prémio*</p>
+  //               </div>
+  //               <input
+  //                 className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
+  //                 value={idade}
+  //                 onChange={handleIdadeChange}
+  //                 placeholder="Insira sua idade"
+  //               />
+  //             </div>
+  
+  //             {/* Telefone */}
+  //             <div className="w-full mt-2">
+  //               <p className="text-pink-800 font-semibold">Número de Telefone*</p>
+  //               <input
+  //                 className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
+  //                 value={telefone}
+  //                 onChange={handleTelefoneChange}
+  //                 maxLength={9}
+  //                 placeholder="Insira seu número"
+  //               />
+  //             </div>
+  
+  //             {/* Meio de contacto */}
+  //             <div className="w-full mt-2 gap-4">
+  //               <p className="text-md text-pink-800 font-semibold">Meio de contacto</p>
+  //               <CheckContacto />
+  //             </div>
+  
+  //             {/* FiltroDistrito */}
+  //             <FiltroDistrito
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  
+  //             {/* Cidade */}
+  //             <div className="w-full flex flex-col">
+  //               <div className="flex items-end">
+  //                 <p className="text-pink-800 font-semibold">Cidade</p>
+  //               </div>
+  //               <input
+  //                 className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
+  //                 value={cidade}
+  //                 onChange={handleCidadeChange}
+  //                 placeholder="Insira sua cidade"
+  //               />
+  //             </div>
+  
+  //             {/* FiltroOrigem */}
+  //             <FiltroOrigem
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //           </div>
+  //         </div>
+  
+  //         {/* Coluna direita */}
+  //         <div className="flex w-1/2 mt-4">
+  //           <div className="flex flex-col justify-between w-full mx-6 items-start">
+  //             <FiltroAltura
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //               onChange={handleAlturaChange}
+  //             />
+  //             <FiltroCorpo
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //             <FiltroOlhos
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //             <FiltroMamas
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //               onChange={handleMamasChange}
+  //             />
+  //             <FiltroPeito
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //             <FiltroPelos
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //             <FiltroTatuagem
+  //               rounded="rounded-md"
+  //               buttonPadding={`py-2`}
+  //               bgColor={"bg-slate-600"}
+  //             />
+  //           </div>
+  //         </div>
+  //       </div>
+  
+        // <div className="flex justify-between items-center px-8 py-4 bg-[#1E2427] rounded-b-3xl">
+        //   <button
+        //     className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
+        //     onClick={handleVoltar}
+        //   >
+        //     <span>Voltar</span>
+        //   </button>
+        //   <button
+        //     className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
+        //     onClick={handleGuardar}
+        //   >
+        //     <span>Guardar</span>
+        //   </button>
+        // </div>
+  //     </div>
+  //   </div>
+  // );
+  
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <ToastContainer />
-  
-      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
-        <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Modificar Perfil</h2>
-  
-        <div className="flex justify-between">
-          <div className="flex w-1/2">
-            <div className="flex flex-col justify-between w-full mx-6 items-start">
-              {/* Nome */}
-              <div className="w-full mt-2">
-                <p className="text-pink-800 font-semibold">Nome*</p>
-                <input
-                  className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
-                  value={nome}
-                  onChange={handleNomeChange}
-                  placeholder="Insira seu nome"
-                />
-              </div>
-  
-              {/* Idade */}
-              <div className="w-full flex flex-col">
-                <div className="flex items-end">
-                  <p className="text-pink-800 font-semibold">Idade</p>
-                  <p className="text-xs text-green-600 ml-4">Certifica a tua idade e ganha um prémio*</p>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-75 backdrop-blur-md">
+      <div className="max-w-screen-lg mx-auto shadow-xl w-full">
+        <div className="bg-gradient-to-b from-gray-900 to-gray-700 w-full h-full mb-10 mt-0 border border-zinc-600 rounded-xl p-10">
+          <div className="flex justify-between">
+            <div className="flex w-1/2">
+              <div className="flex flex-col justify-around w-full mx-6 items-start">
+                <div className="w-full mt-2">
+                  <p className="text-pink-800">Nome*</p>
+                  <input
+                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    value={nome}
+                    onChange={handleNomeChange}
+                  />
                 </div>
-                <input
-                  className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
-                  value={idade}
-                  onChange={handleIdadeChange}
-                  placeholder="Insira sua idade"
-                />
-              </div>
-  
-              {/* Telefone */}
-              <div className="w-full mt-2">
-                <p className="text-pink-800 font-semibold">Número de Telefone*</p>
-                <input
-                  className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
-                  value={telefone}
-                  onChange={handleTelefoneChange}
-                  maxLength={9}
-                  placeholder="Insira seu número"
-                />
-              </div>
-  
-              {/* Meio de contacto */}
-              <div className="w-full mt-2 gap-4">
-                <p className="text-md text-pink-800 font-semibold">Meio de contacto</p>
-                <CheckContacto />
-              </div>
-  
-              {/* FiltroDistrito */}
-              <FiltroDistrito
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-  
-              {/* Cidade */}
-              <div className="w-full flex flex-col">
-                <div className="flex items-end">
-                  <p className="text-pink-800 font-semibold">Cidade</p>
+                <div className="w-full flex flex-col">
+                  <div className="flex items-end">
+                    <p className="text-pink-800">Idade</p>
+                    <p className="text-xs text-green-600 ml-4">
+                      Certifica a tua idade e ganha um prémio*
+                    </p>
+                  </div>
+                  <input
+                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    value={idade}
+                    onChange={handleIdadeChange}
+                  />
                 </div>
-                <input
-                  className="py-2 px-3 w-full mt-1 bg-slate-600 text-white rounded-md text-sm border border-zinc-500 focus:outline-none focus:ring-2 focus:ring-pink-600 transition"
-                  value={cidade}
-                  onChange={handleCidadeChange}
-                  placeholder="Insira sua cidade"
+                <div className="w-full mt-2">
+                  <p className="text-pink-800">Numero de Telefone*</p>
+                  <input
+                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    value={telefone}
+                    onChange={handleTelefoneChange}
+                    maxLength={9}
+                  />
+                </div>
+                <div className="w-full mt-2 gap-4">
+                  <p className="text-md text-pink-800">Meio de contacto</p>
+                  <CheckContacto />
+                </div>
+                <FiltroDistrito
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+                <div className="w-full flex flex-col">
+                  <div className="flex items-end">
+                    <p className="text-pink-800">Cidade</p>
+                  </div>
+                  <input
+                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    value={cidade}
+                    onChange={handleCidadeChange}
+                  />
+                </div>
+                <FiltroOrigem
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
                 />
               </div>
-  
-              {/* FiltroOrigem */}
-              <FiltroOrigem
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
+            </div>
+
+            <div className="flex w-1/2 mt-4">
+              <div className="flex flex-col justify-around w-full mx-6 items-start">
+                <FiltroAltura
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                  onChange={handleAlturaChange}
+                />
+                <FiltroCorpo
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+                <FiltroOlhos
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+                <FiltroMamas
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                  onChange={handleMamasChange}
+                />
+                <FiltroPeito
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+                <FiltroPelos
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+                <FiltroTatuagem
+                  rounded="rounded-sm"
+                  buttonPadding={`py-${2}`}
+                  bgColor={"bg-slate-600"}
+                />
+              </div>
             </div>
           </div>
-  
-          {/* Coluna direita */}
-          <div className="flex w-1/2 mt-4">
-            <div className="flex flex-col justify-between w-full mx-6 items-start">
-              <FiltroAltura
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-                onChange={handleAlturaChange}
-              />
-              <FiltroCorpo
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-              <FiltroOlhos
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-              <FiltroMamas
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-                onChange={handleMamasChange}
-              />
-              <FiltroPeito
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-              <FiltroPelos
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-              <FiltroTatuagem
-                rounded="rounded-md"
-                buttonPadding={`py-2`}
-                bgColor={"bg-slate-600"}
-              />
-            </div>
-          </div>
-        </div>
-  
-        <div className="flex justify-between items-center px-8 py-4 bg-[#1E2427] rounded-b-3xl">
+
+          <div className="flex justify-between items-center px-8 py-4 bg-[#1E2427] rounded-b-3xl">
           <button
             className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
             onClick={handleVoltar}
@@ -429,9 +554,12 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
             <span>Guardar</span>
           </button>
         </div>
+          </div>
+        </div>
       </div>
-    </div>
+
   );
+
   
   
 };

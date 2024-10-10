@@ -152,12 +152,12 @@ const Login = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex  justify-center mt-10 min-h-screen bg-black text-white">
+    <div className="flex justify-center mt-16  bg-black text-white">
       <div className="w-full max-w-md p-8 bg-zinc-900 rounded-lg shadow-lg h-1/3">
         <h1 className="text-pink-800 text-3xl font-bold mb-6 text-center">
           Conecta-te ao X-Girl
         </h1>
-  
+   
         <div className="mb-6">
           <label className="block text-pink-800 text-sm font-semibold mb-2" htmlFor="email">
             Email*

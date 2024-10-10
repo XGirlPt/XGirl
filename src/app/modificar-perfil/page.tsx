@@ -265,15 +265,15 @@ const ModificarPerfil = () => {
 
   return (
     <div className="fixed w-full h-full flex items-center justify-center z-50 bg-opacity-75 backdrop-blur-md">
-      <div className="max-w-screen-lg mx-auto shadow-md w-full">
-        <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-xl p-10">
+      <div className="max-w-screen-lg mx-auto shadow-xl w-full">
+        <div className="bg-gradient-to-b from-gray-900 to-gray-700 w-full h-full mb-10 mt-0 border border-zinc-600 rounded-xl p-10">
           <div className="flex justify-between">
             <div className="flex w-1/2">
               <div className="flex flex-col justify-around w-full mx-6 items-start">
                 <div className="w-full mt-2">
                   <p className="text-pink-800">Nome*</p>
                   <input
-                    className="py-2 px-2 w-full mt- bg-slate-600 text-white rounded-sm text-sm"
+                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
                     value={nome}
                     onChange={handleNomeChange}
                   />

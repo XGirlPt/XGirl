@@ -434,10 +434,13 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
   // );
   
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-75 backdrop-blur-md">
-      <div className="max-w-screen-lg mx-auto shadow-xl w-full">
-        <div className="bg-gradient-to-b from-gray-900 to-gray-700 w-full h-full mb-10 mt-0 border border-zinc-600 rounded-xl p-10">
-          <div className="flex justify-between">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
+      <div className="p-10 flex-grow">
+      <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">
+            Informacoes Gerais
+          </h2>
+      <div className="flex ">
             <div className="flex w-1/2">
               <div className="flex flex-col justify-around w-full mx-6 items-start">
                 <div className="w-full mt-2">
@@ -540,7 +543,9 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
             </div>
           </div>
 
-          <div className="flex justify-between items-center px-8 py-4 bg-[#1E2427] rounded-b-3xl">
+         
+          </div>
+          <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
           <button
             className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
             onClick={handleVoltar}
@@ -548,13 +553,12 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
+            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
             onClick={handleGuardar}
           >
-            <span>Guardar</span>
+            Guardar
           </button>
         </div>
-          </div>
         </div>
       </div>
 

@@ -58,8 +58,8 @@ const CheckLinguas: React.FC = () => {
 
   return (
     <div>
-      <FormGroup className="text-xs bg-[#1E2427] items-bottom gap-0">
-        <div className="grid grid-cols-3 text-xs bg-[#1E2427] items-bottom">
+      <FormGroup className="text-xs  items-bottom gap-0">
+        <div className="grid grid-cols-3 text-xs items-bottom">
           {Object.entries(checkboxes).map(([key, value]) => (
             <div key={key}>
               <FormControlLabel

@@ -9,7 +9,7 @@ import ModificarFotos from "./_ui/ModificarFotos";
 import { BlurImage } from "@/components/BlurImage";
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
-import Definicoes from "../Definicoes/page";
+import Definicoes from "./_ui/Definicoes";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import BarConta from "@/components/BarConta";

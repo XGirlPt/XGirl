@@ -14,8 +14,8 @@ import CheckServico from "@/components/Register/CheckServico";
 import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 import { updateProfileData } from "@/services/profileService";
 import dynamic from "next/dynamic";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FroalaEditor = dynamic(() => import("react-froala-wysiwyg"), {
   ssr: false,
@@ -88,16 +88,11 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     }
   }, [linguaRedux]);
 
- 
-
   useEffect(() => {
     if (servicoRedux) {
       setSelectedServico(servicoRedux);
     }
   }, [servicoRedux]);
-
-
-
 
   const handlePaymentChange = (updatedPagamento: string[]) => {
     dispatch(updatePagamento(updatedPagamento));
@@ -139,7 +134,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
     try {
       const response = await updateProfileData(dataToUpdate, userUID);
-      toast.success('Alteração efetuada com sucesso!', {
+      toast.success("Alteração efetuada com sucesso!", {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,
@@ -153,14 +148,13 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
       dispatch(updateLingua(selectedLingua));
       dispatch(updateServico(selectedServico));
       dispatch(updateDescription(description));
-      dispatch(updateTarifa(selectedTarifa))
-      // onClose();
+      dispatch(updateTarifa(selectedTarifa));
       console.log(
         "Informações de contato atualizadas com sucesso na base de dados!"
       );
     } catch (error: any) {
       console.error("Erro ao atualizar perfil na base de dados:" + error);
-      toast.error('Erro ao atualizar perfil na base de dados: ' + error, {
+      toast.error("Erro ao atualizar perfil na base de dados: " + error, {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,
@@ -170,42 +164,43 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
         progress: undefined,
         theme: "dark",
       });
-      console.error(
-        "Erro ao atualizar informações de contato na base de dados:",
-        error.message
-      );
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
       <ToastContainer />
-      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
+      <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
         <div className="p-10">
-          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Modificar Perfil</h2>
-  
+          <h2 className="text-5xl text-pink-500 mb-8 font-bold text-center">
+            Modificar Perfil
+          </h2>
+
           <div className="flex flex-col mb-6">
-            <div className="w-44 mb-4">
+            <div className="w-44 mb-6">
               <FiltroTarifa />
             </div>
-            <p className="text-md text-pink-800 font-semibold">Meio de contacto</p>
+
             <div className="w-full mt-2">
-              <p className="text-md text-pink-800 font-semibold">Meios de Pagamento</p>
+              <p className="text-lg text-pink-400 font-semibold mb-2">Meios de Pagamento</p>
               <CheckPagamento />
             </div>
+
             <div className="w-full mt-4">
-              <p className="text-md text-pink-800 font-semibold">Linguas</p>
+              <p className="text-lg text-pink-400 font-semibold mb-2">Línguas</p>
               <CheckLinguas />
             </div>
+
             <div className="w-full mt-4">
-              <p className="text-md text-pink-800 font-semibold">Servicos</p>
+              <p className="text-lg text-pink-400 font-semibold mb-2">Serviços</p>
               <CheckServico
                 selectedServico={selectedServico}
                 setSelectedServico={setSelectedServico}
               />
             </div>
+
             <div className="w-full mt-4">
-              <p className="text-md text-pink-800 font-semibold">Descrição</p>
+              <p className="text-lg text-pink-400 font-semibold mb-2">Descrição</p>
               <FroalaEditor
                 id="editor"
                 config={{
@@ -227,8 +222,8 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
             </div>
           </div>
         </div>
-  
-        <div className="flex justify-between items-center px-8 py-4 bg-[#2A2D32] rounded-b-3xl">
+
+        <div className="flex justify-between items-end px-8 py-6 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
           <button
             className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
             onClick={handleVoltar}
@@ -236,18 +231,15 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 flex items-center space-x-2"
+            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
             onClick={handleGuardar}
           >
-            <span>Guardar</span>
+            Guardar
           </button>
         </div>
       </div>
     </div>
   );
-  
-  
-  
 };
 
 export default ModificarContacto;

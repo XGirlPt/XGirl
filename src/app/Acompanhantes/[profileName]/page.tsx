@@ -18,6 +18,8 @@ import { useParams } from "next/navigation";
 import { Profile } from "@/types";
 import { BlurImage } from "@/components/BlurImage";
 import Image from 'next/image';
+import { useDispatch, useSelector } from "react-redux";
+
 
 
 function UserProfile() {
@@ -41,7 +43,21 @@ function UserProfile() {
   const [thumbnails, setThumbnails] = useState<string[]>([]);
 
 
+  const userUID = useSelector((state: any) => state.profile?.profile.userUID);
+console.log("uid", userUID)
 
+const photoURLsRedux = useSelector(
+  (state: any) => state.profile?.profile.photos
+);
+console.log("fotos redux", photoURLsRedux)
+
+const storyURLsRedux = useSelector(
+  (state: any) => state.profile?.profile.stories);
+console.log("stories redux", storyURLsRedux);
+
+const storiesRDX = selectedProfile?.storyURL
+console.log("stories RDX", storiesRDX)
+  
   const fetchProfiles = async () => {
     try {
       const { data, error } = await supabase
@@ -161,72 +177,6 @@ function UserProfile() {
   console.log("Foto URLs:", selectedProfile?.photoURL);
   console.log("Selected Profile:", selectedProfile);
 
-  const getVideoThumbnail = async (videoSrc: string): Promise<string | null> => {
-    return new Promise((resolve) => {
-        const video = document.createElement("video");
-        video.src = videoSrc;
-        video.currentTime = 1; // Pega um frame no primeiro segundo
-
-        video.addEventListener("loadeddata", () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = 160; // Defina a largura do thumbnail
-            canvas.height = 90;  // Defina a altura do thumbnail
-            const ctx = canvas.getContext("2d");
-
-            if (ctx) {
-                // Desenhe o frame do vídeo no canvas
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const thumbnail = canvas.toDataURL("image/jpeg");
-                resolve(thumbnail);  // Retorna o thumbnail gerado
-            } else {
-                resolve(null);
-            }
-        });
-
-        video.addEventListener("error", () => {
-            resolve(null); // Retorna null em caso de erro
-        });
-
-        video.load(); // Carrega o vídeo
-    });
-    
-};
-
-useEffect(() => {
-    const fetchThumbnails = async () => {
-        if (selectedProfile && selectedProfile.storyURL) {
-            const thmbs = await Promise.all(
-                selectedProfile.storyURL.map(async (media: string) => {
-                    console.log(`Processing media: ${media}`);
-                    
-                    try {
-                        if (media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm")) {
-                            const thumbnail = await getVideoThumbnail(media);
-                            console.log(`Thumbnail generated for: ${media}`);
-                            return thumbnail;
-                        } else {
-                            console.log(`Skipping non-video media: ${media}`);
-                            return null; // Ignorar se não for vídeo
-
-                        }
-                    } catch (error) {
-                        console.error(`Error generating thumbnail for media: ${media}`, error);
-                        return null;
-                    }
-                })
-            );
-
-            const validThumbnails = thmbs.filter((thumbnail): thumbnail is string => thumbnail !== null);
-            setThumbnails(validThumbnails);
-        }
-    };
-
-    fetchThumbnails();
-}, [selectedProfile]);
-
-
-
-
 
   return (
     <>
@@ -319,15 +269,14 @@ useEffect(() => {
                 </div>
               </div>
             ) : (
-              <Image
-                src={media}
-                alt={`Story ${index + 1}`}
-                className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
-                onClick={() => handleStoryClick(index)}
-                width={300}
-                height={200}
-                priority={index === 0}
-              />
+              <video
+              src={media}
+              className="relative w-24 h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105 "
+              onClick={() => handleStoryClick(index)}
+              controls={false}
+              muted
+              playsInline
+            />
             )}
           </div>
         );

@@ -32,10 +32,10 @@ import {
 
 
   UPDATE_PHOTOS,
-  UPDATE_STORY,
+  UPDATE_STORIES,
 
   UPDATE_VERIFICATION_PHOTO,
-  SET_PHOTO_URL_V,
+
 
   UPDATE_PROFILES,
   SET_SELECTED_PROFILE,
@@ -243,7 +243,7 @@ interface UpdatePhotosAction {
 }
 
 interface UpdateStoriesAction {
-  type: typeof UPDATE_STORY;
+  type: typeof UPDATE_STORIES;
   payload: string[];
 }
 
@@ -254,7 +254,7 @@ interface UpdateProfilesAction {
 
 interface SetSelectedProfileAction {
   type: typeof SET_SELECTED_PROFILE;
-  payload: string;
+  payload: Profile;
 }
 
 
@@ -601,32 +601,37 @@ const rootReducer = (
         },
       };
 
-    case UPDATE_PROFILES:
-      console.log("Recebendo perfis para atualização:", action.payload);
+  case UPDATE_STORIES:
       return {
         ...state,
-        profiles: action.payload.map((profile) => ({
-          ...profile,
-
-          photoURL:
-            profile.photoURL,
-
-            storyURL:
-            profile.storyURL
-
-        })),
-      };
-
-     
-    case SET_SELECTED_PROFILE:
-      return {
-        ...state,
-        selectedProfile: {
-          ...action.payload,
-          photoURL: action.payload.photos[0],
-          storyURL: action.payload.stories[0],
+        profile: {
+          ...state.profile,
+          stories: action.payload,
         },
       };
+
+
+      case UPDATE_PROFILES:
+        console.log("Recebendo perfis para atualização:", action.payload);
+        return {
+          ...state,
+          profiles: action.payload.map((profile) => ({
+            ...profile,
+            photoURL: profile.photoURL || "",  // Garante que photoURL tenha um valor
+            storyURL: profile.storyURL || "",  // Garante que storyURL tenha um valor
+          })),
+        };
+      
+      // Define o perfil selecionado com verificação de photos e stories
+      case SET_SELECTED_PROFILE:
+        return {
+          ...state,
+          selectedProfile: {
+            ...action.payload,
+            photoURL: action.payload.photos?.[0] || "",  // Verifica se photos existe e tem pelo menos um item
+            storyURL: action.payload.stories?.[0] || "",  // Verifica se stories existe e tem pelo menos um item
+          },
+        };
   
       case UPDATE_VERIFICATION_PHOTO:
         return {

@@ -8,7 +8,7 @@ import { updatePhotos } from "@/actions/ProfileActions";
 import { createCanvas, loadImage } from "canvas"; // Importe createCanvas e loadImage usando 'import'
 import watermarkImage from "../../../../public/logo.png"; // Importe a imagem da marca d'água
 import Link from "next/link";
-// import { BlurImage } from "@/components/BlurImage";
+import { BlurImage } from "@/components/BlurImage";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
@@ -59,6 +59,8 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
   const photoURLsRedux = useSelector(
     (state: any) => state.profile?.profile.photos
   );
+console.log("fotos redux", photoURLsRedux)
+
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
   // const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
 
@@ -208,17 +210,14 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
     });  };
   
 
-    return (
-      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
-        <div className="p-10 flex-grow">
-          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">
-            Gerir Fotos
-          </h2>
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
+      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
+        <div className="p-10">
+          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Gerir Fotos</h2>
           <p className="text-gray-400 mb-6 text-center">Podes adicionar até 10 Fotos</p>
           <ToastContainer />
-    
-          <div className="flex justify-center mb-8 space-x-4">
+          <div className="flex justify-center mb-8">
             <label
               htmlFor="upload-photo"
               className="text-white bg-green-500 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-green-400 hover:shadow-xl flex items-center space-x-2 cursor-pointer"
@@ -234,31 +233,32 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
             </label>
             <Link
               href="/registo-contacto"
-              className="text-white bg-gray-600 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 hover:shadow-xl flex items-center space-x-2"
+              className="text-white bg-gray-600 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 hover:shadow-xl flex items-center space-x-2 ml-4"
             >
               <span>? Regras</span>
             </Link>
           </div>
-    
+  
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.isArray(photoURLsRedux) &&
+          {Array.isArray(photoURLsRedux) &&
               photoURLsRedux.map((photoURL: string, index: number) => (
-                <div
-                  key={index}
-                  className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
-                >
+                <div key={index} className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105">
                   <IoTrashBin
                     size={26}
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
                     onClick={() => handleDeletePhoto(index)}
                   />
-                
+                  <BlurImage
+                    src={photoURL}
+                    alt={`Foto ${index}`}
+                    className="w-full h-32 object-cover rounded-lg border border-gray-600"
+                  />
                 </div>
               ))}
           </div>
         </div>
-    
-        <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
+  
+        <div className="flex justify-between items-center px-8 py-4 bg-[#2A2D32] rounded-b-3xl">
           <button
             className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
             onClick={handleVoltar}
@@ -267,15 +267,14 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
           </button>
           <button
             className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
-            onClick={handleGuardar}
+            onClick={handleGuardar} // Chame a função com o toaster
           >
             Guardar
           </button>
         </div>
       </div>
     </div>
-    
-    );
+  );
   
  
   

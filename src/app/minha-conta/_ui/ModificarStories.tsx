@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import supabase from "@/database/supabase";
 import { IoTrashBin } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { updateStory } from "@/actions/ProfileActions";
+import { updateStories } from "@/actions/ProfileActions";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
+import { BlurImage } from "@/components/BlurImage";
+import { Profile } from "@/types";
+import  LoaderBar  from "@/components/LoaderBar";
+
 
 
 interface ModificarStoriesProps {
@@ -17,14 +21,58 @@ interface ModificarStoriesProps {
 
 const ModificarStories: React.FC<ModificarStoriesProps> = ({ handleVoltar }) => {
   const dispatch = useDispatch();
-  const storiesURLsRedux = useSelector(
-    (state: any) => state.profile?.profile.stories
-  );
-  console.log(storiesURLsRedux);
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
+
+
+
+  const storyURLsRedux = useSelector(
+    (state: any) => state.profile?.profile.stories);
+  console.log("stories redux", storyURLsRedux);
+
+
+const storiesRDX = selectedProfile?.storyURL
+console.log("stories RDX", storiesRDX)
+
+  useEffect(() => {
+    console.log("photoURLsRedux atualizado:", storyURLsRedux);
+  }, [storyURLsRedux]);
 
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
 
+  useEffect(() => {
+    const fetchStories = async () => {
+      setLoading(true);
+      try {
+        const { data: storyData, error: storyError } = await supabase
+          .from("stories")
+          .select("*")
+          .eq("userUID", userUID);
+  
+        if (storyError) throw new Error(storyError.message);
+  
+        console.log("Stories recuperadas", storyData);
+        
+        // Atualize o estado Redux com as stories recuperadas
+        if (storyData) {
+          dispatch(updateStories(storyData.map((story) => story.storyurl))); // Aqui você chama o dispatch
+        }
+      } catch (error) {
+        console.error("Erro ao buscar stories:", error.message);
+      }   finally {
+        setLoading(false); // Desativa o loading ao final da operação
+      }
+    };
+  
+    if (userUID) {
+      fetchStories(); // Chame a função para buscar as histórias apenas se o userUID estiver definido
+    }
+  }, [userUID, dispatch]);
+
+
   async function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    setLoading(true); // Ativa o loading
+
     if (event.target.files && event.target.files.length > 0) {
       const files = Array.from(event.target.files);
       const selected = files.slice(0, 10);
@@ -48,6 +96,9 @@ const ModificarStories: React.FC<ModificarStoriesProps> = ({ handleVoltar }) => 
           uploadedStoryURLs.push(publicURLStory);
         } catch (error: any) {
           console.error("Erro durante o upload:", error.message);
+        } 
+        finally {
+          setLoading(false); // Desativa o loading
         }
       });
 
@@ -67,8 +118,10 @@ const ModificarStories: React.FC<ModificarStoriesProps> = ({ handleVoltar }) => 
           throw new Error("Erro ao inserir URLs das stories na tabela stories: " + storyError.message);
         }
 
-        const newStoryURLs = [...(Array.isArray(storiesURLsRedux) ? storiesURLsRedux : []), ...uploadedStoryURLs];
-dispatch(updateStory(newStoryURLs));
+        const newStoryURLs = [...storyURLsRedux, ...uploadedStoryURLs];
+
+
+        dispatch(updateStories(newStoryURLs));
       } catch (error: any) {
         console.error("Erro ao inserir URLs das stories na tabela:", error.message);
       }
@@ -77,7 +130,7 @@ dispatch(updateStory(newStoryURLs));
   
   const handleDeleteStory = async (index: number) => {
     try {
-      const updatedStoriesArray = [...storiesURLsRedux];
+      const updatedStoriesArray = [...storyURLsRedux];
 
       if (updatedStoriesArray[index]) {
         const StoryURLToDelete = updatedStoriesArray[index];
@@ -103,7 +156,7 @@ dispatch(updateStory(newStoryURLs));
         const { error: dbError } = await supabase
           .from("stories")
           .delete()
-          .match({ imageurl: StoryURLToDelete, userUID });
+          .match({ storyurl: StoryURLToDelete, userUID });
 
         if (dbError) {
           console.error("Erro ao deletar do banco de dados:", dbError.message);
@@ -111,7 +164,7 @@ dispatch(updateStory(newStoryURLs));
         }
 
         updatedStoriesArray.splice(index, 1);
-        dispatch(updateStory(updatedStoriesArray));
+        dispatch(updateStories(updatedStoriesArray));
 
         console.log("stories excluída com sucesso do storage e da tabela:", StoryURLToDelete);
       } else {
@@ -121,6 +174,8 @@ dispatch(updateStory(newStoryURLs));
       console.error("Erro ao excluir stories:", error.message);
     }
   };
+
+
 
   const handleGuardar = () => {
     console.log("stories guardadas com sucesso!");
@@ -138,6 +193,8 @@ dispatch(updateStory(newStoryURLs));
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
+         {loading && <LoaderBar />} {/* Renderiza o loader se estiver carregando */}
+
       <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
         <div className="p-10 flex-grow">
           <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">
@@ -170,21 +227,28 @@ dispatch(updateStory(newStoryURLs));
           </div>
     
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {Array.isArray(storiesURLsRedux) &&
-              storiesURLsRedux.map((storyURL: string, index: number) => (
-                <div
-                  key={index}
-                  className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
-                >
-                  <IoTrashBin
-                    size={26}
-                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
-                    onClick={() => handleDeleteStory(index)}
-                  />
-                
-                </div>
-              ))}
-          </div>
+  {Array.isArray(storyURLsRedux) &&
+    storyURLsRedux.map((storyURL: string, index: number) => (
+      <div
+        key={index}
+        className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
+      >
+        <IoTrashBin
+          size={26}
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
+          onClick={() => handleDeleteStory(index)}
+        />
+        <video
+          src={storyURL}
+          className="w-full h-32 object-cover rounded-lg border border-gray-600"
+          controls={false}
+          muted
+          playsInline
+           // Definir uma imagem de placeholder ou deixar o poster automático.
+        />
+      </div>
+    ))}
+</div>
         </div>
     
         <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">

@@ -19,7 +19,7 @@ export const UPDATE_PELOS = "UPDATE_PELOS";
 export const UPDATE_DISTRITO = "UPDATE_DISTRITO";
 
 export const UPDATE_PHOTOS = "UPDATE_PHOTOS";
-export const UPDATE_STORY = "UPDATE_STORY";
+export const UPDATE_STORIES = "UPDATE_STORIES";
 
 
 export const UPDATE_TARIFA = "UPDATE_TARIFA";
@@ -165,8 +165,8 @@ export const updatePhotos = (photos: any) => ({
 });
 
 
-export const updateStory = (stories: any) => ({
-  type: UPDATE_STORY,
+export const updateStories = (stories: any) => ({
+  type: UPDATE_STORIES,
   payload: stories,
 });
 

@@ -21,15 +21,15 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
   const linguasRedux = useSelector(
     (state: any) => state.profile && state.profile.lingua
   );
-  console.log("Linguas Redux", linguasRedux);
+  // console.log("Linguas Redux", linguasRedux);
 
   const linguaCheckboxes = useSelector(
     (state: any) => state.profile.linguaCheckboxes
   );
-  console.log("Lingua Checkboxes", linguaCheckboxes);
+  // console.log("Lingua Checkboxes", linguaCheckboxes);
 
   const lingua = selectedProfile?.lingua;
-  console.log("Lingua", lingua);
+  // console.log("Lingua", lingua);
 
   return (
     <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-zinc-700 rounded-3xl">

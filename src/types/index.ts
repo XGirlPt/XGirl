@@ -3,6 +3,7 @@ export interface Profile {
   nome: string;
   photos: string[];
   photoURL: string[];
+  storyURL: string[];
   userUID?: string;
   description?: string;
   localidade?: string;

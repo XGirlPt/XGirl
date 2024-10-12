@@ -56,7 +56,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
   };
 
   useEffect(() => {
-    console.log("useEffect chamado. selectedProfile:", selectedProfile);
+    // console.log("useEffect chamado. selectedProfile:", selectedProfile);
 
     // Recalcular o tempo decorrido sempre que `tagTimestamp` mudar
     if (selectedProfile?.tagtimestamp) {

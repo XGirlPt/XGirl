@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import { ImCross } from "react-icons/im";
 
+
 interface Profile {
   photoURL: string[];
 }
+
 
 interface FotoBigProps {
   selectedProfile: Profile;
@@ -19,6 +21,7 @@ const FotoBig: React.FC<FotoBigProps> = ({
 }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(currentIndex);
   const totalPhotos = selectedProfile?.photoURL.length;
+  console.log("totalPhotos", totalPhotos)
 
   const nextPhoto = () => {
     setCurrentPhotoIndex((currentPhotoIndex + 1) % totalPhotos);
@@ -27,6 +30,10 @@ const FotoBig: React.FC<FotoBigProps> = ({
   const prevPhoto = () => {
     setCurrentPhotoIndex((currentPhotoIndex - 1 + totalPhotos) % totalPhotos);
   };
+
+  console.log("selectedProfile", selectedProfile?.photoURL)
+
+console.log("currentPhotoIndex", currentPhotoIndex)
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">

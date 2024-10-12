@@ -8,7 +8,7 @@ import { updatePhotos } from "@/actions/ProfileActions";
 import { createCanvas, loadImage } from "canvas"; // Importe createCanvas e loadImage usando 'import'
 import watermarkImage from "../../../../public/logo.png"; // Importe a imagem da marca d'água
 import Link from "next/link";
-import { BlurImage } from "@/components/BlurImage";
+// import { BlurImage } from "@/components/BlurImage";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
@@ -252,11 +252,7 @@ const ModificarFotos: React.FC<ModificarFotosProps> = ({ handleVoltar }) => {
                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
                     onClick={() => handleDeletePhoto(index)}
                   />
-                  <BlurImage
-                    src={photoURL}
-                    alt={`Foto ${index}`}
-                    className="w-full h-32 object-cover rounded-lg border border-gray-600"
-                  />
+                
                 </div>
               ))}
           </div>

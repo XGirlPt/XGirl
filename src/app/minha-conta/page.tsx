@@ -6,6 +6,7 @@ import supabase from "@/database/supabase";
 import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
+import ModificarStories from "./_ui/ModificarStories";
 import { BlurImage } from "@/components/BlurImage";
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
@@ -22,6 +23,8 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
   const [showContacto, setShowContacto] = useState(false);
   const [showFotos, setShowFotos] = useState(false);
+  const [showStories, setShowStories] = useState(false);
+
   const [notificationVisible, setNotificationVisible] = useState(true);
   const [BarOpen, setBarOpen] = useState(false);
   const [newTag, setNewTag] = useState<string>("");
@@ -47,14 +50,12 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     setShowModificar(false);
     setShowContacto(false);
     setShowFotos(false);
+    setShowStories(false)
   };
 
 
   const [activeContent, setActiveContent] = useState("minhaConta");
 
-  const handleDefinicoes = () => {
-    setActiveContent("definicoes"); // Altera o conteúdo para definições
-  };
 
   // New function to handle updating the tag
   const handleAtualizarEstado = async () => {
@@ -190,6 +191,8 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           showFotos={showFotos}
           // handleDefinicoes={() => {}}
           handleVerPerfil={() => {}}
+          handleStories={() => setShowStories(true)}
+          showStories={showStories}
         />
 
         {/* Main Content */}
@@ -265,15 +268,22 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                   onClose={() => setShowModificar(false)}
                 />
               )}
+
               {showContacto && (
                 <ModificarContacto
                   handleVoltar={handleVoltar}
                   onClose={() => setShowContacto(false)}
                 />
               )} 
-              {showFotos && <ModificarFotos      
- handleVoltar={handleVoltar} />}
-              {!showModificar && !showContacto && !showFotos && (
+
+
+              {showFotos && <ModificarFotos    
+                handleVoltar={handleVoltar} />}
+
+              {showStories && <ModificarStories    
+                handleVoltar={handleVoltar} />}
+
+              {!showModificar && !showContacto && !showFotos && !showStories && (
                 <div className="text-center text-gray-400">
                   Selecione uma opção no menu para modificar as suas informações.
                 </div>

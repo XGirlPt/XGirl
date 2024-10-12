@@ -35,8 +35,7 @@ const BarConta: React.FC<BarContaProps> = ({
   showFotos,
   handleStories,
   showStories,
-  handleDefinicoes,
-  showDefinicoes
+ 
 }) => {
   const router = useRouter(); // Inicializar useRouter
   const userUID = useSelector((state: any) => state.profile?.profile.userUID); // Capturar UID do usuário
@@ -97,7 +96,7 @@ const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
         <button
           onClick={handleStories}
           className={`flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg ${
-            showFotos ? "bg-pink-500" : "bg-gray-800"
+            showStories ? "bg-pink-500" : "bg-gray-800"
           }`}
         >
           <FaVideo className="text-2xl" />
@@ -105,7 +104,6 @@ const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
         </button>
 
         <button 
-                 onClick={handleDefinicoes} // Redireciona para a página do perfil
 
        className="flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg bg-gray-800">
           <FaCog className="text-2xl" />

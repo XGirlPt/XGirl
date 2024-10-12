@@ -17,7 +17,11 @@ export const UPDATE_TATUAGEM = "UPDATE_TATUAGEM";
 export const UPDATE_TELEFONE = "UPDATE_TELEFONE";
 export const UPDATE_PELOS = "UPDATE_PELOS";
 export const UPDATE_DISTRITO = "UPDATE_DISTRITO";
+
 export const UPDATE_PHOTOS = "UPDATE_PHOTOS";
+export const UPDATE_STORY = "UPDATE_STORY";
+
+
 export const UPDATE_TARIFA = "UPDATE_TARIFA";
 export const SET_USER_ID = "SET_USER_ID";
 export const UPDATE_PAGAMENTO = "UPDATE_PAGAMENTO";
@@ -26,7 +30,12 @@ export const UPDATE_LINGUA = "UPDATE_LINGUA";
 export const UPDATE_CIDADE = "UPDATE_CIDADE";
 export const UPDATE_TAG = "UPDATE_TAG"
 export const UPDATE_DESCRIPTION = "UPDATE_DESCRIPTION";
+
+
 export const SET_PHOTO_URL = "SET_PHOTO_URL";
+export const SET_STORY_URL = "SET_STORY_URL";
+
+
 export const UPDATE_SIGNO = "UPDATE_SIGNO";
 export const UPDATE_PROFILES = "UPDATE_PROFILES";
 export const SET_SELECTED_PROFILE = "SET_SELECTED_PROFILE";
@@ -155,6 +164,12 @@ export const updatePhotos = (photos: any) => ({
   payload: photos,
 });
 
+
+export const updateStory = (stories: any) => ({
+  type: UPDATE_STORY,
+  payload: stories,
+});
+
 export const updateTarifa = (tarifa: any) => ({
   type: UPDATE_TARIFA,
   payload: tarifa,
@@ -199,12 +214,19 @@ export const setPhotoURL = (url: any) => ({
   payload: url,
 });
 
+export const setStoryURL = (url: any) => ({
+  type: SET_STORY_URL,
+  payload: url,
+});
+
 export const updateProfiles = (profiles: any) => {
   console.log("Atualizando perfis com:", profiles);
   // Adicione uma verificação para garantir que cada perfil tem um campo photos definido para testes
   const enhancedProfiles = profiles.map((profile: any) => ({
     ...profile,
-    photoURL: profile.photoURL
+    photoURL: profile.photoURL,
+    storyURL: profile.storyURL
+    
   }));
   return {
     type: UPDATE_PROFILES,

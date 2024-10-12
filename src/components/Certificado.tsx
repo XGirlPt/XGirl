@@ -23,64 +23,38 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
   return (
     <>
       {mostrarCertificado && (
-        <div className="fixed inset-0 flex justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
-          <div className="w-full md:w-3/6 h-46 md:h-3/5 mt-36 bg-[#1E2427] rounded-lg shadow-2xl">
-            <div className="flex justify-between items-center">
-              <h1 className="text-sm md:text-lg mx-10 items-center mt-8 align-middle mb-4 text-white font-bold">
-                Perfil Certificado
-              </h1>
-              <button
-                className="text-bold font-bold"
-                onClick={fecharCertificado}
-              >
-                <ImCross
-                  size={16}
-                  className="text-zinc-700 hover:text-pink-800 transition-transform font-bold mx-10"
-                />
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
+          <div className="w-full md:w-3/5 h-auto max-w-lg mx-4 bg-[#1E2427] rounded-lg shadow-2xl p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-lg md:text-xl text-white font-bold">Perfil Certificado</h1>
+              <button onClick={fecharCertificado} className="text-white hover:text-pink-800 transition-colors">
+                <ImCross size={20} />
               </button>
             </div>
-            <div className="border border-zinc-700 border-solid border-t-0 w-full"></div>
-
-            <div className="mt-6 px-10 text-white mb-10">
-              <span>
-                Um perfil 
-                <p
-                        className="ml-4 p-2 w-36 rounded-md flex h-8 items-center cursor-pointer bg-green-600 hover:opacity-80" 
-                      >
-                        <p
-                          className="text-white" >
-                          Certificado 
-                        </p>
-                        <p>
-                          <IoInformationCircle
-                            size={26}
-                            className="text-white ml-2"
-                          />
-                        </p>
-                      </p>
-                      
-                      
-                       significa que as fotos foram validadas
-                por um moderador da equipe{" "}
-                <span className="text-pink-800">XGirl</span> e correspondem à
-                realidade.
-              </span>
-              <br />
-              <br />
-              <span>
-                Além do controle humano, um sistema automático analisa todas as
-                fotos dos perfis certificados para garantir que não pertencem a
-                outra pessoa na internet.
-              </span>
-              <br />
-              <br />
-              <span >Perfil certificado = Encontro 100% satisfeito.</span>
+            <div className="border-b border-zinc-700 my-4"></div>
+  
+            <div className="flex items-center bg-green-600 p-4 rounded-md mb-6">
+              <span className="text-white font-bold">Certificado</span>
+              <IoInformationCircle size={20} className="text-white ml-2" />
+            </div>
+  
+            <div className="text-white mb-6">
+              <p className="mb-4">
+                Um perfil certificado significa que as fotos foram validadas por um moderador da equipe <span className="text-pink-800">XGirl</span> e correspondem à realidade.
+              </p>
+              <p className="mb-4">
+                Além do controle humano, um sistema automático analisa todas as fotos dos perfis certificados para garantir que não pertencem a outra pessoa na internet.
+              </p>
+              <p>
+                <strong>Perfil certificado = Encontro 100% satisfeito.</strong>
+              </p>
             </div>
           </div>
         </div>
       )}
     </>
   );
+  
 };
 
 export default Certificado;

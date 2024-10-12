@@ -10,6 +10,7 @@ interface Profile {
   nome: string;
   cidade: string;
   photos: string[];
+  stories: string[];
   tag: string;
   tagtimestamp: string; // Certifique-se de que tagtimestamp está presente e é uma string.
 }

@@ -19,17 +19,27 @@ import {
   UPDATE_IDADE,
   UPDATE_CIDADE,
   UPDATE_TAG,
-  SET_PHOTO_URL,
+
   UPDATE_DESCRIPTION,
   UPDATE_LINGUA,
   UPDATE_PAGAMENTO,
   UPDATE_SERVICO,
   UPDATE_SIGNO,
+
+
+  SET_PHOTO_URL,
+  SET_STORY_URL,
+
+
   UPDATE_PHOTOS,
-  UPDATE_PROFILES,
-  SET_SELECTED_PROFILE,
+  UPDATE_STORY,
+
   UPDATE_VERIFICATION_PHOTO,
   SET_PHOTO_URL_V,
+
+  UPDATE_PROFILES,
+  SET_SELECTED_PROFILE,
+
   UPDATE_TARIFA
 } from "../actions/ProfileActions";
 
@@ -40,6 +50,7 @@ import {
 interface Profile {
   userUID: string | null;
   photos: string[];
+  stories: string[];
   nome?: string | null;
   email?: string | null;
   idade?: number | null;
@@ -61,7 +72,10 @@ interface Profile {
   pagamento?: string | null;
   servico?: string | null;
   description?: string | null;
+
   photoURL?: string | null;
+  storyURL?: string | null;
+
   verificationPhoto?: string | null;
   tarifa?: string | null;
 
@@ -218,8 +232,18 @@ interface SetPhotoUrlAction {
   payload: string[];
 }
 
+interface SetStoryUrlAction {
+  type: typeof SET_STORY_URL;
+  payload: string[];
+}
+
 interface UpdatePhotosAction {
   type: typeof UPDATE_PHOTOS;
+  payload: string[];
+}
+
+interface UpdateStoriesAction {
+  type: typeof UPDATE_STORY;
   payload: string[];
 }
 
@@ -267,8 +291,13 @@ type ProfileActionTypes =
   | UpdatePagamentoAction
   | UpdateServicoAction
   | UpdateDescriptionAction
+
   | SetPhotoUrlAction
   | UpdatePhotosAction
+
+  | SetStoryUrlAction
+  | UpdateStoriesAction
+
   | UpdateProfilesAction
   | SetSelectedProfileAction
   | UpdateVerificationPhotoAction;
@@ -286,6 +315,7 @@ const initialState: AppState = {
     userUID: null,
     photos: [],
     verificationPhoto: null,
+    stories: [],
     tag: null,
   },
 };
@@ -325,6 +355,7 @@ const rootReducer = (
           profile: {
             userUID: null,
             photos: [],
+            stories: [],
           },
         };
 
@@ -551,6 +582,16 @@ const rootReducer = (
         },
       };
 
+      case SET_STORY_URL:
+        console.log("URLs dos Stories recebidas no redutor:", action.payload);
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            stories: action.payload,
+          },
+        };
+
     case UPDATE_PHOTOS:
       return {
         ...state,
@@ -566,8 +607,13 @@ const rootReducer = (
         ...state,
         profiles: action.payload.map((profile) => ({
           ...profile,
+
           photoURL:
             profile.photoURL,
+
+            storyURL:
+            profile.storyURL
+
         })),
       };
 
@@ -578,6 +624,7 @@ const rootReducer = (
         selectedProfile: {
           ...action.payload,
           photoURL: action.payload.photos[0],
+          storyURL: action.payload.stories[0],
         },
       };
   

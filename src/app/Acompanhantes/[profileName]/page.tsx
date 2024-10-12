@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 import FotoBig from "@/components/Profile/FotoBig";
+import StoryBig from "@/components/Profile/StoryBig";
+
 import Liga from "@/components/Profile/Liga";
 import Partilha from "@/components/Profile/Partilha";
 import Certificado from "@/components/Certificado";
@@ -25,11 +27,20 @@ function UserProfile() {
   const [loading, setLoading] = useState<boolean>(true); // Novo estado de carregamento
   const { profileName } = useParams<{ profileName: string }>();
   const [showLargePhoto, setShowLargePhoto] = useState(false);
+  const [showLargeStory, setShowLargeStory] = useState(false);
+
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [StoryIndex, setStoryIndex] = useState(0);
+
+
   const [showLiga, setShowLiga] = useState(false);
   const [showPartilha, setShowPartilha] = useState(false);
   const [showCertificado, setShowCertificado] = useState(false);
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+
+  const [thumbnails, setThumbnails] = useState<string[]>([]);
+
+
 
   const fetchProfiles = async () => {
     try {
@@ -82,14 +93,29 @@ function UserProfile() {
         console.log("URLs das fotos mapeadas:", photoURLs);
     
 
-        const combinedProfileData = {
-          ...profileData,
-          photoURL: photoData.map((photo) => photo.imageurl) || [], // Garante que seja sempre um array
-        };
   
         // Log dos dados combinados (perfil + fotos)
-        console.log("Dados combinados do perfil:", combinedProfileData);
   
+
+        const { data: storyData, error: storyError } = await supabase
+        .from("stories")
+        .select("*")
+        .eq("userUID", profileData.userUID)
+       
+
+      if (storyError) {
+        throw storyError;
+      }
+
+      const storyURL = storyData.map((story) => story.storyurl);
+      console.log("URLs dos stories mapeadas:", storyURL);
+
+      
+      const combinedProfileData = {
+        ...profileData,
+        photoURL: photoData.map((photo) => photo.imageurl) || [], // Garante que seja sempre um array
+        storyURL: storyData?.map((story)=> story.storyurl) || []
+      };
 
 
         setIsCertified(profileData.certificado); // Atualize o estado com a certificação
@@ -112,6 +138,10 @@ function UserProfile() {
     setShowLargePhoto(true);
     setPhotoIndex(index);
   };
+  const handleStoryClick = (index: number) => {
+    setShowLargeStory(true);
+    setStoryIndex(index);
+  };
 
   const findProfileIndex = (profileId: number) => {
     return profiles.findIndex((profile) => profile.id === profileId);
@@ -124,8 +154,79 @@ function UserProfile() {
   }, [profiles, selectedProfile]);
 
   useEffect(() => {
-    console.log("isCertified state changed:", isCertified);
+    // console.log("isCertified state changed:", isCertified);
   }, [isCertified]);
+
+  console.log("Story URLs:", selectedProfile?.storyURL);
+  console.log("Foto URLs:", selectedProfile?.photoURL);
+  console.log("Selected Profile:", selectedProfile);
+
+  const getVideoThumbnail = async (videoSrc: string): Promise<string | null> => {
+    return new Promise((resolve) => {
+        const video = document.createElement("video");
+        video.src = videoSrc;
+        video.currentTime = 1; // Pega um frame no primeiro segundo
+
+        video.addEventListener("loadeddata", () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = 160; // Defina a largura do thumbnail
+            canvas.height = 90;  // Defina a altura do thumbnail
+            const ctx = canvas.getContext("2d");
+
+            if (ctx) {
+                // Desenhe o frame do vídeo no canvas
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const thumbnail = canvas.toDataURL("image/jpeg");
+                resolve(thumbnail);  // Retorna o thumbnail gerado
+            } else {
+                resolve(null);
+            }
+        });
+
+        video.addEventListener("error", () => {
+            resolve(null); // Retorna null em caso de erro
+        });
+
+        video.load(); // Carrega o vídeo
+    });
+    
+};
+
+useEffect(() => {
+    const fetchThumbnails = async () => {
+        if (selectedProfile && selectedProfile.storyURL) {
+            const thmbs = await Promise.all(
+                selectedProfile.storyURL.map(async (media: string) => {
+                    console.log(`Processing media: ${media}`);
+                    
+                    try {
+                        if (media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm")) {
+                            const thumbnail = await getVideoThumbnail(media);
+                            console.log(`Thumbnail generated for: ${media}`);
+                            return thumbnail;
+                        } else {
+                            console.log(`Skipping non-video media: ${media}`);
+                            return null; // Ignorar se não for vídeo
+
+                        }
+                    } catch (error) {
+                        console.error(`Error generating thumbnail for media: ${media}`, error);
+                        return null;
+                    }
+                })
+            );
+
+            const validThumbnails = thmbs.filter((thumbnail): thumbnail is string => thumbnail !== null);
+            setThumbnails(validThumbnails);
+        }
+    };
+
+    fetchThumbnails();
+}, [selectedProfile]);
+
+
+
+
 
   return (
     <>
@@ -170,84 +271,140 @@ function UserProfile() {
               />
             )}
 
+{showLargeStory && (
+              <StoryBig
+                selectedProfile={selectedProfile as any}
+                onClose={() => setShowLargeStory(false)}
+                currentIndex={photoIndex}
+              />
+            )}
+
             <div className="sm:w-full md:w-3/6">
+
+
+
               <div className="grid gap-10 items-center">
-                <div className="bg-zinc-900 gap-2 py-6 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl">
-                  <div className="flex mb-6">
-                    <p className="text-pink-800 text-2xl mb-2">
-                      Fotografias de {selectedProfile?.nome}
-                    </p>
 
-                    {loading ? (
-                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
-                        <p className="text-white">Carregando...</p>
-                      </div>
-                    ) : isCertified === null ? (
-                      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
-                        <p className="text-white">Carregando...</p>
-                      </div>
-                    ) : (
-                      <div
-                        className={`ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer ${
-                          isCertified ? "bg-green-700 hover:opacity-80" : "bg-red-700 hover:opacity-80"
-                        }`}
-                      >
-                        <p
-                          className="text-white"
-                          onClick={handleCertificadoClick}
-                        >
-                          {isCertified ? "Certificado" : "Não Certificado"}
-                        </p>
-                        <p>
-                          <IoInformationCircle
-                            size={26}
-                            className="text-white ml-2"
-                          />
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  {selectedProfile && selectedProfile.photoURL && selectedProfile.photoURL.length > 0 ? (
-  <div className="grid grid-cols-3 gap-2">
-    {selectedProfile.photoURL.map((media, index) => {
-      // Verificar se o arquivo é vídeo
-      const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
+              <div className="flex flex-col mb-8">
+  <p className="text-pink-800 text-2xl mb-4 font-semibold">
+    Stories de {selectedProfile?.nome}
+  </p>
+  {selectedProfile && selectedProfile.storyURL && selectedProfile.storyURL.length > 0 ? (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+      {selectedProfile.storyURL.map((media, index) => {
+        if (!media) {
+          return null;
+        }
 
-      return isVideo ? (
-        <video
-          key={index}
-          autoPlay
-          controlsList="nodownload"
-          className="w-auto h-48 rounded-2xl border border-zinc-500"
-        >
-          <source
-            src={media}
-            type={media.endsWith(".mp4") ? "video/mp4" : media.endsWith(".webm") ? "video/webm" : "video/ogg"}
-          />
-          Seu navegador não suporta o elemento de vídeo.
-        </video>
-      ) : (
-        // Renderizar imagem se não for vídeo
-        <Image
-          key={index}
-          src={media}
-          alt={`Foto ${index + 1}`}
-          className="w-40 h-auto object-cover cursor-pointer rounded-2xl border border-zinc-500 transition-opacity duration-100 ease-in-out hover:opacity-75 hover:scale-110"
-          onClick={() => handlePhotoClick(index)}
-          width={160}
-          height={120}
-        />
-      );
-    })}
-  </div>
-) : (
-  <BlurImage
-    src={selectedProfile?.photoURL?.[0] || "/placeholder.jpg"} // Verificar se há uma imagem para exibir
-    alt={selectedProfile?.nome || "Placeholder"}
-    className="w-full h-96 object-cover rounded-2xl border border-zinc-500"
-  />
-)}
+        const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
+        const thumbnailSrc = thumbnails[index] || '/placeholder.jpg';
+
+        return (
+          <div key={index} className="relative">
+            {isVideo ? (
+              <div>
+                {/* Exibe o thumbnail do vídeo */}
+                <video
+                  src={thumbnailSrc}
+                  alt={`Thumbnail ${index + 1}`}
+                  className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
+                  onClick={() => handleStoryClick(index)}
+                  width={300}
+                  height={200}
+                  priority={index === 0}
+                />
+                {/* Ícone de "play" */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white text-3xl">▶️</span>
                 </div>
+              </div>
+            ) : (
+              <Image
+                src={media}
+                alt={`Story ${index + 1}`}
+                className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
+                onClick={() => handleStoryClick(index)}
+                width={300}
+                height={200}
+                priority={index === 0}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  ) : null} {/* Não renderiza nada se não houver stories */}
+</div>
+
+
+
+
+              <div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
+  
+
+  <div className="flex flex-col mb-8">
+    <p className="text-pink-800 text-2xl mb-4 font-semibold">
+      Fotografias de {selectedProfile?.nome}
+    </p>
+
+    {loading || isCertified === null ? (
+      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
+        <p className="text-white">Carregando...</p>
+      </div>
+    ) : (
+      <div
+        className={`ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer ${
+          isCertified ? "bg-green-700 hover:opacity-80" : "bg-red-700 hover:opacity-80"
+        }`}
+      >
+        <p className="text-white" onClick={handleCertificadoClick}>
+          {isCertified ? "Certificado" : "Não Certificado"}
+        </p>
+        <IoInformationCircle size={26} className="text-white ml-2" />
+      </div>
+    )}
+  </div>
+
+  {selectedProfile && selectedProfile.photoURL && selectedProfile.photoURL.length > 0 ? (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  {selectedProfile.photoURL.map((media, index) => {
+    const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
+
+    return isVideo ? (
+      <video
+        key={index}
+        autoPlay
+        controlsList="nodownload"
+        className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
+      >
+        <source
+          src={media}
+          type={media.endsWith(".mp4") ? "video/mp4" : media.endsWith(".webm") ? "video/webm" : "video/ogg"}
+        />
+        Seu navegador não suporta o elemento de vídeo.
+      </video>
+    ) : (
+      <Image
+        key={index}
+        src={media}
+        alt={`Foto ${index + 1}`}
+        className="w-full h-48 object-cover cursor-pointer rounded-2xl border border-zinc-500 shadow-md transition-opacity duration-200 ease-in-out hover:opacity-75 hover:scale-105"
+        onClick={() => handlePhotoClick(index)}
+        width={160}
+        height={120}
+      />
+    );
+  })}
+</div>
+
+  ) : (
+    <BlurImage
+      src={selectedProfile?.photoURL?.[0] || "/placeholder.jpg"}
+      alt={selectedProfile?.nome || "Placeholder"}
+      className="w-full h-96 object-cover rounded-2xl border border-zinc-500 shadow-md"
+    />
+  )}
+</div>
 
                 <Sobre selectedProfile={selectedProfile as any} />
 

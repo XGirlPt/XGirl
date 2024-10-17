@@ -70,61 +70,58 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     );
   }, [emailReduxClubs, emailReduxProfile]);
 
-  
   return (
     <nav className={`sticky top-0 left-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
-      <div className="w-full bg-black h-20">
-        <div className="flex justify-center items-center h-full">
-          <Link href="/">
-            <img src="/photos/logo1.png" alt="logo" className="w-40 h-14 object-contain" />
-          </Link>
-        </div>
+      <div className="w-full bg-black h-20 flex justify-center items-center">
+        <Link href="/">
+          <img src="/photos/logo1.png" alt="logo" className="w-40 h-14 object-contain" />
+        </Link>
       </div>
   
-      <div className="w-full bg-pink-800 z-100">
+      <div className="w-full bg-pink-800">
         <div className="flex mx-auto px-5 md:px-20 h-14 items-center justify-between">
-          <div className="flex space-x-5">
-            <Link href="/" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/" ? "bg-pink-900" : ""}`}>
+          <div className="flex space-x-5 h-full">
+            <Link href="/" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
               Home
             </Link>
   
-            <Link href="/Acompanhantes" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/girls" ? "bg-pink-900" : ""}`}>
+            <Link href="/Acompanhantes" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/girls" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
               Acompanhantes
             </Link>
   
-            <Link href="/Stories" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/Stories" ? "bg-pink-900" : ""}`}>
+            <Link href="/Stories" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/Stories" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
               <BiSolidMoviePlay className="mr-2" />
               Stories
             </Link>
   
-            <button onClick={toggleFiltro} className="flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900">
+            <button onClick={toggleFiltro} className={`flex items-center px-4 py-2 rounded-md text-white relative h-full hover:bg-pink-900`}>
               <IoIosOptions className="mr-2" />
               Filtros
             </button>
             {filtroAberto && <Filtro />}
           </div>
   
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 h-full">
             {!emailReduxProfile && !emailReduxClubs ? (
               <>
-                <Link href="/login" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/login" ? "bg-pink-900" : ""}`}>
+                <Link href="/login" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/login" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
                   <FaUser className="mr-2" />
                   Login
                 </Link>
   
-                <Link href="/regista2" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/regista2" ? "bg-pink-900" : ""}`}>
+                <Link href="/regista2" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/regista2" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
                   <FaUser className="mr-2" />
                   Regista-te
                 </Link>
               </>
             ) : (
               <>
-                <Link href="/minha-conta" className={`nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900 ${pathname === "/minha-conta" ? "bg-pink-900" : ""}`}>
+                <Link href="/minha-conta" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/minha-conta" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
                   <FaUser className="mr-2" />
                   A Minha Conta
                 </Link>
   
-                <button onClick={handleLogout} className="nav-link flex items-center px-4 py-2 rounded-md text-white hover:bg-pink-900">
+                <button onClick={handleLogout} className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full hover:bg-pink-900`}>
                   <FaUser className="mr-2" />
                   Logout
                 </button>
@@ -132,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             )}
   
             <div className="relative">
-              <button onClick={toggleLanguageDropdown} className="flex items-center text-white">
+              <button onClick={toggleLanguageDropdown} className="flex items-center text-white relative h-full">
                 <MdLanguage className="text-xl" />
                 <IoIosArrowDown className="text-xl ml-1" />
               </button>
@@ -150,6 +147,8 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       </div>
     </nav>
   );
+  
+  
   
 };
 

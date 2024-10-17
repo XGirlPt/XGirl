@@ -12,19 +12,28 @@ import { ToastContainer } from 'react-toastify';
 import { BlurImage } from "@/components/BlurImage";
 import { Profile } from "@/types";
 import  LoaderBar  from "@/components/LoaderBar";
+import StoryBigConta from "@/components/Profile/StoryBigConta";
 
 
 
 interface ModificarStoriesProps {
   handleVoltar: () => void;
+  storyURLs: string[];
 }
 
-const ModificarStories: React.FC<ModificarStoriesProps> = ({ handleVoltar }) => {
+
+const ModificarStories: React.FC<ModificarStoriesProps> = ({ handleVoltar, storyURLs }) => {
   const dispatch = useDispatch();
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState<boolean>(false); // Estado de carregamento
+  const [showLargeStory, setShowLargeStory] = useState(false);
+  const [StoryIndex, setStoryIndex] = useState(0);
 
 
+  const handleStoryClick = (index: number) => {
+    setShowLargeStory(true);
+    setStoryIndex(index);
+  };
 
   const storyURLsRedux = useSelector(
     (state: any) => state.profile?.profile.stories);
@@ -37,6 +46,8 @@ console.log("stories RDX", storiesRDX)
   useEffect(() => {
     console.log("photoURLsRedux atualizado:", storyURLsRedux);
   }, [storyURLsRedux]);
+
+
 
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
 
@@ -191,6 +202,8 @@ console.log("stories RDX", storiesRDX)
     });
   };
 
+ 
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
          {loading && <LoaderBar />} {/* Renderiza o loader se estiver carregando */}
@@ -225,18 +238,30 @@ console.log("stories RDX", storiesRDX)
               <span>? Regras</span>
             </Link>
           </div>
+
+
+          {showLargeStory && (
+           <StoryBigConta
+           onClose={() => setShowLargeStory(false)}
+           currentIndex={StoryIndex}
+         />
+            )}
     
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 ">
   {Array.isArray(storyURLsRedux) &&
     storyURLsRedux.map((storyURL: string, index: number) => (
       <div
+        onClick={() => handleStoryClick(index)}
         key={index}
-        className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105"
+        className="relative group rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer"
       >
         <IoTrashBin
           size={26}
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300"
-          onClick={() => handleDeleteStory(index)}
+          className="absolute top-2 right-2 cursor-pointer text-white bg-red-600 rounded-full p-1 transition-opacity duration-300 z-10"
+          onClick={(e) => {
+            e.stopPropagation(); // Impede a propagação do clique
+            handleDeleteStory(index);
+          }}
         />
         <video
           src={storyURL}
@@ -244,11 +269,11 @@ console.log("stories RDX", storiesRDX)
           controls={false}
           muted
           playsInline
-           // Definir uma imagem de placeholder ou deixar o poster automático.
         />
       </div>
     ))}
 </div>
+
         </div>
     
         <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">

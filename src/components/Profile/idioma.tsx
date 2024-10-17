@@ -32,7 +32,7 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
   // console.log("Lingua", lingua);
 
   return (
-    <div className="bg-zinc-900 px-10 pt-10 pb-10 w-full border border-zinc-700 rounded-3xl">
+    <div className="bg-zinc-900 pl-10 pt-10 pb-10 w-full border border-zinc-700 rounded-3xl">
       <p className="text-pink-800 text-2xl">Idiomas</p>
       {lingua && Array.isArray(lingua) ? (
         <div className="grid grid-cols-2 mt-4">
@@ -42,64 +42,64 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
                 <img
                   src="/Flags/ru.svg"
                   alt="Russia flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 object-cover rounded-full"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Alemão" && (
                 <img
                   src="/Flags/ale.png"
                   alt="Germany flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Português" && (
                 <img
                   src="/Flags/pt.svg"
                   alt="Portugal flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Francês" && (
                 <img
                   src="/Flags/fr.svg"
                   alt="France flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Inglês" && (
                 <img
                   src="/Flags/ing.png"
                   alt="England flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Italiano" && (
                 <img
                   src="/Flags/it.svg"
                   alt="Italy flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Árabe" && (
                 <img
                   src="/Flags/ar.png"
                   alt="Arab flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               {lingua === "Espanhol" && (
                 <img
                   src="/Flags/es.svg"
                   alt="Spain flag"
-                  className="bg-white mr-2"
-                  style={{ width: "30px", height: "20px" }}
+                  className="bg-white mr-2 rounded-full object-cover"
+                  style={{ width: "30px", height: "30px" }}
                 />
               )}
               <p>{lingua}</p>

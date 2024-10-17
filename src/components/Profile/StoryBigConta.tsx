@@ -1,26 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { ImCross } from "react-icons/im";
 
-interface Profile {
-  storyURL: string[];
-  currentIndex: number;
-
-}
-
 interface StoryBigProps {
-  selectedProfile: Profile;
   onClose: () => void;
   currentIndex: number;
 }
 
-const StoryBig: React.FC<StoryBigProps> = ({
-  selectedProfile,
-  onClose,
-  currentIndex,
-}) => {
+const StoryBig: React.FC<StoryBigProps> = ({ onClose, currentIndex }) => {
+  // Acessar o estado de stories no Redux
+  const storyURLsRedux = useSelector(
+    (state: any) => state.profile?.profile.stories);
+  console.log("stories redux from storybifConta", storyURLsRedux);  
+  
   const [currentStoryIndex, setCurrentStoryIndex] = useState(currentIndex);
-  const totalStories = selectedProfile?.storyURL.length || 0;
+
+  const totalStories = storyURLsRedux?.length || 0;
   console.log("totalStories", totalStories);
 
   const nextStory = () => {
@@ -36,7 +32,7 @@ const StoryBig: React.FC<StoryBigProps> = ({
     return url ? url.match(/\.(mp4|webm|ogg|mov)$/i) : false;
   };
 
-  const currentStoryURL = selectedProfile?.storyURL[currentStoryIndex];
+  const currentStoryURL = storyURLsRedux?.[currentStoryIndex];
   console.log("currentStoryURL", currentStoryURL);
 
   return (
@@ -52,7 +48,7 @@ const StoryBig: React.FC<StoryBigProps> = ({
   onError={(e) => console.log("Error loading video", e)}
   className="max-w-[80vw] max-h-[80vh] transition-opacity duration-900 ease-in-out rounded-2xl"
 />
-      </div>
+</div>
       <button className="text-bold font-bold" onClick={onClose}>
         <ImCross
           size={16}

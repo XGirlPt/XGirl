@@ -1,5 +1,6 @@
 import supabase from "../database/supabase";
-import { Profile } from "@/types";
+import { updateStories } from "@/actions/ProfileActions";
+import { Dispatch } from "redux";
 
 // FETCH PROFILE START
 export async function fetchProfiles() {
@@ -22,6 +23,16 @@ export async function fetchProfiles() {
       throw photosError;
     }
 
+
+    // Buscar stories dos perfis
+    const { data: storiesData, error: storiesError } = await supabase
+      .from("stories")
+      .select("*");
+
+    if (storiesError) {
+      throw storiesError;
+    }
+
     // Buscar fotos de verificação
     const { data: VphotosData, error: VphotosError } = await supabase
       .from("VPhoto")
@@ -31,10 +42,16 @@ export async function fetchProfiles() {
       throw VphotosError;
     }
 
+
+
+
     // Combinar dados dos perfis com dados das fotos e fotos de verificação usando a chave estrangeira
     const combinedProfiles = profilesData.map((profile) => {
       const photos = photosData.filter(
         (photo) => photo.userUID === profile.userUID
+      );
+      const stories = storiesData.filter(
+        (story) => story.userUID === profile.userUID
       );
       const VPhotos = VphotosData.filter(
         (VPhoto) => VPhoto.userUID === profile.userUID
@@ -42,7 +59,9 @@ export async function fetchProfiles() {
       return {
         ...profile,
         photos: photos.map((photo) => photo.imageurl), // Supondo que a URL da imagem seja armazenada em 'imageurl'
-        verificationPhotos: VPhotos.map((photo) => photo.imageurl) // Supondo que a URL da imagem de verificação seja armazenada em 'imageurl'
+        verificationPhotos: VPhotos.map((photo) => photo.imageurl), // Supondo que a URL da imagem de verificação seja armazenada em 'imageurl'
+        stories: stories.map((story) => story.storyurl), // Supondo que a URL da imagem seja armazenada em 'imageurl'
+
       };
     });
 
@@ -73,6 +92,28 @@ export async function fetchProfilePhotos() {
     throw error;
   }
 }
+
+
+
+// FETCH STORY PHOTOS PROFILE START
+export async function fetchProfileStories() {
+  try {
+    const { data: storiesData, error: storiesError } = await supabase
+      .from("stories")
+      .select("*");
+
+    if (storiesError) {
+      throw storiesError;
+    }
+
+    return storiesData;
+  } catch (error) {
+    console.error("Error fetching profile stories:", error.message);
+    throw error;
+  }
+}
+
+
 
 
 // FETCH VERIFICATION PHOTOS PROFILE START
@@ -142,11 +183,19 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
       .from("profilephoto")
       .select("imageurl")
       .eq("userUID", userUID)
-    
-
     if (photoError) {
       throw new Error("Erro ao buscar URLs das fotos do perfil");
     }
+
+        // Recupera os URLs das stories do perfil do usuário
+        const { data: storyData, error: storyError } = await supabase
+        .from("stories")
+        .select("storyurl")
+        .eq("userUID", userUID)
+      if (storyError) {
+        throw new Error("Erro ao buscar URLs das fotos do perfil");
+      }
+
 
     // Recupera os URLs das fotos de verificação do perfil do usuário
     const { data: VPhotoData, error: VPhotoError } = await supabase
@@ -163,6 +212,8 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
       ...profileData,
       photos: photoData.map((photo) => photo.imageurl),
       verificationPhotos: VPhotoData.map((photo) => photo.imageurl),
+      stories: storyData.map((story) => story.storyurl),
+
     };
 
     console.log("Dados do perfil recuperados:", profileWithPhotos); // Adicione este log para verificar os dados recuperados
@@ -249,3 +300,84 @@ export async function updateProfileTag(userUID, newTagValue) {
 
 
 
+
+
+
+
+
+// src/services/storiesService.ts
+
+
+// Função para buscar stories do Supabase
+export const fetchStories = async (userUID: string, dispatch: Dispatch) => {
+  try {
+    const { data: storyData, error: storyError } = await supabase
+      .from("stories")
+      .select("*")
+      .eq("userUID", userUID);
+
+    if (storyError) throw new Error(storyError.message);
+
+    // Atualiza o estado no Redux
+    if (storyData) {
+      dispatch(updateStories(storyData.map((story) => story.storyurl)));
+    }
+  } catch (error: any) {
+    console.error("Erro ao buscar stories:", error.message);
+    throw error;
+  }
+};
+
+// Função para fazer upload das stories
+export const uploadStories = async (files: File[], userUID: string) => {
+  const uploadedStoryURLs: string[] = [];
+
+  const uploadPromises = files.map(async (file) => {
+    const filePath = `${userUID}/${file.name.toLowerCase().replace(/ /g, "_").replace(/\./g, "_")}`;
+
+    try {
+      const { data, error } = await supabase.storage
+        .from("storyStorage")
+        .upload(filePath, file);
+
+      if (error) throw new Error(error.message);
+
+      const publicURLStory = `https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/storyStorage/${filePath}`;
+      uploadedStoryURLs.push(publicURLStory);
+    } catch (error: any) {
+      console.error("Erro durante o upload:", error.message);
+      throw error;
+    }
+  });
+
+  await Promise.all(uploadPromises);
+  return uploadedStoryURLs;
+};
+
+// Função para deletar uma story
+export const deleteStory = async (storyURL: string, userUID: string) => {
+  const fileName = storyURL.split("/").pop();
+  if (!fileName) throw new Error("Nome do arquivo não encontrado no URL.");
+
+  const filePath = `${userUID}/${fileName}`;
+
+  try {
+    // Remove do storage do Supabase
+    const { error: storageError } = await supabase.storage
+      .from("storyStorage")
+      .remove([filePath]);
+
+    if (storageError) throw new Error(storageError.message);
+
+    // Remove do banco de dados
+    const { error: dbError } = await supabase
+      .from("stories")
+      .delete()
+      .match({ storyurl: storyURL, userUID });
+
+    if (dbError) throw new Error(dbError.message);
+  } catch (error: any) {
+    console.error("Erro ao deletar story:", error.message);
+    throw error;
+  }
+};

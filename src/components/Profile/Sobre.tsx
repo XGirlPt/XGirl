@@ -56,7 +56,7 @@ const signoIcons: { [key: string]: JSX.Element } = {
 
 const Sobre: React.FC<SobreProps> = ({ selectedProfile }) => {
   return (
-    <div className="bg-zinc-900 grid gap-2 py-3 w-full px-10 mx-10 border border-zinc-700  rounded-3xl">
+    <div className="bg-gradient-to-b from-zinc-4800 to-zinc-800 grid gap-2 py-3 w-full px-10 mx-10 border border-zinc-700  rounded-3xl">
       <p className="text-pink-800 text-2xl">Sobre {selectedProfile?.nome} </p>
       <div className="grid grid-cols-2 gap-2 mt-2 mb-4">
         <div className="flex items-center">

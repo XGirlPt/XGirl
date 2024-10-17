@@ -100,6 +100,34 @@ export type Database = {
           },
         ]
       }
+      stories: {
+        Row: {
+          ID: number
+          storyurl: string | null
+          userUID: string | null
+        }
+        Insert: {
+          ID?: number
+          storyurl?: string | null
+          userUID?: string | null
+        }
+        Update: {
+          ID?: number
+          storyurl?: string | null
+          userUID?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stories_userUID_fkey"
+            columns: ["userUID"]
+            isOneToOne: false
+            referencedRelation: "ProfilesData"
+            referencedColumns: ["userUID"]
+          },
+        ]
+      }
+
+
       ProfilesData: {
         Row: {
           altura: string | null
@@ -131,6 +159,7 @@ export type Database = {
           tatuagens: string | null
           telefone: number | null
           userUID: string | null
+          story:string | null
         }
         Insert: {
           altura?: string | null
@@ -162,6 +191,7 @@ export type Database = {
           tatuagens?: string | null
           telefone?: number | null
           userUID?: string | null
+          story:string | null
         }
         Update: {
           altura?: string | null
@@ -193,6 +223,8 @@ export type Database = {
           tatuagens?: string | null
           telefone?: number | null
           userUID?: string | null
+          story:string | null
+
         }
         Relationships: []
       }

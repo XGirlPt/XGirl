@@ -154,6 +154,7 @@ console.log("stories RDX", storiesRDX)
     setShowLargePhoto(true);
     setPhotoIndex(index);
   };
+  
   const handleStoryClick = (index: number) => {
     setShowLargeStory(true);
     setStoryIndex(index);
@@ -186,7 +187,7 @@ console.log("stories RDX", storiesRDX)
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="w-screen bg-black md:flex flex-col user-profile">
+        <div className="w-screen bg-gradient-to-b from-black to-pink-900 md:flex flex-col user-profile">
           <div className="md:flex m-24 mt-10 relative">
             {showLiga && (
               <Liga
@@ -225,7 +226,7 @@ console.log("stories RDX", storiesRDX)
               <StoryBig
                 selectedProfile={selectedProfile as any}
                 onClose={() => setShowLargeStory(false)}
-                currentIndex={photoIndex}
+                currentIndex={StoryIndex}
               />
             )}
 
@@ -233,9 +234,9 @@ console.log("stories RDX", storiesRDX)
 
 
 
-              <div className="grid gap-10 items-center">
+              <div className="grid gap-10 items-center ">
 
-              <div className="flex flex-col mb-8">
+              <div className="flex flex-col ml-10 mr-24">
   <p className="text-pink-800 text-2xl mb-4 font-semibold">
     Stories de {selectedProfile?.nome}
   </p>
@@ -285,10 +286,7 @@ console.log("stories RDX", storiesRDX)
   ) : null} {/* Não renderiza nada se não houver stories */}
 </div>
 
-
-
-
-              <div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
+<div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   
 
   <div className="flex flex-col mb-8">

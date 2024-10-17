@@ -7,11 +7,29 @@ import Footer from "@/components/Footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
 import { Profile } from "@/types";
+import StoryCard from "@/components/StoryCard";
+import StoryBigS from "@/components/StoryBigS"
+import { useDispatch, useSelector } from "react-redux";
 
-function StoriesPage() {
+
+function StoriesPage({}) {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const searchParams = useSearchParams();
+
+  const [showLargeStory, setShowLargeStory] = useState(false);
+
+
+  
+  const handleStoryClick = (story: string) => {
+    setSelectedStory(story);
+    setShowLargeStory(true); // Mostra o StoryBigS
+  };
+
+
+  const userUIDRedux = useSelector((state: any) => state.profile?.profile.userUIDRedux);
+  console.log("storiesRedux", userUIDRedux)
+
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +48,7 @@ function StoriesPage() {
     fetchData();
   }, [searchParams]);
 
+
   return (
     <div className="text-gray-600 bg-black">
       <div className="px-36">
@@ -39,7 +58,13 @@ function StoriesPage() {
       </div>
       <CaroselRound profiles={filteredProfiles} />
       <div className="px-36">
-        <CardsGirl profiles={filteredProfiles} />
+        {showLargeStory && (
+          <StoryBigS
+            story={selectedStory} // Passa a história selecionada para o componente
+            onClose={() => setShowLargeStory(false)}
+          />
+        )}
+        <StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick} /> {/* Passa a função para o StoryCard */}
       </div>
     </div>
   );

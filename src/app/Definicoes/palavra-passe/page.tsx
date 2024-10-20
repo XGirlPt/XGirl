@@ -1,121 +1,171 @@
 "use client";
-import { useEffect } from "react";
-import Header from "@/components/Header";
-import supabase from "@/database/supabase";
-import HeaderLoged from "@/components/Register/HeaderLoged";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { ImBin } from "react-icons/im";
-import Link from "next/link";
-import { RootState } from "@/store";
+import supabase from "@/database/supabase";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/navigation";
+import BarConta from "@/components/BarConta";
 
-function Defpassword() {
-  const reduxState = useSelector((state: RootState) => state);
-  console.log("Estado Redux completo:", reduxState);
+const Definicoes: React.FC = () => {
+  const [showNotification, setShowNotification] = useState(true);
+  const [BarOpen, setBarOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const router = useRouter();
 
-  const userEmailRedux = useSelector(
-    (state: any) => state.profile?.user?.user?.email
-  );
-  console.log("email do redux", userEmailRedux);
+  const userEmailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
+  const userUID = useSelector((state: any) => state.profile?.profile?.userUID);
+
+  const handleDeleteAccount = async () => {
+    try {
+      if (!userUID) throw new Error("User ID is missing");
+
+      const { error } = await supabase.auth.admin.deleteUser(userUID);
+      if (error) throw error;
+
+      toast.success("Conta apagada com sucesso!");
+      router.push("/"); // Redireciona para a página inicial após exclusão
+    } catch (error: any) {
+      console.error("Erro ao apagar conta:", error.message);
+      toast.error("Erro ao apagar conta. Tente novamente.");
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      if (error) throw error;
+
+      toast.success("Palavra-passe alterada com sucesso!");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error: any) {
+      toast.error("Erro ao alterar a palavra-passe. Tente novamente.");
+    }
+  };
 
   useEffect(() => {
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error || !data.session) {
-        console.log(
-          "Sessão não iniciada ou erro ao verificar a sessão:",
-          error
-        );
+        console.log("Erro ao verificar a sessão:", error);
       } else {
-        // Você pode adicionar outras ações aqui, se necessário
+        console.log("Sessão iniciada:", data.session);
       }
     };
-
     getSession();
   }, []);
 
   return (
-    <div className="text-gray-600 bg-[#1b1b1b] flex flex-col min-h-screen">
-      <HeaderLoged />
-      {/* Renderiza HeaderLoged se o usuário estiver logado */}
+    <div className="bg-gray-900 text-gray-100 h-screen">
+      <ToastContainer />
 
-      <div className="mx-10">
-        <div className="flex-1">
-          <p className="text-3xl text-white">Definições de Perfil</p>
-        </div>
+      <div className="flex">
+        {/* Sidebar */}
+        <BarConta
+          BarOpen={BarOpen}
+          handleVerPerfil={() => {}}
+        />
 
-        <div className="flex my-4 align-center items-center justify-center">
-          <Link href="/definicoes">
-            <div className="flex bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 cursor-pointer align-center rounded-l-md items-center">
-              <MdOutlineEmail
-                size={20}
-                className="mr-2 items-center align-middle"
-              />
-              Email
+        {/* Main Content */}
+        <main
+          className={`flex-1 pb-20 transition-all duration-300 ${BarOpen ? "ml-64" : ""}`}
+          style={{ marginTop: "80px" }}
+        >
+          <div className="w-full max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-lg p-6">
+            <h1 className="text-3xl font-bold mb-6">Definições</h1>
+
+            {/* Email Section */}
+            <div className="bg-gray-700 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <MdOutlineEmail className="text-xl text-pink-600 mr-2" />
+                <h2 className="text-xl font-semibold">Email</h2>
+              </div>
+              <p className="text-gray-300">{userEmailRedux || "Email não disponível"}</p>
             </div>
-          </Link>
 
-          <div className="flex bg-pink-800 hover:bg-pink-900 text-white px-6 py-2 cursor-pointer align-center items-center">
-            <FaLock size={18} className="mr-2 items-center align-middle" />
-            Palavra Passe
-          </div>
-          <div className="flex bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 cursor-pointer align-center items-center">
-            <LiaFileInvoiceDollarSolid
-              size={20}
-              className="mr-2 items-center align-middle"
-            />
-            Faturacao
-          </div>
-
-          <Link href="/definicoes/apagar-conta">
-            <div className="flex bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 cursor-pointer rounded-r-md align-center items-center">
-              <ImBin size={20} className="mr-2 items-center align-middle" />
-              Apagar
+            {/* Password Section */}
+            <div className="bg-gray-700 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <FaLock className="text-xl text-pink-600 mr-2" />
+                <h2 className="text-xl font-semibold">Alterar Palavra-passe</h2>
+              </div>
+              <div className="mt-4">
+                <p className="text-gray-400 mb-2">Palavra-passe atual</p>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="w-full py-2 px-2 bg-gray-600 text-white mb-4"
+                  placeholder="Palavra-passe atual"
+                />
+                <p className="text-gray-400 mb-2">Nova Palavra-passe</p>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full py-2 px-2 bg-gray-600 text-white mb-4"
+                  placeholder="Nova palavra-passe"
+                />
+                <p className="text-gray-400 mb-2">Confirmar Nova Palavra-passe</p>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full py-2 px-2 bg-gray-600 text-white mb-4"
+                  placeholder="Confirmar nova palavra-passe"
+                />
+                <button
+                  onClick={handleChangePassword}
+                  className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors"
+                >
+                  Alterar Palavra-passe
+                </button>
+              </div>
             </div>
-          </Link>
-        </div>
 
-        <div className="bg-[#1E2427] grid gap-2 py-6 w-1/2 px-10 border mt-6 border-gray-600 rounded-md mb-10 mx-auto">
-          <div>
-            <p className="text-pink-800 text-2xl">Alterar Palavra Passe</p>
-            <div className="mt-6">
-              <p className="mb-2 text-pink-800"> Palavra Passe atual</p>
-              <input
-                type="password"
-                className="w-full py-2 px-2 bg-slate-600 mb-6 text-white"
-                placeholder="Palavra Passe Atual"
-              />
+            {/* Payment Section */}
+            <div className="bg-gray-700 p-4 rounded-lg mb-4">
+              <div className="flex items-center mb-2">
+                <LiaFileInvoiceDollarSolid className="text-xl text-pink-600 mr-2" />
+                <h2 className="text-xl font-semibold">Métodos de Pagamento</h2>
+              </div>
+              <p className="text-gray-300">Gestão de métodos de pagamento será adicionada em breve.</p>
+            </div>
 
-              <p className="mb-2 text-pink-800"> Nova Palavra Passe</p>
-              <input
-                type="password"
-                className="w-full py-2 px-2 bg-slate-600 mb-6 text-white"
-                placeholder="Nova Palavra Passe"
-              />
-
-              <p className="mb-2 text-pink-800">
-                {" "}
-                Nova Palavra Passe (Confirmação)
+            {/* Delete Account Section */}
+            <div className="bg-gray-700 p-4 rounded-lg">
+              <div className="flex items-center mb-2">
+                <ImBin className="text-xl text-red-600 mr-2" />
+                <h2 className="text-xl font-semibold text-red-500">Apagar Conta</h2>
+              </div>
+              <p className="text-gray-300 mb-4">
+                Ao apagar a sua conta, todas as suas informações serão permanentemente removidas.
               </p>
-              <input
-                type="password"
-                className="w-full py-2 px-2 bg-slate-600 mb-6 text-white"
-                placeholder="Confirmação de Palavra Passe"
-              />
-            </div>
-
-            <div className="mt-2">
-              <button className="bg-pink-800 hover:bg-pink-900 py-2 px-2 text-white w-42 rounded-md">
-                Alterar Palavra Passe
+              <button
+                onClick={handleDeleteAccount}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              >
+                Apagar Conta
               </button>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );
-}
+};
 
-export default Defpassword;
+export default Definicoes;

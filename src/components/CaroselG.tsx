@@ -13,6 +13,7 @@ interface Profile {
   nome: string;
   photos: string[];
   cidade: string;
+  certificado: boolean;
 }
 
 interface CarouselGProps {
@@ -103,10 +104,12 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
                     className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl "
                   />
                 </Link>
-                <p className="absolute bottom-6 left-0 right-0 text-white text-center py-2">
-                  {profile.nome}{" "}
-                  <VscVerifiedFilled className="text-green-400 inline-block" />
-                </p>
+                <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">
+              {profile.nome}
+              {profile.certificado && (
+                <VscVerifiedFilled className="text-green-400 ml-2" />
+              )}
+            </p>
                 <p className="absolute bottom-0 left-0 right-0 text-white text-center py-2">
                   {profile.cidade}{" "}
                   <FaMapMarkerAlt className="text-rose-800 inline-block" />

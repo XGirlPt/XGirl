@@ -67,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <>
    
-      <div className="text-gray-600 bg-black w-screen">
+      <div className="text-gray-600 bg-gray-900 w-screen">
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
 
         <div className=" mt-4 w-full">

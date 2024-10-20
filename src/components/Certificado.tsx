@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
 import { IoInformationCircle } from "react-icons/io5";
+import { VscVerifiedFilled } from "react-icons/vsc";
+
 
 interface CertificadoProps {
   setShowCertificado: (show: boolean) => void;
@@ -35,7 +37,7 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
   
             <div className="flex items-center bg-green-600 p-4 rounded-md mb-6">
               <span className="text-white font-bold">Certificado</span>
-              <IoInformationCircle size={20} className="text-white ml-2" />
+              <VscVerifiedFilled size={20} className="text-white ml-2" />
             </div>
   
             <div className="text-white mb-6">

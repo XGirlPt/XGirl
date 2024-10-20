@@ -12,6 +12,7 @@ A minha conta :
 - [X] barra pendente, certificado e nao certificado
 - [] retirar todos os fetch. limpar codigo
 - [X] toaster em guardar tag
+- [X] Barra de pendente funcionar correctamente
 
 Admin: 
 - [X]  toaster rejeitar perfis pendentes
@@ -29,18 +30,26 @@ Admin:
 Perfil: 
 - [] Preco a funcionar .. no registo e A minha conta
 - [] tempo menos de 10minutos .. Agora mesmo
+- [X] Liga com flags
+- [] certificado melhorar 
+
 
 
 
 Stories: 
 - [] colocar filigrana
 - [X] previsualizacao no componente A minha conta
-- [] inserir os stories na pagina "Stories"
+- [X] inserir os stories na pagina "Stories"
 - [X] alinhar no componente page acompanhantes
-
+- [] stories com  butao para perfil
+- [] objecto cover 
+- [] se certificado aparecer o certificado
 
 Header:
 - [X] hover na pagina actual
+- [X] foto de perfil
+- [] menu a funcionar com dropoff
+
 
 
 

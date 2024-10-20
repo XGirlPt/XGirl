@@ -107,6 +107,21 @@ console.log("stories RDX", storiesRDX)
           uploadedStoryURLs.push(publicURLStory);
         } catch (error: any) {
           console.error("Erro durante o upload:", error.message);
+          {
+            // Exibe o toast de erro em caso de exceção ou erro ao submeter
+            toast.error('Erro ao submeter a imagem!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            console.error(error);
+          }
+
         } 
         finally {
           setLoading(false); // Desativa o loading
@@ -126,7 +141,23 @@ console.log("stories RDX", storiesRDX)
           .insert(storyInsertionsProfile);
 
         if (storyError) {
-          throw new Error("Erro ao inserir URLs das stories na tabela stories: " + storyError.message);
+          {
+            // Exibe o toast de erro em caso de exceção ou erro ao submeter
+            toast.error('Erro ao submeter a imagem!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            console.error(error);
+          }
+          throw new Error("Erro ao inserir URLs das stories na tabela stories: " + storyError.message)
+          ;
+        
         }
 
         const newStoryURLs = [...storyURLsRedux, ...uploadedStoryURLs];
@@ -135,6 +166,20 @@ console.log("stories RDX", storiesRDX)
         dispatch(updateStories(newStoryURLs));
       } catch (error: any) {
         console.error("Erro ao inserir URLs das stories na tabela:", error.message);
+        {
+          // Exibe o toast de erro em caso de exceção ou erro ao submeter
+          toast.error('Erro ao submeter a imagem!', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          console.error(error);
+        }
       }
     }
   }
@@ -189,17 +234,25 @@ console.log("stories RDX", storiesRDX)
 
 
   const handleGuardar = () => {
-    console.log("stories guardadas com sucesso!");
-    toast.success('Alteração efetuada com sucesso!', {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    try {
+      // Simula operação de sucesso
+      console.log("stories guardadas com sucesso!");
+      
+      // Exibe toast de sucesso
+      toast.success('Alteração efetuada com sucesso!', {
+        position: "top-right",
+        autoClose: 1000,
+        theme: "light",
+      });
+    } catch (error) {
+      // Em caso de erro, exibe toast de erro
+      toast.error('Erro ao guardar as alterações!', {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "light",
+      });
+      console.error("Erro ao guardar as alterações:", error);
+    }
   };
 
  

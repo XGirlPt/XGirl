@@ -123,9 +123,9 @@ const LeftSide: React.FC<LeftSideProps> = ({
                   <div className="absolute top-0 left-0 w-full h-full transform -skew-x-12 bg-white opacity-20 animate-slide"></div>
                 </div>
               </div>
-              <div className="bg-yellow-400 py-2 rounded-md justify-center flex cursor-pointer hover:bg-yellow-600">
+              {/* <div className="bg-yellow-400 py-2 rounded-md justify-center flex cursor-pointer hover:bg-yellow-600">
                 <p className="text-sm text-black">Adicionar aos Favoritos</p>
-              </div>
+              </div> */}
               <div
                 className="bg-blue-500 text-white py-2 rounded-md justify-center flex cursor-pointer hover:bg-blue-600"
                 onClick={handlePartilhaClick}

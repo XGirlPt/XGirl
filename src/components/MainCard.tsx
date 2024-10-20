@@ -12,14 +12,17 @@ interface Profile {
   photos: string[];
   stories: string[];
   tag: string;
-  tagtimestamp: string; // Certifique-se de que tagtimestamp está presente e é uma string.
+  tagtimestamp: string;
+  certificado: boolean; // Adiciona a propriedade certificado como boolean
 }
 
 interface MainCardProps {
   profiles: Profile[];
+  currentPage: number; // Página atual
+  itemsPerPage: number; // Itens por página
 }
 
-const MainCard: React.FC<MainCardProps> = ({ profiles }) => {
+const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
 
   const formatTimeElapsed = (minutesElapsed: number): string => {
@@ -51,30 +54,34 @@ const MainCard: React.FC<MainCardProps> = ({ profiles }) => {
   };
 
   useEffect(() => {
-    const timeElapsed = profiles.map(profile => calculateTimeElapsed(profile.tagtimestamp));
+    const timeElapsed = profiles.map((profile) => calculateTimeElapsed(profile.tagtimestamp));
     setTimeElapsedList(timeElapsed);
 
     const interval = setInterval(() => {
-      const updatedTimeElapsed = profiles.map(profile => calculateTimeElapsed(profile.tagtimestamp));
+      const updatedTimeElapsed = profiles.map((profile) => calculateTimeElapsed(profile.tagtimestamp));
       setTimeElapsedList(updatedTimeElapsed);
     }, 60000);
 
     return () => clearInterval(interval);
   }, [profiles]);
 
-  const shuffledProfiles = profiles && profiles.length > 0
-  ? [...profiles].sort(() => Math.random() - 0.5)
-  : [];
+  const shuffledProfiles = profiles && profiles.length > 0 ? [...profiles].sort(() => Math.random() - 0.5) : [];
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProfiles = profiles.slice(startIndex, startIndex + itemsPerPage);
+
+
+  
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
-      {shuffledProfiles.map((profile, index) => (
+      {paginatedProfiles.map((profile, index) => (
         <Link
           key={index}
           href={`/Acompanhantes/${profile.nome}`}
-          className="border-2 rounded-md border-zinc-700"
+          className="border-2 rounded-md border-gray-700"
         >
-          <div className="relative hover:border-none rounded-md overflow-hidden">
+          <div className="relative hover:border-none rounded-md overflow-hidden ">
             <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center align-middle items-center rounded-t-md z-10 absolute top-0 left-0">
               <div className="flex rounded-md">
                 <FaFireAlt className="text-yellow-500 mr-2" />
@@ -84,17 +91,19 @@ const MainCard: React.FC<MainCardProps> = ({ profiles }) => {
             <BlurImage
               src={profile.photos[0]}
               alt={profile.nome}
-              className="w-full h-48 md:h-64 object-cover transition duration-300 ease-in-out transform hover:scale-105 hover:opacity-60"
+              className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
             />
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-sm md:text-md px-2 rounded">
               <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}
             </p>
             <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">
-              {profile.nome}{" "}
-              <VscVerifiedFilled className="text-green-400 ml-2" />
+              {profile.nome}
+              {profile.certificado && (
+                <VscVerifiedFilled className="text-green-400 ml-2" />
+              )}
             </p>
           </div>
-          <div className="h-14 md:h-20 bg-[#1E2427] border border-zinc-700 rounded-md flex flex-col justify-center items-center">
+          <div className="h-14 md:h-20 bg-gray-900 border border-gray-700 rounded-md flex flex-col justify-center items-center">
             <p className="text-white text-xs italic">{profile.tag}</p>
 
             <div className="flex justify-center items-center mt-2">

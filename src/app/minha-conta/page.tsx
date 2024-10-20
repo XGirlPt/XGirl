@@ -24,6 +24,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showContacto, setShowContacto] = useState(false);
   const [showFotos, setShowFotos] = useState(false);
   const [showStories, setShowStories] = useState(false);
+  const [showNotification, setShowNotification] = useState(true);
 
   const [notificationVisible, setNotificationVisible] = useState(true);
   const [BarOpen, setBarOpen] = useState(false);
@@ -118,12 +119,17 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
   // Função para determinar a cor e mensagem da notificação com base no valor de "certificado"
   const renderNotification = () => {
+    if (!showNotification) return null; // Não renderiza nada se a notificação não estiver visível
+  
     if (certificado === true) {
       return (
         <div className="bg-green-600 text-white px-4 py-3 flex justify-between items-center">
           <span>✅ O teu perfil está certificado.</span>
           <button
-            onClick={() => setCertificado(null)}
+            onClick={() => {
+              setCertificado(false); // Altera o estado do certificado
+              setShowNotification(false); // Esconde a notificação
+            }}
             className="text-lg"
           >
             &times;
@@ -135,7 +141,9 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         <div className="bg-yellow-600 text-white px-4 py-3 flex justify-between items-center">
           <span>⚠️ O teu perfil aguarda verificação da nossa equipa.</span>
           <button
-            onClick={() => setCertificado(null)}
+            onClick={() => {
+              setShowNotification(false); // Esconde a notificação
+            }}
             className="text-lg"
           >
             &times;
@@ -145,9 +153,11 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     } else if (certificado === false) {
       return (
         <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
-          <span>❌ O teu perfil não está certificado. Adiciona uma foto de verificação para certificar o teu perfil.</span>
+          <span>❌ O teu perfil não está certificado. Clica Aqui para adicionar uma foto de verificação para certificar o teu perfil.</span>
           <button
-            onClick={() => setCertificado(null)}
+            onClick={() => {
+              setShowNotification(false); // Esconde a notificação
+            }}
             className="text-lg"
           >
             &times;
@@ -155,9 +165,11 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         </div>
       );
     }
-
+  
     return null;
   };
+  
+  
 
   useEffect(() => {
     const getSession = async () => {
@@ -174,7 +186,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   }, []);
 
   return (
-    <div className="bg-gray-900 text-gray-100">
+    <div className="bg-gray-900 text-gray-100 h-sreen">
        <ToastContainer />
       {/* Notification Bar */}
       {renderNotification()}

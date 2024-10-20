@@ -7,6 +7,7 @@ import { BlurImage } from "./BlurImage";
 import { useEffect, useState } from "react";
 import StoryBigS from "./StoryBigS";
 import { useDispatch, useSelector } from "react-redux";
+import { BiSolidMoviePlay } from "react-icons/bi";
 
 
 interface Profile {
@@ -16,6 +17,8 @@ interface Profile {
   stories: string[]; // Array de stories
   tag: string;
   tagtimestamp: string;
+  certificado: boolean;
+  photoURL: string[];
 }
 
 interface StoryCardProps {
@@ -26,13 +29,16 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
   const [selectedStory, setSelectedStory] = useState<string | null>(null); // Estado para controlar a história selecionada
   const [showStoryModal, setShowStoryModal] = useState(false); 
+  const [selectedCidade, setSelectedCidade] = useState<string | null>(null); // Estado para controlar a história selecionada
+  const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]); // Alterado para array de strings
+  const [selectedNome, setSelectedNome] = useState<string[]>([]); // Alterado para array de strings
+  const [selectedPhotoURL, setSelectedPhotoURL] = useState<string[]>([]); // Alterado para array de strings
+
+
+  selectedPhotoURL
+ 
 
   const dispatch = useDispatch();
-  const storiesRedux = useSelector((state: any) => state.profile?.profile.stories);
-  console.log("storiesRedux", storiesRedux)
-
-  const userUIDRedux = useSelector((state: any) => state.profile?.profile.userUIDRedux);
-  console.log("storiesRedux", userUIDRedux)
 
   const formatTimeElapsed = (minutesElapsed: number): string => {
     const hoursElapsed = minutesElapsed / 60;
@@ -88,9 +94,25 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   );
   console.log("stories dos perfis", profilesWithStories)
 
-  const handleCardClick = (story: string) => {
+
+
+  
+  // Extrai a primeira foto de cada perfil
+  const firstPhotos = profilesWithStories.map((profile) => {
+    return profile.photos && profile.photos.length > 0 ? profile.photos[0] : null;
+  });
+  
+  console.log("Primeiras fotos dos perfis", firstPhotos);  
+
+
+  const handleCardClick = (story: string, profile: Profile, photos: string[], photoURL: string[]) => {
     setSelectedStory(story); // Define a história selecionada
     setShowStoryModal(true); // Mostra o modal
+    setSelectedCidade(profile.cidade);
+    setSelectedPhotos(photos);
+    setSelectedNome(profile.nome);
+    setSelectedPhotoURL(photoURL)
+
   };
 
   const closeStoryModal = () => {
@@ -101,44 +123,68 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
 
 
   return (
-    <div >
+    <div  className="rounded-xl h-full">
           {/* Renderiza o StoryBigS se showStoryModal estiver true */}
       {showStoryModal && (
-        <StoryBigS story={selectedStory} onClose={closeStoryModal} />
-      )}
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 xxl:grid-cols-6 gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
-      {profilesWithStories.map((profile, profileIndex) =>
-        profile.stories.map((story, storyIndex) => (
-          <button
-            key={`${profileIndex}-${storyIndex}`}
-            className="border-2 rounded-md border-zinc-800"
-            onClick={() => handleCardClick(story)} // Define a ação de clique
-
-          >
-            <div className="relative hover:border-none rounded-md overflow-hidden h-72">
-              <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center align-middle items-center rounded-t-md z-10 absolute top-0 left-0">
-                <div className="flex rounded-md">
-                  <FaFireAlt className="text-yellow-500 mr-2" />
-                  <p className="text-sm text-white justify-center">
-                    Story em destaque {profile.cidade}
-                  </p>
-                </div>
-              </div>
-              <video
-                  src={story}
-                  alt={`Thumbnail `}
-                  className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
-                  width={300}
-                  height={100}
-
-                />
-            
+        <StoryBigS story={selectedStory} onClose={closeStoryModal} photos={selectedPhotos}  cidade={selectedCidade} nome={selectedNome}  photoURL={selectedPhotoURL}/>
+     
+     
+     
+     )}
+<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-4 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
+  {profilesWithStories.map((profile, profileIndex) =>
+    profile.stories.map((story, storyIndex) => (
+      <button
+        key={`${profileIndex}-${storyIndex}`}
+        className="relative border-1 rounded-2xl border-zinc-800"
+        onClick={() => handleCardClick(story, profile)} 
+      >
+        <div className="relative rounded-lg overflow-hidden h-full">
+          <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center items-center z-10 absolute top-0 left-0">
+            <div className="flex rounded-md">
+              <FaFireAlt className="text-yellow-500 mr-2" />
+              <p className="text-sm text-white">Story em destaque</p>
             </div>
-            
-          </button>
-        ))
-      )}
-    </div>
+          </div>
+
+          {/* Aplique o efeito de hover no vídeo */}
+          <div className="relative w-full h-full overflow-hidden ">
+            <video
+              src={story}
+              alt={`Thumbnail`}
+              className="w-full h-full object-cover border border-zinc-500 shadow-md transform transition-transform duration-500 ease-in-out hover:scale-110" 
+            />
+          </div>
+
+          {/* Ícone de play centralizado */}
+          <div className="absolute inset-0 flex items-center justify-center text-6xl">
+            <BiSolidMoviePlay className="text-gray-800 opacity-50 " />
+          </div>
+
+          {/* Nome do perfil sobreposto no vídeo */}
+          <div className="absolute bottom-4 left-0 w-full h-20 flex justify-center">
+            <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">
+              {profile.nome}{" "}
+              <VscVerifiedFilled className="text-green-400 ml-2" />
+            </p>
+            <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-sm md:text-md px-2 rounded">
+              <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}
+              {profile.certificado && (
+                <VscVerifiedFilled className="text-green-400 ml-2" />
+              )}
+            </p>
+          </div>
+        </div>
+      </button>
+    ))
+  )}
+</div>
+
+
+
+
+
+
     </div>
   );
 };

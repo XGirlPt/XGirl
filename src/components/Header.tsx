@@ -1,23 +1,17 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect } from "react";
-import { FaUser } from "react-icons/fa6";
-import Search from "./Search";
-import { IoIosOptions } from "react-icons/io";
-import Filtro from "./Filtro";
+import { useState, useEffect, useRef } from "react";
+import { IoIosOptions, IoIosArrowDown } from "react-icons/io";
+import { BiSolidMoviePlay } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../actions/ProfileActions";
 import { logoutClubs } from "../actions/ClubsActions";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { MdLanguage } from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
-import { BiSolidMoviePlay } from "react-icons/bi";
-
+import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 
 interface HeaderProps {
   blur?: boolean;
-  isLogged?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ blur }) => {
@@ -31,12 +25,20 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   const emailReduxClubs = useSelector(
     (state: any) => state.clubs && state.clubs.email
   );
+  const photoUID = useSelector((state: any) => state.profile?.profile?.photos?.[0]);
 
   const [filtroAberto, setFiltroAberto] = useState<boolean>(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState<boolean>(false);
 
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    setEmail(emailReduxProfile || "");
+  }, [emailReduxProfile]);
 
   const toggleLanguageDropdown = () => {
     setLanguageDropdownOpen(!languageDropdownOpen);
@@ -45,10 +47,6 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   const toggleFiltro = () => {
     setFiltroAberto(!filtroAberto);
   };
-
-  useEffect(() => {
-    setEmail(emailReduxProfile || "");
-  }, [emailReduxProfile]);
 
   const handleLogout = () => {
     if (emailReduxProfile) {
@@ -62,94 +60,159 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     router.push("/");
   };
 
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setLanguageDropdownOpen(false);
+    }
+  };
+
   useEffect(() => {
-    console.log(
-      "Estado do Redux após logout:",
-      emailReduxClubs,
-      emailReduxProfile
-    );
-  }, [emailReduxClubs, emailReduxProfile]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   return (
-    <nav className={`sticky top-0 left-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
-      <div className="w-full bg-black h-20 flex justify-center items-center">
+    <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
+      {/* Header Principal */}
+      <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
         <Link href="/">
-          <img src="/photos/logo1.png" alt="logo" className="w-40 h-14 object-contain" />
+          <img src="/photos/logo1.png" alt="Logo" className="w-48 h-16 object-contain" />
         </Link>
       </div>
-  
+
+      {/* Navegação */}
       <div className="w-full bg-pink-800">
-        <div className="flex mx-auto px-5 md:px-20 h-14 items-center justify-between">
-          <div className="flex space-x-5 h-full">
-            <Link href="/" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
+        <div className="flex mx-auto px-5 md:px-10 h-12 items-center justify-between">
+          {/* Links de navegação */}
+          <div className="flex space-x-5 h-full text-md">
+            <Link
+              href="/"
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
+                pathname === "/" ? "bg-pink-900" : "hover:bg-pink-700"
+              } transition duration-200`}
+            >
               Home
             </Link>
-  
-            <Link href="/Acompanhantes" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/girls" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
+            <Link
+              href="/Acompanhantes"
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
+                pathname === "/Acompanhantes" ? "bg-pink-900" : "hover:bg-pink-700"
+              } transition duration-200`}
+            >
               Acompanhantes
             </Link>
-  
-            <Link href="/Stories" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/Stories" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
+            <Link
+              href="/Stories"
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
+                pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-700"
+              } transition duration-200`}
+            >
               <BiSolidMoviePlay className="mr-2" />
               Stories
             </Link>
-  
-            <button onClick={toggleFiltro} className={`flex items-center px-4 py-2 rounded-md text-white relative h-full hover:bg-pink-900`}>
+            <button
+              onClick={toggleFiltro}
+              className="flex items-center px-4 py-3 text-white h-full hover:bg-pink-700 transition duration-200"
+            >
               <IoIosOptions className="mr-2" />
               Filtros
             </button>
-            {filtroAberto && <Filtro />}
+            {filtroAberto && <div> {/* Filtro Component */} </div>}
           </div>
-  
-          <div className="flex items-center space-x-4 h-full">
+
+          {/* Área de usuário e configurações */}
+          <div className="flex items-center space-x-2 h-full text-sm">
+            <p className="text-white ml-2"></p> 
             {!emailReduxProfile && !emailReduxClubs ? (
+
               <>
-                <Link href="/login" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/login" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
-                  <FaUser className="mr-2" />
+                <Link
+                  href="/login"
+                  className={`nav-link flex items-center py-3  px-4 text-white h-full ${
+                    pathname === "/login" ? "bg-pink-800 py-4" : "hover:bg-pink-700"
+                  } transition duration-200`}
+                >
+                  <FaUser className="mr-2 text-sm" />
                   Login
                 </Link>
-  
-                <Link href="/regista2" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/regista2" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
-                  <FaUser className="mr-2" />
+                <Link
+                  href="/regista2"
+                  className={`nav-link flex items-center px-4 py-4  text-white h-full ${
+                    pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-700 "
+                  } transition duration-200`}
+                >
+
+
+                  <FaUser className="mr-2 text-sm" />
                   Regista-te
                 </Link>
               </>
             ) : (
-              <>
-                <Link href="/minha-conta" className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full ${pathname === "/minha-conta" ? "bg-pink-900" : ""} hover:bg-pink-900`}>
-                  <FaUser className="mr-2" />
-                  A Minha Conta
-                </Link>
-  
-                <button onClick={handleLogout} className={`nav-link flex items-center px-4 py-2 rounded-md text-white relative h-full hover:bg-pink-900`}>
-                  <FaUser className="mr-2" />
-                  Logout
-                </button>
-              </>
+              <div className="flex items-center space-x-4 cursor-pointer">
+                <span className="text-white flex">  {emailReduxProfile}</span>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 transition-transform hover:scale-110">
+                  {photoUID ? (
+                    <img
+                      src={photoUID}
+                      alt="Profile Photo"
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-400"></div>
+                  )}
+                </div>
+
+                {/* Seta do dropdown só é renderizada quando o usuário está logado */}
+                <div className="relative">
+                  <button
+                    onClick={toggleLanguageDropdown}
+                    className="flex items-center text-white h-full"
+                  >
+                    <IoIosArrowDown className="text-xl ml-1" />
+                  </button>
+                  {languageDropdownOpen && (
+                    <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-pink-900 text-white shadow-lg rounded-lg py-2">
+                     <li
+                        onClick={() => {
+                          router.push("/minha-conta");
+                          setLanguageDropdownOpen(false);
+                        }}
+                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                      >
+                        <FaUser className="mr-2" />
+                        A Minha Conta
+                      </li>
+                      <li
+                        onClick={() => {
+                          router.push("/Definicoes");
+                          setLanguageDropdownOpen(false);
+                        }}
+                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                      >
+                        <FaCog className="mr-2" />
+                        Definições
+                      </li>
+                      <li
+                        onClick={handleLogout}
+                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                      >
+                        <FaSignOutAlt className="mr-2" />
+                        Logout
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              </div>
             )}
-  
-            <div className="relative">
-              <button onClick={toggleLanguageDropdown} className="flex items-center text-white relative h-full">
-                <MdLanguage className="text-xl" />
-                <IoIosArrowDown className="text-xl ml-1" />
-              </button>
-  
-              {languageDropdownOpen && (
-                <ul className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg py-2 text-black">
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Português</li>
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">English</li>
-                  <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Español</li>
-                </ul>
-              )}
-            </div>
           </div>
         </div>
       </div>
     </nav>
   );
-  
-  
-  
 };
 
 export default Header;

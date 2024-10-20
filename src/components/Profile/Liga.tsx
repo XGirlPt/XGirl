@@ -34,21 +34,21 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
   const obterBandeira = (lingua: string): string => {
     switch (lingua) {
       case "Russo":
-        return ru;
+        return "/Flags/ru.svg"; // Caminho relativo para a pasta public
       case "Alemão":
-        return ale;
-      case "Portugues":
-        return pt;
-      case "Frances":
-        return fr;
-      case "Ingles":
-        return ing;
+        return "/Flags/ale.svg";
+      case "Português":
+        return "/Flags/pt.svg";
+      case "Francês":
+        return "/Flags/fr.svg";
+      case "Inglês":
+        return "/Flags/ing.svg";
       case "Italiano":
-        return it;
+        return "/Flags/it.svg";
       case "Espanhol":
-        return es;
-      case "Arabe":
-        return ar as any;
+        return "/Flags/es.svg";
+      case "Árabe":
+        return "/Flags/ar.png";
       default:
         return ""; // Pode definir uma imagem padrão para línguas sem bandeira específica
     }
@@ -65,7 +65,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
     <>
       {mostrarLiga && (
         <div className="fixed inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
-          <div className="w-full md:w-2/6 h-46 md:h-2/4 mt-36 bg-[#1E2427] rounded-lg shadow-2xl ">
+          <div className="w-full md:w-2/6 h-46 md:h-2/4 mt-36 bg-[#1E2427]  rounded-lg shadow-2xl ">
             <div className="flex justify-between items-center">
               <h1 className="text-sm md:text-xl mx-10 items-center mt-8 align-middle mb-4 text-white font-bold">
                 Liga a {selectedProfile?.nome}
@@ -77,7 +77,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
                 />
               </button>
             </div>
-            <div className="border-t border-neutral-600 p-2 relative"></div>
+            <div className="border-t border-neutral-600 p-2  relative"></div>
             <div className="flex gap-6 px-6 py-6 pb-10">
               <div className="bg-pink-800 py-2 rounded-md w-full justify-center flex z-100 hover:bg-pink-600">
                 <FiPhone size={22} className="mr-2 text-white" />
@@ -105,17 +105,17 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
                 Tarifas a partir de {selectedProfile?.Tarifa} €
               </p>
             </div>
-            <div className="border-t border-neutral-700 p-2 relative mt-6"></div>
+            <div className="border-t border-neutral-700  relative mt-6"></div>
             <div className="flex items-center justify-center">
-              <div className="flex flex-wrap justify-center items-center my-4">
+              <div className="grid grid-cols-3 gap-y-3 justify-center items-center my-4">
                 {linguaRedux &&
                   linguaRedux.map((lingua: string, index: number) => (
                     <div key={index} className="flex items-center mx-2">
                       <img
-                        src={obterBandeira(lingua)}
-                        alt={`${lingua} flag`}
-                        className="w-8 h-5 mr-2"
-                      />
+  src={obterBandeira(lingua)}
+  alt={`${lingua} flag`}
+  className="w-6 h-6 mr-2 rounded-full object-cover grid grid-cols-3 gap-y-2"
+/>
                       <span className="text-white">{lingua}</span>
                     </div>
                   ))}

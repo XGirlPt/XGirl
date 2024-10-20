@@ -19,6 +19,8 @@ import { Profile } from "@/types";
 import { BlurImage } from "@/components/BlurImage";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
+import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
+
 
 
 
@@ -187,7 +189,7 @@ console.log("stories RDX", storiesRDX)
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="w-screen bg-gradient-to-b from-black to-pink-900 md:flex flex-col user-profile">
+        <div className="w-screen bg-black md:flex flex-col user-profile">
           <div className="md:flex m-24 mt-10 relative">
             {showLiga && (
               <Liga
@@ -289,28 +291,33 @@ console.log("stories RDX", storiesRDX)
 <div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   
 
-  <div className="flex flex-col mb-8">
-    <p className="text-pink-800 text-2xl mb-4 font-semibold">
-      Fotografias de {selectedProfile?.nome}
-    </p>
+<div className="flex justify-between mb-8">
+  <p className="text-pink-800 text-2xl mb-4 font-semibold">
+    Fotografias de {selectedProfile?.nome}
+  </p>
 
-    {loading || isCertified === null ? (
-      <div className="ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer bg-zinc-700">
-        <p className="text-white">Carregando...</p>
-      </div>
-    ) : (
-      <div
-        className={`ml-4 p-2 rounded-md flex h-8 items-center cursor-pointer ${
-          isCertified ? "bg-green-700 hover:opacity-80" : "bg-red-700 hover:opacity-80"
-        }`}
-      >
-        <p className="text-white" onClick={handleCertificadoClick}>
-          {isCertified ? "Certificado" : "Não Certificado"}
-        </p>
-        <IoInformationCircle size={26} className="text-white ml-2" />
-      </div>
-    )}
-  </div>
+  {loading || isCertified === null ? (
+    <div className="ml-4 p-2 rounded-md flex items-center bg-zinc-700 h-8">
+      <p className="text-white">Carregando...</p>
+    </div>
+  ) : (
+    <div
+      className={`ml-4 p-4 rounded-md flex items-center cursor-pointer transition duration-300 ease-in-out h-8 ${
+        isCertified ? "bg-green-700 hover:bg-green-600" : "bg-red-700 hover:bg-red-600"
+      }`}
+      onClick={handleCertificadoClick} // Adicione o onClick aqui para tornar a div clicável
+    >
+      <p className="text-white text-sm mr-2">
+        {isCertified ? "Certificado" : "Não Certificado"}
+      </p>
+      {isCertified ? (
+        <VscVerifiedFilled size={20} className="text-white" />
+      ) : (
+        <IoInformationCircle size={20} className="text-white" />
+      )}
+    </div>
+  )}
+</div>
 
   {selectedProfile && selectedProfile.photoURL && selectedProfile.photoURL.length > 0 ? (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

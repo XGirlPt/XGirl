@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ListCategoriaBar from "@/components/Register/ListCategoriaBar";
 import FiltroPrice from "@/components/Filtros/FiltroTarifa";
-import FiltroDistrito from "@/components/Register/FiltroDistrito";
+import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
 import { updateClubsNome, updateClubsTelefone } from "@/actions/ClubsActions";
 
 const RegistoEstabelecimento: React.FC = () => {

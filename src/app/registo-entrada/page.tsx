@@ -13,7 +13,7 @@ import FiltroPeito from "@/components/Filtros/FiltroPeito";
 import FiltroPelos from "@/components/Filtros/FiltroPelos";
 import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
 import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
-import FiltroDistrito from "@/components/Register/FiltroDistrito";
+import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
 import FiltroSigno from "@/components/Filtros/FiltroSigno";
 import CheckContacto from "@/components/Register/CheckContacto";
 import {

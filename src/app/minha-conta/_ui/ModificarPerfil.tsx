@@ -11,7 +11,7 @@ import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
 import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
 import CheckContacto from "@/components/Register/CheckContacto";
 import supabase from "@/database/supabase";
-import FiltroDistrito from "@/components/Register/FiltroDistrito";
+import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
 import { updateProfileData } from "@/services/profileService";
 import {
   updateNome,

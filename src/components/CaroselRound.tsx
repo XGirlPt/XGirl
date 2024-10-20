@@ -15,7 +15,7 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
   const profilesToDisplay = profiles.slice(0, 10);
 
   return (
-    <div className="flex mx-28 flex-wrap justify-center gap-4 mt-8 mb-10">
+    <div className="flex mx-28 flex-wrap justify-center gap-4 mt-4 mb-4">
       {profilesToDisplay.map((profile, index) => (
         <Link key={index} href={`/Acompanhantes/${profile.nome}`}>
           <div className="relative flex flex-col items-center cursor-pointer ">

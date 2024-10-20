@@ -7,6 +7,7 @@ import { BlurImage } from "./BlurImage";
 import { useEffect, useState } from "react";
 
 interface Profile {
+
   nome: string;
   cidade: string;
   photos: string[];
@@ -22,7 +23,7 @@ interface MainCardProps {
   itemsPerPage: number; // Itens por página
 }
 
-const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage }) => {
+const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,   }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
 
   const formatTimeElapsed = (minutesElapsed: number): string => {

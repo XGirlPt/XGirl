@@ -26,16 +26,14 @@ const InfoCard: React.FC = () => {
   if (!shouldRender) {
     return null; // Retorna null se o componente não deve ser renderizado
   }
-
   return (
-    <div className="bg-gray-800 w-full h-full mb-2 flex justify-center">
+    <div className="bg-black w-full rounded-xl h-full mb-2 flex justify-center">
       {/* Cartões de Informações */}
       <div className="flex flex-wrap justify-center gap-4 mt-6">
+        {/* Cartão de Utilizadores */}
         <div className="flex flex-col h-72 justify-center items-center w-full sm:w-80 md:w-96">
-          <div className="rounded-lg shadow-lg bg-gray-900 p-6 border border-gray-700 flex flex-col justify-center items-center transition-transform transform hover:scale-105">
-            <p className="font-bold text-3xl mb-4 text-white">
-              2103 Utilizadores
-            </p>
+          <div className="rounded-lg shadow-lg bg-gray-800 p-6 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
+            <p className="font-bold text-3xl mb-4 text-white">2103 Utilizadores</p>
             <p className="font-medium text-gray-300 mb-6 text-md text-center">
               Descobre escorts de TOP, massagistas e outros serviços na tua zona
             </p>
@@ -47,11 +45,10 @@ const InfoCard: React.FC = () => {
           </div>
         </div>
   
+        {/* Cartão de Visitas Diárias */}
         <div className="flex flex-col h-72 justify-center items-center w-full sm:w-80 md:w-96">
-          <div className="rounded-lg shadow-lg bg-gray-900 p-6 border border-gray-700 flex flex-col justify-center items-center transition-transform transform hover:scale-105">
-            <p className="font-bold text-3xl mb-4 text-white">
-              + 5000 Visitas Diárias
-            </p>
+          <div className="rounded-lg shadow-lg bg-gray-800 p-6 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
+            <p className="font-bold text-3xl mb-4 text-white">+ 5000 Visitas Diárias</p>
             <p className="font-medium text-gray-300 mb-6 text-md text-center">
               Descobre os últimos comentários postados sobre escorts na tua região
             </p>
@@ -63,11 +60,10 @@ const InfoCard: React.FC = () => {
           </div>
         </div>
   
+        {/* Cartão de Publicação de Anúncio */}
         <div className="flex flex-col h-72 justify-center items-center w-full sm:w-80 md:w-96">
-          <div className="rounded-lg shadow-lg bg-gray-900 p-6 border border-gray-700 flex flex-col justify-center items-center transition-transform transform hover:scale-105">
-            <p className="font-bold text-3xl mb-4 text-white">
-              Publica o teu anúncio
-            </p>
+          <div className="rounded-lg shadow-lg bg-gray-800 p-6 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
+            <p className="font-bold text-3xl mb-4 text-white">Publica o teu anúncio</p>
             <p className="font-medium text-gray-300 mb-6 text-md text-center">
               Publica o teu anúncio gratuitamente em O Teu Desejo. Site erótico n1 em Portugal
             </p>
@@ -81,6 +77,7 @@ const InfoCard: React.FC = () => {
       </div>
     </div>
   );
+  
   
   
 };

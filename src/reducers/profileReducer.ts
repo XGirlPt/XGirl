@@ -79,6 +79,8 @@ interface Profile {
   verificationPhoto?: string | null;
   tarifa?: string | null;
 
+  isAuthenticated: boolean,
+
 }
 
 interface AppState {
@@ -317,6 +319,8 @@ const initialState: AppState = {
     verificationPhoto: null,
     stories: [],
     tag: null,
+    isAuthenticated: false, // Adicione isso
+
   },
 };
 
@@ -356,6 +360,7 @@ const rootReducer = (
             userUID: null,
             photos: [],
             stories: [],
+            isAuthenticated: false
           },
         };
 

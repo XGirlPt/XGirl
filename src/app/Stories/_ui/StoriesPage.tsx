@@ -6,27 +6,12 @@ import CaroselRound from "@/components/CaroselRound";
 import Footer from "@/components/Footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
+import { Profile } from "@/types";
 import StoryCard from "@/components/StoryCard";
 import StoryBigS from "@/components/StoryBigS"
 
-
-
-interface Profile {
-  nome: string;
-  cidade: string;
-  photoURL: string[];
-  stories: string[];
-  tag: string;
-  tagtimestamp: string;
-  certificado: boolean; // Adiciona a propriedade certificado como boolean
-}
-
-interface StoriesPageProps {
-  profiles: Profile[];
-}
-
- const StoriesPage: React.FC<StoriesPageProps> = ({ profiles }) => {
-
+function StoriesPage({}) {
+  const [profiles, setProfiles] = useState<Profile[]>([]);
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const searchParams = useSearchParams();
   const [selectedStory, setSelectedStory] = useState<string | null>(null);
@@ -34,7 +19,6 @@ interface StoriesPageProps {
   const [selectedPhotos, setselectedPhotos] = useState<string[]>([]); // Alterado para array de strings
   const [selectedNome, setselectedNome] = useState<string | null>(null); 
   const [selectedphotoURL, setselectedPhotoURL] = useState<string | null>(null); 
-
 
 
   
@@ -58,7 +42,7 @@ interface StoriesPageProps {
         setProfiles(fetchedProfiles);
         const distrito = searchParams.get("distrito");
         const profilesToDisplay = distrito
-          ? fetchedProfiles.filter((distrito) => distrito === distrito)
+          ? fetchedProfiles.filter((profile) => profile.distrito === distrito)
           : fetchedProfiles;
         setFilteredProfiles(profilesToDisplay);
       } catch (error) {
@@ -80,17 +64,11 @@ interface StoriesPageProps {
       <div className="px-36">
       {showLargeStory && (
   <StoryBigS
-    cidade={selectedCidade} // Passa a cidade
-    story={selectedStory} // Passa a história
-    photos={selectedPhotos} // Passa as fotos
-    nome={selectedNome} // Passa o nome
-    photoURL={selectedphotoURL} // Passa a photoURL
+    profile={filteredProfiles.find(profile => profile.nome === selectedNome)} // Encontre o perfil correspondente
     onClose={() => setShowLargeStory(false)}
   />
 )}
-<StoryCard profiles={filteredProfiles}  cidade={selectedCidade} // Passa a cidade
-  
-      onStoryClick={handleStoryClick} />
+<StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick} />
 </div>
     </div>
   );

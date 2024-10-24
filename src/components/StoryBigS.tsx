@@ -7,35 +7,25 @@ import { useState } from "react";
 interface Profile {
   nome: string;
   cidade: string;
-  photos: string[]; // Array de fotos
+  photos: string[] | null; // Array de fotos
   stories: string[]; // Array de stories
   tag: string;
   tagtimestamp: string;
-  
-  photoURL: string[]; // Array de fotos
-
 }
 
 interface StoryBigSProps {
+  story: string | null; 
+  cidade: string | null; 
+  photos: string | null;   // Array de fotos
+  nome: string | null; 
+  onClose: () => void;  
   profiles: Profile[];
 }
 
-
-const StoryBigS: React.FC<StoryBigSProps> = ({
- 
-  cidade,
-  story,
-  photos,
-  nome,
-  photoURL,
-  onClose,
-}) => {
-  // Logs para depuração
-  console.log("Dados do perfil:", profiles);
-  console.log("photoURL recebido:", photoURL);  
-  
+const StoryBigS: React.FC<StoryBigSProps> = ({ profile, cidade, story, photos, nome, onClose }) => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const dispatch = useDispatch();
+
 
 
   // Função para verificar se a URL é de vídeo ou imagem
@@ -44,45 +34,31 @@ const StoryBigS: React.FC<StoryBigSProps> = ({
   };
 
   // Logs para depuração
-  console.log("src", story);
-  console.log("cidade", cidade);
-  console.log("photos", photos);
-  console.log("nome", nome);
-  console.log("photos bigS", photos[0]); 
-  console.log("profile", profile);
-  console.log("photoURL", {photoURL});
-
-
-  const firstPhotos = profiles
-  .filter((profile) => profile.stories && profile.stories.length > 0)
-  .map((profile) => (profile.photos && profile.photos.length > 0 ? profile.photos[0] : null));
-
-console.log("Primeiras fotos dos perfis", firstPhotos); 
-
-
-
+  // console.log("src", story);
+  // console.log("cidade", cidade);
+  // console.log("photos", photos);
+  // console.log("nome", nome);
+  // console.log("photos bigS", profile.photos)
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
       <div className="flex">
         {/* Exibe a imagem do avatar no canto superior */}
         <div className="absolute top-4 left-4 w-12 h-12 rounded-full border-2 border-yellow-500 overflow-hidden">
-          {/* Verifica se a foto está disponível antes de renderizar */}
-          {profile.photoURL && profile.photoURL.length > 0 ? (
-            <img
-              src={profile.photoURL[0]} // Acesse a primeira URL de photoURL
+        {/* <img
+              src={photos[0]}
               alt={profile.nome}
               className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
-            />
-          ) : (
-            <div className="w-full h-full bg-gray-400" /> // Placeholder se não houver foto
-          )}
-        </div>
+            /> */}
+</div>
 
-        {/* Nome e cidade ao lado da imagem do avatar */}
+        {/* Nome e cidade e nome ao lado da imagem do avatar */}
         <div className="absolute top-4 left-20 flex flex-col justify-center ml-3">
           <span className="text-white font-bold">{nome || 'Nome Indisponível'}</span>
           <span className="text-gray-300">{cidade || 'Cidade Indisponível'}</span>
         </div>
+
+        {/* Botão para o perfil */}
+       
       </div>
 
       <div className="relative">

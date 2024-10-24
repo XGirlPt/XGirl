@@ -128,10 +128,10 @@ function GirlsPage() {
         <h2 className="text-2xl text-pink-800 mb-2">Buscar Acompanhante</h2>
       </div>
 
-      <div className="px-36 w-2/4 mb-2 flex items-center gap-4">
-        <div className="relative w-2/6">
+      <div className="px-36 w-2/4 mb-2 flex items-center gap-2 ">
+        <div className="relative w-2/6 ">
           <Listbox value={selectedDistrito} onChange={handleDistritoSelect}>
-            <Listbox.Button className="w-full p-3 bg-pink-800 text-white rounded-md shadow-md flex justify-between items-center">
+            <Listbox.Button className="w-full py-2 px-3 bg-pink-800 text-white rounded-md shadow-md flex justify-between items-center">
               {selectedDistrito === "Distrito"
                 ? `Distrito (${totalProfiles})`
                 : `${selectedDistrito}`}
@@ -173,7 +173,7 @@ function GirlsPage() {
         <div className="flex-1">
           <input
             type="text"
-            className="w-full p-3 text-gray-900 bg-white rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-pink-500"
+            className="w-full py-2 pl-4 text-gray-900 bg-white rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-pink-500"
             placeholder="Buscar por nome ou tag..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

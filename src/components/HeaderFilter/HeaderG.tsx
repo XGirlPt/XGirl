@@ -48,7 +48,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
   const currentProfile = profiles[currentProfileIndex];
 
   return (
-    <div className="w-full bg-zinc-900 sticky top-[128px] z-50">
+    <div className="w-full bg-zinc-900 sticky top-[128px]">
       <div className="flex mx-auto md:mx-20 justify-between align-middle bg-zinc-900 h-14 items-center">
         <div className="ml-10">
           <button

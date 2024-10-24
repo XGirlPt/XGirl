@@ -88,7 +88,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           Escort Girls e Massagistas eróticas em Portugal
         </p>
 
-        <div className="w-full flex justify-center mt-8"> {/* Ajustado para centralização */}
+        <div className="w-full flex mx-32 mt-8"> {/* Ajustado para centralização */}
   <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
 </div>
 
@@ -107,11 +107,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
           Procura na tua Área
         </p>
         <Map />
-        <div className={`  ${paddingClass}`}>
-          <p className="text-white text-3xl flex mt-8">Novidades</p>
-        </div>
+       
          <div className={`hidden sm:block ${paddingClass}`}>
           <InfoCard />
+        </div>
+        <div className={`  ${paddingClass}`}>
+          <p className="text-white text-3xl flex mt-8">Novidades</p>
         </div>
         <div className={`  ${paddingClass}`}>
           <LastAnnounce profiles={profiles} />

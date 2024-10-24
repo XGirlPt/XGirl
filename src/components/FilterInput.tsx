@@ -46,58 +46,59 @@ export default function FilterComponent({ profiles, onFilter }: FilterComponentP
   const totalProfiles = profiles.length;
 
   return (
-    <div className="flex items-center gap-2">
-      {/* Dropdown de seleção de distrito */}
-      <div className="relative w-1/4 ">
-        <Listbox value={selectedDistrito} onChange={setSelectedDistrito}>
-          <Listbox.Button className="w-full p-1 bg-pink-800 text-white rounded-md shadow-md flex justify-between items-center">
-            {selectedDistrito === "Distrito"
-              ? `Distrito (${totalProfiles})`
-              : `${selectedDistrito}`}
-            <FiChevronDown className="w-2 h-5 ml-2" />
-          </Listbox.Button>
-          <Listbox.Options className="absolute w-full mt-2 bg-white rounded-md shadow-lg z-20 max-h-60 overflow-auto">
-            <Listbox.Option
-              key="Distrito"
-              value="Distrito"
-              className={({ active }) =>
-                `cursor-pointer select-none relative p-2 ${
-                  active ? "bg-pink-100 text-pink-900" : "text-gray-900"
-                }`
-              }
-            >
-              Distrito ({totalProfiles})
-            </Listbox.Option>
-            {distritos.map((distrito, index) => (
-              <Listbox.Option
-                key={index}
-                value={distrito}
-                className={({ active }) =>
-                  `cursor-pointer select-none relative p-2 ${
-                    active ? "bg-pink-100 text-pink-900" : "text-gray-900"
-                  }`
-                }
-              >
-                {distrito}{" "}
-                <span className="text-sm text-gray-500">
-                  ({profiles.filter((profile) => profile.distrito === distrito).length})
-                </span>
-              </Listbox.Option>
-            ))}
-          </Listbox.Options>
-        </Listbox>
-      </div>
+<div className="flex items-start gap-3 w-1/2">
+  {/* Dropdown de seleção de distrito */}
+  <div className="relative w-1/4">
+    <Listbox value={selectedDistrito} onChange={setSelectedDistrito}>
+      <Listbox.Button className="w-full px-3 py-2 bg-pink-800 text-white rounded-lg shadow-lg flex justify-between items-center hover:bg-pink-700 transition-colors">
+        {selectedDistrito === "Distrito"
+          ? `Distrito (${totalProfiles})`
+          : `${selectedDistrito}`}
+        <FiChevronDown className="w-4 h-4 ml-2" />
+      </Listbox.Button>
+      <Listbox.Options className="absolute w-full mt-2 bg-gray-800 text-white rounded-lg shadow-lg z-20 max-h-60 overflow-auto border border-gray-700">
+        <Listbox.Option
+          key="Distrito"
+          value="Distrito"
+          className={({ active }) =>
+            `cursor-pointer select-none p-2 ${
+              active ? "bg-pink-900" : "bg-gray-800"
+            }`
+          }
+        >
+          Distrito ({totalProfiles})
+        </Listbox.Option>
+        {distritos.map((distrito, index) => (
+          <Listbox.Option
+            key={index}
+            value={distrito}
+            className={({ active }) =>
+              `cursor-pointer select-none p-2 flex justify-between ${
+                active ? "bg-pink-600" : "bg-gray-800"
+              }`
+            }
+          >
+            <span>{distrito}</span>
+            <span className="text-sm text-gray-400">
+              ({profiles.filter((profile) => profile.distrito === distrito).length})
+            </span>
+          </Listbox.Option>
+        ))}
+      </Listbox.Options>
+    </Listbox>
+  </div>
 
-      {/* Input de busca por nome */}
-      <div className="flex-1">
-        <input
-          type="text"
-          className="w-full p-1 text-gray-900 bg-white rounded-md shadow-md focus:outline-none focus:ring-4 focus:ring-pink-500"
-          placeholder="Buscar por nome ou tag..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-    </div>
+  {/* Input de busca por nome */}
+  <div className="flex-1">
+    <input
+      type="text"
+      className="w-full px-3 py-2 text-white bg-gray-800 rounded-lg shadow-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all"
+      placeholder="Buscar por nome ou tag..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  </div>
+</div>
+
   );
 }

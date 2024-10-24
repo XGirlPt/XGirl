@@ -37,7 +37,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ], // Inclui arquivos TypeScript
+, "src/app/api/delete-account.js"  ], // Inclui arquivos TypeScript
   "exclude": [
     "node_modules"
   ] // Exclui a pasta node_modules

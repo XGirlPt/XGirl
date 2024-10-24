@@ -131,7 +131,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
      
      
      )}
-<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-4 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
+<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-5 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
   {profilesWithStories.map((profile, profileIndex) =>
     profile.stories.map((story, storyIndex) => (
       <button

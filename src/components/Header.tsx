@@ -31,8 +31,6 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState<boolean>(false);
 
   const dropdownRef = useRef<HTMLUListElement>(null);
-
-
   const router = useRouter();
   const pathname = usePathname();
 
@@ -60,7 +58,6 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     router.push("/");
   };
 
-
   const handleClickOutside = (event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setLanguageDropdownOpen(false);
@@ -73,7 +70,6 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   return (
     <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
@@ -124,11 +120,19 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             {filtroAberto && <div> {/* Filtro Component */} </div>}
           </div>
 
+          {/* Barra de Pesquisa */}
+          <div className="relative py-2 px-2">
+            <input
+              type="text"
+              placeholder="Buscar..."
+              className="px-4 py-1 w-64 bg-white text-gray-300 rounded-lg focus:outline-none focus:bg-white placeholder-gray-600"
+            />
+          </div>
+
           {/* Área de usuário e configurações */}
           <div className="flex items-center space-x-2 h-full text-sm">
             <p className="text-white ml-2"></p> 
             {!emailReduxProfile && !emailReduxClubs ? (
-
               <>
                 <Link
                   href="/login"
@@ -145,8 +149,6 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                     pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-700 "
                   } transition duration-200`}
                 >
-
-
                   <FaUser className="mr-2 text-sm" />
                   Regista-te
                 </Link>
@@ -176,7 +178,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                   </button>
                   {languageDropdownOpen && (
                     <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-pink-900 text-white shadow-lg rounded-lg py-2">
-                     <li
+                      <li
                         onClick={() => {
                           router.push("/minha-conta");
                           setLanguageDropdownOpen(false);

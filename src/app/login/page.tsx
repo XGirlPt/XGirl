@@ -63,7 +63,7 @@ const Login = () => {
     };
   }, [router]);
 
-  const fetchProfileData = async (userUID: string) => {
+  const fetchProfileData = async (userUID: string, email: string) => {
     try {
       const data = await fetchProfileFromDatabase(userUID);
       dispatch(addProfileData(data));

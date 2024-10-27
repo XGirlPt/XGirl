@@ -152,65 +152,68 @@ const Login = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex justify-center mt-16  bg-black text-white">
-      <div className="w-full max-w-md p-8 bg-zinc-900 rounded-lg shadow-lg h-1/3">
-        <h1 className="text-pink-800 text-3xl font-bold mb-6 text-center">
+    <div className="flex justify-center items-center h-full mt-10 bg-black text-white">
+      <div className="w-full max-w-md p-10 bg-zinc-900 rounded-xl shadow-lg">
+        <h1 className="text-pink-500 text-4xl font-extrabold mb-8 text-center">
           Conecta-te ao X-Girl
         </h1>
-   
+  
         <div className="mb-6">
-          <label className="block text-pink-800 text-sm font-semibold mb-2" htmlFor="email">
+          <label className="block text-pink-500 text-sm font-semibold mb-2" htmlFor="email">
             Email*
           </label>
           <input
             id="email"
             type="email"
-            placeholder="Email"
+            placeholder="Insere o teu email"
             value={email}
             onChange={handleEmailChange}
-            className="w-full bg-zinc-700 text-white h-12 rounded-md pl-4 outline-none focus:outline-pink-800"
+            className="w-full bg-zinc-800 text-white h-12 rounded-md pl-4 outline-none focus:ring-2 focus:ring-pink-500 transition duration-200"
           />
         </div>
   
         <div className="mb-6">
           <div className="flex justify-between items-center mb-2">
-            <label className="text-pink-800 text-sm font-semibold" htmlFor="password">
+            <label className="text-pink-500 text-sm font-semibold" htmlFor="password">
               Password*
             </label>
-            <span className="text-pink-800 text-xs cursor-pointer hover:text-pink-900 hover:underline">
-              Esqueceste a palavra passe?
+            <span className="text-pink-500 text-xs cursor-pointer hover:text-pink-400 hover:underline">
+              Esqueceste a palavra-passe?
             </span>
           </div>
           <input
             id="password"
             type="password"
-            placeholder="Insere a tua Password"
+            placeholder="Insere a tua password"
             value={password}
             onChange={handlePasswordChange}
-            className="w-full bg-zinc-700 text-white h-12 rounded-md pl-4 outline-none focus:outline-pink-800"
+            className="w-full bg-zinc-800 text-white h-12 rounded-md pl-4 outline-none focus:ring-2 focus:ring-pink-500 transition duration-200"
           />
         </div>
   
-        {/* <div className="mb-6 flex justify-between">
+        {/* 
+        Uncomment if you want to use hCaptcha 
+        <div className="mb-6 flex justify-between">
           <HCaptcha
             sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY || 'd64e2e6a-e810-461e-8012-1ac42f9e4054'}
             onVerify={handleCaptchaVerify}
             onExpire={handleCaptchaExpire}
           />
-        </div> */}
+        </div> 
+        */}
   
         <button
           onClick={handleLogin}
-          className="w-full bg-pink-800 text-white py-2 rounded-md hover:bg-pink-900 focus:outline-none"
+          className="w-full bg-pink-600 text-white py-2 rounded-md hover:bg-pink-700 transition duration-200 shadow-lg"
         >
           Conectar
         </button>
   
-        <div className="mt-6 text-center text-white text-lg">
-          <p>Ainda não tens uma conta?</p>
+        <div className="mt-6 text-center">
+          <p className="text-gray-400 text-sm">Ainda não tens uma conta?</p>
           <Link
             href="/regista"
-            className="text-pink-800 ml-2 cursor-pointer hover:text-pink-900"
+            className="text-pink-600 ml-2 cursor-pointer hover:text-pink-500 font-semibold"
           >
             Regista-te
           </Link>
@@ -218,6 +221,7 @@ const Login = () => {
       </div>
     </div>
   );
+  
   
 };
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ImCross } from "react-icons/im";
 import { MdEmail, MdContentCopy } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface PartilhaProps {
   selectedProfile: {
@@ -25,15 +27,19 @@ const Partilha: React.FC<PartilhaProps> = ({
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
-    setCopySuccess(true);
-
-    setTimeout(() => {
-      setCopySuccess(false);
-    }, 600); // Resetar o estado de copySuccess após 3 segundos
+    toast.success("O link foi copiado com sucesso!", {
+      position: "top-right",
+      autoClose: 3000, // Tempo em milissegundos para o toast desaparecer
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   return (
     <>
+     <ToastContainer /> 
       {mostrarPartilha && (
         <div className="fixed inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
           <div className="w-full md:w-2/6 h-46 mb-12 md:h-2/5 mt-36 bg-[#1E2427] rounded-lg shadow-2xl">

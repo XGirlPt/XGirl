@@ -32,8 +32,9 @@ Perfil:
 - [] Preco a funcionar .. no registo e A minha conta
 - [] tempo menos de 10minutos .. Agora mesmo
 - [X] Liga com flags
-- [] certificado melhorar 
-- [] toogle link copiado
+- [X] certificado melhorar 
+- [X] toogle link copiado
+- [] se nao houver story nao deve aparecer o titulo.
 
 
 
@@ -45,7 +46,7 @@ Stories:
 - [] stories com  butao para perfil
 - [X] objecto cover 
 - [] se certificado aparecer o certificado
-- [] story big foto perfil canto sup esq
+- [X] story big foto perfil canto sup esq
 
 
 Header:
@@ -72,5 +73,6 @@ Definicoes:
 - [] melhorar certificado 
 - [] login supabase e google
 - [] Footer
+- [] shuffle cards
 
 

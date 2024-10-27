@@ -123,9 +123,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
           {/* Barra de Pesquisa */}
           <div className="relative py-2 px-2">
             <input
-              type="text"
+              type="text "
               placeholder="Buscar..."
-              className="px-4 py-1 w-64 bg-white text-gray-300 rounded-lg focus:outline-none focus:bg-white placeholder-gray-600"
+              className="px-4 py-1 w-64 text-sm bg-white text-gray-300 rounded-lg focus:outline-none focus:bg-white placeholder-gray-600"
             />
           </div>
 

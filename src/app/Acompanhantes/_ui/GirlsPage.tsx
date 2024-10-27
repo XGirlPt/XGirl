@@ -53,7 +53,10 @@ function GirlsPage() {
 
 
 
-
+  const handleProfilesFetched = (fetchedProfiles: Profile[]) => {
+    setProfiles(fetchedProfiles);
+    setFilteredProfiles(fetchedProfiles);
+  };
 
 
   useEffect(() => {

@@ -7,10 +7,12 @@ import { useState } from "react";
 interface Profile {
   nome: string;
   cidade: string;
-  photos: string[] | null; // Array de fotos
+  photos: string[]; // Array de fotos
   stories: string[]; // Array de stories
   tag: string;
   tagtimestamp: string;
+ 
+
 }
 
 interface StoryBigSProps {
@@ -20,9 +22,11 @@ interface StoryBigSProps {
   nome: string | null; 
   onClose: () => void;  
   profiles: Profile[];
+  firstPhotos: string; // Altere para string única
+
 }
 
-const StoryBigS: React.FC<StoryBigSProps> = ({ profile, cidade, story, photos, nome, onClose }) => {
+const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome,  onClose }) => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const dispatch = useDispatch();
 
@@ -38,17 +42,19 @@ const StoryBigS: React.FC<StoryBigSProps> = ({ profile, cidade, story, photos, n
   // console.log("cidade", cidade);
   // console.log("photos", photos);
   // console.log("nome", nome);
-  // console.log("photos bigS", profile.photos)
+  console.log("photos bigS", firstPhotos)
+
+
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
       <div className="flex">
         {/* Exibe a imagem do avatar no canto superior */}
-        <div className="absolute top-4 left-4 w-12 h-12 rounded-full border-2 border-yellow-500 overflow-hidden">
-        {/* <img
-              src={photos[0]}
-              alt={profile.nome}
+        <div className="absolute top-4 left-4 w-16 h-16 rounded-full border-2 border-yellow-500 overflow-hidden">
+        <img
+              src={firstPhotos}
+              alt="oi"
               className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
-            /> */}
+            />
 </div>
 
         {/* Nome e cidade e nome ao lado da imagem do avatar */}
@@ -73,9 +79,9 @@ const StoryBigS: React.FC<StoryBigSProps> = ({ profile, cidade, story, photos, n
           className="max-w-[80vw] max-h-[80vh] transition-opacity duration-900 ease-in-out rounded-2xl"
         />
         {/* Botão fixo dentro do vídeo */}
-        <button className="absolute bottom-24 right-2 transform -translate-x-1/2 bg-pink-800 text-white font-bold py-2 px-4 rounded">
+        {/* <button className="absolute bottom-24 right-2 transform -translate-x-1/2 bg-pink-800 text-white font-bold py-2 px-4 rounded">
           Ver Perfil
-        </button>
+        </button> */}
       </div>
 
       <button className="text-bold font-bold" onClick={onClose}>

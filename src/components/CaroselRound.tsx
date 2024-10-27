@@ -11,33 +11,34 @@ interface CaroselRoundProps {
   profiles: Profile[];
 }
 
+// Função para embaralhar um array
+const shuffleArray = (array: Profile[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Troca os elementos
+  }
+  return array;
+};
+
 const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
-  const profilesToDisplay = profiles.slice(0, 10);
+  // Embaralhar perfis e selecionar os primeiros 10
+  const profilesToDisplay = shuffleArray([...profiles]).slice(0, 10);
 
   return (
     <div className="flex mx-28 flex-wrap justify-center gap-4 mt-4 mb-4">
       {profilesToDisplay.map((profile, index) => (
-        <Link key={index} href={`/Acompanhantes/${profile.nome}`}>
-          <div className="relative flex flex-col items-center cursor-pointer ">
-            <div className="relative w-24 h-24 rounded-full cursor-pointer overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105 ">
-              {Array.isArray(profile.photos) && profile.photos.length > 0 ? (
-                <BlurImage
+        <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
+          <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
+            <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
+              {profile.photos && profile.photos.length > 0 ? (
+                <img
                   src={profile.photos[0]}
                   alt={profile.nome}
-                  className="w-full h-full object-cover rounded-full border-2 border-white cursor-pointer blur-2xl"
-                  style={{ borderRadius: "50%" }}
-                />
-              ) : profile.photos ? (
-                <BlurImage
-                  src={profile.photos[0]}
-                  alt={profile.nome}
-                  className="w-full h-full object-cover rounded-full border-2 border-white cursor-pointer"
-                  style={{ borderRadius: "50%" }}
+                  className="w-full h-full object-cover rounded-full border-2 border-white"
                 />
               ) : (
-                <div className="w-full h-full bg-gray-300"></div>
+                <div className="w-full h-full bg-gray-300 rounded-full"></div>
               )}
-
               <div className="absolute inset-0 hover:bg-pink-800 hover:opacity-40 duration-300"></div>
             </div>
             <p className="text-white text-xs mt-2 whitespace-nowrap">

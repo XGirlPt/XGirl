@@ -102,9 +102,9 @@ const RegistoEntrada = () => {
 
   return (
     <div className="text-gray-600 bg-[#1b1b1b]">
-      <div className="pt-8">
+      {/* <div className="pt-8">
         <HeaderLoged />
-      </div>
+      </div> */}
       <div className="h-full bg-[#1b1b1b] px-44">
         <div className="flex justify-between w-full py-3 bg-blue-200">
           <div>

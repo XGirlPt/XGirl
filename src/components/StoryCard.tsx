@@ -18,7 +18,7 @@ interface Profile {
   tag: string;
   tagtimestamp: string;
   certificado: boolean;
-  photoURL: string[];
+  firstPhotos: string;
 }
 
 interface StoryCardProps {
@@ -32,7 +32,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   const [selectedCidade, setSelectedCidade] = useState<string | null>(null); // Estado para controlar a história selecionada
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]); // Alterado para array de strings
   const [selectedNome, setSelectedNome] = useState<string[]>([]); // Alterado para array de strings
-  const [selectedPhotoURL, setSelectedPhotoURL] = useState<string[]>([]); // Alterado para array de strings
+  const [selectedPhotoURL, setSelectedPhotoURL] = useState<string>(""); // Alterado para string única
 
 
   selectedPhotoURL
@@ -105,16 +105,14 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   console.log("Primeiras fotos dos perfis", firstPhotos);  
 
 
-  const handleCardClick = (story: string, profile: Profile, photos: string[], photoURL: string[]) => {
-    setSelectedStory(story); // Define a história selecionada
-    setShowStoryModal(true); // Mostra o modal
+  const handleCardClick = (story: string, profile: Profile) => {
+    setSelectedStory(story);
+    setShowStoryModal(true);
     setSelectedCidade(profile.cidade);
-    setSelectedPhotos(photos);
+    setSelectedPhotos(profile.photos);
     setSelectedNome(profile.nome);
-    setSelectedPhotoURL(photoURL)
-
-  };
-
+    setSelectedPhotoURL(profile.photos[0]); // Passe a primeira foto como string única
+};
   const closeStoryModal = () => {
     setSelectedStory(null);
     setShowStoryModal(false); // Fecha o modal
@@ -125,20 +123,23 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   return (
     <div  className="rounded-xl h-full">
           {/* Renderiza o StoryBigS se showStoryModal estiver true */}
-      {showStoryModal && (
-        <StoryBigS story={selectedStory} onClose={closeStoryModal} photos={selectedPhotos}  cidade={selectedCidade} nome={selectedNome}  photoURL={selectedPhotoURL}/>
-     
-     
-     
-     )}
+          {showStoryModal && (
+       <StoryBigS
+       story={selectedStory}
+       onClose={closeStoryModal}
+       firstPhotos={selectedPhotoURL} // Passe a string correta
+       cidade={selectedCidade}
+       nome={selectedNome}
+     />
+      )}
 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-5 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
   {profilesWithStories.map((profile, profileIndex) =>
-    profile.stories.map((story, storyIndex) => (
+    profile.stories.map((story, storyIndex, nome) => (
       <button
         key={`${profileIndex}-${storyIndex}`}
         className="relative border-1 rounded-2xl border-zinc-800"
-        onClick={() => handleCardClick(story, profile)} 
-      >
+        onClick={() => handleCardClick(story, profile, profile.photos, firstPhotos)}
+        >
         <div className="relative rounded-lg overflow-hidden h-full">
           <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center items-center z-10 absolute top-0 left-0">
             <div className="flex rounded-md">

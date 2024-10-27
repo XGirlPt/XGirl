@@ -1,5 +1,6 @@
-"use client";
+"use client"; // Certifique-se de que esta linha está no início do arquivo
 import React from "react";
+import { useRouter } from "next/navigation"; // Corrigido para 'next/navigation'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import supabase from "@/database/supabase";
@@ -7,6 +8,8 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 
 const RegistoPagamento: React.FC = () => {
+  const router = useRouter(); // Certifique-se de que useRouter é chamado em um componente cliente
+
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
   const nomeRedux = useSelector((state: any) => state.profile?.profile.nome);
   const photoURLredux = useSelector((state: any) => state.profile?.profile.photos || []);
@@ -32,30 +35,7 @@ const RegistoPagamento: React.FC = () => {
   const descriptionRedux = useSelector((state: any) => state.profile?.profile.description);
 
   const handleSubmit = async (event: React.MouseEvent) => {
-    event.preventDefault();
-
     try {
-      const selectedPayments: string[] = [];
-      for (const key in pagamentoRedux) {
-        if (pagamentoRedux[key]) {
-          selectedPayments.push(key);
-        }
-      }
-
-      const selectedLingua: string[] = [];
-      for (const key in linguaRedux) {
-        if (linguaRedux[key]) {
-          selectedLingua.push(key);
-        }
-      }
-
-      const selectedServico: string[] = [];
-      for (const key in servicoRedux) {
-        if (servicoRedux[key]) {
-          selectedServico.push(key);
-        }
-      }
-
       const userData = {
         userUID,
         email: userEmail,
@@ -74,11 +54,10 @@ const RegistoPagamento: React.FC = () => {
         signo: signoRedux,
         distrito: distritoRedux,
         telefone: telefoneRedux,
-        pagamento: selectedPayments,
-        servico: selectedServico,
-        lingua: selectedLingua,
+        pagamento: pagamentoRedux,
+        servico: servicoRedux,
+        lingua: linguaRedux,
         description: descriptionRedux,
-      
         certificado: false,
         status: null,
       };
@@ -95,7 +74,6 @@ const RegistoPagamento: React.FC = () => {
 
       console.log("Dados inseridos com sucesso na tabela ProfilesData:", profileData);
 
-      // Inserir URLs das fotos na tabela profilephoto
       const photoInsertionsProfile = photoURLredux.map(photoURL => ({
         userUID,
         imageurl: photoURL,
@@ -110,8 +88,12 @@ const RegistoPagamento: React.FC = () => {
       }
 
       console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", photoData);
+
+      // Redireciona para /minha-conta após criação bem-sucedida
+      router.push("/minha-conta"); // Redirecionamento ao sucesso
+
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao criar perfil:", error);
     }
   };
 
@@ -149,7 +131,6 @@ const RegistoPagamento: React.FC = () => {
 
         <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-sm">
           <div className="px-10 mt-4">
-            <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
             <a href="https://controlcenter.verotel.com/register-reseller?website=znjiu4xie868d5ndojpu1slddnb64o4kuznt4h1x">Sign me up!</a>
           </div>
         </div>

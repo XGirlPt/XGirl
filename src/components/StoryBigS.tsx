@@ -3,6 +3,9 @@ import React from "react";
 import { ImCross } from "react-icons/im";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { NextRouter } from "next/router"; // Importar o tipo NextRouter
+import { useEffect } from "react";
+
 
 interface Profile {
   nome: string;
@@ -11,7 +14,7 @@ interface Profile {
   stories: string[]; // Array de stories
   tag: string;
   tagtimestamp: string;
- 
+
 
 }
 
@@ -22,7 +25,7 @@ interface StoryBigSProps {
   nome: string | null; 
   onClose: () => void;  
   profiles: Profile[];
-  firstPhotos: string; // Altere para string única
+  firstPhotos: string; 
 
 }
 
@@ -31,7 +34,8 @@ const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome
   const dispatch = useDispatch();
 
 
-
+ 
+ 
   // Função para verificar se a URL é de vídeo ou imagem
   const isVideo = (url?: string) => {
     return url ? url.match(/\.(mp4|webm|ogg|mov)$/i) : false;
@@ -45,17 +49,21 @@ const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome
   console.log("photos bigS", firstPhotos)
 
 
+  
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
       <div className="flex">
         {/* Exibe a imagem do avatar no canto superior */}
-        <div className="absolute top-4 left-4 w-16 h-16 rounded-full border-2 border-yellow-500 overflow-hidden">
-        <img
-              src={firstPhotos}
-              alt="oi"
-              className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
-            />
-</div>
+        <div
+          className="absolute top-4 left-4 w-16 h-16 rounded-full border-2 border-yellow-500 overflow-hidden cursor-pointer"
+        >
+          <img
+            src={firstPhotos}
+            alt="Avatar"
+            className="w-full h-16 transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60 object-cover"
+          />
+        </div>
+
 
         {/* Nome e cidade e nome ao lado da imagem do avatar */}
         <div className="absolute top-4 left-20 flex flex-col justify-center ml-3">

@@ -18,6 +18,7 @@ export interface Profile {
   tag: string;
   tagtimestamp: string;
   certificado: boolean;
+  distrito: string;
 }
 
 const distritos = [
@@ -53,21 +54,18 @@ function GirlsPage() {
 
 
 
-  const handleProfilesFetched = (fetchedProfiles: Profile[]) => {
-    setProfiles(fetchedProfiles);
-    setFilteredProfiles(fetchedProfiles);
-  };
-
-
   useEffect(() => {
     async function fetchData() {
       try {
         const fetchedProfiles: Profile[] = await fetchProfiles();
         setProfiles(fetchedProfiles);
+        
         const distrito = searchParams.get("distrito");
+        // Filtra os perfis com base no distrito da URL, se estiver presente
         const profilesToDisplay = distrito
           ? fetchedProfiles.filter((profile) => profile.distrito === distrito)
           : fetchedProfiles;
+        
         setFilteredProfiles(profilesToDisplay);
       } catch (error) {
         console.error("Erro ao buscar perfis:", error);
@@ -75,6 +73,9 @@ function GirlsPage() {
     }
     fetchData();
   }, [searchParams]);
+
+
+
 
   useEffect(() => {
     const filtered = profiles.filter((profile) =>
@@ -113,6 +114,9 @@ function GirlsPage() {
   }, [searchTerm, selectedDistrito, profiles]);
 
   const totalProfiles = profiles.length;
+
+
+ 
 
   return (
     <div className="bg-black text-white">

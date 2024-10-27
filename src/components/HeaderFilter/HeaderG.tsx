@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Profile } from "@/types";
 
+
 interface HeaderGProps {
   currentProfileIndex: number;
   setCurrentProfileIndex: Dispatch<SetStateAction<number>>;
@@ -65,12 +66,11 @@ const HeaderG: React.FC<HeaderGProps> = ({
             <p className="text-zinc-400 mr-2 ml-2">Girls</p>
             <p className="text-zinc-400 mr-2 ml-2">/</p>
             <Link
-              href="/Acompanhantes"
-              className="text-white mr-2 ml-2 cursor-pointer hover:text-pink-800"
-              onClick={() => handleDistrictClick(currentProfile.distrito)}
-            >
-              {currentProfile.distrito}
-            </Link>
+  href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
+  className="text-white mr-2 ml-2 cursor-pointer hover:text-pink-800"
+>
+  {currentProfile.distrito}
+</Link>
             <p className="text-zinc-400 mr-2 ml-2">/</p>
             <p className="text-pink-800 mr-2 ml-2">{currentProfile.nome}</p>
           </div>

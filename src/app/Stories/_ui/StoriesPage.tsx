@@ -8,7 +8,8 @@ import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
 import { Profile } from "@/types";
 import StoryCard from "@/components/StoryCard";
-import StoryBigS from "@/components/StoryBigS"
+import StoryBigS from "@/components/StoryBigS";
+
 
 function StoriesPage({}) {
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -66,9 +67,10 @@ function StoriesPage({}) {
   <StoryBigS
     profile={filteredProfiles.find(profile => profile.nome === selectedNome)} // Encontre o perfil correspondente
     onClose={() => setShowLargeStory(false)}
-  />
+   
+    />
 )}
-<StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick} />
+<StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick}  />
 </div>
     </div>
   );

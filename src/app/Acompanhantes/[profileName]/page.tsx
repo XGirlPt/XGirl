@@ -238,17 +238,13 @@ console.log("stories RDX", storiesRDX)
 
               <div className="grid gap-10 items-center ">
 
-              <div className="flex flex-col ml-10 mr-24">
-  <p className="text-pink-800 text-2xl mb-4 font-semibold">
-    Stories de {selectedProfile?.nome}
-  </p>
-  {selectedProfile && selectedProfile.storyURL && selectedProfile.storyURL.length > 0 ? (
+         
+              {selectedProfile && selectedProfile.storyURL?.length > 0 && (
+  <div className="flex flex-col ml-10 mr-24">
+    <p className="text-pink-800 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
       {selectedProfile.storyURL.map((media, index) => {
-        if (!media) {
-          return null;
-        }
-
+        if (!media) return null;
         const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
         const thumbnailSrc = thumbnails[index] || '/placeholder.jpg';
 
@@ -256,7 +252,6 @@ console.log("stories RDX", storiesRDX)
           <div key={index} className="relative">
             {isVideo ? (
               <div>
-                {/* Exibe o thumbnail do vídeo */}
                 <video
                   src={thumbnailSrc}
                   alt={`Thumbnail ${index + 1}`}
@@ -266,27 +261,27 @@ console.log("stories RDX", storiesRDX)
                   height={200}
                   priority={index === 0}
                 />
-                {/* Ícone de "play" */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-white text-3xl">▶️</span>
                 </div>
               </div>
             ) : (
               <video
-              src={media}
-              className="relative w-24 h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105 "
-              onClick={() => handleStoryClick(index)}
-              controls={false}
-              muted
-              playsInline
-            />
+                src={media}
+                className="relative w-24 h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105"
+                onClick={() => handleStoryClick(index)}
+                controls={false}
+                muted
+                playsInline
+              />
             )}
           </div>
         );
       })}
     </div>
-  ) : null} {/* Não renderiza nada se não houver stories */}
-</div>
+  </div>
+)}
+
 
 <div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   

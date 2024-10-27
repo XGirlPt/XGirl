@@ -1,5 +1,3 @@
-
-
 A minha conta :
 - [X] adicionar fotos e enviar para base de dados
 - [] eliminar fotos do componente e no storage 
@@ -34,7 +32,7 @@ Perfil:
 - [X] Liga com flags
 - [X] certificado melhorar 
 - [X] toogle link copiado
-- [] se nao houver story nao deve aparecer o titulo.
+- [X] se nao houver story nao deve aparecer o titulo.
 
 
 
@@ -47,6 +45,7 @@ Stories:
 - [X] objecto cover 
 - [] se certificado aparecer o certificado
 - [X] story big foto perfil canto sup esq
+- [] adicionar foto na card avatar
 
 
 Header:

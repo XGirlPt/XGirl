@@ -121,73 +121,85 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
 
 
   return (
-    <div  className="rounded-xl h-full">
-          {/* Renderiza o StoryBigS se showStoryModal estiver true */}
-          {showStoryModal && (
-       <StoryBigS
-       story={selectedStory}
-       onClose={closeStoryModal}
-       firstPhotos={selectedPhotoURL} // Passe a string correta
-       cidade={selectedCidade}
-       nome={selectedNome}
-     />
+    <div className="rounded-xl h-full">
+      {/* Renderiza o StoryBigS se showStoryModal estiver true */}
+      {showStoryModal && (
+        <StoryBigS
+          story={selectedStory}
+          onClose={closeStoryModal}
+          firstPhotos={selectedPhotoURL}
+          cidade={selectedCidade}
+          nome={selectedNome}
+        />
       )}
-<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-5 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
-  {profilesWithStories.map((profile, profileIndex) =>
-    profile.stories.map((story, storyIndex, nome) => (
-      <button
-        key={`${profileIndex}-${storyIndex}`}
-        className="relative border-1 rounded-2xl border-zinc-800"
-        onClick={() => handleCardClick(story, profile, profile.photos, firstPhotos)}
-        >
-        <div className="relative rounded-lg overflow-hidden h-full">
-          <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center items-center z-10 absolute top-0 left-0">
-            <div className="flex rounded-md">
-              <FaFireAlt className="text-yellow-500 mr-2" />
-              <p className="text-sm text-white">Story em destaque</p>
-            </div>
-          </div>
-
-          {/* Aplique o efeito de hover no vídeo */}
-          <div className="relative w-full h-full overflow-hidden ">
-            <video
-              src={story}
-              alt={`Thumbnail`}
-              className="w-full h-full object-cover border border-zinc-500 shadow-md transform transition-transform duration-500 ease-in-out hover:scale-110" 
-            />
-          </div>
-
-          {/* Ícone de play centralizado */}
-          <div className="absolute inset-0 flex items-center justify-center text-6xl">
-            <BiSolidMoviePlay className="text-gray-800 opacity-50 " />
-          </div>
-
-          {/* Nome do perfil sobreposto no vídeo */}
-          <div className="absolute bottom-4 left-0 w-full h-20 flex justify-center">
-            <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">
-              {profile.nome}{" "}
-              <VscVerifiedFilled className="text-green-400 ml-2" />
-            </p>
-            <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-sm md:text-md px-2 rounded">
-              <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}
-              {profile.certificado && (
-                <VscVerifiedFilled className="text-green-400 ml-2" />
-              )}
-            </p>
-          </div>
-        </div>
-      </button>
-    ))
-  )}
-</div>
-
-
-
-
-
-
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-5 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
+        {profilesWithStories.map((profile, profileIndex) =>
+          profile.stories.map((story, storyIndex) => (
+            <button
+              key={`${profileIndex}-${storyIndex}`}
+              className="relative border border-zinc-800 rounded-2xl overflow-hidden shadow-md transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
+              onClick={() => handleCardClick(story, profile, profile.photos, firstPhotos)}
+            >
+              <div className="relative rounded-lg overflow-hidden h-full group">
+                {/* Banner de destaque no topo */}
+                <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center items-center z-10 absolute top-0 left-0">
+                  <div className="flex items-center">
+                    <FaFireAlt className="text-yellow-500 mr-2" />
+                    <p className="text-sm text-white">Story em destaque</p>
+                  </div>
+                </div>
+  
+                {/* Vídeo com efeito de zoom no hover */}
+                <div className="relative w-full h-full overflow-hidden">
+                  <video
+                    src={story}
+                    alt="Thumbnail"
+                    className="w-full h-full object-cover border border-zinc-500 shadow-md transition-transform duration-500 ease-in-out transform group-hover:scale-110" 
+                  />
+                </div>
+  
+                {/* Ícone de play centralizado com efeito de opacidade no hover */}
+                <div className="absolute inset-0 flex items-center justify-center text-6xl transition-opacity duration-300 opacity-50 group-hover:opacity-80">
+                  <BiSolidMoviePlay className="text-gray-800" />
+                </div>
+  
+                {/* Nome do perfil, avatar e cidade com hover aprimorado */}
+                <div className="absolute bottom-4 left-0 w-full px-4 flex items-center justify-between space-x-2 bg-gradient-to-t from-black/70 to-transparent py-2 group-hover:from-black/90">
+                  {/* Avatar com efeito de hover */}
+                  <div className="w-12 h-12 rounded-full border-2 border-yellow-500 overflow-hidden cursor-pointer transform transition-transform hover:scale-110">
+                    <img
+                      src={profile.photos[0]}
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+  
+                  {/* Nome e ícone de verificação */}
+                  <div className="flex flex-col items-center justify-center text-white">
+                    <p className="font-bold text-md md:text-lg flex items-center space-x-2">
+                      {profile.nome}
+                      {profile.certificado && (
+                        <VscVerifiedFilled className="text-green-400 ml-1" />
+                      )}
+                    </p>
+                    {/* Cidade */}
+                    <p className="flex items-center text-pink-200 text-xs md:text-sm">
+                      <FaMapMarkerAlt className="text-pink-800 mr-1" />
+                      {profile.cidade}
+                    </p>
+                  </div>
+                </div>
+  
+                {/* Efeito de sobreposição no hover */}
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </div>
+            </button>
+          ))
+        )}
+      </div>
     </div>
   );
+  
 };
 
 export default StoryCard;

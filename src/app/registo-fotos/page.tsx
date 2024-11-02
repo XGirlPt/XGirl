@@ -30,7 +30,7 @@ async function addWatermark(
     ctx.globalAlpha = 0.4;
     ctx.drawImage(watermark, x, y, watermarkWidth, watermarkHeight);
 
-    return canvas.toDataURL(`image/${outputFormat}` as any);
+    return canvas.toDataURL(`image//webp` as any);
   } catch (error: any) {
     console.error("Erro ao adicionar marca d'água:", error.message);
     throw new Error("Erro ao adicionar marca d'água: " + error.message);
@@ -66,7 +66,7 @@ const RegistoFotos: React.FC = () => {
         const filePath = `${userUID}/${file.name
           .toLowerCase()
           .replace(/ /g, "_")
-          .replace(/\./g, "_")}`;
+          .replace(/\./g, "_")}.webp`;
         try {
           const reader = new FileReader();
           reader.readAsDataURL(file);
@@ -74,7 +74,7 @@ const RegistoFotos: React.FC = () => {
             reader.onload = async () => {
               const watermarkedURL = await addWatermark(
                 reader.result as string,
-                "png",
+                "webp",
                 0.3
               );
               const watermarkedFile = await fetch(watermarkedURL);
@@ -118,7 +118,7 @@ const RegistoFotos: React.FC = () => {
       const fileName = file.name
         .toLowerCase()
         .replace(/ /g, "_")
-        .replace(/[^a-z0-9_]/g, "") + ".png";
+        .replace(/[^a-z0-9_]/g, "") + ".webp";
       const filePath = `${userUID}/${fileName}`;
       
       try {

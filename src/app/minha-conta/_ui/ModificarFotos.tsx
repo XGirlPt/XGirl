@@ -48,7 +48,7 @@ async function addWatermark(
     // Desenhar a marca d'água redimensionada
     ctx.drawImage(watermark, x, y, watermarkWidth, watermarkHeight);
 
-    return canvas.toDataURL(`image/${outputFormat}` as any);
+    return canvas.toDataURL(`image/webp` as any);
   } catch (error: any) {
     throw new Error("Erro ao adicionar marca d'água: " + error.message);
   }
@@ -87,7 +87,7 @@ console.log("fotos redux", photoURLsRedux)
             reader.onload = async () => {
               const watermarkedURL = await addWatermark(
                 reader.result as string,
-                "png",
+                "webp",
                 0.3
               );
               const watermarkedFile = await fetch(watermarkedURL);

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "turbo": "next dev --turbo"
+    "turbo": "next dev --turbo",
+    "minify-css": "npx cssnano-cli ./src/styles/globals.css -o ./src/styles/globals.min.css"
+
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -65,6 +67,7 @@
     "@types/react-slick": "^0.23.13",
     "@types/redux-logger": "^3.0.13",
     "@types/sanitize-html": "^2.11.0",
+    "cssnano": "^7.0.6",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",

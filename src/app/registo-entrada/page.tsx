@@ -15,6 +15,7 @@ import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
 import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
 import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
 import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import FiltroCabelo from "@/components/Filtros/FiltroCabelo";
 import CheckContacto from "@/components/Register/CheckContacto";
 import {
   updateNome,
@@ -25,6 +26,7 @@ import {
 } from "@/actions/ProfileActions";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 
 const RegistoEntrada = () => {
   const dispatch = useDispatch();
@@ -101,150 +103,128 @@ const RegistoEntrada = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-gray-900 to-gray-700 flex justify-center items-center h-full">
-      <div className="bg-gray-800 border border-zinc-600 mt-10 rounded-3xl w-1/2 shadow-2xl overflow-hidden flex flex-col">
-        <div className="p-10 flex-grow overflow-y-auto">
-          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-r from-black via-[#1A1A1A] to-black bg-opacity-90 backdrop-blur-lg">
+      <div className="bg-gradient-to-b from-[#2D2D2D] to-[#1A1A1A] h-4/5 mt-16 mb-16 border border-[#3C3C3C] rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
+        <div className="p-10 flex-grow">
+          <h2 className="text-4xl text-red-500 mb-6 font-extrabold text-center tracking-wide">
             Cria o teu Perfil de Anunciante
           </h2>
-          <div className="flex flex-col space-y-6">
-            {/* <div className="flex justify-between w-full py-3 bg-blue-200">
-              <p className="text-blue-800 pl-8">
-                Email de confirmação enviado com sucesso a {userEmail}
-              </p>
-              <button className="font-bold">
-                <ImCross
-                  size={14}
-                  className="text-red hover:text-pink-800 transition-transform font-bold mr-8"
-                />
-              </button>
-            </div> */}
-            {/* <div className="flex justify-between w-full py-3 bg-green-100">
-              <p className="text-green-800 pl-8">
-                Conectado a {userEmail} com sucesso
-              </p>
-              <button className="font-bold">
-                <ImCross
-                  size={14}
-                  className="text-red hover:text-pink-800 transition-transform font-bold mr-8"
-                />
-              </button>
-            </div> */}
-  
+          <div className="flex flex-col space-y-8">
             <div className="flex justify-around">
+              {/* Esquerda */}
               <div className="flex flex-col justify-around w-1/2 mx-6 items-start">
                 <div className="w-full mt-2">
-                  <p className="text-pink-800">Nome*</p>
+                  <p className="text-red-400 font-medium">Nome*</p>
                   <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                     value={nome}
                     onChange={handleNomeChange}
                   />
                 </div>
-                <div className="w-full flex flex-col">
-                  <div className="flex items-end">
-                    <p className="text-pink-800">Idade</p>
-                    <p className="text-xs text-green-600 ml-4">
-                      Certifica a tua idade e ganha um prémio*
-                    </p>
-                  </div>
+                <div className="w-full mt-4">
+                  <p className="text-red-400 font-medium">Idade</p>
+                  <p className="text-xs text-red-500 mt-1">
+                    Certifica a tua idade e ganha um prémio*
+                  </p>
                   <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                     value={idade}
                     onChange={handleIdadeChange}
                   />
                 </div>
-                <div className="w-full mt-2">
-                  <p className="text-pink-800">Número de Telefone*</p>
+                <div className="w-full mt-4">
+                  <p className="text-red-400 font-medium">Número de Telefone*</p>
                   <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                     value={telefone}
                     onChange={handleTelefoneChange}
                     maxLength={9}
                     pattern="[0-9]*"
                   />
                 </div>
-                <div className="w-full mt-2 gap-4">
-                  <p className="text-md text-pink-800">Meio de contacto</p>
-                  <CheckContacto />
-                </div>
-                <FiltroDistrito
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+
+                {/* Filtros */}
+                <FiltroTarifa 
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
-                <div className="w-full flex flex-col">
-                  <div className="flex items-end">
-                    <p className="text-pink-800">Cidade</p>
-                  </div>
+                <FiltroDistrito
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
+                />
+                <div className="w-full mt-4">
+                  <p className="text-red-400 font-medium">Cidade</p>
                   <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                     value={cidade}
                     onChange={handleCidadeChange}
                   />
                 </div>
                 <FiltroOrigem
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
               </div>
-  
+
+              {/* Direita */}
               <div className="flex flex-col justify-around w-1/2 mx-6">
                 <FiltroAltura
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroCorpo
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroOlhos
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroMamas
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroPeito
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroPelos
-                  rounded="rounded-xl "
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroTatuagem
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
                 <FiltroSigno
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+                  rounded="rounded-md"
+                  buttonPadding="py-3"
+                  bgColor="bg-[#2E2E2E]"
                 />
               </div>
             </div>
           </div>
         </div>
-  
-        {/* Footer with fixed buttons */}
-        <div className="flex justify-between w-full bg-gray-800 p-4 border-t border-zinc-600">
+
+        {/* Footer com botões fixos */}
+        <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-[#2E2E2E] to-[#1A1A1A] rounded-b-3xl border-t border-[#3C3C3C] sticky bottom-0">
           <Link href="/">
-            <p className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer text-center">
+            <p className="text-md text-white bg-gray-600 px-10 py-2 rounded-md cursor-pointer text-center transition duration-300 hover:bg-gray-500">
               Voltar
             </p>
           </Link>
           <Link href="/registo-contacto">
-            <p className="text-md text-white bg-pink-800 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-600 ease-in-out transform hover:scale-105 text-center">
+            <p className="text-md text-white bg-red-600 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-red-500 ease-in-out transform hover:scale-105 text-center">
               Cria a tua Conta
             </p>
           </Link>
@@ -252,6 +232,7 @@ const RegistoEntrada = () => {
       </div>
     </div>
   );
+
   
   
   

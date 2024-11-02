@@ -6,12 +6,13 @@ import { pink } from "@mui/material/colors";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaSms } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 
 const CheckContacto: React.FC = () => {
   return (
-    <div>
-      <FormGroup className="flex flex-1 text-xs bg-[#1E2427] items-center gap-5">
-        <div className="flex justify-between gap-16">
+    <div className="grid grid-cols-2 ">
+      <FormGroup className="grid grid-cols-2 text-xs bg-gray-800 items-center gap-2">
+        <div className="flex justify-between gap-10">
           <div className="flex items-start">
             <FormControlLabel
               control={
@@ -23,7 +24,7 @@ const CheckContacto: React.FC = () => {
               label={
                 <div className="flex items-center">
                   <MdOutlineEmail className="text-white mr-1" />
-                  Email
+                  Recebo
                 </div>
               }
               className="text-white mr-4"
@@ -41,7 +42,7 @@ const CheckContacto: React.FC = () => {
               label={
                 <div className="flex items-center text-gray-300">
                   <FaWhatsapp className="text-gray-300 mr-1" />
-                  WhatsApp
+                  Desloco-me
                 </div>
               }
               className="text-white mr-4"
@@ -59,7 +60,25 @@ const CheckContacto: React.FC = () => {
               label={
                 <div className="flex items-center text-gray-300">
                   <FaSms className="text-gray-300 mr-1" />
-                  SMS
+                  Hoteis
+                </div>
+              }
+              className="text-white mr-4"
+            />
+          </div>
+
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  size="small"
+                  sx={{ color: "gray", "&.Mui-checked": { color: pink[300] } }}
+                />
+              }
+              label={
+                <div className="flex items-center text-gray-300">
+                  <FaStar className="text-gray-300 mr-1" />
+                  Acompanhamento de Luxo
                 </div>
               }
               className="text-white mr-4"

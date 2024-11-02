@@ -63,30 +63,46 @@ const AdminPage: React.FC = () => {
         throw error;
       }
 
-      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+      const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setPendingProfiles(profilesWithPhotos);
     } catch (error) {
       console.error("Error fetching pending profiles:", error.message);
     }
   };
 
-  const fetchApprovedProfiles = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('ProfilesData')
-        .select('*')
-        .eq('status', true);
 
-      if (error) {
-        throw error;
-      }
 
-      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
-      setApprovedProfiles(profilesWithPhotos);
-    } catch (error) {
-      console.error("Error fetching approved profiles:", error.message);
+
+const fetchApprovedProfiles = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('ProfilesData')
+      .select('*')
+      .eq('status', true);
+
+    if (error) {
+      throw error;
     }
-  };
+
+    // Fetch profiles with both profile and verification photos
+    const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
+    setApprovedProfiles(profilesWithPhotos);
+  } catch (error) {
+    console.error("Error fetching approved profiles:", error.message);
+  }
+};
+
+const fetchProfileData = async (profile: Profile) => {
+  const profileWithPhoto = await fetchProfilePhotos(profile);
+  const profileWithVPhoto = await fetchProfileVPhotos(profileWithPhoto);
+  return profileWithVPhoto;
+};
+
+
+
+
+
+
 
   const fetchInactiveProfiles = async () => {
     try {
@@ -99,7 +115,7 @@ const AdminPage: React.FC = () => {
         throw error;
       }
 
-      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+      const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setInactiveProfiles(profilesWithPhotos);
     } catch (error) {
       console.error("Error fetching inactive profiles:", error.message);
@@ -117,7 +133,7 @@ const AdminPage: React.FC = () => {
         throw error;
       }
 
-      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+      const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setCertificatedProfiles(profilesWithPhotos);
     } catch (error) {
       console.error("Error fetching active profiles:", error.message);
@@ -136,7 +152,7 @@ const AdminPage: React.FC = () => {
         throw error;
       }
 
-      const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
+      const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setNoncertificatedProfiles(profilesWithPhotos);
     } catch (error) {
       console.error("Error fetching active profiles:", error.message);
@@ -157,6 +173,34 @@ const AdminPage: React.FC = () => {
       photoURL: profilePhotoURL,
     };
   };
+
+
+ const fetchProfileVPhotos = async (profile: Profile) => {
+  const { data: profileVPhotoData, error: profileVPhotoDataError } = await supabase
+    .from("VPhoto")
+    .select("*")
+    .eq("userUID", profile.userUID);
+
+  // Log para verificar se houve erro ao buscar a foto de verificação
+  if (profileVPhotoDataError) {
+    console.error("Error fetching verification photo:", profileVPhotoDataError.message);
+    return {
+      ...profile,
+      vphotoURL: null, // Retorna a URL como null se houver erro
+    };
+  }
+
+  const profileVPhotoURL = profileVPhotoData?.[0]?.imageurl || null;
+
+  // Log para verificar a URL da foto de verificação recebida
+  console.log("Verification photo URL for userUID", profile.userUID, ":", profileVPhotoURL);
+
+  return {
+    ...profile,
+    vphotoURL: profileVPhotoURL,
+  };
+};
+
 
   const handleApprove = async (id: number) => {
     try {
@@ -302,6 +346,20 @@ const AdminPage: React.FC = () => {
                     className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
                     width={80}
                     height={80}
+                    loading="lazy" 
+                  />
+                ) : (
+                  <p className="text-white">Sem fotos</p>
+                )}
+
+{profile.vphotoURL ? (
+                  <Image
+                    src={profile.vphotoURL}
+                    alt={`Profile Photo`}
+                    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
+                    width={80}
+                    height={80}
+                    loading="lazy" 
                   />
                 ) : (
                   <p className="text-white">Sem fotos</p>

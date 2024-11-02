@@ -29,12 +29,12 @@ import {
 
   SET_PHOTO_URL,
   SET_STORY_URL,
-
+  SET_VPHOTO_URL,
 
   UPDATE_PHOTOS,
+  UPDATE_VPHOTOS,
   UPDATE_STORIES,
 
-  UPDATE_VERIFICATION_PHOTO,
 
 
   UPDATE_PROFILES,
@@ -50,6 +50,7 @@ import {
 interface Profile {
   userUID: string | null;
   photos: string[];
+  vphotos: string [];
   stories: string[];
   nome?: string | null;
   email?: string | null;
@@ -75,8 +76,8 @@ interface Profile {
 
   photoURL?: string | null;
   storyURL?: string | null;
-
-  verificationPhoto?: string | null;
+  vphotoURL?: string | null;
+  
   tarifa?: string | null;
 
   isAuthenticated: boolean,
@@ -234,6 +235,12 @@ interface SetPhotoUrlAction {
   payload: string[];
 }
 
+interface SetVPhotoUrlAction {
+  type: typeof SET_VPHOTO_URL;
+  payload: string[];
+}
+
+
 interface SetStoryUrlAction {
   type: typeof SET_STORY_URL;
   payload: string[];
@@ -241,6 +248,11 @@ interface SetStoryUrlAction {
 
 interface UpdatePhotosAction {
   type: typeof UPDATE_PHOTOS;
+  payload: string[];
+}
+
+interface UpdateVPhotosAction {
+  type: typeof UPDATE_VPHOTOS;
   payload: string[];
 }
 
@@ -260,10 +272,6 @@ interface SetSelectedProfileAction {
 }
 
 
-interface UpdateVerificationPhotoAction {
-  type: typeof UPDATE_VERIFICATION_PHOTO;
-  payload: string;
-}
 
 // Combine the action types in a union
 type ProfileActionTypes =
@@ -296,13 +304,16 @@ type ProfileActionTypes =
 
   | SetPhotoUrlAction
   | UpdatePhotosAction
+ 
+  | SetVPhotoUrlAction
+  | UpdateVPhotosAction
+
 
   | SetStoryUrlAction
   | UpdateStoriesAction
 
   | UpdateProfilesAction
   | SetSelectedProfileAction
-  | UpdateVerificationPhotoAction;
   
 
 // Define the initial state
@@ -316,7 +327,7 @@ const initialState: AppState = {
   profile: {
     userUID: null,
     photos: [],
-    verificationPhoto: null,
+    vphotos: [],
     stories: [],
     tag: null,
     isAuthenticated: false, // Adicione isso
@@ -360,6 +371,8 @@ const rootReducer = (
             userUID: null,
             photos: [],
             stories: [],
+            vphotos:[],
+
             isAuthenticated: false
           },
         };
@@ -424,7 +437,6 @@ const rootReducer = (
         };
 
     case UPDATE_MAMAS:
-      console.log("Ação UPDATE_MAMAS foi chamada. Novo valor:", action.payload);
       return {
         ...state,
         profile: {
@@ -587,6 +599,16 @@ const rootReducer = (
         },
       };
 
+      case SET_VPHOTO_URL:
+      console.log("URLs das Verification fotos recebidas no redutor:", action.payload);
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          vphotos: action.payload,
+        },
+      };
+
       case SET_STORY_URL:
         console.log("URLs dos Stories recebidas no redutor:", action.payload);
         return {
@@ -606,6 +628,15 @@ const rootReducer = (
         },
       };
 
+      case UPDATE_VPHOTOS:
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            vphotos: action.payload,
+          },
+        };
+
   case UPDATE_STORIES:
       return {
         ...state,
@@ -623,7 +654,10 @@ const rootReducer = (
           profiles: action.payload.map((profile) => ({
             ...profile,
             photoURL: profile.photoURL || "",  // Garante que photoURL tenha um valor
-            storyURL: profile.storyURL || "",  // Garante que storyURL tenha um valor
+            storyURL: profile.storyURL || "",
+            vphotoURL: profile.vphotoURL || "",  // Garante que photoURL tenha um valor
+
+            // Garante que storyURL tenha um valor
           })),
         };
       
@@ -634,18 +668,12 @@ const rootReducer = (
           selectedProfile: {
             ...action.payload,
             photoURL: action.payload.photos?.[0] || "",  // Verifica se photos existe e tem pelo menos um item
-            storyURL: action.payload.stories?.[0] || "",  // Verifica se stories existe e tem pelo menos um item
+            storyURL: action.payload.stories?.[0] || "",
+            vphotoURL: action.payload.vphotos?.[0] || "",  // Verifica se photos existe e tem pelo menos um item
+            // Verifica se stories existe e tem pelo menos um item
           },
         };
   
-      case UPDATE_VERIFICATION_PHOTO:
-        return {
-          ...state,
-          profile: {
-            ...state.profile,
-            verificationPhoto: action.payload,
-          },
-        };
   
 
     default:

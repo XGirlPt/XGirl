@@ -79,7 +79,8 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
                 src={profile.photos[0]}
                 alt={profile.nome}
                 className="w-full h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50"
-              />
+                loading="lazy" 
+             />
             </div>
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
               <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}

@@ -93,6 +93,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
               src={profile.photos[0]}
               alt={profile.nome}
               className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
+              loading="lazy" 
             />
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-sm md:text-md px-2 rounded">
               <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}

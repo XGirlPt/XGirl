@@ -106,7 +106,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <p className="text-pink-800 text-2xl flex justify-center pb-5">
           Procura na tua Área
         </p>
-        <Map />
+        {/* <Map /> */}
        
          <div className={`hidden sm:block ${paddingClass}`}>
           <InfoCard />

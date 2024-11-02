@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { Profile } from "@/types";
 import StoryCard from "@/components/StoryCard";
 import StoryBigS from "@/components/StoryBigS";
+import CitySelector from "@/components/CitySelector";
 
 
 function StoriesPage({}) {
@@ -54,14 +55,39 @@ function StoriesPage({}) {
   }, [searchParams]);
 
 
+
+
+
+  
+  useEffect(() => {
+    console.log("Cidade selecionada:", selectedCidade); // Log para verificar a cidade selecionada
+    if (selectedCidade) {
+      const profilesToDisplay = profiles.filter(
+        (profile) => profile.cidade === selectedCidade
+      );
+      console.log("Perfis filtrados:", profilesToDisplay); // Log para verificar perfis filtrados
+      setFilteredProfiles(profilesToDisplay);
+    } else {
+      setFilteredProfiles(profiles);
+    }
+  }, [selectedCidade, profiles]);
+
+
+
   return (
     <div className="text-gray-600 bg-black">
       <div className="px-36">
         <p className="text-pink-800 text-3xl text-center justify-center pt-4">
           Escort Girls, Massagistas Eróticas e Acompanhantes de Luxo em Portugal
         </p>
+        <div>
+        <CitySelector onCityChange={setSelectedCidade} />
+        </div>
       </div>
       <CaroselRound profiles={filteredProfiles} />
+      <p className="text-pink-800 text-3xl text-center justify-center pt-4">
+          Ultimos Stories
+        </p>
       <div className="px-36">
       {showLargeStory && (
   <StoryBigS

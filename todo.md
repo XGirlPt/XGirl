@@ -45,7 +45,7 @@ Stories:
 - [X] objecto cover 
 - [] se certificado aparecer o certificado
 - [X] story big foto perfil canto sup esq
-- [] adicionar foto na card avatar
+- [X] adicionar foto na card avatar
 
 
 Header:
@@ -73,5 +73,9 @@ Definicoes:
 - [] login supabase e google
 - [] Footer
 - [] shuffle cards
+- [] link de registo tirar email e uid
+- [] foto loading profile
+- [] login auto
+- [] 
 
 

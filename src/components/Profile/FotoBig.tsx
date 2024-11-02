@@ -42,6 +42,7 @@ console.log("currentPhotoIndex", currentPhotoIndex)
           src={`${selectedProfile?.photoURL[currentPhotoIndex]}`}
           alt="Large Photo"
           className="max-w-[80vw] max-h-[80vh] bg-red-500 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
+          loading="lazy" 
         />
       </div>
       <button className="text-bold font-bold" onClick={onClose}>

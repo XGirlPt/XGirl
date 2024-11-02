@@ -102,6 +102,7 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
                     }
                     alt={profile.nome}
                     className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl "
+                    loading="lazy" 
                   />
                 </Link>
                 <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">

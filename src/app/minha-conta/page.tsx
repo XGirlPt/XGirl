@@ -37,6 +37,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
   const photoURLsRedux = useSelector((state: any) => state.profile?.profile?.photos);
+  const vphotoURLsRedux = useSelector((state: any) => state.profile?.profile?.vphotos);
 
 
   const dispatch = useDispatch(); // Instanciar o dispatch
@@ -165,6 +166,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         </div>
       );
     }
+
   
     return null;
   };
@@ -184,6 +186,9 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
     getSession();
   }, []);
+
+  console.log("vphotoURLsRedux", vphotoURLsRedux)
+  console.log("photoURLsRedux", photoURLsRedux)
 
   return (
     <div className="bg-gray-900 text-gray-100 h-sreen">

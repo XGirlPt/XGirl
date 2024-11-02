@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import { IoTrashBin } from "react-icons/io5";
 import supabase from "@/database/supabase";
-import { updatePhotos } from "@/actions/ProfileActions";
+import { updatePhotos, updateVPhotos } from "@/actions/ProfileActions";
 import Header from "@/components/Header";
 import watermarkImage from "../../../public/logo.png"; // Import the watermark image
 import { createCanvas, loadImage } from "canvas";
@@ -32,6 +32,7 @@ async function addWatermark(
 
     return canvas.toDataURL(`image/${outputFormat}` as any);
   } catch (error: any) {
+    console.error("Erro ao adicionar marca d'água:", error.message);
     throw new Error("Erro ao adicionar marca d'água: " + error.message);
   }
 }
@@ -42,8 +43,12 @@ const RegistoFotos: React.FC = () => {
   const photosFromRedux = useSelector(
     (state: any) => state.profile.profile.photos || []
   );
+  const vphotosFromRedux = useSelector(
+    (state: any) => state.profile.profile.vphotos || []
+  );
+
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>(photosFromRedux);
-  const [verificationPhoto, setVerificationPhoto] = useState<string | null>(null);
+  const [VselectedPhotos, VsetSelectedPhotos] = useState<string[]>(vphotosFromRedux);
 
   const handleDeletePhoto = (index: number) => {
     const updatedPhotos = [...selectedPhotos];
@@ -74,14 +79,14 @@ const RegistoFotos: React.FC = () => {
               );
               const watermarkedFile = await fetch(watermarkedURL);
               const blob = await watermarkedFile.blob();
-             console.log(blob, "url profile?")
               const { data, error } = await supabase.storage
                 .from("profileFoto")
                 .upload(filePath, blob);
              
-                if (error) throw new Error(error.message);
+              if (error) throw new Error(error.message);
               const publicURLFoto = `https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/profileFoto/${filePath}`;
               uploadedPhotoURLs.push(publicURLFoto);
+              console.log("Foto de perfil carregada:", publicURLFoto);
               resolve(true);
             };
           });
@@ -97,43 +102,51 @@ const RegistoFotos: React.FC = () => {
     }
   };
 
+  const handleDeleteVerificationPhoto = (index: number) => {
+    const updatedVPhotos = [...VselectedPhotos];
+    updatedVPhotos.splice(index, 1); // Remove a foto de verificação pelo índice
+    VsetSelectedPhotos(updatedVPhotos); // Atualiza o estado local
+    dispatch(updateVPhotos(updatedVPhotos)); // Atualiza o estado globalmente usando Redux
+    console.log("Foto de verificação removida.");
+    
+    // Aqui, você pode incluir a lógica para deletar a foto do Supabase se necessário
+};
+
   const handleVerificationPhotoUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      const files = Array.from(event.target.files).slice(0, 10);
-      const uploadedPhotoURLsV: string[] = [];
+      const file = event.target.files[0]; // Apenas uma foto de verificação permitida
+      const fileName = file.name
+        .toLowerCase()
+        .replace(/ /g, "_")
+        .replace(/[^a-z0-9_]/g, "") + ".png";
+      const filePath = `${userUID}/${fileName}`;
       
-      const uploadPromises = files.map(async (file) => {
-        const fileName = file.name
-          .toLowerCase()
-          .replace(/ /g, "_")
-          .replace(/[^a-z0-9_]/g, "") + ".png";
-        const filePath = `${userUID}/${fileName}`;
-        console.log("Uploading file with path:", filePath);  // Log para depuração
-        
-        try {
+      try {
+        await new Promise(async (resolve, reject) => {
           const { data, error } = await supabase.storage
             .from("verificationFoto")
             .upload(filePath, file);
-  
-          if (error) throw new Error(error.message);
-          
-          console.log("Upload realizado com sucesso:", data);
-  
-          const publicURLFotoV = `https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/verificationFoto/${filePath}`;
-          console.log("URL pública da foto de verificação:", publicURLFotoV); // Log para depuração
-          uploadedPhotoURLsV.push(publicURLFotoV);
-          setVerificationPhoto(publicURLFotoV); // Atualiza a foto de verificação com a URL pública
-        } catch (error: any) {
-          console.error("Erro durante o upload:", error.message);
-        }
-      });
-  
-      await Promise.all(uploadPromises);
-  
-      // Fazer algo com uploadedPhotoURLsV, se necessário
+
+          if (error) {
+            console.error("Erro durante o upload:", error.message);
+            reject(error);
+          } else {
+            const publicURLFotoV = `https://ulcggrutwonkxbiuigdu.supabase.co/storage/v1/object/public/verificationFoto/${filePath}`;
+            VsetSelectedPhotos([publicURLFotoV]);
+            dispatch(updateVPhotos([publicURLFotoV]));
+            console.log("Foto de verificação carregada:", publicURLFotoV);
+            resolve(true);
+          }
+        });
+      } catch (error: any) {
+        console.error("Erro durante o upload:", error.message);
+      }
     }
   };
-  
+
+
+
+
   return (
     <div className="text-gray-600 pb-20 bg-[#1b1b1b]">
       <div className="h-full bg-[#1b1b1b] px-44">
@@ -143,26 +156,14 @@ const RegistoFotos: React.FC = () => {
           <p className="text-pink-800 text-xl mt-8 pb-0 px-6">Cria o teu Perfil de Anunciante</p>
         </div>
   
-        {/* Navegação do Processo */}
-        <div className="bg-[#1E2427] w-full h-12 mb-2 mt-10 border border-zinc-600 flex rounded-xl">
-          <div className="flex justify-around w-full mx-6 items-center">
-            {['Perfil', 'Fotos', 'Mensalidade'].map((step, index) => (
-              <div key={index} className={`flex ${index === 1 ? 'border-b-2 border-pink-800' : 'border-zinc-500'} pt-3`}>
-                <p className={`rounded-full border ${index === 1 ? 'border-pink-800 text-pink-800' : 'border-zinc-500 text-zinc-500'} mr-2 px-2 mb-2`}>{index + 1}</p>
-                <p className={`mb-2 ${index === 1 ? 'text-pink-800' : 'text-zinc-500'}`}>{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-  
         {/* Seção de Fotos de Perfil */}
         <div className="bg-[#1E2427] w-full h-auto mb-10 mt-0 border border-zinc-600 rounded-sm pb-6">
-        <div className="px-10 mt-4">
+          <div className="px-10 mt-4">
             <p className="text-pink-800 text-2xl">Fotos de Perfil</p>
             <p className="text-white mt-2">Podes adicionar até 10 Fotos</p>
           </div>
   
-          <div className="grid grid-cols-5 gap-10 mx-4 px-4 my-8" style={{ height: `calc(12rem + 8px * ${Math.ceil(selectedPhotos.length / 5)})` }}>
+          <div className="grid grid-cols-5 gap-10 mx-4 px-4 my-8">
             {selectedPhotos.map((photo, index) => (
               <div key={index} className="relative">
                 <BlurImage
@@ -193,56 +194,40 @@ const RegistoFotos: React.FC = () => {
               onChange={handleFileUpload}
               multiple
             />
-            {/* <Link href="/registo-contacto">
-              <p className="text-md text-white bg-gray-400 px-6 py-2 rounded-sm cursor-pointer">? Regras</p>
-            </Link> */}
           </div>
         </div>
   
-        {/* Seção de Certificação */}
-        {/* <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-xl">
-          <div className="px-10 mt-4">
-            <Link href="/">
-              <p className="text-md text-white bg-pink-800 px-10 py-2 rounded-sm cursor-pointer transition duration-300 hover:bg-pink-600 ease-in-out transform hover:scale-105">
-                Certificar o Meu Perfil
-              </p>
-            </Link>
-          </div>
-        </div> */}
-  
+
         {/* Seção para Foto de Verificação */}
         <div className="bg-[#1E2427] w-full h-auto mb-10 mt-0 border border-zinc-600 rounded-sm pb-6">
           <div className="px-10 mt-4">
-            <p className="text-pink-800 text-2xl">Foto de Verificação</p>
-            <p className="text-white mt-2">Adiciona uma foto para verificação</p>
+            <p className="text-pink-800 text-2xl">Foto de Verificacao</p>
+            <p className="text-white mt-2">Adiciona uma foto de verificacao para obteres um Perfil Certificado </p>
           </div>
   
-          <div className="mx-4 px-4 my-8">
-            {verificationPhoto && (
-
-<div className="relative">
+          <div className="grid grid-cols-5 gap-10 mx-4 px-4 my-8">
+            {VselectedPhotos.map((vphoto, index) => (
+              <div key={index} className="relative">
                 <BlurImage
-                  src={verificationPhoto}
-                  alt="Foto de Verificação"
+                  src={vphoto}
+                  alt={`Foto ${index}`}
                   className="w-full h-24 object-cover rounded-md border border-gray-600"
                 />
-                 <IoTrashBin
+                <IoTrashBin
                   size={24}
                   className="absolute top-0 right-0 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1"
-                  
+                  onClick={() => handleDeleteVerificationPhoto()}
                 />
               </div>
-              
-            )}
-           
+            ))}
           </div>
   
-          <div className="px-10 mt-4">
+          <div className="px-10 flex">
             <label
               htmlFor="upload-verification-photo"
-              className="text-md text-white bg-green-600 px-10 py-2 rounded-sm cursor-pointer"
+              className="text-md text-white bg-green-600 px-10 py-2 rounded-xl cursor-pointer"
             >
-              + Adicionar Foto de Verificação...
+              + Adicionar Foto de Verificacao...
             </label>
             <input
               type="file"
@@ -252,13 +237,15 @@ const RegistoFotos: React.FC = () => {
             />
           </div>
         </div>
-  
-        {/* Navegação Inferior */}
         <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-sm">
           <div className="flex justify-between w-full mb-1 mt-10 my-10 py-6 px-10">
-            <Link href="/registo-contacto">
-              <p className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer">Voltar</p>
-            </Link>
+            <div className="w-26">
+              <Link href="/registo-contacto">
+                <p className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer">
+                  Voltar
+                </p>
+              </Link>
+            </div>
             <Link href="/registo-pagamento">
               <p className="text-md text-white bg-pink-800 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-600 ease-in-out transform hover:scale-105">
                 Continuar
@@ -269,6 +256,6 @@ const RegistoFotos: React.FC = () => {
       </div>
     </div>
   );
-}  
+};
 
 export default RegistoFotos;

@@ -35,6 +35,7 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
                   src={profile.photos[0]}
                   alt={profile.nome}
                   className="w-full h-full object-cover rounded-full border-2 border-white"
+                  loading="lazy"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-300 rounded-full"></div>

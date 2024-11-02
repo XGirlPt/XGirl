@@ -341,6 +341,7 @@ console.log("stories RDX", storiesRDX)
         onClick={() => handlePhotoClick(index)}
         width={160}
         height={120}
+        loading="lazy" 
       />
     );
   })}
@@ -351,6 +352,7 @@ console.log("stories RDX", storiesRDX)
       src={selectedProfile?.photoURL?.[0] || "/placeholder.jpg"}
       alt={selectedProfile?.nome || "Placeholder"}
       className="w-full h-96 object-cover rounded-2xl border border-zinc-500 shadow-md"
+      loading="lazy" 
     />
   )}
 </div>

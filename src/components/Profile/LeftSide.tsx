@@ -79,12 +79,14 @@ const LeftSide: React.FC<LeftSideProps> = ({
               src={selectedProfile?.photoURL[0]}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover"
+              loading="lazy" 
             />
           ) : selectedProfile?.photoURL ? (
             <BlurImage
               src={selectedProfile?.photoURL[0]}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover blur-2xl"
+              loading="lazy" 
             />
           ) : (
             <div className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600">

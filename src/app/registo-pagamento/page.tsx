@@ -12,7 +12,10 @@ const RegistoPagamento: React.FC = () => {
 
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
   const nomeRedux = useSelector((state: any) => state.profile?.profile.nome);
-  const photoURLredux = useSelector((state: any) => state.profile?.profile.photos || []);
+
+  const photoURLredux = useSelector((state: any) => state.profile?.profile.photos || []) as string[];
+  const VphotoURLredux = useSelector((state: any) => state.profile?.profile.vphotos || []) as string[];
+
   const telefoneRedux = useSelector((state: any) => state.profile?.profile.telefone);
   const alturaRedux = useSelector((state: any) => state.profile?.profile.altura);
   const cabeloRedux = useSelector((state: any) => state.profile?.profile.cabelo);
@@ -53,6 +56,7 @@ const RegistoPagamento: React.FC = () => {
         pelos: pelosRedux,
         signo: signoRedux,
         distrito: distritoRedux,
+        cidade: cidadeRedux,
         telefone: telefoneRedux,
         pagamento: pagamentoRedux,
         servico: servicoRedux,
@@ -71,24 +75,38 @@ const RegistoPagamento: React.FC = () => {
       if (profileError) {
         throw new Error("Erro ao inserir dados na tabela ProfilesData: " + profileError.message);
       }
-
       console.log("Dados inseridos com sucesso na tabela ProfilesData:", profileData);
+
 
       const photoInsertionsProfile = photoURLredux.map(photoURL => ({
         userUID,
         imageurl: photoURL,
       }));
-
       const { data: photoData, error: photoError } = await supabase
         .from("profilephoto")
         .insert(photoInsertionsProfile);
-
       if (photoError) {
         throw new Error("Erro ao inserir URLs das fotos na tabela profilephoto: " + photoError.message);
       }
-
       console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", photoData);
 
+
+      const VphotoInsertionsProfile = VphotoURLredux.map(vphotoURL => ({
+        userUID,
+        imageurl: vphotoURL,
+      }));
+      const { data: vphotoData, error: vphotoError } = await supabase
+        .from("VPhoto")
+        .insert(VphotoInsertionsProfile)
+      if (vphotoError) {
+        throw new Error("Erro ao inserir URLs das fotos na tabela profilephoto: " + vphotoError.message);
+      }
+      console.log("URLs das fotos inseridas com sucesso na tabela profilephoto:", vphotoData);
+      console.log("VphotoInsertionsProfile", VphotoInsertionsProfile);
+
+
+
+      
       // Redireciona para /minha-conta após criação bem-sucedida
       router.push("/minha-conta"); // Redirecionamento ao sucesso
 
@@ -96,6 +114,12 @@ const RegistoPagamento: React.FC = () => {
       console.error("Erro ao criar perfil:", error);
     }
   };
+
+
+console.log("photoURLredux", photoURLredux)
+
+console.log("VphotoURLredux", VphotoURLredux)
+
 
   return (
     <div className="text-gray-600 pb-20 min-h-[60vh] bg-[#1b1b1b]">

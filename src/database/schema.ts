@@ -98,6 +98,7 @@ export type Database = {
             referencedRelation: "ProfilesData"
             referencedColumns: ["userUID"]
           },
+          
         ]
       }
       stories: {
@@ -126,7 +127,33 @@ export type Database = {
           },
         ]
       }
-
+      VPhoto: {
+        Row: {
+          ID: number
+          imageurl: string | null
+          userUID: string | null
+        }
+        Insert: {
+          ID?: number
+          imageurl?: string | null
+          userUID?: string | null
+        }
+        Update: {
+          ID?: number
+          imageurl?: string | null
+          userUID?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "VPhoto_userUID_fkey"
+            columns: ["userUID"]
+            isOneToOne: false
+            referencedRelation: "ProfilesData"
+            referencedColumns: ["userUID"]
+          },
+          
+        ]
+      }
 
       ProfilesData: {
         Row: {

@@ -3,7 +3,10 @@ export interface Profile {
   nome: string;
 
   photos: string[];
+  vphotos: string[];
+
   photoURL: string[];
+  vphotoURL: string[];
 
   stories: string[];
   storyURL: string[];
@@ -31,7 +34,6 @@ export interface Profile {
   mamas: string;
   signo: string;
   pagamento: string[];
-  verificationPhotoURL: string;
   inactive: boolean;
   certificado: boolean
 }

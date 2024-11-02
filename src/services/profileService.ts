@@ -2,6 +2,10 @@ import supabase from "../database/supabase";
 import { updateStories } from "@/actions/ProfileActions";
 import { Dispatch } from "redux";
 
+
+
+
+
 // FETCH PROFILE START
 export async function fetchProfiles() {
   try {
@@ -53,13 +57,13 @@ export async function fetchProfiles() {
       const stories = storiesData.filter(
         (story) => story.userUID === profile.userUID
       );
-      const VPhotos = VphotosData.filter(
-        (VPhoto) => VPhoto.userUID === profile.userUID
+      const Vphotos = VphotosData.filter(
+        (Vphoto) => Vphoto.userUID === profile.userUID
       );
       return {
         ...profile,
         photos: photos.map((photo) => photo.imageurl), // Supondo que a URL da imagem seja armazenada em 'imageurl'
-        verificationPhotos: VPhotos.map((photo) => photo.imageurl), // Supondo que a URL da imagem de verificação seja armazenada em 'imageurl'
+        Vphotos: Vphotos.map((Vphoto) => Vphoto.imageurl), // Supondo que a URL da imagem de verificação seja armazenada em 'imageurl'
         stories: stories.map((story) => story.storyurl), // Supondo que a URL da imagem seja armazenada em 'imageurl'
 
       };
@@ -148,10 +152,11 @@ export async function fetchClubs() {
     }
 
     return clubsData.map((club) => ({
-      photos: club.photos, // Supondo que 'photos' é a chave onde estão armazenadas as fotos
-      distrito: club.distrito, // Supondo que 'distrito' é a chave onde está armazenado o distrito
-      nome: club.nome, // Supondo que 'nome' é a chave onde está armazenado o nome do clube/estabelecimento
-      // Adicione outras informações conforme necessário
+      photos: club.photos, 
+      distrito: club.distrito, 
+      nome: club.nome,
+      
+     
     }));
   } catch (error) {
     console.error("Error fetching clubs:", error.message);
@@ -211,9 +216,8 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
     const profileWithPhotos = {
       ...profileData,
       photos: photoData.map((photo) => photo.imageurl),
-      verificationPhotos: VPhotoData.map((photo) => photo.imageurl),
       stories: storyData.map((story) => story.storyurl),
-
+      vphotos: VPhotoData.map((vphoto) => vphoto.imageurl),
     };
 
     console.log("Dados do perfil recuperados:", profileWithPhotos); // Adicione este log para verificar os dados recuperados
@@ -272,40 +276,6 @@ export async function updateProfileTag(userUID, newTagValue) {
 }
 // END UPDATE PROFILE TAG
 
-// UPDATE VERIFICATION PHOTO START
-
-
-// export const fetchNonCertificatedProfiles = async (
-//   setNoncertificatedProfiles: (profiles: Profile[]) => void
-// ) => {
-//   try {
-//     const { data, error } = await supabase
-//       .from('ProfilesData')
-//       .select('*')
-//       .eq('certificado', false);
-
-//     if (error) {
-//       throw error;
-//     }
-
-//     const profilesWithPhotos = await Promise.all(data.map(fetchProfilePhotos));
-//     setNoncertificatedProfiles(profilesWithPhotos);
-//   } catch (error) {
-//     console.error("Error fetching non-certificated profiles:", error.message);
-//   }
-// };
-
-
-// END UPDATE VERIFICATION PHOTO
-
-
-
-
-
-
-
-
-// src/services/storiesService.ts
 
 
 // Função para buscar stories do Supabase

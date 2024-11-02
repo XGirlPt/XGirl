@@ -19,6 +19,8 @@ export const UPDATE_PELOS = "UPDATE_PELOS";
 export const UPDATE_DISTRITO = "UPDATE_DISTRITO";
 
 export const UPDATE_PHOTOS = "UPDATE_PHOTOS";
+export const UPDATE_VPHOTOS = "UPDATE_VPHOTOS";
+
 export const UPDATE_STORIES = "UPDATE_STORIES";
 
 
@@ -33,13 +35,13 @@ export const UPDATE_DESCRIPTION = "UPDATE_DESCRIPTION";
 
 
 export const SET_PHOTO_URL = "SET_PHOTO_URL";
+export const SET_VPHOTO_URL = "SET_VPHOTO_URL";
 export const SET_STORY_URL = "SET_STORY_URL";
 
 
 export const UPDATE_SIGNO = "UPDATE_SIGNO";
 export const UPDATE_PROFILES = "UPDATE_PROFILES";
 export const SET_SELECTED_PROFILE = "SET_SELECTED_PROFILE";
-export const UPDATE_VERIFICATION_PHOTO = "UPDATE_VERIFICATION_PHOTO";
 
 
 export const loginSuccess = (userData: { email: string; token: string; user: any }) => {
@@ -164,6 +166,11 @@ export const updatePhotos = (photos: any) => ({
   payload: photos,
 });
 
+export const updateVPhotos = (vphotos: any) => ({
+  type: UPDATE_VPHOTOS,
+  payload: vphotos,
+});
+
 
 export const updateStories = (stories: any) => ({
   type: UPDATE_STORIES,
@@ -214,6 +221,11 @@ export const setPhotoURL = (url: any) => ({
   payload: url,
 });
 
+export const setVPhotoURL = (url: any) => ({
+  type: SET_VPHOTO_URL,
+  payload: url,
+});
+
 export const setStoryURL = (url: any) => ({
   type: SET_STORY_URL,
   payload: url,
@@ -225,7 +237,8 @@ export const updateProfiles = (profiles: any) => {
   const enhancedProfiles = profiles.map((profile: any) => ({
     ...profile,
     photoURL: profile.photoURL,
-    storyURL: profile.storyURL
+    storyURL: profile.storyURL,
+    vphotoURL: profile.vphotoURL
     
   }));
   return {
@@ -239,8 +252,5 @@ export const setSelectedProfile = (profile: any) => ({
   payload: profile,
 });
 
-export const updateVerificationPhoto = (photo: any) => ({
-  type: UPDATE_VERIFICATION_PHOTO,
-  payload: photo,
-});
+
 

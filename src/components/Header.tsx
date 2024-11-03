@@ -75,17 +75,17 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   return (
     <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
       {/* Header Principal */}
-      <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
-        <Link href="/">
-          <Image src="/photos/logo1.png"   
-          layout="responive"
-          alt="Logo" 
-          className="object-contain"
-          width={100}
-          height={100}
-          priority={true}
-          
-          />
+      <div className="w-full bg-black h-20 flex justify-center items-center shadow-md">
+      <Link href="/">
+      <Image 
+  src="/photos/logo1.png"   
+  layout="intrinsic"
+  alt="Logo" 
+  className="object-contain"
+  width={130}
+  height={100}
+  priority={true}
+/>
         </Link>
       </div>
 

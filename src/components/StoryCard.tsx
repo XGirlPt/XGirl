@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import StoryBigS from "./StoryBigS";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSolidMoviePlay } from "react-icons/bi";
-
+import Image from "next/image";
 
 interface Profile {
   nome: string;
@@ -167,10 +167,12 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
                 <div className="absolute bottom-4 left-0 w-full px-4 flex items-center justify-between space-x-2 bg-gradient-to-t from-black/70 to-transparent py-2 group-hover:from-black/90">
                   {/* Avatar com efeito de hover */}
                   <div className="w-12 h-12 rounded-full border-2 border-yellow-500 overflow-hidden cursor-pointer transform transition-transform hover:scale-110">
-                    <img
+                    <Image
                       src={profile.photos[0]}
                       alt="Avatar"
                       className="w-full h-full object-cover"
+                      layout="responsive"
+
                     />
                   </div>
   

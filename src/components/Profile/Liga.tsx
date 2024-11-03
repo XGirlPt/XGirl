@@ -12,6 +12,7 @@ import ing from "../../../public/Flags/ing.svg";
 import it from "../../../public/Flags/it.svg";
 import es from "../../../public/Flags/es.svg";
 import ar from "../../../public/Flags/ar.png";
+import Image from "next/image";
 
 interface LigaProps {
   selectedProfile: {
@@ -111,10 +112,12 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
                 {linguaRedux &&
                   linguaRedux.map((lingua: string, index: number) => (
                     <div key={index} className="flex items-center mx-2">
-                      <img
+                      < Image
   src={obterBandeira(lingua)}
   alt={`${lingua} flag`}
   className="w-6 h-6 mr-2 rounded-full object-cover grid grid-cols-3 gap-y-2"
+  layout="responsive"
+
 />
                       <span className="text-white">{lingua}</span>
                     </div>

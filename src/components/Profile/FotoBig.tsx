@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import { ImCross } from "react-icons/im";
-
+import Image from "next/image";
 
 interface Profile {
   photoURL: string[];
@@ -38,11 +38,12 @@ console.log("currentPhotoIndex", currentPhotoIndex)
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
       <div className="relative">
-        <img
+        < Image
           src={`${selectedProfile?.photoURL[currentPhotoIndex]}`}
           alt="Large Photo"
           className="max-w-[80vw] max-h-[80vh] bg-red-500 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
           loading="lazy" 
+          layout="responsive"
         />
       </div>
       <button className="text-bold font-bold" onClick={onClose}>

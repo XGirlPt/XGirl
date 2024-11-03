@@ -8,6 +8,7 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { BlurImage } from "./BlurImage";
+import Image from "next/image";
 
 interface Profile {
   nome: string;
@@ -97,12 +98,14 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
             <div key={index} className="px-2">
               <div className="relative ">
                 <Link href={`/Acompanhantes/${profile.nome}`} className="">
-                  <img
+                  <Image
                     src={profile.photos[0]
                     }
                     alt={profile.nome}
                     className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl "
                     loading="lazy" 
+                    layout="responsive"
+
                   />
                 </Link>
                 <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">

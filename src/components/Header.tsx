@@ -9,6 +9,7 @@ import { logoutClubs } from "../actions/ClubsActions";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import Image from "next/image";
 
 interface HeaderProps {
   blur?: boolean;
@@ -76,7 +77,12 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       {/* Header Principal */}
       <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
         <Link href="/">
-          <img src="/photos/logo1.png" alt="Logo" className="w-48 h-16 object-contain" />
+          <Image src="/photos/logo1.png"   
+          layout="responsive"
+          alt="Logo" 
+          className="w-48 h-16 object-contain"
+          
+          />
         </Link>
       </div>
 
@@ -158,7 +164,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <span className="text-white flex">  {emailReduxProfile}</span>
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 transition-transform hover:scale-110">
                   {photoUID ? (
-                    <img
+                    <Image
                       src={photoUID}
                       alt="Profile Photo"
                       className="w-full h-full object-cover rounded-full"

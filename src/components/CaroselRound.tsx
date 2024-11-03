@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { BlurImage } from "./BlurImage";
+import Image from "next/image";
 
 interface Profile {
   nome: string;
@@ -31,11 +32,12 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
           <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
             <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
               {profile.photos && profile.photos.length > 0 ? (
-                <img
+                <Image
                   src={profile.photos[0]}
                   alt={profile.nome}
                   className="w-full h-full object-cover rounded-full border-2 border-white"
                   loading="lazy"
+                  layout="responsive"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-300 rounded-full"></div>

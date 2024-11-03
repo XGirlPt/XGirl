@@ -3,6 +3,7 @@
 import { FaClock, FaMoneyBillWave, FaStar, FaGift } from "react-icons/fa";
 import { TfiCup } from "react-icons/tfi";
 import Link from "next/link";
+import Image from "next/image";
 
 const Regista: React.FC = () => {
   return (
@@ -22,10 +23,12 @@ const Regista: React.FC = () => {
                 </p>
                 <div className="flex">
                   <div className="flex justify-center items-center">
-                    <img
+                    <Image
                       src="/photos/register1.png"
                       style={{ width: "360px", height: "300px" }}
                       alt="Register as Advertiser"
+                      layout="responsive"
+
                     />
                   </div>
                   <div className="px-10 pb-2 pt-1 justify-center align-middle items-center">

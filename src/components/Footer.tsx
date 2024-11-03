@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 function Footer() {
   return (
@@ -6,10 +7,12 @@ function Footer() {
       <div className="flex flex-col md:flex-row justify-center text-center">
         <div className="mb-4 md:mr-4">
           <Link href="/">
-            <img
+            <Image
               src="/photos/logo1.png"
               alt="logo"
               className="w-36 h-12 object-contain mb-4"
+              layout="responsive"
+              
             />
           </Link>
           <p className="text-xl text-white py-2">Links Rápidos</p>

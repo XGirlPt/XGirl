@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { NextRouter } from "next/router"; // Importar o tipo NextRouter
 import { useEffect } from "react";
-
+import Image from "next/image";
 
 interface Profile {
   nome: string;
@@ -57,11 +57,13 @@ const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome
         <div
           className="absolute top-4 left-4 w-16 h-16 rounded-full border-2 border-yellow-500 overflow-hidden cursor-pointer"
         >
-          <img
+          <Image
             src={firstPhotos}
             alt="Avatar"
             className="w-full h-16 transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60 object-cover"
-          />
+            layout="responsive"
+
+         />
         </div>
 
 

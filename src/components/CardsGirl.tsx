@@ -3,7 +3,7 @@ import { Profile } from "@/types";
 import Link from "next/link";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { VscVerifiedFilled } from "react-icons/vsc";
-import { BlurImage } from "./BlurImage";
+import Image from "next/image";
 
 interface CardsGirlProps {
   profiles: Profile[];
@@ -19,10 +19,12 @@ const CardsGirl: React.FC<CardsGirlProps> = ({ profiles }) => {
       {shuffledProfiles.map((profile, index) => (
         <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
           <div className="relative border border-zinc-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 blur-50">
-            <BlurImage
+            <Image
               src={profile.photos[0]}
               alt={profile.nome}
               className="w-full h-96 object-cover rounded-md blur-2xl"
+              width={100}
+              height={100}
             />
             <p className="flex items-center absolute bottom-0 lefd-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
               <FaMapMarkerAlt className="text-pink-800 mr-2" />{profile.cidade}

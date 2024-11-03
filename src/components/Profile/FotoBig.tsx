@@ -44,6 +44,8 @@ console.log("currentPhotoIndex", currentPhotoIndex)
           className="max-w-[80vw] max-h-[80vh] bg-red-500 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
           loading="lazy" 
           layout="responsive"
+          width={100}
+          height={100}
         />
       </div>
       <button className="text-bold font-bold" onClick={onClose}>

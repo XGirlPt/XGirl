@@ -78,9 +78,11 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
         <Link href="/">
           <Image src="/photos/logo1.png"   
-          layout="responsive"
+          layout="responive"
           alt="Logo" 
-          className="w-48 h-16 object-contain"
+          className="object-contain"
+          width={100}
+          height={100}
           
           />
         </Link>
@@ -168,6 +170,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                       src={photoUID}
                       alt="Profile Photo"
                       className="w-full h-full object-cover rounded-full"
+                      loading="lazy" 
+                      width={100}
+                      height={100}
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-400"></div>

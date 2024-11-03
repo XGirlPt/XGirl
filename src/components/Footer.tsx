@@ -11,7 +11,9 @@ function Footer() {
               src="/photos/logo1.png"
               alt="logo"
               className="w-36 h-12 object-contain mb-4"
-              layout="responsive"
+              layout="reskponsive"
+              width={100}
+              height={100} 
               
             />
           </Link>

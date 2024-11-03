@@ -38,6 +38,8 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
                   className="w-full h-full object-cover rounded-full border-2 border-white"
                   loading="lazy"
                   layout="responsive"
+                  width={100}
+                  height={100}
                 />
               ) : (
                 <div className="w-full h-full bg-gray-300 rounded-full"></div>

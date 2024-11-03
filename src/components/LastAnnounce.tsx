@@ -5,7 +5,7 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { BlurImage } from "./BlurImage";
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
 interface Profile {
   nome: string;
   cidade: string;
@@ -75,11 +75,13 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
         >
           <div className="relative">
             <div className="image-container overflow-hidden">
-              <BlurImage
+              <Image
                 src={profile.photos[0]}
                 alt={profile.nome}
                 className="w-full h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50"
                 loading="lazy" 
+                width={100}
+                height={100}
              />
             </div>
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">

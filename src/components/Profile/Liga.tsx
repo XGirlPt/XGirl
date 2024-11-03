@@ -117,6 +117,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
   alt={`${lingua} flag`}
   className="w-6 h-6 mr-2 rounded-full object-cover grid grid-cols-3 gap-y-2"
   layout="responsive"
+  
 
 />
                       <span className="text-white">{lingua}</span>

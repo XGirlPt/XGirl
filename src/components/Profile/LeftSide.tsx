@@ -3,7 +3,7 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { FiPhone } from "react-icons/fi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { Profile } from "@/types";
-import { BlurImage } from "../BlurImage";
+import Image from "next/image"; 
 import '../../styles/globals.css';
 
 interface LeftSideProps {
@@ -75,18 +75,22 @@ const LeftSide: React.FC<LeftSideProps> = ({
         {selectedProfile ? (
           Array.isArray(selectedProfile?.photoURL) &&
           selectedProfile?.photoURL?.length > 0 ? (
-            <BlurImage
+            <Image
               src={selectedProfile?.photoURL[0]}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover"
-              loading="lazy" 
+              loading="lazy"
+              width={100}
+              height={100}  
             />
           ) : selectedProfile?.photoURL ? (
-            <BlurImage
+            <Image
               src={selectedProfile?.photoURL[0]}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover blur-2xl"
-              loading="lazy" 
+              loading="lazy"
+              width={100}
+              height={100} 
             />
           ) : (
             <div className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600">

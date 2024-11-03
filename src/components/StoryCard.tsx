@@ -172,6 +172,8 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
                       alt="Avatar"
                       className="w-full h-full object-cover"
                       layout="responsive"
+                      width={100}
+                      height={100}
 
                     />
                   </div>

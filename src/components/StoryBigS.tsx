@@ -62,6 +62,8 @@ const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome
             alt="Avatar"
             className="w-full h-16 transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60 object-cover"
             layout="responsive"
+            width={100}
+            height={100}
 
          />
         </div>

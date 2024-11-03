@@ -18,8 +18,12 @@ export function MainProvider(props: MainProviderProps) {
   return (
     <>
       <Header />
-      <main className="min-h-[60vh]">{children}</main>
-      <footer className="pt-10 ">
+      <main className="min-h-[60vh] relative">
+        <div style={{ minHeight: '200px' }}> {/* Espaço reservado para elementos dinâmicos */}
+          {children}
+        </div>
+      </main>
+      <footer className="pt-10">
         <Footer />
       </footer>
     </>

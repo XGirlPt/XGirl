@@ -82,8 +82,8 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   layout="fixed"
   alt="Logo" 
   className="object-contain"
-  width={130}
-  height={65}  // Altura ajustada para manter a proporção
+  width={200}   // Use a largura original
+  height={120} // Altura ajustada para manter a proporção
   priority={true}
 />
         </Link>

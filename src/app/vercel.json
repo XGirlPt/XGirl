@@ -1,0 +1,15 @@
+{
+    "redirects": [
+      {
+        "source": "/(.*)",
+        "has": [
+          {
+            "type": "host",
+            "value": "xgirl.pt"
+          }
+        ],
+        "destination": "https://www.xgirl.pt",
+        "permanent": true
+      }
+    ]
+  }

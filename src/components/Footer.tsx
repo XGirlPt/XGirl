@@ -15,6 +15,7 @@ function Footer() {
               width={100}
               height={100} 
               
+              
             />
           </Link>
           <p className="text-xl text-white py-2">Links Rápidos</p>

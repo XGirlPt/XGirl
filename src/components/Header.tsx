@@ -83,6 +83,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
           className="object-contain"
           width={100}
           height={100}
+          priority={true}
           
           />
         </Link>

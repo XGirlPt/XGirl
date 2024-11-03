@@ -7,10 +7,11 @@ import Footer from "@/components/Footer";
 import LastAnnounce from "@/components/LastAnnounce";
 import { fetchProfiles } from "@/services/profileService";
 import Maiores from "@/components/Maiores";
-import Map from "@/components/Map";
 import Link from "next/link";
 import { Profile } from "@/types/index"; // Ajuste o caminho conforme a estrutura do seu projeto
 import FilterInput from "@/components/FilterInput"
+import "../styles/globals.min.css"; // Se o arquivo estiver em `src/`
+
 
 interface Profile {
 
@@ -62,7 +63,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     const dpr = window.devicePixelRatio;
 
     if (width >= 1440 && dpr < 2) {
-      setPaddingClass("md:px-72"); // Default for large conventional screens
+      setPaddingClass("md:px-12"); // Default for large conventional screens
     } else if (width >= 1280 && width < 1440 && dpr >= 2) {
       setPaddingClass("md:px-36"); // Specific for MacBook Retina 13''
     } else {
@@ -78,12 +79,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <>
    
-      <div className="text-gray-600 bg-black w-screen justify-center">
-      <div className="age-warning" style={{ height: '50px' }}>
+      <div className="text-gray-600 bg-black justify-center">
+      <div className="mt-2">
 
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
 </div>
-        <div className=" mt-4 w-full">
+        <div className=" w-full">
           {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
         </div>
         <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6">

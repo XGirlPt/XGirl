@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "./globals.min.css";
 import ReduxProvider from "@/provider/redux-provider";
 import { Metadata } from "next";
 import { MainProvider } from "@/provider/main-provider";

@@ -4,7 +4,7 @@ import { FiPhone } from "react-icons/fi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { Profile } from "@/types";
 import Image from "next/image"; 
-import '../../styles/globals.css';
+// import '../../styles/globals.min.css';
 
 interface LeftSideProps {
   selectedProfile: Profile;

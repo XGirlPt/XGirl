@@ -18,7 +18,7 @@ export function MainProvider(props: MainProviderProps) {
   return (
     <>
       <Header />
-      <main className="min-h-[60vh] relative">
+      <main className="">
         <div style={{ minHeight: '200px' }}> {/* Espaço reservado para elementos dinâmicos */}
           {children}
         </div>

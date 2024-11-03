@@ -79,8 +79,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
     <>
    
       <div className="text-gray-600 bg-black w-screen justify-center">
-        {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
+      <div className="age-warning" style={{ height: '50px' }}>
 
+        {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
+</div>
         <div className=" mt-4 w-full">
           {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
         </div>

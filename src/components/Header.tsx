@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       </div>
 
       {/* Navegação */}
-      <div className="w-full bg-pink-800">
+      <div className="w-full bg-pink-700">
         <div className="flex mx-auto px-5 md:px-10 h-12 items-center justify-between">
           {/* Links de navegação */}
           <div className="flex space-x-5 h-full text-md">
@@ -146,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <Link
                   href="/login"
                   className={`nav-link flex items-center py-3  px-4 text-white h-full ${
-                    pathname === "/login" ? "bg-pink-800 py-4" : "hover:bg-pink-700"
+                    pathname === "/login" ? "bg-pink-700 py-4" : "hover:bg-pink-700"
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -155,7 +155,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <Link
                   href="/regista2"
                   className={`nav-link flex items-center px-4 py-4  text-white h-full ${
-                    pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-700 "
+                    pathname === "/regista2" ? "bg-pink-700 py-4" : "hover:bg-pink-700 "
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -165,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             ) : (
               <div className="flex items-center space-x-4 cursor-pointer">
                 <span className="text-white flex">  {emailReduxProfile}</span>
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 transition-transform hover:scale-110">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-700 transition-transform hover:scale-110">
                   {photoUID ? (
                     <Image
                       src={photoUID}

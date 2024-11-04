@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Profile } from "@/types/index"; // Ajuste o caminho conforme a estrutura do seu projeto
 import FilterInput from "@/components/FilterInput"
 import "../styles/globals.min.css"; // Se o arquivo estiver em `src/`
-
+import Map from "@components/Map"
 
 interface Profile {
 
@@ -79,7 +79,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   return (
     <>
    
-      <div className="text-gray-600 bg-black justify-center">
+      <div className="text-gray-600 bg-gray-900 justify-center">
       <div className="mt-2">
 
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}

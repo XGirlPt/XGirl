@@ -27,7 +27,7 @@ const InfoCard: React.FC = () => {
     return null; // Retorna null se o componente não deve ser renderizado
   }
   return (
-    <div className="bg-black w-full rounded-xl h-full mb-2 flex justify-center">
+    <div className="bg-gray-950  w-full rounded-xl h-full mb-2 flex justify-center">
       {/* Cartões de Informações */}
       <div className="flex flex-wrap justify-center gap-4 mt-6">
         {/* Cartão de Utilizadores */}

@@ -66,7 +66,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
     <>
       {mostrarLiga && (
         <div className="fixed inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
-          <div className="w-full md:w-2/6 h-46 md:h-2/4 mt-36 bg-[#1E2427]  rounded-lg shadow-2xl ">
+          <div className="w-full md:w-2/6 h-46 md:h-2/4 mt-36 bg-gray-900 dark:bg-gray-800  rounded-lg shadow-2xl ">
             <div className="flex justify-between items-center">
               <h1 className="text-sm md:text-xl mx-10 items-center mt-8 align-middle mb-4 text-white font-bold">
                 Liga a {selectedProfile?.nome}

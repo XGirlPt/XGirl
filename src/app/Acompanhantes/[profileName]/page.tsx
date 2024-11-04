@@ -189,7 +189,7 @@ console.log("stories RDX", storiesRDX)
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="w-screen bg-black md:flex flex-col user-profile">
+        <div className="w-screen bg-gray-900 md:flex flex-col user-profile">
           <div className="md:flex m-24 mt-10 relative">
             {showLiga && (
               <Liga
@@ -283,7 +283,7 @@ console.log("stories RDX", storiesRDX)
 )}
 
 
-<div className="bg-zinc-900 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
+<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   
 
 <div className="flex justify-between mb-8">

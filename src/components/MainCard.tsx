@@ -81,7 +81,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
         <Link
           key={index}
           href={`/Acompanhantes/${profile.nome}`}
-          className="border-2 rounded-md border-gray-700"
+          className=" rounded-md  dark:bg-gray-400"
         >
           <div className="relative hover:border-none rounded-md overflow-hidden ">
             <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center align-middle items-center rounded-t-md z-10 absolute top-0 left-0">

@@ -80,9 +80,9 @@ function StoriesPage({}) {
         <p className="text-pink-800 text-3xl text-center justify-center pt-4">
           Escort Girls, Massagistas Eróticas e Acompanhantes de Luxo em Portugal
         </p>
-        <div>
+        {/* <div>
         <CitySelector onCityChange={setSelectedCidade} />
-        </div>
+        </div> */}
       </div>
       <CaroselRound profiles={filteredProfiles} />
       <p className="text-pink-800 text-3xl text-center justify-center pt-4">

@@ -92,7 +92,7 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
               <VscVerifiedFilled className="text-green-400 ml-2" />
             </p>
           </div>
-          <div className="h-20 bg-[#1E2427] border-t border-zinc-700 rounded-md flex flex-col justify-center items-center">
+          <div className="h-20 bg-gray-900 dark:bg-gray-800 border-t border-zinc-700 rounded-md flex flex-col justify-center items-center">
             <p className="text-white text-xs italic">{profile.tag}</p>
 
             <div className="flex justify-center items-center mt-2">

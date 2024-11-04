@@ -8,7 +8,7 @@ import paypal from "../../public/photos/paypal.png"; // Ajuste o caminho conform
 
 function Footer() {
   return (
-    <footer className="bg-[#1E2427] w-full py-8">
+    <footer className="bg-gray-900 dark:bg-gray-800  w-full py-8">
       <div className="max-w-screen-xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
           {/* Logo */}
@@ -32,7 +32,7 @@ function Footer() {
             <p className="text-xl text-white py-2">Links Rápidos</p>
             <ul className="space-y-1">
               <li>
-                <Link href="/girls?distrito=Lisboa"
+                <Link href="/Acompanhantes?distrito=Lisboa"
                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort em Lisboa
                 </Link>
               </li>
@@ -79,7 +79,7 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contacto"
+                <Link href="/Contacto"
                    className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Contacto
                 </Link>
               </li>

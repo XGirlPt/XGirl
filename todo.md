@@ -79,3 +79,9 @@ Definicoes:
 - [] 
 
 
+Paginas
+- [] Termos e Condicoes
+- [] Politica e Privacidade
+- [] Contacto
+
+

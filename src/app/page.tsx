@@ -1,17 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
-import InfoCard from "@/components/InfoCard";
-import MainCard from "@/components/MainCard";
-import CaroselG from "@/components/CaroselG";
-import Footer from "@/components/Footer";
-import LastAnnounce from "@/components/LastAnnounce";
+import dynamic from 'next/dynamic';
+import Link from "next/link";
 import { fetchProfiles } from "@/services/profileService";
 import Maiores from "@/components/Maiores";
-import Link from "next/link";
-import { Profile } from "@/types/index";
 import FilterInput from "@/components/FilterInput";
 import "../styles/globals.min.css";
-import Map from "@components/Map";
+
+// Importar componentes de forma dinâmica e memoizados
+const CaroselG = dynamic(() => import('@/components/CaroselG'), { ssr: false });
+const InfoCard = dynamic(() => import('@/components/InfoCard'), { ssr: false });
+const LastAnnounce = dynamic(() => import('@/components/LastAnnounce'), { ssr: false });
+const MainCard = dynamic(() => import('@/components/MainCard'), { ssr: false });
 
 interface Profile {
   nome: string;
@@ -23,13 +23,11 @@ interface Profile {
   certificado: boolean;
 }
 
-interface DashboardProps {}
-
-const Dashboard: React.FC<DashboardProps> = () => {
+const Dashboard: React.FC = () => {
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [showMaiores, setShowMaiores] = useState(true);
-
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -58,54 +56,53 @@ const Dashboard: React.FC<DashboardProps> = () => {
   };
 
   return (
-    <>
-      <div className="text-gray-600 bg-white w-full overflow-x-hidden">
-        {/* Header que só é exibido em telas médias ou maiores */}
-       
-
-        <div className="mt-2 w-full">
-          {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
-        </div>
-
-        <div className="w-full">
-          {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
-        </div>
-
-        <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6 w-full">
-          Escort Girls e Massagistas eróticas em Portugal
-        </p>
-
-        <div className="hidden md:block w-full justify-center md:mx-32 mt-8">
-          <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
-        </div>
-
-        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-          <Link href="/girls">
-            <p className="text-white text-3xl flex mt-8">Anúncios em Destaque</p>
-          </Link>
-        </div>
-
-        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-          <MainCard profiles={profiles} currentPage={currentPage} itemsPerPage={itemsPerPage} />
-        </div>
-
-        <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full">
-          Procura na tua Área
-        </p>
-
-        <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[100px]">
-        <InfoCard />
-        </div>
-
-        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-          <p className="text-white text-3xl flex mt-8">Novidades</p>
-        </div>
-
-        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-          <LastAnnounce profiles={profiles} />
-        </div>
+    <div className="text-gray-600 bg-white w-full overflow-x-hidden">
+      <div className="mt-2 w-full">
+        {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
       </div>
-    </>
+
+      <div className="w-full">
+        {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
+      </div>
+
+      <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6 w-full">
+        Escort Girls e Massagistas eróticas em Portugal
+      </p>
+
+      <div className="hidden md:block w-full justify-center md:mx-32 mt-8">
+        <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
+      </div>
+
+      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+        <Link href="/girls">
+          <p className="text-white text-3xl flex mt-8">Anúncios em Destaque</p>
+        </Link>
+      </div>
+
+      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+        <MainCard 
+          profiles={profiles} 
+          currentPage={currentPage} 
+          itemsPerPage={itemsPerPage} 
+        />
+      </div>
+
+      <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full">
+        Procura na tua Área
+      </p>
+
+      <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[100px]">
+        <InfoCard />
+      </div>
+
+      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+        <p className="text-white text-3xl flex mt-8">Novidades</p>
+      </div>
+
+      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+        <LastAnnounce profiles={profiles} />
+      </div>
+    </div>
   );
 };
 

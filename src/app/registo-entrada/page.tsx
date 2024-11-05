@@ -103,10 +103,10 @@ const RegistoEntrada = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gradient-to-r from-black via-[#1A1A1A] to-black bg-opacity-90 backdrop-blur-lg">
-      <div className="bg-gradient-to-b from-[#2D2D2D] to-[#1A1A1A] h-4/5 mt-16 mb-16 border border-[#3C3C3C] rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900 bg-opacity-90 backdrop-blur-lg">
+      <div className="bg-gradient-to-b bg-gray-900 dark:bg-gray-800 h-4/5 mt-16 mb-16 border border-[#3C3C3C] rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
         <div className="p-10 flex-grow">
-          <h2 className="text-4xl text-red-500 mb-6 font-extrabold text-center tracking-wide">
+          <h2 className="text-4xl text-pink-500 mb-6 font-extrabold text-center tracking-wide">
             Cria o teu Perfil de Anunciante
           </h2>
           <div className="flex flex-col space-y-8">
@@ -114,7 +114,7 @@ const RegistoEntrada = () => {
               {/* Esquerda */}
               <div className="flex flex-col justify-around w-1/2 mx-6 items-start">
                 <div className="w-full mt-2">
-                  <p className="text-red-400 font-medium">Nome*</p>
+                  <p className="text-pink-500 font-medium">Nome*</p>
                   <input
                     className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
                     value={nome}
@@ -122,20 +122,20 @@ const RegistoEntrada = () => {
                   />
                 </div>
                 <div className="w-full mt-4">
-                  <p className="text-red-400 font-medium">Idade</p>
-                  <p className="text-xs text-red-500 mt-1">
+                  <p className="text-pink-500 font-medium">Idade</p>
+                  <p className="text-xs text-pink-500 mt-1">
                     Certifica a tua idade e ganha um prémio*
                   </p>
                   <input
-                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
                     value={idade}
                     onChange={handleIdadeChange}
                   />
                 </div>
                 <div className="w-full mt-4">
-                  <p className="text-red-400 font-medium">Número de Telefone*</p>
+                  <p className="text-pink-500 font-medium">Número de Telefone*</p>
                   <input
-                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
                     value={telefone}
                     onChange={handleTelefoneChange}
                     maxLength={9}

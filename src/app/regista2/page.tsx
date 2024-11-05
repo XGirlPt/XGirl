@@ -114,7 +114,7 @@ const Regista2: React.FC = () => {
 
   return (
     <div className="text-gray-900 bg-black rounded-md">
-      <div className="pb-4 bg-black rounded-md">
+      <div className="pb-4 bg-gray-900 rounded-md">
         {/* <Header isLogged={isLoggedIn} /> */}
         <div className=" h-full bg-black px- justify-center flex">
           {/* LEFT SIDE */}

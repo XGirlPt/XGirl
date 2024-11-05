@@ -50,14 +50,12 @@ const FiltroSigno: React.FC<FiltroSignoProps> = ({
   };
 
   return (
-    <div className="w-full mb-2 md:mb-0">
-      <Listbox
-        onChange={(selectedOption: any) =>
+    <div className="w-full mb-2 md:mb-0 ">
+      <Listbox     onChange={(selectedOption: any) =>
           handleSignoChange(selectedOption.name)
         }
         // @ts-ignore
-        id="signo"
-        name="signo"
+       
       >
         {({ open }) => (
           <>

@@ -109,7 +109,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
         .single();
 
       if (error) {
-        console.error("Erro ao buscar certificado:", error.message || error);
+        console.error("Erro ao buscar certificado:", error.message );
       } else {
         setCertificado(data?.certificado); // Atualiza o estado com o valor do certificado
       }

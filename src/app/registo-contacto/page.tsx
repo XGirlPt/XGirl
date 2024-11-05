@@ -94,8 +94,8 @@ const RegistoContacto: React.FC = () => {
   console.log("Estado Redux completo:", reduxState);
 
   return (
-    <div className="text-gray-600 bg-[#1b1b1b]">
-      <div className="h-full bg-[#1b1b1b] px-44">
+    <div className="text-gray-600 bg-gray-900">
+      <div className="h-full gray-900 px-44">
         <div className="w-full pt-2 mb-2">
           <p className="text-pink-800 text-xl mt-8 pb-0 px-6">
             Cria o teu Perfil de Anunciante

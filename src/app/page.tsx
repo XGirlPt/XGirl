@@ -87,8 +87,8 @@ const Dashboard: React.FC = () => {
         />
       </div>
 
-      <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full">
-        Procura na tua Área
+      <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full h-[50px]"> {/* Definindo altura fixa para o texto */}
+      Procura na tua Área
       </p>
 
       <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[150px]"> {/* Aumentei a min-h para 150px */}

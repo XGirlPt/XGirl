@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
           <div className="flex space-x-5 h-full text-md">
             <Link
               href="/"
-              className={`nav-link flex items-center px-4 py-3 text-gray-300 h-full ${
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
                 pathname === "/" ? "bg-pink-900" : "hover:bg-pink-800"
               } transition duration-200`}
             >
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             </Link>
             <Link
               href="/Acompanhantes"
-              className={`nav-link flex items-center px-4 py-3 text-gray-300 h-full ${
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
                 pathname === "/Acompanhantes" ? "bg-pink-900" : "hover:bg-pink-800"
               } transition duration-200`}
             >
@@ -112,7 +112,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             </Link>
             <Link
               href="/Stories"
-              className={`nav-link flex items-center px-4 py-3 text-gray-300 h-full ${
+              className={`nav-link flex items-center px-4 py-3 text-white h-full ${
                 pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-800"
               } transition duration-200`}
             >
@@ -121,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             </Link>
             <button
               onClick={toggleFiltro}
-              className="flex items-center px-4 py-3 text-gray-300 h-full hover:bg-pink-800 transition duration-200"
+              className="flex items-center px-4 py-3 text-white h-full hover:bg-pink-800 transition duration-200"
             >
               <IoIosOptions className="mr-2" />
               Filtros
@@ -134,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <input
               type="text "
               placeholder="Buscar..."
-              className="px-4 py-1 w-64 text-sm bg-gray-300 text-gray-300 rounded-lg focus:outline-none focus:bg-gray-300 placeholder-gray-800"
+              className="px-4 py-1 w-64 text-sm bg-white text-gray-300 rounded-lg focus:outline-none focus:bg-gray-300 placeholder-gray-800"
             />
           </div>
 
@@ -145,7 +145,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               <>
                 <Link
                   href="/login"
-                  className={`nav-link flex items-center py-3  px-4 text-gray-300 h-full ${
+                  className={`nav-link flex items-center py-3  px-4 text-white h-full ${
                     pathname === "/login" ? "bg-pink-800 py-4" : "hover:bg-pink-800"
                   } transition duration-200`}
                 >
@@ -154,7 +154,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 </Link>
                 <Link
                   href="/regista2"
-                  className={`nav-link flex items-center px-4 py-4  text-gray-300 h-full ${
+                  className={`nav-link flex items-center px-4 py-4  text-gray-white h-full ${
                     pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-800 "
                   } transition duration-200`}
                 >
@@ -189,7 +189,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                     <IoIosArrowDown className="text-xl ml-1" />
                   </button>
                   {languageDropdownOpen && (
-                    <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-pink-900 text-gray-300 shadow-lg rounded-lg py-2">
+                    <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-pink-900 text-white shadow-lg rounded-lg py-2">
                       <li
                         onClick={() => {
                           router.push("/minha-conta");

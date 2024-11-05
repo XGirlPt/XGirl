@@ -24,8 +24,8 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
   return (
     mostrarMaiores && (
       <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-75 backdrop-blur-sm transition-opacity duration-300">
-        <div className="w-full max-w-lg h-[300px] p-6 md:p-8 bg-gray-600 rounded-lg shadow-2xl space-y-4">
-          <h1 className="text-xl font-bold text-white">Aviso de Conteúdo Adulto e Uso de Cookies</h1>
+<div className="w-full min-h-[600px] px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+<h1 className="text-xl font-bold text-white">Aviso de Conteúdo Adulto e Uso de Cookies</h1>
           <p className="text-white">Bem-vindo ao Xgirl.pt</p>
           <p className="text-white text-sm">
             Este website contém materiais restritos por idade, incluindo nudez. Ao entrar, você confirma que tem pelo

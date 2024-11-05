@@ -74,7 +74,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
               <button className="text-bold font-bold" onClick={fecharLiga}>
                 <ImCross
                   size={16}
-                  className="text-zinc-600 hover:text-pink-800 transition-transform font-bold mx-10"
+                  className="text-zinc-600 hover:text-pink-600transition-transform font-bold mx-10"
                 />
               </button>
             </div>
@@ -101,7 +101,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
             </div>
             <div className="border-t border-neutral-700 p-2 relative"></div>
             <div className="flex items-center justify-center">
-              <FaMoneyBillWave size={24} className="text-pink-800 mr-4" />
+              <FaMoneyBillWave size={24} className="text-pink-600 mr-4" />
               <p className="text-white text-lg">
                 Tarifas a partir de {selectedProfile?.Tarifa} €
               </p>

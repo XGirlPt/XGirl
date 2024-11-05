@@ -90,14 +90,14 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       </div>
 
       {/* Navegação */}
-      <div className="w-full bg-pink-500">
+      <div className="w-full bg-pink-600">
         <div className="flex mx-auto px-5 md:px-10 h-12 items-center justify-between">
           {/* Links de navegação */}
           <div className="flex space-x-5 h-full text-md">
             <Link
               href="/"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/" ? "bg-pink-900" : "hover:bg-pink-700"
+                pathname === "/" ? "bg-pink-900" : "hover:bg-pink-600"
               } transition duration-200`}
             >
               Home
@@ -105,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <Link
               href="/Acompanhantes"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/Acompanhantes" ? "bg-pink-900" : "hover:bg-pink-700"
+                pathname === "/Acompanhantes" ? "bg-pink-900" : "hover:bg-pink-600"
               } transition duration-200`}
             >
               Acompanhantes
@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <Link
               href="/Stories"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-700"
+                pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-600"
               } transition duration-200`}
             >
               <BiSolidMoviePlay className="mr-2" />
@@ -121,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             </Link>
             <button
               onClick={toggleFiltro}
-              className="flex items-center px-4 py-3 text-white h-full hover:bg-pink-700 transition duration-200"
+              className="flex items-center px-4 py-3 text-white h-full hover:bg-pink-600 transition duration-200"
             >
               <IoIosOptions className="mr-2" />
               Filtros
@@ -146,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <Link
                   href="/login"
                   className={`nav-link flex items-center py-3  px-4 text-white h-full ${
-                    pathname === "/login" ? "bg-pink-700 py-4" : "hover:bg-pink-700"
+                    pathname === "/login" ? "bg-pink-600 py-4" : "hover:bg-pink-600"
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -155,7 +155,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <Link
                   href="/regista2"
                   className={`nav-link flex items-center px-4 py-4  text-white h-full ${
-                    pathname === "/regista2" ? "bg-pink-700 py-4" : "hover:bg-pink-700 "
+                    pathname === "/regista2" ? "bg-pink-600 py-4" : "hover:bg-pink-600 "
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -165,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             ) : (
               <div className="flex items-center space-x-4 cursor-pointer">
                 <span className="text-white flex">  {emailReduxProfile}</span>
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-700 transition-transform hover:scale-110">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-600 transition-transform hover:scale-110">
                   {photoUID ? (
                     <Image
                       src={photoUID}
@@ -195,7 +195,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                           router.push("/minha-conta");
                           setLanguageDropdownOpen(false);
                         }}
-                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                        className="flex items-center px-5 py-3 hover:bg-pink-600 cursor-pointer transition duration-200"
                       >
                         <FaUser className="mr-2" />
                         A Minha Conta
@@ -205,14 +205,14 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                           router.push("/Definicoes");
                           setLanguageDropdownOpen(false);
                         }}
-                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                        className="flex items-center px-5 py-3 hover:bg-pink-600 cursor-pointer transition duration-200"
                       >
                         <FaCog className="mr-2" />
                         Definições
                       </li>
                       <li
                         onClick={handleLogout}
-                        className="flex items-center px-5 py-3 hover:bg-pink-700 cursor-pointer transition duration-200"
+                        className="flex items-center px-5 py-3 hover:bg-pink-600 cursor-pointer transition duration-200"
                       >
                         <FaSignOutAlt className="mr-2" />
                         Logout

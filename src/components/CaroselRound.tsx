@@ -30,22 +30,21 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
       {profilesToDisplay.map((profile, index) => (
         <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
           <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
-            <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
-              {profile.photos && profile.photos.length > 0 ? (
-                <Image
-                  src={profile.photos[0]}
-                  alt={profile.nome}
-                  className="w-full h-full object-cover rounded-full border-2 border-white"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-300 rounded-full"></div>
-              )}
-              <div className="absolute inset-0 hover:bg-pink-800 hover:opacity-40 duration-300"></div>
-            </div>
+          <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
+  {profile.photos && profile.photos.length > 0 ? (
+    <Image
+      src={profile.photos[0]}
+      alt={profile.nome}
+      className="w-full h-full object-cover rounded-full border-2 border-white"
+      loading="lazy"
+      width={100}
+      height={100}
+    />
+  ) : (
+    <div className="w-full h-full bg-gray-300 rounded-full"></div>
+  )}
+  <div className="absolute inset-0 hover:bg-pink-800 hover:opacity-40 duration-300"></div>
+</div>
             <p className="text-white text-xs mt-2 whitespace-nowrap">
               {profile.nome}
             </p>

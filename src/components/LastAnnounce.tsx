@@ -85,7 +85,7 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
              />
             </div>
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
-              <FaMapMarkerAlt className="text-pink-800 mr-2" /> {profile.cidade}
+              <FaMapMarkerAlt className="text-pink-700 mr-2" /> {profile.cidade}
             </p>
             <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-xl px-2 rounded whitespace-nowrap flex items-center">
               {profile.nome}{" "}

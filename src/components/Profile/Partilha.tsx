@@ -50,7 +50,7 @@ const Partilha: React.FC<PartilhaProps> = ({
               <button className="text-bold font-bold" onClick={fecharPartilha}>
                 <ImCross
                   size={16}
-                  className="text-zinc-700 hover:text-pink-800 transition-transform font-bold mx-10"
+                  className="text-zinc-700 hover:text-pink-600 transition-transform font-bold mx-10"
                 />
               </button>
             </div>

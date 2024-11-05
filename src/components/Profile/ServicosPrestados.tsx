@@ -11,8 +11,8 @@ const ServicosPrestados: React.FC<ServicosPrestadosProps> = ({
   const servico = selectedProfile?.servico;
 
   return (
-    <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
-      <p className="text-pink-800 text-2xl mb-2">Serviços Prestados</p>
+    <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
+      <p className="text-pink-600 text-2xl mb-2">Serviços Prestados</p>
       {servico && Array.isArray(servico) ? (
         <div className="grid grid-cols-3 gap-3 w-full">
           {servico.map((servicoItem, index) => (

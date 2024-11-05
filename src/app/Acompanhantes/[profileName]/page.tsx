@@ -241,7 +241,7 @@ console.log("stories RDX", storiesRDX)
          
               {selectedProfile && selectedProfile.storyURL?.length > 0 && (
   <div className="flex flex-col ml-10 mr-24">
-    <p className="text-pink-800 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
+    <p className="text-pink-700 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
       {selectedProfile.storyURL.map((media, index) => {
         if (!media) return null;
@@ -287,7 +287,7 @@ console.log("stories RDX", storiesRDX)
   
 
 <div className="flex justify-between mb-8">
-  <p className="text-pink-800 text-2xl mb-4 font-semibold">
+  <p className="text-pink-700 text-2xl mb-4 font-semibold">
     Fotografias de {selectedProfile?.nome}
   </p>
 
@@ -363,8 +363,8 @@ console.log("stories RDX", storiesRDX)
 
                 <ServicosPrestados selectedProfile={selectedProfile} />
 
-                <div className="bg-zinc-900 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
-                  <p className="text-pink-800 text-2xl">Descrição</p>
+                <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
+                  <p className="text-pink-700 text-2xl">Descrição</p>
                   <div className="gap-4 mt-6">
                     <div
                       className="text-white "

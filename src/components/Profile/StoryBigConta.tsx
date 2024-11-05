@@ -52,7 +52,7 @@ const StoryBig: React.FC<StoryBigProps> = ({ onClose, currentIndex }) => {
       <button className="text-bold font-bold" onClick={onClose}>
         <ImCross
           size={16}
-          className="absolute top-0 right-10 mt-24 text-white text-xl hover:text-pink-800"
+          className="absolute top-0 right-10 mt-24 text-white text-xl hover:text-pink-700"
         />
       </button>
       <button

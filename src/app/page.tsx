@@ -8,22 +8,20 @@ import LastAnnounce from "@/components/LastAnnounce";
 import { fetchProfiles } from "@/services/profileService";
 import Maiores from "@/components/Maiores";
 import Link from "next/link";
-import { Profile } from "@/types/index"; // Ajuste o caminho conforme a estrutura do seu projeto
-import FilterInput from "@/components/FilterInput"
-import "../styles/globals.min.css"; // Se o arquivo estiver em `src/`
-import Map from "@components/Map"
+import { Profile } from "@/types/index";
+import FilterInput from "@/components/FilterInput";
+import "../styles/globals.min.css";
+import Map from "@components/Map";
 
 interface Profile {
-
   nome: string;
   cidade: string;
   photos: string[];
   stories: string[];
   tag: string;
   tagtimestamp: string;
-  certificado: boolean; // Adiciona a propriedade certificado como boolean
+  certificado: boolean;
 }
-
 
 interface DashboardProps {}
 
@@ -31,7 +29,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [showMaiores, setShowMaiores] = useState(true);
-  const [paddingClass, setPaddingClass] = useState("md:px-72"); // Initial value for large screens
 
   useEffect(() => {
     async function fetchData() {
@@ -53,23 +50,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (hasVisitedDashboard) {
       setShowMaiores(false);
     }
-    adjustPadding();
-    window.addEventListener("resize", adjustPadding);
-    return () => window.removeEventListener("resize", adjustPadding);
   }, []);
-
-  const adjustPadding = () => {
-    const width = window.innerWidth;
-    const dpr = window.devicePixelRatio;
-
-    if (width >= 1440 && dpr < 2) {
-      setPaddingClass("md:px-12"); // Default for large conventional screens
-    } else if (width >= 1280 && width < 1440 && dpr >= 2) {
-      setPaddingClass("md:px-36"); // Specific for MacBook Retina 13''
-    } else {
-      setPaddingClass("md:px-32"); // Default for other resolutions
-    }
-  };
 
   const handleCloseMaiores = () => {
     setShowMaiores(false);
@@ -78,46 +59,49 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   return (
     <>
-   
-      <div className="text-gray-600 bg-gray-900 justify-center">
-      <div className="mt-2">
+      <div className="text-gray-600 bg-gray-900 w-full overflow-x-hidden">
+        {/* Header que só é exibido em telas médias ou maiores */}
+       
 
-        {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
-</div>
-        <div className=" w-full">
+        <div className="mt-2 w-full">
+          {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
+        </div>
+
+        <div className="w-full">
           {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
         </div>
-        <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6">
+
+        <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6 w-full">
           Escort Girls e Massagistas eróticas em Portugal
         </p>
 
-        <div className="w-full flex mx-32 mt-8"> {/* Ajustado para centralização */}
-  <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
-</div>
+        <div className="w-full flex justify-center md:mx-32 mt-8">
+          <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
+        </div>
 
-
-        <div className={`sm:px-4 ${paddingClass}`}>
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
           <Link href="/girls">
-            <p className="text-white text-3xl flex mt-8">
-              Anúncios em Destaque
-            </p>
+            <p className="text-white text-3xl flex mt-8">Anúncios em Destaque</p>
           </Link>
         </div>
-        <div className={`px-10 ${paddingClass}`}>
-        <MainCard profiles={profiles} currentPage={currentPage} itemsPerPage={itemsPerPage} />
+
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+          <MainCard profiles={profiles} currentPage={currentPage} itemsPerPage={itemsPerPage} />
         </div>
-        <p className="text-pink-800 text-2xl flex justify-center pb-5">
+
+        <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full">
           Procura na tua Área
         </p>
-        {/* <Map /> */}
-       
-         <div className={`hidden sm:block ${paddingClass}`}>
+
+        <div className="hidden sm:block w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
           <InfoCard />
         </div>
-        <div className={`  ${paddingClass}`}>
+
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
           <p className="text-white text-3xl flex mt-8">Novidades</p>
         </div>
-        <div className={`  ${paddingClass}`}>
+
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
           <LastAnnounce profiles={profiles} />
         </div>
       </div>

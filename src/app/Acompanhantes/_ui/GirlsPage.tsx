@@ -119,9 +119,9 @@ function GirlsPage() {
  
 
   return (
-    <div className="bg-black text-white">
+    <div className="bg-gray-900 text-white">
       <div className="px-36 py-2">
-        <h1 className="text-4xl text-pink-800 font-bold text-center">
+        <h1 className="text-4xl pink-500 font-bold text-center">
           Acompanhantes de Luxo e Massagistas Eróticas em Portugal
         </h1>
         <p className="text-xl text-gray-300 text-center mt-2">
@@ -132,13 +132,13 @@ function GirlsPage() {
       <CaroselRound profiles={filteredProfiles} />
 
       <div className="px-36 mb-2">
-        <h2 className="text-2xl text-pink-800 mb-2">Buscar Acompanhante</h2>
+        <h2 className="text-2xl pink-500 mb-2">Buscar Acompanhante</h2>
       </div>
 
       <div className="px-36 w-2/4 mb-2 flex items-center gap-2 ">
         <div className="relative w-2/6 ">
           <Listbox value={selectedDistrito} onChange={handleDistritoSelect}>
-            <Listbox.Button className="w-full py-2 px-3 bg-pink-800 text-white rounded-md shadow-md flex justify-between items-center">
+            <Listbox.Button className="w-full py-2 px-3 bg-pink-500 text-white rounded-md shadow-md flex justify-between items-center">
               {selectedDistrito === "Distrito"
                 ? `Distrito (${totalProfiles})`
                 : `${selectedDistrito}`}

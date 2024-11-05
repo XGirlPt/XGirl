@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 function Termos({}) {
   return (
-    <div className="text-gray-200 bg-black mx-36 p-8 rounded-lg shadow-lg font-sans space-y-12">
+    <div className="text-gray-200 bg-gray-900 dark:bg-gray-800 mx-36 p-8 rounded-lg shadow-lg font-sans space-y-12">
       <h1 className="text-center text-4xl font-bold mb-12 border-b border-gray-700 pb-4">Termos e Condições Gerais de Uso e Aviso Legal</h1>
 
       <section className="space-y-6">

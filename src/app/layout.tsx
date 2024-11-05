@@ -61,7 +61,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`${inter.className} bg-black`}>
+      <body className={`${inter.className} bg-gray-900`}>
         <ReduxProvider>
           <MainProvider>{children}</MainProvider>
         </ReduxProvider>

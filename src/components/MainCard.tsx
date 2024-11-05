@@ -108,7 +108,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
               )}
             </p>
           </div>
-          <div className="h-14 md:h-20 bg-gray-900 border border-gray-700 rounded-md flex flex-col justify-center items-center">
+          <div className="h-14 md:h-20 bg-gray-900 dark:bg-gray-800  rounded-md flex flex-col justify-center items-center">
             <p className="text-white text-xs italic">{profile.tag}</p>
 
             <div className="flex justify-center items-center mt-2">

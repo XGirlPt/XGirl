@@ -75,22 +75,22 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   return (
     <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
       {/* Header Principal */}
-      <div className="w-full bg-black h-20 flex justify-center items-center shadow-md">
+      <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
       <Link href="/">
       <Image 
   src="/logo.webp"   
   layout="fixed"
   alt="Logo" 
-  className="object-contain"
-  width={130}
-  height={65}  // Altura ajustada para manter a proporção
+  className="object-cover"
+  width={300}
+  height={100}  // Altura ajustada para manter a proporção
   priority={true}
 />
         </Link>
       </div>
 
       {/* Navegação */}
-      <div className="w-full bg-pink-700">
+      <div className="w-full bg-pink-500">
         <div className="flex mx-auto px-5 md:px-10 h-12 items-center justify-between">
           {/* Links de navegação */}
           <div className="flex space-x-5 h-full text-md">

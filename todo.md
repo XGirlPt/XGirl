@@ -71,7 +71,7 @@ Definicoes:
 - [] Link header a funcionar e filtrar correctamente
 - [] melhorar certificado 
 - [] login supabase e google
-- [] Footer
+- [X] Footer
 - [] shuffle cards
 - [] link de registo tirar email e uid
 - [] foto loading profile
@@ -80,8 +80,8 @@ Definicoes:
 
 
 Paginas
-- [] Termos e Condicoes
-- [] Politica e Privacidade
-- [] Contacto
+- [X] Termos e Condicoes
+- [X] Politica e Privacidade
+- [X] Contacto
 
 

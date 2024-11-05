@@ -79,12 +79,12 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       <Link href="/">
       <Image 
   src="/logo.webp"   
-  layout="fixed"
   alt="Logo" 
   className="object-cover"
   width={300}
-  height={100}  // Altura ajustada para manter a proporção
-  priority={true}
+  height={100}
+  priority
+  layout="intrinsic" // or layout="responsive" if you prefer
 />
         </Link>
       </div>

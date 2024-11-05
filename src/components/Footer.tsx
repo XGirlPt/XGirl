@@ -118,20 +118,19 @@ function Footer() {
             {/* Ícones de Pagamento */}
             <p className="text-xl text-white py-2">Métodos de Pagamento</p>
             <ul className="flex justify-center md:justify-start space-x-4">
-              <li>
-              <Image src={visa} alt="Visa" width={32} height={20} />
-              </li>
-              <li>
-              <Image src={mastercard} alt="Mastercard" width={32} height={20} />
-           
-            </li>
-              <li>
-              <Image src={btc} alt="Btc" width={24} height={12} />
-              </li>
-              <li>
-              <Image src={paypal} alt="Paypal" width={32} height={20} />
-              </li>
-            </ul>
+  <li>
+    <Image src={visa} alt="Visa" width={32} height={20}  style={{ objectFit: 'contain' }}/>
+  </li>
+  <li>
+    <Image src={mastercard} alt="Mastercard" width={32} height={20}  style={{ objectFit: 'contain' }}/>
+  </li>
+  <li>
+    <Image src={btc} alt="Btc" width={24} height={12}  style={{ objectFit: 'contain' }}/>
+  </li>
+  <li>
+    <Image src={paypal} alt="Paypal" width={32} height={20}  style={{ objectFit: 'contain' }}/>
+  </li>
+</ul>
           </div>
         </div>
 

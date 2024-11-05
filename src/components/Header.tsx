@@ -76,18 +76,17 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
       {/* Header Principal */}
       <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
-      <Link href="/">
-      <Image 
-  src="/logo.webp"   
-  alt="Logo" 
-  className="object-cover"
-  width={300}
-  height={100}
-  priority
-  layout="intrinsic" // or layout="responsive" if you prefer
-/>
-        </Link>
-      </div>
+  <Link href="/" aria-label="Ir para a página inicial">
+  <Image 
+            src="/logo.webp"   
+            alt="Logo" 
+            width={100}
+            height={100} // Preenche o contêiner
+            priority
+            style={{ objectFit: 'contain' }} // Usar CSS em linha ou className para controlar o ajuste
+          />
+  </Link>
+</div>
 
       {/* Navegação */}
       <div className="w-full bg-pink-800">

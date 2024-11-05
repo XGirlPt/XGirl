@@ -91,9 +91,9 @@ const Dashboard: React.FC = () => {
         Procura na tua Área
       </p>
 
-      <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[100px]">
-        <InfoCard />
-      </div>
+      <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[150px]"> {/* Aumentei a min-h para 150px */}
+  <InfoCard />
+</div>
 
       <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
         <p className="text-white text-3xl flex mt-8">Novidades</p>

@@ -127,7 +127,7 @@ const RegistoEntrada = () => {
                     Certifica a tua idade e ganha um prémio*
                   </p>
                   <input
-                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    className="py-3 px-3 w-full mt-2 bg-gray-900 text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                     value={idade}
                     onChange={handleIdadeChange}
                   />
@@ -135,7 +135,7 @@ const RegistoEntrada = () => {
                 <div className="w-full mt-4">
                   <p className="text-pink-500 font-medium">Número de Telefone*</p>
                   <input
-                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
+                    className="py-3 px-3 w-full mt-2 bg-[#2E2E2E] text-white rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                     value={telefone}
                     onChange={handleTelefoneChange}
                     maxLength={9}

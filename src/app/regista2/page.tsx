@@ -113,41 +113,41 @@ const Regista2: React.FC = () => {
   }, [router]);
 
   return (
-    <div className="text-gray-900 bg-black rounded-md">
-      <div className="pb-4 bg-gray-900 rounded-md">
+    <div className="bg-gray-600 rounded-md">
+      <div className="pb-4 bg-white rounded-md">
         {/* <Header isLogged={isLoggedIn} /> */}
-        <div className=" h-full bg-black px- justify-center flex">
+        <div className=" h-full  dark:bg-white justify-center flex">
           {/* LEFT SIDE */}
-          <div className="w-1/2 pt-20 mb-10 flex flex-col justify-end items-center">
+          <div className="w-1/2 mx-auto my-auto flex flex-col justify-end items-center">
             <div>
-              <p className="text-pink-800 text-2xl pb-10 px-6 ">
+              <p className="text-pink-600 text-3xl pb-10 px-6 font-extrabold ">
                 XGirl.pt é o site de classificados eroticos mais completo de
                 Portugal{" "}
               </p>
-              <div className="flex">
+              <div className="flex ">
                 <div className="px-10 pb-2 pt-1 justify-center gap-10 align-middle items-center">
                   <div className="flex items-center py-2">
-                    <TfiCup className="text-pink-800 mr-4" size={48} />
-                    <p className="text-white py-2">
+                    <TfiCup className="text-pink-600 mr-4" size={48} />
+                    <p className="text-gray-600 py-2">
                       O site mais completo em Portugal
                     </p>
                   </div>
                   <div className="flex items-center py-2">
-                    <FaClock className="text-pink-800 mr-4" size={48} />
-                    <p className="text-white py-2">
+                    <FaClock className="text-pink-600 mr-4" size={48} />
+                    <p className="text-gray-600 py-2">
                       O processo de inscrição é simples e rápido.
                     </p>
                   </div>
                   <div className="flex items-center py-2">
-                    <FaMoneyBillWave className="text-pink-800 mr-4" size={48} />
-                    <p className="text-white py-2">
+                    <FaMoneyBillWave className="text-pink-600 mr-4" size={48} />
+                    <p className="text-gray-600 py-2">
                       Ganhe muito dinheiro! Atenda de 20 a 200 contactos por
                       mês.
                     </p>
                   </div>
                   <div className="flex items-center py-2">
-                    <FaStar className="text-pink-800 mr-4" size={48} />
-                    <p className="text-white py-2">
+                    <FaStar className="text-pink-600 mr-4" size={48} />
+                    <p className="text-gray-600 py-2">
                       Vários destaques por mês e por dia sem pagar mais
                     </p>
                   </div>
@@ -164,62 +164,102 @@ const Regista2: React.FC = () => {
           </div>
 
           {/* right size */}
-          <div className="bg-zinc-900 w-1/3 mb-2 mt-20 border border-zinc-600 rounded-2xl flex items-center">
-            <div className="w-full my-auto">
-              <p className="text-white text-xl px-6 justify-center flex">
-                Cria uma nova conta 
-              </p>
+          <div className="bg-gray-900 dark:bg-gray-800 mt-10 w-full border border-gray-700 my-auto rounded-2xl shadow-lg max-w-md mx-auto px-6 py-8 space-y-6">
+          <h1 className="text-4xl font-extrabold text-center text-pink-600 mb-4">
+          Cria uma nova conta 
+          </h1>
               <div className="w-full px-6">
                 <div className="px-1 pb-2 pt-1 justify-center align-middle items-center">
-                  <div className="items-center">
-                    <p className="text-pink-800 py-2">Email* </p>
-                    <input
-                      className="w-full bg-zinc-600 text-white h-10 rounded-md pl-4 outline-pink-800 focus:outline-pink-800"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Digite o seu email"
-                    />
-                  </div>
+                 
+
+                  <div>
+        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="email">
+          Email*
+        </label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Insere o teu email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-600 text-sm rounded-lg focus:ring-pink-600 focus:border-pink-600 block w-full p-3"
+          required
+        />
+      </div>
+
+
                   <div className="px-1 pb-2 pt-1 justify-center align-middle items-center">
                     <div className="flex items-center">
                       <ListRegister handleOptionSelect={handleOptionSelect} />
                     </div>
                   </div>
-                  <div className="items-center">
-                    <p className="text-pink-800">Password* </p>
-                    <input
-                      type="password"
-                      className="w-full bg-zinc-600 py-2 rounded-md pl-4 text-white outline-pink-800"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Digite a sua password"
-                    />
-                  </div>
-                  <div className="items-center">
-                    <p className="text-pink-800 py-2">
+                 
+                 
+
+                  <div>
+        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
+          Password*
+        </label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Insere a tua password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-600 text-sm rounded-lg focus:ring-pink-600 focus:border-pink-600 block w-full p-3"
+          required
+        />
+      </div>
+
+                  {/* <div className="items-center">
+                    <p className="text-pink-600 py-2">
                       Confirma a tua Password*{" "}
                     </p>
                     <input
                       type="password"
-                      className="w-full bg-zinc-600 py-2 rounded-md pl-4 text-white outline-pink-800"
+                      className="w-full bg-gray-700 py-2 rounded-md pl-4 text-gray-600 outline-pink-600"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Confirme a sua password"
                     />
-                  </div>
+                  </div> */}
+
+
+
+                  <div className="mt-6">
+        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
+        Confirma a tua Password*
+        </label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Insere a tua password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-600 text-sm rounded-lg focus:ring-pink-600 focus:border-pink-600 block w-full p-3"
+          required
+        />
+      </div>
+
+
+
+
+
+
+
+
+
                 </div>
               </div>
               <div className="flex justify-center px-8 my-4">
                 <button
                   onClick={handleRegister}
-                  className="flex justify-center items-center rounded-md cursor-pointer text-white w-56 bg-pink-800 py-2 mb-4 hover:bg-pink-900"
+                  className="flex justify-center items-center rounded-md cursor-pointer text-gray-600 w-56 bg-pink-600 py-2 mb-4 hover:bg-pink-900"
                 >
                   Cria a tua conta
                 </button>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

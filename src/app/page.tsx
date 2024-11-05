@@ -59,7 +59,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   return (
     <>
-      <div className="text-gray-600 bg-gray-900 w-full overflow-x-hidden">
+      <div className="text-gray-600 bg-white w-full overflow-x-hidden">
         {/* Header que só é exibido em telas médias ou maiores */}
        
 

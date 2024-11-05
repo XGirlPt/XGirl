@@ -11,6 +11,7 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
 
   useEffect(() => {
     setMostrarMaiores(true); // Exibir sem atraso
+    document.body.style.overflow = "hidden"; // Impedir rolagem enquanto o modal está aberto
     return () => {
       document.body.style.overflow = ""; // Liberar overflow ao desmontar
     };
@@ -24,23 +25,27 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
   return (
     mostrarMaiores && (
       <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-75 backdrop-blur-sm transition-opacity duration-300">
-<div className="w-full min-h-[600px] px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-<h1 className="text-xl font-bold text-white">Aviso de Conteúdo Adulto e Uso de Cookies</h1>
-          <p className="text-white">Bem-vindo ao Xgirl.pt</p>
-          <p className="text-white text-sm">
+        <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg transform transition-transform duration-300 scale-100 hover:scale-105">
+          <h1 className="text-2xl font-bold text-black">Aviso de Conteúdo Adulto e Uso de Cookies</h1>
+          <p className="text-black mt-2">Bem-vindo ao Xgirl.pt</p>
+          <p className="text-black text-sm mt-4">
             Este website contém materiais restritos por idade, incluindo nudez. Ao entrar, você confirma que tem pelo
             menos 18 anos de idade ou a idade da maioria na jurisdição de onde está acessando o website, e consente em
             visualizar conteúdo sexualmente explícito.
           </p>
-          <div className="flex justify-around mt-4 pt-10 gap-6">
+          <div className="flex justify-around mt-6 gap-4">
             <button
-              className="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 text-sm"
+              className="px-6 py-3 text-white bg-green-600 rounded-md hover:bg-green-700 transition duration-200 text-sm"
               onClick={fecharMaiores}
+              aria-label="Confirmar que sou maior de 18 anos"
             >
               Sou maior de 18 anos - Entrar
             </button>
-            <Link href="https://www.google.com">
-              <button className="px-4 py-2 text-white bg-black rounded-md hover:bg-zinc-700 text-sm">
+            <Link href="https://www.google.com" passHref>
+              <button 
+                className="px-6 py-3 text-white bg-red-600 rounded-md hover:bg-red-700 transition duration-200 text-sm"
+                aria-label="Indicar que sou menor de 18 anos e sair"
+              >
                 Sou menor de 18 anos - Sair
               </button>
             </Link>

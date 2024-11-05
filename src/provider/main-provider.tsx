@@ -19,7 +19,8 @@ export function MainProvider(props: MainProviderProps) {
     <>
  <div className="hidden md:block">
         <Header />
-      </div>      <main className="min-h-[60vh]">{children}</main>
+      </div>
+      <main className="min-h-[60vh]">{children}</main>
       <footer className="pt-10 ">
         <Footer />
       </footer>

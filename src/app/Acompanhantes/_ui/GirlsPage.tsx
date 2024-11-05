@@ -120,30 +120,29 @@ function GirlsPage() {
 
   return (
     <div className="bg-gray-900 text-white">
-      <div className="px-36 py-2">
-        <h1 className="text-4xl pink-500 font-bold text-center">
+      <div className="px-4 md:px-36 py-4">
+        <h1 className="text-3xl md:text-4xl pink-500 font-bold text-center">
           Acompanhantes de Luxo e Massagistas Eróticas em Portugal
         </h1>
-        <p className="text-xl text-gray-300 text-center mt-2">
+        <p className="text-lg md:text-xl text-gray-300 text-center mt-2">
           Descubra as melhores profissionais de todo o país
         </p>
       </div>
-
+  
       <CaroselRound profiles={filteredProfiles} />
-
-      <div className="px-36 mb-2">
-        <h2 className="text-2xl pink-500 mb-2">Buscar Acompanhante</h2>
+  
+      <div className="px-4 md:px-36 mb-2">
+        <h2 className="text-xl md:text-2xl pink-500 mb-2">Buscar Acompanhante</h2>
       </div>
-
-      <div className="px-36 w-2/4 mb-2 flex items-center gap-2 ">
-        <div className="relative w-2/6 ">
+  
+      <div className="px-4 md:px-36 w-full md:w-2/4 mb-4 flex flex-col md:flex-row items-center gap-2">
+        <div className="relative w-full md:w-1/3">
           <Listbox value={selectedDistrito} onChange={handleDistritoSelect}>
             <Listbox.Button className="w-full py-2 px-3 bg-pink-500 text-white rounded-md shadow-md flex justify-between items-center">
               {selectedDistrito === "Distrito"
                 ? `Distrito (${totalProfiles})`
                 : `${selectedDistrito}`}
               <FiChevronDown className="w-5 h-5 ml-2" />
-
             </Listbox.Button>
             <Listbox.Options className="absolute w-full mt-2 bg-white rounded-md shadow-lg z-20 max-h-60 overflow-auto">
               <Listbox.Option
@@ -176,7 +175,7 @@ function GirlsPage() {
             </Listbox.Options>
           </Listbox>
         </div>
-
+  
         <div className="flex-1">
           <input
             type="text"
@@ -187,11 +186,11 @@ function GirlsPage() {
           />
         </div>
       </div>
-
-      <div className="px-36">
+  
+      <div className="px-4 md:px-36">
         <MainCard profiles={filteredProfiles} currentPage={currentPage} itemsPerPage={itemsPerPage} />
-
-        <div className="flex justify-center items-center mt-2">
+  
+        <div className="flex justify-center items-center mt-4">
           <button
             onClick={goToPreviousPage}
             disabled={currentPage === 1}
@@ -211,6 +210,7 @@ function GirlsPage() {
       </div>
     </div>
   );
+  
 }
 
 export default GirlsPage;

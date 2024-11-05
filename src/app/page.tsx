@@ -75,7 +75,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           Escort Girls e Massagistas eróticas em Portugal
         </p>
 
-        <div className="w-full flex justify-center md:mx-32 mt-8">
+        <div className="hidden md:block w-full justify-center md:mx-32 mt-8">
           <FilterInput profiles={profiles} onFilter={setFilteredProfiles} />
         </div>
 

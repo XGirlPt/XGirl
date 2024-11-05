@@ -26,11 +26,11 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
   const profilesToDisplay = shuffleArray([...profiles]).slice(0, 10);
 
   return (
-    <div className="flex mx-28 flex-wrap justify-center gap-4 mt-4 mb-4">
+    <div className="flex mx-4 md:mx-28 flex-wrap justify-center gap-4 mt-4 mb-4">
       {profilesToDisplay.map((profile, index) => (
         <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
           <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
+          <div className="relative w-12 md:w-24 h-12 md:h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
   {profile.photos && profile.photos.length > 0 ? (
     <Image
       src={profile.photos[0]}

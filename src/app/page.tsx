@@ -93,8 +93,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
           Procura na tua Área
         </p>
 
-        <div className="hidden sm:block w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-          <InfoCard />
+        <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[100px]">
+        <InfoCard />
         </div>
 
         <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">

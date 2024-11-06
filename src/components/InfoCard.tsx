@@ -3,34 +3,10 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 const InfoCard: React.FC = () => {
-  const [shouldRender, setShouldRender] = useState(true);
 
-  useEffect(() => {
-    const mediaQueryList = window.matchMedia(
-      "(min-width: 600px) and (max-width: 1024px)"
-    );
-
-    const handleMediaQueryChange = (e: MediaQueryListEvent) => {
-      setShouldRender(!e.matches);
-    };
-
-    handleMediaQueryChange(mediaQueryList as any);
-
-    mediaQueryList.addEventListener("change", handleMediaQueryChange);
-
-    return () => {
-      mediaQueryList.removeEventListener("change", handleMediaQueryChange);
-    };
-  }, []);
-
-  if (!shouldRender) {
-    return null; // Retorna null se o componente não deve ser renderizado
-  }
   return (
     <div className="bg-white  w-full rounded-xl h-full mb-2 flex justify-center">
-      {/* Cartões de Informações */}
       <div className="flex flex-wrap justify-center gap-4 mt-6">
-        {/* Cartão de Utilizadores */}
         <div className="flex flex-col h-72 justify-center items-center w-full sm:w-80 md:w-82">
           <div className="rounded-lg shadow-lg bg-gray-500 dark:bg-gray-400  p-4 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
             <p className="font-bold text-2xl mb-4 text-white">2103 Utilizadores</p>

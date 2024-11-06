@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import dynamic from 'next/dynamic';
+
 
 interface MaioresProps {
   setShowMaiores: (value: boolean) => void;

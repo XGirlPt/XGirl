@@ -1,4 +1,4 @@
-// Maiores.tsx
+"use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -10,7 +10,17 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
   const [mostrarMaiores, setMostrarMaiores] = useState(false);
 
   useEffect(() => {
-    setMostrarMaiores(true); // Exibir sem atraso
+    // Usando requestIdleCallback para exibir o modal apenas após o carregamento do conteúdo
+    if (typeof requestIdleCallback === "function") {
+      requestIdleCallback(() => {
+        setMostrarMaiores(true);
+      });
+    } else {
+      setTimeout(() => {
+        setMostrarMaiores(true);
+      }, 300); // Um pequeno atraso em caso de não suportar requestIdleCallback
+    }
+
     document.body.style.overflow = "hidden"; // Impedir rolagem enquanto o modal está aberto
     return () => {
       document.body.style.overflow = ""; // Liberar overflow ao desmontar

@@ -26,7 +26,7 @@ const HeaderMobile: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
+    <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
       <div className="flex justify-around items-center h-16">
         {/* Botão Home */}
         <Link href="/" aria-label="Ir para Home">

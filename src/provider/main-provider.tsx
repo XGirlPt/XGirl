@@ -25,7 +25,7 @@ export function MainProvider(props: MainProviderProps) {
       <div className="hidden md:block">
         <Header />
       </div>
-      <div className=" md:hidden">
+      <div className="block md:hidden">
         <HeaderMobile />
       </div>
 

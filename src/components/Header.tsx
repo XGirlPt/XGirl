@@ -80,8 +80,8 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   <Image 
             src="/logo.webp"   
             alt="Logo" 
-            width={100}
-            height={100} // Preenche o contêiner
+            width={240}
+            height={240} // Preenche o contêiner
             priority
             style={{ objectFit: 'contain' }} // Usar CSS em linha ou className para controlar o ajuste
           />

@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
       // Define um tempo de atraso de 3 segundos para renderizar o componente
       const timer = setTimeout(() => {
         setShowMaiores(true); // Após 3 segundos, mostrar o componente
-      }, 3000); // Atraso de 3 segundos
+      }, 5000); // Atraso de 3 segundos
 
       return () => clearTimeout(timer); // Limpeza do timer quando o componente for desmontado
     }

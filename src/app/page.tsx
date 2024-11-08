@@ -43,9 +43,17 @@ const Dashboard: React.FC = () => {
   const itemsPerPage = 10;
 
   useEffect(() => {
+    // Verifica se o usuário já visitou o dashboard
     const hasVisitedDashboard = localStorage.getItem("hasVisitedDashboard");
     if (hasVisitedDashboard) {
       setShowMaiores(false);
+    } else {
+      // Define um tempo de atraso de 3 segundos para renderizar o componente
+      const timer = setTimeout(() => {
+        setShowMaiores(true); // Após 3 segundos, mostrar o componente
+      }, 3000); // Atraso de 3 segundos
+
+      return () => clearTimeout(timer); // Limpeza do timer quando o componente for desmontado
     }
   }, []);
 

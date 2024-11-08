@@ -25,7 +25,7 @@ interface Profile {
 const Dashboard: React.FC = () => {
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [showMaiores, setShowMaiores] = useState(true);
+  const [showMaiores, setShowMaiores] = useState(false);
   
   useEffect(() => {
     async function fetchData() {
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
 
       return () => clearTimeout(timer); // Limpeza do timer quando o componente for desmontado
     }
-  }, []);
+  }, [])
 
   const handleCloseMaiores = () => {
     setShowMaiores(false);

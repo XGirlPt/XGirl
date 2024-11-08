@@ -98,7 +98,7 @@ const Dashboard: React.FC = () => {
         <p className="text-white text-3xl flex mt-8">Novidades</p>
       </div>
 
-      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
+      <div className="w-full px-4 sm:px-10 md:px-16 lg:px-32 xl:px-48 max-w-full">
         <LastAnnounce profiles={profiles} />
       </div>
     </div>

@@ -76,7 +76,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
   
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-6 gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-4 md:gap-8 mt-10 pb-16 md:pb-16">
       {paginatedProfiles.map((profile, index) => (
         <Link
           key={index}

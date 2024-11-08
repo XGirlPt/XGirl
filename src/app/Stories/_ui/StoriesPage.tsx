@@ -76,7 +76,7 @@ function StoriesPage({}) {
 
   return (
     <div className="text-gray-600 bg-black">
-      <div className="px-36">
+      <div className="px-2 md:px-36">
         <p className="text-pink-800 text-3xl text-center justify-center pt-4">
           Escort Girls, Massagistas Eróticas e Acompanhantes de Luxo em Portugal
         </p>
@@ -85,10 +85,10 @@ function StoriesPage({}) {
         </div> */}
       </div>
       <CaroselRound profiles={filteredProfiles} />
-      <p className="text-pink-800 text-3xl text-center justify-center pt-4">
+      <p className="text-pink-800 text-3xl text-center justify-center pt-8 md:pt-4">
           Ultimos Stories
         </p>
-      <div className="px-36">
+      <div className="px-8 md:px-36">
       {showLargeStory && (
   <StoryBigS
     profile={filteredProfiles.find(profile => profile.nome === selectedNome)} // Encontre o perfil correspondente

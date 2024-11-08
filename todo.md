@@ -75,7 +75,7 @@ Definicoes:
 - [] shuffle cards
 - [] link de registo tirar email e uid
 - [] foto loading profile
-- [] login auto
+- [X] login auto
 - [] 
 
 

@@ -1,9 +1,7 @@
 "use client";
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import dynamic from 'next/dynamic';
 
-
+// Tipagem da prop `setShowMaiores`
 interface MaioresProps {
   setShowMaiores: (value: boolean) => void;
 }
@@ -12,7 +10,6 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
   const [mostrarMaiores, setMostrarMaiores] = useState(false);
 
   useEffect(() => {
-    // Usando requestIdleCallback para exibir o modal apenas após o carregamento do conteúdo
     if (typeof requestIdleCallback === "function") {
       requestIdleCallback(() => {
         setMostrarMaiores(true);
@@ -31,7 +28,7 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
 
   const fecharMaiores = () => {
     setMostrarMaiores(false);
-    setShowMaiores(false);
+    setShowMaiores(false); // Chama a função que foi passada por prop para esconder o modal na página principal
   };
 
   return (
@@ -53,14 +50,13 @@ const Maiores: React.FC<MaioresProps> = ({ setShowMaiores }) => {
             >
               Sou maior de 18 anos - Entrar
             </button>
-            <Link href="https://www.google.com" passHref>
-              <button 
-                className="px-6 py-3 text-white bg-red-600 rounded-md hover:bg-red-700 transition duration-200 text-sm"
-                aria-label="Indicar que sou menor de 18 anos e sair"
-              >
-                Sou menor de 18 anos - Sair
-              </button>
-            </Link>
+            <button
+              className="px-6 py-3 text-white bg-red-600 rounded-md hover:bg-red-700 transition duration-200 text-sm"
+              aria-label="Indicar que sou menor de 18 anos e sair"
+              onClick={() => window.location.href = "https://www.google.com"} // Redireciona para o Google se o usuário for menor de 18 anos
+            >
+              Sou menor de 18 anos - Sair
+            </button>
           </div>
         </div>
       </div>

@@ -30,7 +30,7 @@ export function MainProvider(props: MainProviderProps) {
       </div>
 
       {/* Logo grande, centralizado, visível apenas em telas pequenas */}
-      <div className=" md:hidden sticky top-0 z-50 bg-black flex justify-center items-center h-24 shadow-md">
+      {/* <div className=" md:hidden sticky top-0 z-50 bg-black flex justify-center items-center h-24 shadow-md">
         <Link href="/" aria-label="Ir para a página inicial">
           <Image 
             src="/logo.webp"   
@@ -41,7 +41,7 @@ export function MainProvider(props: MainProviderProps) {
             className="object-contain" // Garante que a imagem se ajuste ao contêiner
           />
         </Link>
-      </div>
+      </div> */}
 
       <main className="min-h-[60vh]">{children}</main>
 

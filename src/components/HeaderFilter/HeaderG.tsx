@@ -49,42 +49,41 @@ const HeaderG: React.FC<HeaderGProps> = ({
   const currentProfile = profiles[currentProfileIndex];
 
   return (
-    <div className="w-full bbg-gray-900 dark:bg-gray-800 sticky top-[128px]">
-      <div className="flex mx-auto md:mx-20 justify-between align-middle bg-gray-900 dark:bg-gray-800 h-14 items-center">
-        <div className="ml-10">
-          <button
-            className="flex px-6 mt-1 py-1 shadow-sm border border-pink-800 text-sm rounded-md items-center nk-800 text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
-            onClick={handlePrevProfile}
-          >
-            <IoIosArrowRoundBack size={22} className="mr-2" />
-            Perfil Anterior
-          </button>
-        </div>
-
+    <div className="w-full bg-gray-900 dark:bg-gray-800 fixed z-50">
+      <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800">
+        {/* Botão Perfil Anterior */}
+        <button
+          className="flex items-center px-4 py-1 border border-pink-800 text-sm rounded-md text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
+          onClick={handlePrevProfile}
+        >
+          <IoIosArrowRoundBack size={20} className="mr-1" />
+          <span className="hidden sm:inline">Anterior</span>
+        </button>
+  
+        {/* Informações do Perfil */}
         {currentProfile && currentProfile.distrito && (
-          <div className="flex">
-            <p className="text-zinc-400 mr-2 ml-2">Girls</p>
-            <p className="text-zinc-400 mr-2 ml-2">/</p>
+          <div className="flex items-center text-center text-sm space-x-2">
+            <p className="text-zinc-400">Girls</p>
+            <p className="text-zinc-400">/</p>
             <Link
-  href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
-  className="text-white mr-2 ml-2 cursor-pointer hover:text-pink-800"
->
-  {currentProfile.distrito}
-</Link>
-            <p className="text-zinc-400 mr-2 ml-2">/</p>
-            <p className="text-pink-800 mr-2 ml-2">{currentProfile.nome}</p>
+              href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
+              className="text-white cursor-pointer hover:text-pink-800"
+            >
+              {currentProfile.distrito}
+            </Link>
+            <p className="text-zinc-400">/</p>
+            <p className="text-pink-800">{currentProfile.nome}</p>
           </div>
         )}
-
-        <div className="ml-10">
-          <button
-            onClick={handleNextProfile}
-            className="flex px-6 mt-1 py-1 shadow-sm border border-pink-800 text-sm rounded-md items-center text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
-          >
-            Próximo Perfil
-            <IoIosArrowRoundForward size={22} className="ml-2" />
-          </button>
-        </div>
+  
+        {/* Botão Próximo Perfil */}
+        <button
+          className="flex items-center px-4 py-1 border border-pink-800 text-sm rounded-md text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
+          onClick={handleNextProfile}
+        >
+          <span className="hidden sm:inline">Próximo</span>
+          <IoIosArrowRoundForward size={20} className="ml-1" />
+        </button>
       </div>
     </div>
   );

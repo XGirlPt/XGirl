@@ -70,8 +70,8 @@ const LeftSide: React.FC<LeftSideProps> = ({
   }, [selectedProfile?.tagtimestamp]); // Dependência apenas em `tagTimestamp`
 
   return (
-    <div className="md:w-1/3 align-middle min-h-screen flex justify-center sticky top-56 z-10 h-full">
-      <div className="md:relative justify-center items-center">
+<div className="w-full md:w-1/3 flex justify-center items-center mb-44 md:mb-36 md:sticky top-56 z-10 h-full">
+<div className="relative justify-center align-middle items-center">
         {selectedProfile ? (
           Array.isArray(selectedProfile?.photoURL) &&
           selectedProfile?.photoURL?.length > 0 ? (
@@ -104,7 +104,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
         )}
 
         <div className="flex justify-center items-center w-full absolute -mt-16">
-          <div className="bg-[#1E2427] h-42 md:w-[240px] p-6 px-6 rounded-2xl border border-zinc-400 justify-center items-center">
+          <div className="bg-gray-900 dark:bg-gray-800 h-42 md:w-3/4 p-6 px-6 rounded-2xl border border-zinc-400 justify-center items-center">
             <div>
               <p className="text-yellow-500 text-xs underline italic text-center mb-2">
                 Last Status

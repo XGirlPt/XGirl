@@ -73,15 +73,15 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   }, []);
 
   return (
-    <nav className={`sticky top-0 w-full z-40 ${blur ? "backdrop-blur-lg" : ""}`}>
+    <nav className="hidden md:block fixed h-24 flex top-0 w-full z-40">
       {/* Header Principal */}
       <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
   <Link href="/" aria-label="Ir para a página inicial">
   <Image 
             src="/logo.webp"   
             alt="Logo" 
-            width={240}
-            height={240} // Preenche o contêiner
+            width={200}
+            height={200} // Preenche o contêiner
             priority
             style={{ objectFit: 'contain' }} // Usar CSS em linha ou className para controlar o ajuste
           />
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
 
       {/* Navegação */}
       <div className="w-full bg-pink-800">
-        <div className="flex mx-auto px-5 md:px-10 h-12 items-center justify-between">
+        <div className="flex mx-auto px-5 md:px-10 h- items-center justify-between">
           {/* Links de navegação */}
           <div className="flex space-x-5 h-full text-md">
             <Link
@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 </Link>
                 <Link
                   href="/regista2"
-                  className={`nav-link flex items-center px-4 py-4  text-white h-full ${
+                  className={`nav-link flex items-center px-4 py-4  text-gray-white h-full ${
                     pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-800 "
                   } transition duration-200`}
                 >

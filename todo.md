@@ -33,7 +33,8 @@ Perfil:
 - [X] certificado melhorar 
 - [X] toogle link copiado
 - [X] se nao houver story nao deve aparecer o titulo.
-
+- [] adicionar seccao comentarios
+- [] versao movel
 
 
 Stories: 
@@ -65,18 +66,20 @@ Definicoes:
 - [] alteracao de email 
 - [X] fazer componentes
 
-
+Varios
 - [] Barra de Search
 - [] Filtros
 - [] Link header a funcionar e filtrar correctamente
-- [] melhorar certificado 
+- [X] melhorar certificado 
 - [] login supabase e google
 - [X] Footer
 - [] shuffle cards
 - [] link de registo tirar email e uid
 - [] foto loading profile
 - [X] login auto
-- [] 
+- [] Retirar Froala
+- [] adicionar "stories icon" nas cards dos perfis que teem stories
+- [] email de confirmacao ao login 
 
 
 Paginas

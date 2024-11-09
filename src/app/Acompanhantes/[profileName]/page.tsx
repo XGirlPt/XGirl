@@ -189,9 +189,9 @@ console.log("stories RDX", storiesRDX)
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="w-screen bg-gray-900 md:flex flex-col user-profile">
-          <div className="md:flex m-24 mt-10 relative">
-            {showLiga && (
+        <div className="w-screen bg-gray-900 flex flex-col user-profile">
+        <div className="md:flex md:m-24 mt-24 relative">
+        {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
                 setShowLiga={setShowLiga}
@@ -283,7 +283,7 @@ console.log("stories RDX", storiesRDX)
 )}
 
 
-<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] px-10 ml-10 mr-24 border border-zinc-700 rounded-3xl shadow-lg">
+<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] px-10 md:ml-10 mx-1 mr-0 md:mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   
 
 <div className="flex justify-between mb-8">
@@ -292,7 +292,7 @@ console.log("stories RDX", storiesRDX)
   </p>
 
   {loading || isCertified === null ? (
-    <div className="ml-4 p-2 rounded-md flex items-center bg-zinc-700 h-8">
+    <div className=" md:ml-4 p-2 rounded-md flex items-center bg-zinc-700 h-8">
       <p className="text-white">Carregando...</p>
     </div>
   ) : (

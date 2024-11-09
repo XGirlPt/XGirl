@@ -22,29 +22,13 @@ export function MainProvider(props: MainProviderProps) {
   return (
     <>
       {/* Header visível apenas em telas médias ou maiores */}
-      <div className="hidden md:block">
-        <Header />
+      <div className="hidden md:block mt-36">
+      <Header />
       </div>
-      <div className="block md:hidden">
+      <div className="block md:hidden ">
         <HeaderMobile />
       </div>
-
-      {/* Logo grande, centralizado, visível apenas em telas pequenas */}
-      {/* <div className=" md:hidden sticky top-0 z-50 bg-black flex justify-center items-center h-24 shadow-md">
-        <Link href="/" aria-label="Ir para a página inicial">
-          <Image 
-            src="/logo.webp"   
-            alt="Logo" 
-            width={250}  // Aumentando o tamanho
-            height={250} // Ajustado proporcionalmente
-            priority
-            className="object-contain" // Garante que a imagem se ajuste ao contêiner
-          />
-        </Link>
-      </div> */}
-
-      <main className="min-h-[60vh]">{children}</main>
-
+      <main className="">{children}</main>
       <footer className="pt-10">
         <Footer />
       </footer>

@@ -17,6 +17,8 @@ import {
 import { BiSolidMoviePlay } from "react-icons/bi";
 import { FaUserEdit, FaPhotoVideo, FaInfoCircle } from "react-icons/fa";
 import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos"; // Importando os ícones necessários
+import ModificarStories from "@/app/minha-conta/_ui/ModificarStories";
+import ModificarContacto from "@/app/minha-conta/_ui/ModificarContacto";
 
 const HeaderMobile: React.FC = () => {
   const router = useRouter();
@@ -33,6 +35,8 @@ const HeaderMobile: React.FC = () => {
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
 
   const [showModifyPhoto, setShowModifyPhoto] = useState(false);
+  const [showModifyStory, setShowModifyStory] = useState(false);
+  const [showModifyContacto, setShowModifyContacto] = useState(false);
 
  
 
@@ -68,10 +72,34 @@ const HeaderMobile: React.FC = () => {
     closeMenu(); // Fecha o menu
     setShowModifyPhoto(true); // Exibe o componente de modificar fotos
   };
+
+  const handleAlterarStoryClick = () => {
+    closeMenu(); // Fecha o menu
+    setShowModifyStory(true); // Exibe o componente de modificar fotos
+  };
   
+  const handleAlterarContactoClick = () => {
+    closeMenu(); // Fecha o menu
+    setShowModifyContacto(true); // Exibe o componente de modificar fotos
+  };
+
+
+
+
+
   const handleVoltarFoto = () => {
     setShowModifyPhoto(false); // Esconde o componente de modificar fotos
   };
+
+  const handleVoltarStory = () => {
+    setShowModifyStory(false); // Esconde o componente de modificar fotos
+  };
+
+  const handleVoltarContacto = () => {
+    setShowModifyContacto(false); // Esconde o componente de modificar fotos
+  };
+
+
   return (
     <>
       {/* Banda preta com o logo e avatar no topo */}
@@ -115,6 +143,17 @@ const HeaderMobile: React.FC = () => {
       <div className="h-24"></div>
       {showModifyPhoto && (
   <ModificarFotos handleVoltar={handleVoltarFoto} />
+)}
+
+{showModifyStory && (
+  <ModificarStories handleVoltar={handleVoltarStory} storyURLs={[]} />
+)}
+
+{showModifyContacto && (
+  <ModificarContacto 
+    handleVoltar={handleVoltarContacto} 
+    onClose={() => setShowModifyContacto(false)} // Fecha o componente
+  />
 )}
       {/* Menu fixo na parte inferior */}
       <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
@@ -162,7 +201,7 @@ const HeaderMobile: React.FC = () => {
         <>
           {/* Sobreposição com opacidade */}
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            className="fixed inset-0 bg-black bg-opacity-50 z-50"
             onClick={closeMenu}
           ></div>
 
@@ -204,9 +243,9 @@ const HeaderMobile: React.FC = () => {
                   <div className="absolute ml-4 top-full pb-4 gap-12 left-0 mt-2 bg-pink-800 rounded-lg shadow-lg z-50">
                    
                     <Link
-                      href="/minha-conta/"
+                      href="#"
                       className="flex px-10  py-6 text-white hover:bg-pink-700"
-                      onClick={closeMenu}
+                      onClick={handleAlterarContactoClick}
                     >
                       <FaInfoCircle className="mr-2" />
                       Informações
@@ -223,21 +262,20 @@ const HeaderMobile: React.FC = () => {
                     </Link>
                     
                     
-                    <Link
-                    
-  href="#"
-  className="flex px-10 py-6 text-white hover:bg-pink-700"
-  onClick={handleAlterarFotoClick} // Mostra o componente
->
-  <FaPhotoVideo className="mr-2" />
-  Alterar Foto
-</Link>
+                    <Link                    
+                      href="#"
+                      className="flex px-10 py-6 text-white hover:bg-pink-700"
+                      onClick={handleAlterarFotoClick} // Mostra o componente
+                    >
+                      <FaPhotoVideo className="mr-2" />
+                      Alterar Foto
+                    </Link>
 
 
                     <Link
-                      href="/minha-conta/alterar-story"
+                      href="#"
                       className="flex px-10  py-6 text-white hover:bg-pink-700"
-                      onClick={closeMenu}
+                      onClick={handleAlterarStoryClick}
                     >
                       <FaUserEdit className="mr-2" />
                       Alterar Story

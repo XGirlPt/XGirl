@@ -64,9 +64,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="text-gray-600 bg-gray-900 w-full overflow-x-hidden ">
-      <div className="mt-2 w-full">
+      {/* <div className="mt-2 w-full">
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
-      </div>
+      </div> */}
 
       <div className="w-full">
         {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}

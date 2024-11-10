@@ -79,7 +79,7 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
                 src={profile.photos[0]  || "/logo.webp"}
                 alt={profile.nome}
                 className="w-full h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50"
-                loading="lazy" 
+                priority
                 width={100}
                 height={100}
              />

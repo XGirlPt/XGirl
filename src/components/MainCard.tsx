@@ -94,7 +94,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
               src={profile.photos[0] || "/logo.webp"}
               alt={profile.nome}
               className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
-             
+              priority
               width={100}
               height={100} 
             />

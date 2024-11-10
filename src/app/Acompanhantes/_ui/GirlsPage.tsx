@@ -119,7 +119,7 @@ function GirlsPage() {
  
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-gray-900 text-white w-screen">
       <div className="px-4 md:px-36 py-4">
         <h1 className="text-3xl md:text-4xl pink-500 font-bold text-center">
           Acompanhantes de Luxo e Massagistas Eróticas em Portugal

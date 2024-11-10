@@ -76,14 +76,14 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
   
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-4 md:gap-8 mt-10 pb-16 md:pb-16">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-4 md:gap-8 mt-10 pb-16 md:pb-16 ">
       {paginatedProfiles.map((profile, index) => (
         <Link
           key={index}
           href={`/Acompanhantes/${profile.nome}`}
           className=" rounded-md  dark:bg-gray-400"
         >
-          <div className="relative hover:border-none rounded-md overflow-hidden ">
+          <div className="relative hover:border rounded-md overflow-hidden border border-gray-600">
             <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center align-middle items-center rounded-t-md z-10 absolute top-0 left-0">
               <div className="flex rounded-md">
                 <FaFireAlt className="text-yellow-500 mr-2" />
@@ -91,7 +91,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
               </div>
             </div>
             <Image
-              src={profile.photos[0]}
+              src={profile.photos[0] || "/logo.webp"}
               alt={profile.nome}
               className="w-full h-48 md:h-64 object-cover transition duration-500 ease-in-out transform hover:scale-110 hover:opacity-60"
              
@@ -108,7 +108,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles,currentPage, itemsPerPage,
               )}
             </p>
           </div>
-          <div className="h-14 md:h-20 bg-gray-900 dark:bg-gray-800  rounded-md flex flex-col justify-center items-center">
+          <div className="h-14 md:h-20 bg-gray-900 dark:bg-gray-800  border border-gray-400 rounded-b flex flex-col justify-center items-center">
             <p className="text-white text-xs italic">{profile.tag}</p>
 
             <div className="flex justify-center items-center mt-2">

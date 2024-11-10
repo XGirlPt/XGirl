@@ -190,7 +190,7 @@ console.log("stories RDX", storiesRDX)
       />
       <div className="container relative">
         <div className="w-screen bg-gray-900 flex flex-col user-profile">
-        <div className="md:flex md:m-24 mt-24 relative">
+        <div className="md:flex  md:m-24 mt-24 relative">
         {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
@@ -232,24 +232,24 @@ console.log("stories RDX", storiesRDX)
               />
             )}
 
-            <div className="sm:w-full md:w-3/6">
+            <div className="w-full md:w-3/6">
 
 
 
-              <div className="grid gap-10 items-center ">
+              <div className="grid gap-10 items-center justify-center">
 
          
               {selectedProfile && selectedProfile.storyURL?.length > 0 && (
-  <div className="flex flex-col ml-10 mr-24">
+  <div className="flex flex-col ml-8 md:ml-10 md:mr-24">
     <p className="text-pink-700 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+    <div className="flex md:grid grid-cols-1  md:grid-cols-4 gap-6 md:gap-2">
       {selectedProfile.storyURL.map((media, index) => {
         if (!media) return null;
         const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
-        const thumbnailSrc = thumbnails[index] || '/placeholder.jpg';
+        const thumbnailSrc = thumbnails[index] ;
 
         return (
-          <div key={index} className="relative">
+          <div key={index} className="relative flex" >
             {isVideo ? (
               <div>
                 <video
@@ -268,7 +268,7 @@ console.log("stories RDX", storiesRDX)
             ) : (
               <video
                 src={media}
-                className="relative w-24 h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105"
+                className="relative w-20 h-20 md:w-24 md:h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105"
                 onClick={() => handleStoryClick(index)}
                 controls={false}
                 muted
@@ -283,9 +283,8 @@ console.log("stories RDX", storiesRDX)
 )}
 
 
-<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] px-10 md:ml-10 mx-1 mr-0 md:mr-24 border border-zinc-700 rounded-3xl shadow-lg">
+<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] justify-center items-center px-10 md:ml-10 md:mr-24 border border-zinc-700 rounded-3xl shadow-lg">
   
-
 <div className="flex justify-between mb-8">
   <p className="text-pink-700 text-2xl mb-4 font-semibold">
     Fotografias de {selectedProfile?.nome}
@@ -349,7 +348,7 @@ console.log("stories RDX", storiesRDX)
 
   ) : (
     <BlurImage
-      src={selectedProfile?.photoURL?.[0] || "/placeholder.jpg"}
+      src={selectedProfile?.photoURL?.[0] || "/logo.webp"}
       alt={selectedProfile?.nome || "Placeholder"}
       className="w-full h-96 object-cover rounded-2xl border border-zinc-500 shadow-md"
       loading="lazy" 
@@ -376,7 +375,7 @@ console.log("stories RDX", storiesRDX)
                   </div>
                 </div>
 
-                <div className="flex gap-4 w-full rounded-md mx-10">
+                <div className=" md:flex gap-4 w-full rounded-md md:mx-10">
                   <Linguas selectedProfile={selectedProfile as any} />
                   <Tarifas selectedProfile={selectedProfile as any} />
                 </div>

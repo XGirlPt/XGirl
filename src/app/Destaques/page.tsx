@@ -106,7 +106,7 @@ function Destaques() {
                       // eslint-disable-next-line @next/next/no-img-element
                       <BlurImage
                         key={photoIndex}
-                        src={photo}
+                        src={photo  || "/logo.webp"}
                         alt={`Profile ${profile.nome}`}
                         className="w-full h-full object-cover rounded-2xl hover:opacity-60 overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-zinc-600 hover:shadow-xl cursor-pointer"
                         style={{ height: `${imageHeight}px` }} // Definir a altura da imagem

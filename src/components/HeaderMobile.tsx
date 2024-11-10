@@ -51,16 +51,16 @@ const HeaderMobile: React.FC = () => {
   return (
     <>
       {/* Banda preta com o logo e avatar no topo */}
-      <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-black flex items-center justify-between h-24 shadow-md px-4">
+      <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-black flex items-center justify-between h-24 shadow-md px-4 ">
         {/* Avatar do usuário (se logado) */}
-        {emailReduxProfile ? (
+        {emailReduxProfile && (
           <div
-            className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 cursor-pointer"
+            className="absolute left-4 w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 cursor-pointer"
             onClick={toggleMenu}
           >
             {photoUID ? (
               <Image
-                src={photoUID}
+                src={photoUID  || "/logo.webp"}
                 alt="User Avatar"
                 className="w-full h-full object-cover"
                 width={48}
@@ -70,30 +70,21 @@ const HeaderMobile: React.FC = () => {
               <div className="w-full h-full bg-gray-400"></div>
             )}
           </div>
-        ) : (
-          <button
-            onClick={handleLoginLogout}
-            aria-label="Login"
-            className="text-white text-sm"
-          >
-            Login
-          </button>
         )}
 
         {/* Logo centralizado */}
-        <Link href="/" aria-label="Ir para a página inicial">
-          <Image
-            src="/logo.webp"
-            alt="Logo"
-            width={150}
-            height={150}
-            priority
-            className="object-contain"
-          />
-        </Link>
-
-        {/* Placeholder para manter o layout simétrico */}
-        <div className="w-12 h-12"></div>
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <Link href="/" aria-label="Ir para a página inicial">
+            <Image
+              src="/logo.webp"
+              alt="Logo"
+              width={150}
+              height={150}
+              priority
+              className="object-contain"
+            />
+          </Link>
+        </div>
       </div>
 
       {/* Espaço adicional para evitar sobreposição de conteúdo */}
@@ -156,7 +147,7 @@ const HeaderMobile: React.FC = () => {
               <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white mr-4">
                 {photoUID ? (
                   <Image
-                    src={photoUID}
+                    src={photoUID  || "/logo.webp"}
                     alt="User Avatar"
                     className="w-full h-full object-cover"
                     width={64}

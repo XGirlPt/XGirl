@@ -5,29 +5,32 @@ import visa from "../../public/photos/visa.png"; // Ajuste o caminho conforme ne
 import btc from "../../public/photos/btc.png"; // Ajuste o caminho conforme necessário
 import paypal from "../../public/photos/paypal.png"; // Ajuste o caminho conforme necessário
 
-
 function Footer() {
   return (
     <footer className="bg-gray-900 dark:bg-gray-800 w-full py-8">
       <div className="max-w-screen-xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4  gap-8 text-center md:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
           {/* Logo */}
           <div className="mb-8">
             <Link href="/">
+              
+
+            <div className="w-36 h-12 object-contain mx-auto md:mx-0 mb-4">
               <Image
                 src="/photos/logo1.png"
                 alt="logo"
-                className="w-36 h-12 object-contain mb-4"
                 width={144}
                 height={48}
               />
+</div>
+
+
             </Link>
             <p className="text-sm text-gray-400 mb-4">
               Descubra os melhores serviços de escort nas principais regiões de Portugal.
             </p>
           </div>
 
-          {/* Links Rápidos */}
           <div className="mb-8">
             <p className="text-xl text-white py-2">Links Rápidos</p>
             <ul className="space-y-1">
@@ -93,44 +96,58 @@ function Footer() {
 
           {/* Redes Sociais e Métodos de Pagamento */}
           <div className="mb-8">
-            {/* <p className="text-xl text-white py-2">Siga-nos</p>
-            <ul className="flex justify-center md:justify-start space-x-4 mb-4">
-              <li>
-                <Link href="https://www.facebook.com" target="_blank" rel="noreferrer">
-                  <span className="sr-only">Facebook</span>
-                  <Image src="/icons/facebook.svg" alt="Facebook" width={24} height={24} className="hover:opacity-75" />
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.instagram.com" target="_blank" rel="noreferrer">
-                  <span className="sr-only">Instagram</span>
-                  <Image src="/icons/instagram.svg" alt="Instagram" width={24} height={24} className="hover:opacity-75" />
-                </Link>
-              </li>
-              <li>
-                <Link href="https://www.twitter.com" target="_blank" rel="noreferrer">
-                  <span className="sr-only">Twitter</span>
-                  <Image src="/icons/twitter.svg" alt="Twitter" width={24} height={24} className="hover:opacity-75" />
-                </Link>
-              </li>
-            </ul> */}
-
-            {/* Ícones de Pagamento */}
             <p className="text-xl text-white py-2">Métodos de Pagamento</p>
             <ul className="flex justify-center md:justify-start space-x-4">
-  <li>
-    <Image src={visa} alt="Visa" width={32} height={20}  style={{ objectFit: 'contain' }}/>
-  </li>
-  <li>
-    <Image src={mastercard} alt="Mastercard" width={32} height={20}  style={{ objectFit: 'contain' }}/>
-  </li>
-  <li>
-    <Image src={btc} alt="Btc" width={24} height={12}  style={{ objectFit: 'contain' }}/>
-  </li>
-  <li>
-    <Image src={paypal} alt="Paypal" width={32} height={20}  style={{ objectFit: 'contain' }}/>
-  </li>
-</ul>
+              <li>
+
+                <div className="h-6 w-6">
+
+                <Image
+                  src={visa}
+                  alt="Visa"
+                  width={32}
+                  height={20}
+                  
+                />
+                </div>
+              </li>
+            
+            
+              <li>
+              <div className="h-6 w-6"> 
+                <Image
+                  src={mastercard}
+                  alt="Mastercard"
+                  width={32}
+                  height={20}            
+                /></div>
+              </li>
+              
+              
+              <li>
+                <div className="h-6 w-6"> 
+                <Image
+                  src={btc}
+                  alt="Bitcoin"
+                  width={32}
+                  height={20}    
+                /></div>
+      
+              </li>
+              <li>
+              <div className="h-6 w-6"> 
+
+                <Image
+                  src={paypal}
+                  alt="Paypal"
+                  width={32}
+                  height={20}
+                
+                />
+                          </div>
+
+              </li>
+            </ul>
           </div>
         </div>
 

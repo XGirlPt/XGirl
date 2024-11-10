@@ -18,9 +18,10 @@ import {
 } from "@/actions/ProfileActions";
 import dynamic from "next/dynamic";
 
-const FroalaEditor = dynamic(() => import("react-froala-wysiwyg"), {
-  ssr: false,
-});
+import { Field, Label, Textarea } from '@headlessui/react';
+import clsx from 'clsx';
+
+
 
 const RegistoContacto: React.FC = () => {
   const dispatch = useDispatch();
@@ -163,13 +164,28 @@ const RegistoContacto: React.FC = () => {
                   />
                 </div>
 
-                <div className="w-full mt-6">
-                  <p className="text-md text-pink-800">Descrição</p>
-                  <FroalaEditor
-                    model={description}
-                    onModelChange={handleDescriptionChange}
-                  />
-                </div>
+         
+
+<div className="w-full mt-6">
+      <Field>
+        <Label className="text-md text-pink-800">Descrição</Label>
+        <Textarea
+          name="description"
+          value={description}
+          onChange={(e) => handleDescriptionChange(e.target.value)}
+          className={clsx(
+            "w-full h-32 p-4 border rounded-lg",
+            "data-[hover]:shadow-lg data-[focus]:bg-blue-50",
+            "focus:outline-none focus:ring-2 focus:ring-pink-500"
+          )}
+          placeholder="Escreva a descrição aqui..."
+        />
+      </Field>
+    </div>
+
+
+
+
               </div>
             </div>
             <div className="flex w-1/2">

@@ -16,10 +16,10 @@ import { updateProfileData } from "@/services/profileService";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Field, Label, Textarea } from '@headlessui/react';
+import clsx from 'clsx';
 
-const FroalaEditor = dynamic(() => import("react-froala-wysiwyg"), {
-  ssr: false,
-});
+
 
 interface ModificarContactoProps {
   handleVoltar: () => void;
@@ -119,18 +119,14 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     setSelectedServico(updatedServico);
   };
 
-  useEffect(() => {
-    new FroalaEditor("#editor");
-  }, []);
-
+ 
   const handleGuardar = async () => {
     const dataToUpdate = {
       pagamento: selectedPagamento,
       lingua: selectedLingua,
       servico: selectedServico,
       tarifa: selectedTarifa,
-      description,
-    };
+      description: description || null,    };
 
     try {
       const response = await updateProfileData(dataToUpdate, userUID);
@@ -199,27 +195,25 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
               />
             </div>
 
-            <div className="w-full mt-4">
-              <p className="text-lg text-pink-400 font-semibold mb-2">Descrição</p>
-              <FroalaEditor
-                id="editor"
-                config={{
-                  pluginsEnabled: ["emoji"],
-                  toolbarButtons: ["emoji"],
-                  emojisSet: "emojione",
-                  emojiDefaultSet: "emojione",
-                  events: {
-                    contentChanged: () => {
-                      const content =
-                        document.getElementById("editor")?.innerHTML || "";
-                      setEditorState(content);
-                    },
-                  },
-                }}
-                model={description}
-                onModelChange={handleDescriptionChange}
-              />
-            </div>
+        
+            <div className="w-full mt-6">
+  <Field>
+    <Label className="text-md text-pink-800">Descrição</Label>
+    <Textarea
+      name="description"
+      value={description}
+      onChange={(e) => handleDescriptionChange(e.target.value)} // Ajuste aqui
+      className={clsx(
+        "w-full h-32 p-4 border rounded-lg",
+        "data-[hover]:shadow-lg data-[focus]:bg-gray-300",
+        "focus:outline-none focus:ring-2 focus:ring-pink-800 text-gray-700"
+      )}
+      placeholder="Escreva a descrição aqui..."
+    />
+  </Field>
+</div>
+
+
           </div>
         </div>
 

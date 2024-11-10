@@ -113,7 +113,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
                   linguaRedux.map((lingua: string, index: number) => (
                     <div key={index} className="flex items-center mx-2">
                       < Image
-  src={obterBandeira(lingua)}
+  src={obterBandeira(lingua)  || "/logo.webp"}
   alt={`${lingua} flag`}
   className="w-6 h-6 mr-2 rounded-full object-cover grid grid-cols-3 gap-y-2"
   layout="responsive"

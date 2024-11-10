@@ -60,7 +60,7 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
 
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-800 pl-10 pt-10 pb-10 w-full border border-zinc-700 rounded-3xl">
+    <div className="bg-gray-900 dark:bg-gray-800 pl-10 pt-10 pb-10 mb-8 md:mb-0 w-full border border-zinc-700 rounded-3xl">
       <p className="text-pink-600 text-2xl">Idiomas</p>
       <div className="grid grid-cols-2 gap-x-4 gap-y-4 mt-4">
         {linguaRedux &&

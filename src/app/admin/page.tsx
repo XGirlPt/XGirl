@@ -341,7 +341,8 @@ const fetchProfileData = async (profile: Profile) => {
               <div className="flex items-center space-x-6">
                 {profile.photoURL ? (
                   <Image
-                    src={profile.photoURL}
+                    src={profile.photoURL || "/logo.webp"}
+                
                     alt={`Profile Photo`}
                     className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
                     width={80}
@@ -354,7 +355,7 @@ const fetchProfileData = async (profile: Profile) => {
 
 {profile.vphotoURL ? (
                   <Image
-                    src={profile.vphotoURL}
+                    src={profile.vphotoURL  || "/logo.webp"}
                     alt={`Profile Photo`}
                     className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
                     width={80}

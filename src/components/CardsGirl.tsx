@@ -20,7 +20,7 @@ const CardsGirl: React.FC<CardsGirlProps> = ({ profiles }) => {
         <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
           <div className="relative border border-zinc-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 blur-50">
             <Image
-              src={profile.photos[0]}
+              src={profile.photos[0]  || "/logo.webp"}
               alt={profile.nome}
               className="w-full h-96 object-cover rounded-md blur-2xl"
               width={100}

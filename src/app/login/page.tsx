@@ -92,7 +92,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-800 mt-10 rounded-lg shadow-lg w-full max-w-md mx-auto px-6 py-8 space-y-6">
+    <div className="bg-gray-900 dark:bg-gray-800 md:mt-44 rounded-lg shadow-lg w-full max-w-md mx-10 md:mx-auto px-6 py-8 space-y-6">
       <h1 className="text-4xl font-extrabold text-center text-pink-600 mb-4">
         Conecta-te ao X-Girl
       </h1>

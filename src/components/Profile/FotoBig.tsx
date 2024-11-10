@@ -39,7 +39,7 @@ console.log("currentPhotoIndex", currentPhotoIndex)
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
       <div className="relative">
         < Image
-          src={`${selectedProfile?.photoURL[currentPhotoIndex]}`}
+          src={`${selectedProfile?.photoURL[currentPhotoIndex] || "/logo.webp"}`}
           alt="Large Photo"
           className="max-w-[80vw] max-h-[80vh] bg-red-500 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
           loading="lazy" 

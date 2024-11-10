@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 </Link>
                 <Link
                   href="/regista2"
-                  className={`nav-link flex items-center px-4 py-4  text-gray-white h-full ${
+                  className={`nav-link flex items-center px-4 py-4  text-white h-full ${
                     pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-800 "
                   } transition duration-200`}
                 >
@@ -167,7 +167,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 transition-transform hover:scale-110">
                   {photoUID ? (
                     <Image
-                      src={photoUID}
+                      src={photoUID  || "/logo.webp"}
                       alt="Profile Photo"
                       className="w-full h-full object-cover rounded-full"
                       loading="lazy" 

@@ -76,7 +76,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
           Array.isArray(selectedProfile?.photoURL) &&
           selectedProfile?.photoURL?.length > 0 ? (
             <Image
-              src={selectedProfile?.photoURL[0]}
+              src={selectedProfile?.photoURL[0]  || "/logo.webp"}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover"
               loading="lazy"
@@ -85,7 +85,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
             />
           ) : selectedProfile?.photoURL ? (
             <Image
-              src={selectedProfile?.photoURL[0]}
+              src={selectedProfile?.photoURL[0]  || "/logo.webp"}
               alt={selectedProfile?.nome}
               className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover blur-2xl"
               loading="lazy"

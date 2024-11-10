@@ -168,7 +168,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
                   {/* Avatar com efeito de hover */}
                   <div className="w-12 h-12 rounded-full border-2 border-yellow-500 overflow-hidden cursor-pointer transform transition-transform hover:scale-110">
                     <Image
-                      src={profile.photos[0]}
+                      src={profile.photos[0]  || "/logo.webp"}
                       alt="Avatar"
                       className="w-full h-full object-cover"
                       layout="responsive"

@@ -15,18 +15,33 @@ import {
   faCogs,
 } from "@fortawesome/free-solid-svg-icons";
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaUserEdit, FaPhotoVideo, FaInfoCircle } from "react-icons/fa";
+import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos"; // Importando os ícones necessários
 
 const HeaderMobile: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false); // Estado para o dropdown
 
   const emailReduxProfile = useSelector(
+
     (state: any) => state.profile?.profile?.email
   );
   const photoUID = useSelector((state: any) => state.profile?.profile?.photos?.[0]);
-  const userName = useSelector((state: any) => state.profile?.profile?.name);
+  const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
+
+  const [showModifyPhoto, setShowModifyPhoto] = useState(false);
+
+ 
+
+
+
+
+  const toggleAccountMenu = () => {
+    setAccountMenuOpen(!accountMenuOpen);
+  };
 
   const handleLoginLogout = () => {
     if (emailReduxProfile) {
@@ -46,8 +61,17 @@ const HeaderMobile: React.FC = () => {
 
   const closeMenu = () => {
     setMenuOpen(false);
+    setAccountMenuOpen(false); // Fechar dropdown também
   };
-
+  
+  const handleAlterarFotoClick = () => {
+    closeMenu(); // Fecha o menu
+    setShowModifyPhoto(true); // Exibe o componente de modificar fotos
+  };
+  
+  const handleVoltarFoto = () => {
+    setShowModifyPhoto(false); // Esconde o componente de modificar fotos
+  };
   return (
     <>
       {/* Banda preta com o logo e avatar no topo */}
@@ -60,7 +84,7 @@ const HeaderMobile: React.FC = () => {
           >
             {photoUID ? (
               <Image
-                src={photoUID  || "/logo.webp"}
+                src={photoUID}
                 alt="User Avatar"
                 className="w-full h-full object-cover"
                 width={48}
@@ -89,7 +113,9 @@ const HeaderMobile: React.FC = () => {
 
       {/* Espaço adicional para evitar sobreposição de conteúdo */}
       <div className="h-24"></div>
-
+      {showModifyPhoto && (
+  <ModificarFotos handleVoltar={handleVoltarFoto} />
+)}
       {/* Menu fixo na parte inferior */}
       <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
         <div className="flex justify-around items-center h-16">
@@ -141,13 +167,13 @@ const HeaderMobile: React.FC = () => {
           ></div>
 
           {/* Conteúdo do menu lateral */}
-          <div className="fixed top-0 left-0 w-2/3 h-full bg-pink-900 text-white z-50 shadow-lg">
+          <div className="fixed top-0 left-0 w-2/3 h-full bg-gray-900 text-white z-50 shadow-lg">
             {/* Topo com avatar, nome e email */}
             <div className="flex items-center bg-pink-800 py-6 px-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white mr-4">
                 {photoUID ? (
                   <Image
-                    src={photoUID  || "/logo.webp"}
+                    src={photoUID || "/logo.webp"}
                     alt="User Avatar"
                     className="w-full h-full object-cover"
                     width={64}
@@ -158,21 +184,68 @@ const HeaderMobile: React.FC = () => {
                 )}
               </div>
               <div>
-                <p className="text-lg font-bold">{userName || "Usuário"}</p>
+                <p className="text-lg font-bold">{nomeRedux || "Usuário"}</p>
                 <p className="text-sm text-gray-200">{emailReduxProfile}</p>
               </div>
             </div>
 
             {/* Itens do menu */}
             <div className="mt-6 space-y-4 px-4">
-              <Link
-                href="/minha-conta"
-                className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg"
-                onClick={closeMenu}
-              >
-                <FontAwesomeIcon icon={faUserCircle} className="mr-3" />
-                A Minha Conta
-              </Link>
+              {/* Link com dropdown */}
+              <div className="relative">
+                <button
+                  className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg w-full text-left"
+                  onClick={toggleAccountMenu}
+                >
+                  <FontAwesomeIcon icon={faUserCircle} className="mr-3" />
+                  A Minha Conta
+                </button>
+                {accountMenuOpen && (
+                  <div className="absolute ml-4 top-full pb-4 gap-12 left-0 mt-2 bg-pink-800 rounded-lg shadow-lg z-50">
+                   
+                    <Link
+                      href="/minha-conta/"
+                      className="flex px-10  py-6 text-white hover:bg-pink-700"
+                      onClick={closeMenu}
+                    >
+                      <FaInfoCircle className="mr-2" />
+                      Informações
+                    </Link>
+
+
+                    <Link
+                      href="/minha-conta/outras-info"
+                      className="flex px-10  py-6 text-white hover:bg-pink-700"
+                      onClick={closeMenu}
+                    >
+                      <FaInfoCircle className="mr-4" />
+                      Outras Info
+                    </Link>
+                    
+                    
+                    <Link
+                    
+  href="#"
+  className="flex px-10 py-6 text-white hover:bg-pink-700"
+  onClick={handleAlterarFotoClick} // Mostra o componente
+>
+  <FaPhotoVideo className="mr-2" />
+  Alterar Foto
+</Link>
+
+
+                    <Link
+                      href="/minha-conta/alterar-story"
+                      className="flex px-10  py-6 text-white hover:bg-pink-700"
+                      onClick={closeMenu}
+                    >
+                      <FaUserEdit className="mr-2" />
+                      Alterar Story
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/Definicoes"
                 className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg"
@@ -180,14 +253,6 @@ const HeaderMobile: React.FC = () => {
               >
                 <FontAwesomeIcon icon={faCogs} className="mr-3" />
                 Definições
-              </Link>
-              <Link
-                href="/meu-perfil"
-                className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg"
-                onClick={closeMenu}
-              >
-                <FontAwesomeIcon icon={faUserCircle} className="mr-3" />
-                O Meu Perfil
               </Link>
               <button
                 onClick={() => {
@@ -201,6 +266,7 @@ const HeaderMobile: React.FC = () => {
               </button>
             </div>
           </div>
+ 
         </>
       )}
     </>

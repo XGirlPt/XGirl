@@ -64,7 +64,6 @@ console.log("fotos redux", photoURLsRedux)
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
   // const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
 
- 
 
   async function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files.length > 0) {

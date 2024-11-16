@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { Listbox, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Listbox, Transition, ListboxButton, ListboxOption } from "@headlessui/react"; // Importações corretas
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTatuagem } from "../../actions/ProfileActions"; // Importe a ação updateAltura do seu arquivo de ações
+import { updateTatuagem } from "../../actions/ProfileActions"; // Ação para atualizar tatuagem
 
 const tatuagem = [
   { id: 1, name: "Com Tatuagens", unavailable: false },
@@ -18,7 +17,7 @@ interface FiltroTatuagemProps {
 }
 
 const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
   buttonPadding = "py-1",
   rounded = "rounded-md",
 }) => {
@@ -43,16 +42,14 @@ const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
         onChange={(selectedOption: any) =>
           handleTatuagemChange(selectedOption.name)
         }
-        // @ts-ignore
-        id="tatuagem"
-        name="tatuagem"
+        value={tatuagemSelecionada} // Controlando o valor selecionado
       >
         {({ open }) => (
           <>
             <div className="relative mt-1">
               <p className="text-pink-800 ">Tatuagens</p>
-              <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+              <ListboxButton
+                className={`relative w-full mt-1 bg-gray-700 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">
                   {tatuagemRedux || "Tatuagens"}
@@ -63,30 +60,29 @@ const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
                     aria-hidden="true"
                   />
                 </span>
-              </Listbox.Button>
+              </ListboxButton>
+
               <Transition
                 show={open}
-                as={Fragment}
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
                 <Listbox.Options
-                  static
                   className={`
-                         absolute mt-1 max-h-60 w-full overflow-auto bg-zinc-700 text-white text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
-                         ${open ? "block" : "hidden"}
-                       `}
+                    absolute mt-1 max-h-60 w-full overflow-auto bg-zinc-700 text-white text-xs md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
+                    ${open ? "block" : "hidden"}
+                  `}
                 >
                   {tatuagem.map((method, methodIdx) => (
-                    <Listbox.Option
+                    <ListboxOption
                       key={methodIdx}
                       className={({ active }) =>
                         `relative cursor-default select-none py-1 md:pl-10 pl-3 pr-4 text-xs md:text- opacity-90 Z-10 ${
                           active ? "bg-teal-50 text-teal-700" : "text-gray-900"
                         }`
                       }
-                      value={method}
+                      value={method} // Passando o objeto inteiro
                     >
                       {({ selected }) => (
                         <>
@@ -107,7 +103,7 @@ const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
                           )}
                         </>
                       )}
-                    </Listbox.Option>
+                    </ListboxOption>
                   ))}
                 </Listbox.Options>
               </Transition>

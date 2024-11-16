@@ -8,10 +8,10 @@ import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
 import FiltroPeito from "@/components/Filtros/FiltroPeito";
 import FiltroPelos from "@/components/Filtros/FiltroPelos";
 import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
-import FiltroSigno from "@/components/Filtros/FiltroSigno";
-import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
 import CheckContacto from "@/components/Register/CheckContacto";
+import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 import supabase from "@/database/supabase";
 import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
 import { updateProfileData } from "@/services/profileService";
@@ -31,6 +31,8 @@ import {
   updateSeios,
   updatePelos,
   updateTatuagem,
+  updateSigno,
+  updateTarifa,
 } from "@/actions/ProfileActions";
 import { useParams } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
@@ -41,7 +43,7 @@ interface ModificarPerfilProps {
   onClose: () => void;
 }
 
-const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void }> = ({
+const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
   handleVoltar,
   onClose,
 }) => {
@@ -94,7 +96,10 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
   const tatuagemRedux = useSelector(
     (state: any) => state.profile?.profile?.tatuagem
   );
-  
+
+  const signoRedux = useSelector(
+    (state: any) => state.profile?.profile?.signo
+  );
 
   const handleGuardar = async () => {
     const dataToUpdate = {
@@ -113,6 +118,7 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
       olhos,
       seios,
       tatuagem,
+      
     };
   
     try {
@@ -193,6 +199,8 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
     if (olhosRedux) setOlhos(olhosRedux);
     if (seiosRedux) setSeios(seiosRedux);
     if (tatuagemRedux) setTatuagem(tatuagemRedux);
+    if (signoRedux) setTatuagem(signoRedux);
+
   }, [
     nomeRedux,
     idadeRedux,
@@ -208,6 +216,8 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
     olhosRedux,
     seiosRedux,
     tatuagemRedux,
+    signoRedux,
+    
   ]);
 
   // INPUT ONCHANGE START
@@ -260,7 +270,7 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
     setOrigem(newValue);
   };
 
-  const handleCorpoChange = (newValue: string) => {
+  const handleCorpoChange = (newValue: string) => { 
     dispatch(updateCorpo(newValue));
     setCorpo(newValue);
   };
@@ -290,22 +300,24 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
     setTatuagem(newValue);
   };
 
-
   
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-700  bg-transparent backdrop-blur-md z-50 ">
-    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-[90vh]  sm:max-h-[80vh] overflow-y-auto">
-    <div className="md:p-10 flex-grow">
-    <header className="bg-pink-800 py-6 px-4 md:px-10">
-          <h1 className="text-3xl font-bold tracking-wide text-center">
-            Modificar Perfil 
+    
+         
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-700  bg-transparent backdrop-blur-md z-50 ">
+    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-2/3 md:h-4/5 sm:max-h-[80vh] overflow-y-auto">
+      {/* Conteúdo da modal */}
+        {/* Header */}
+        <header className="bg-pink-800 py-6 px-4 md:px-10">
+          <h1 className="text-xl md:text-3xl font-bold tracking-wide text-center">
+            Modifica o teu Perfil 
           </h1>
-          <p className="text-center text-gray-200 text-sm mt-2">
-            Modifica as informações no <strong>Xgirl.pt</strong>
+          <p className="text-center text-gray-200 text- md:text-sm mt-2">
+            Complete as informações para começar no <strong>Xgirl.pt</strong>
           </p>
         </header>
 
-
+        {/* Formulário */}
         <div className="p-8 space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Coluna Esquerda */}
@@ -365,23 +377,24 @@ const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void 
           </div>
         </div>
 
-         
-          </div>
-          <div className="flex justify-between items-end px-8 py-4 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
-          <button
-            className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
+
+        <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+        <div className="flex justify-between">         
+           <button
+           className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
             onClick={handleVoltar}
           >
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
+            className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium "
             onClick={handleGuardar}
           >
             Guardar
           </button>
         </div>
-        </div>
+        </footer>
+</div>
       </div>
 
   );

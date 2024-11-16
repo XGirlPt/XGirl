@@ -210,33 +210,72 @@ console.log("fotos redux", photoURLsRedux)
   
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="bg-[#2A2D32] h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto">
-        <div className="p-10">
-          <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center">Gerir Fotos</h2>
-          <p className="text-gray-400 mb-6 text-center">Podes adicionar até 10 Fotos</p>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-transparent backdrop-blur-lg z-50 ">
+    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-2/3 md:h-4/5 sm:max-h-[80vh] overflow-y-auto">
+        
+    <header className="bg-pink-800 py-6 px-4 md:px-10">
+          <h1 className="text-xl md:text-3xl font-bold tracking-wide text-center">
+          Gerir Fotos
+          </h1>
+          <p className="text-center text-gray-200 text- md:text-sm mt-2">
+          odes adicionar até 10 Fotos          </p>
           <ToastContainer />
-          <div className="flex justify-center mb-8">
-            <label
-              htmlFor="upload-photo"
-              className="text-white bg-green-500 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-green-400 hover:shadow-xl flex items-center space-x-2 cursor-pointer"
-            >
-              <span>+ Adicionar Fotos...</span>
-              <input
-                type="file"
-                id="upload-photo"
-                style={{ display: "none" }}
-                onChange={handleFileUpload}
-                multiple
-              />
-            </label>
-            <Link
-              href="/registo-contacto"
-              className="text-white bg-gray-600 px-6 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 hover:shadow-xl flex items-center space-x-2 ml-4"
-            >
-              <span>? Regras</span>
-            </Link>
-          </div>
+                  </header>
+        <div className="p-10">
+         
+        <div className="flex flex-col md:flex-row justify-center items-center mb-8 space-y-4 md:space-y-0 md:space-x-4">
+  {/* Botão para adicionar fotos */}
+  <label
+    htmlFor="upload-photo"
+    className="flex items-center justify-center px-6 py-3 bg-green-500 text-white text-sm md:text-base font-medium rounded-full shadow-md hover:bg-green-400 hover:shadow-lg transition duration-300 cursor-pointer"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      className="w-5 h-5 mr-2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 4.5v15m7.5-7.5h-15"
+      />
+    </svg>
+    <span>Adicionar Fotos</span>
+    <input
+      type="file"
+      id="upload-photo"
+      style={{ display: "none" }}
+      onChange={handleFileUpload}
+      multiple
+    />
+  </label>
+
+  {/* Botão para regras */}
+  <Link
+    href=""
+    className="flex items-center justify-center px-6 py-3 bg-gray-600 text-white text-sm md:text-base font-medium rounded-full shadow-md hover:bg-gray-500 hover:shadow-lg transition duration-300"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth="2"
+      stroke="currentColor"
+      className="w-5 h-5 mr-2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M8.25 6.75h10.5m-10.5 5.25h6.75m-6.75 5.25h10.5"
+      />
+    </svg>
+    <span>Regras</span>
+  </Link>
+</div>
+
   
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {Array.isArray(photoURLsRedux) &&
@@ -257,20 +296,22 @@ console.log("fotos redux", photoURLsRedux)
           </div>
         </div>
   
-        <div className="flex justify-between items-center px-8 py-4 bg-[#2A2D32] rounded-b-3xl">
-          <button
-            className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
+        <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+        <div className="flex justify-between">         
+           <button
+           className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
             onClick={handleVoltar}
           >
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
-            onClick={handleGuardar} // Chame a função com o toaster
+            className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium "
+            onClick={handleGuardar}
           >
             Guardar
           </button>
         </div>
+        </footer>
       </div>
     </div>
   );

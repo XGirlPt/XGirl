@@ -141,7 +141,8 @@ const RegistoEntrada = () => {
         <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
           <div className="flex justify-between">
             <Link href="/">
-              <button className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
+              <button 
+              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
                 Voltar
               </button>
             </Link>

@@ -22,7 +22,7 @@ const corpoOptions = [
 ];
 
 const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
   buttonPadding = "py-1",
   rounded = "rounded-md",
 }) => {
@@ -55,7 +55,7 @@ const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
             <div className="relative mt-1">
               <p className="text-pink-800 ">Corpo</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+                className={`relative w-full mt-1 bg-gray-700 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">{corpoSelecionado}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

@@ -175,33 +175,39 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-    <ToastContainer />
-    <div className="bg-gray-800 w-full sm:w-2/3 md:w-2/3 lg:w-3/5 my- border border-zinc-600 rounded-2xl shadow-2xl overflow-y-auto flex flex-col max-h-[80vh]">
-   
-      <div className="bg-gray-700 sticky top-0 px-12 py-4 z-50">
-          <h2 className="text-3xl text-gray-300 mb-2 font-bold text-center mt-2 sticky top-0">
-            Modificar Perfil
-          </h2>
-          </div>
-          <div className="  px-12 py-8 ">
-          <div className="flex flex-col mb-6">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-transparent backdrop-blur-lg z-50 ">
+    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-2/3 md:h-4/5 sm:max-h-[80vh] overflow-y-auto">
+        
+      <header className="bg-pink-800 py-6 px-4 md:px-10">
+          <h1 className="text-xl md:text-3xl font-bold tracking-wide text-center">
+          Dados Gerais
+          </h1>
+          <p className="text-center text-gray-200 text- md:text-sm mt-2">
+            Altere os seus dados sempre que quiser
+          </p>
+        </header>
+        
+        
+        <div className="p-8 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
+
+            
             <div className="w-44 mb-6">
               <FiltroTarifa />
             </div>
 
             <div className="w-full mt-2">
-              <p className="text-lg text-pink-400 font-semibold mb-2">Meios de Pagamento</p>
+              <p className="text-lg text-pink-800 font-semibold mb-2">Meios de Pagamento</p>
               <CheckPagamento />
             </div>
 
             <div className="w-full mt-4">
-              <p className="text-lg text-pink-400 font-semibold mb-2">Línguas</p>
+              <p className="text-lg text-pink-800 font-semibold mb-2">Línguas</p>
               <CheckLinguas />
             </div>
 
             <div className="w-full mt-4">
-              <p className="text-lg text-pink-400 font-semibold mb-2">Serviços</p>
+              <p className="text-lg text-pink-800 font-semibold mb-2">Serviços</p>
               <CheckServico
                 selectedServico={selectedServico}
                 setSelectedServico={setSelectedServico}
@@ -210,7 +216,8 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
             <div className="w-full mt-6 relative">
       <Field>
-        <Label className="text-md text-pink-800">Descrição</Label>
+        <Label className="text-lg text-pink-800 font-semibold mb-2">Descrição</Label>
+
         <div className="relative">
           <Textarea
             name="description"
@@ -251,24 +258,25 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
 
         </div>
-        <div className="flex w-full h-full justify-between items-end px-2 py-4 bg-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
-          <button
-            className="text-white bg-gray-600 px-8 py-4 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-"
+        <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+        <div className="flex justify-between">         
+           <button
+           className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
             onClick={handleVoltar}
           >
             <span>Voltar</span>
           </button>
           <button
-            className="text-white bg-pink-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-pink-500 hover:shadow-xl"
+            className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium "
             onClick={handleGuardar}
           >
             Guardar
           </button>
-        </div> 
+        </div>
+        </footer>
       
       </div>
-      
-    </div>
+      </div>
   );
 };
 

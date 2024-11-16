@@ -16,21 +16,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { BiSolidMoviePlay } from "react-icons/bi";
 import { FaUserEdit, FaPhotoVideo, FaInfoCircle } from "react-icons/fa";
-import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos"; // Importando os ícones necessários
+import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos";
 import ModificarStories from "@/app/minha-conta/_ui/ModificarStories";
+import ModificarPerfil from "@/app/minha-conta/_ui/ModificarPerfil"; // Certifique-se que o caminho está correto
 import ModificarContacto from "@/app/minha-conta/_ui/ModificarContacto";
-import ModificarPerfil from "@/app/modificar-perfil/page";
-
 
 const HeaderMobile: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [accountMenuOpen, setAccountMenuOpen] = useState(false); // Estado para o dropdown
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
 
   const emailReduxProfile = useSelector(
-
     (state: any) => state.profile?.profile?.email
   );
   const photoUID = useSelector((state: any) => state.profile?.profile?.photos?.[0]);
@@ -38,13 +36,8 @@ const HeaderMobile: React.FC = () => {
 
   const [showModifyPhoto, setShowModifyPhoto] = useState(false);
   const [showModifyStory, setShowModifyStory] = useState(false);
-  const [showModifyContacto, setShowModifyContacto] = useState(false);
   const [showModifyPerfil, setShowModifyPerfil] = useState(false);
-
- 
-
-
-
+  const [showModifyContacto, setShowModifyContacto] = useState(false);
 
   const toggleAccountMenu = () => {
     setAccountMenuOpen(!accountMenuOpen);
@@ -68,53 +61,51 @@ const HeaderMobile: React.FC = () => {
 
   const closeMenu = () => {
     setMenuOpen(false);
-    setAccountMenuOpen(false); // Fechar dropdown também
+    setAccountMenuOpen(false);
   };
-  
+
   const handleAlterarFotoClick = () => {
-    closeMenu(); // Fecha o menu
-    setShowModifyPhoto(true); // Exibe o componente de modificar fotos
+    closeMenu();
+    setShowModifyPhoto(true);
   };
 
   const handleAlterarStoryClick = () => {
-    closeMenu(); // Fecha o menu
-    setShowModifyStory(true); // Exibe o componente de modificar fotos
-  };
-  
-  const handleAlterarContactoClick = () => {
-    closeMenu(); // Fecha o menu
-    setShowModifyContacto(true); // Exibe o componente de modificar fotos
+    closeMenu();
+    setShowModifyStory(true);
   };
 
   const handleAlterarPerfilClick = () => {
-    closeMenu(); // Fecha o menu
-    setShowModifyPerfil(true); // Exibe o componente de modificar fotos
+    closeMenu();
+    setShowModifyPerfil(true);
   };
 
-
+  const handleAlterarContactoClick = () => {
+    closeMenu();
+    setShowModifyContacto(true);
+  };
 
   const handleVoltarFoto = () => {
-    setShowModifyPhoto(false); // Esconde o componente de modificar fotos
+    setShowModifyPhoto(false);
   };
 
   const handleVoltarStory = () => {
-    setShowModifyStory(false); // Esconde o componente de modificar fotos
-  };
-
-  const handleVoltarContacto = () => {
-    setShowModifyContacto(false); // Esconde o componente de modificar fotos
+    setShowModifyStory(false);
   };
 
   const handleVoltarPerfil = () => {
-    setShowModifyPerfil(false); // Esconde o componente de modificar fotos
+    setShowModifyPerfil(false);
+  };
+
+
+  const handleVoltarContacto = () => {
+    setShowModifyContacto(false);
   };
 
 
   return (
     <>
       {/* Banda preta com o logo e avatar no topo */}
-      <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-black flex items-center justify-between h-24 shadow-md px-4 ">
-        {/* Avatar do usuário (se logado) */}
+      <div className="md:hidden fixed top-0 left-0 w-full z-50 bg-black flex items-center justify-between h-24 shadow-md px-4">
         {emailReduxProfile && (
           <div
             className="absolute left-4 w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 cursor-pointer"
@@ -134,7 +125,6 @@ const HeaderMobile: React.FC = () => {
           </div>
         )}
 
-        {/* Logo centralizado */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link href="/" aria-label="Ir para a página inicial">
             <Image
@@ -149,58 +139,36 @@ const HeaderMobile: React.FC = () => {
         </div>
       </div>
 
-      {/* Espaço adicional para evitar sobreposição de conteúdo */}
       <div className="h-24"></div>
-      {showModifyPhoto && (
-  <ModificarFotos handleVoltar={handleVoltarFoto} />
-)}
 
-{showModifyStory && (
-  <ModificarStories handleVoltar={handleVoltarStory} storyURLs={[]} />
-)}
+      {/* Renderização Condicional dos Componentes */}
+      {showModifyPhoto && <ModificarFotos handleVoltar={handleVoltarFoto} />}
+      {showModifyStory && <ModificarStories handleVoltar={handleVoltarStory} />}
+      {showModifyPerfil && <ModificarPerfil handleVoltar={handleVoltarPerfil} />}
+      {showModifyContacto && <ModificarContacto handleVoltar={handleVoltarContacto} />}
 
-{showModifyContacto && (
-  <ModificarContacto 
-    handleVoltar={handleVoltarContacto} 
-    onClose={() => setShowModifyContacto(false)} // Fecha o componente
-  />
-)}
-
-{showModifyPerfil && (
-  <ModificarPerfil
-    handleVoltar={handleVoltarPerfil}
-    onClose={() => setShowModifyPerfil(false)}
-  />
-)}
 
       {/* Menu fixo na parte inferior */}
       <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
         <div className="flex justify-around items-center h-16">
-          {/* Botão Home */}
           <Link href="/" aria-label="Ir para Home">
             <div className="flex flex-col items-center">
               <FontAwesomeIcon icon={faHome} className="text-xl" />
               <span className="text-xs">Home</span>
             </div>
           </Link>
-
-          {/* Botão Acompanhantes */}
           <Link href="/Acompanhantes" aria-label="Ver Acompanhantes">
             <div className="flex flex-col items-center">
               <FontAwesomeIcon icon={faUsers} className="text-xl" />
               <span className="text-xs">Acompanhantes</span>
             </div>
           </Link>
-
-          {/* Botão Stories */}
           <Link href="/Stories" aria-label="Abrir Stories">
             <div className="flex flex-col items-center">
               <BiSolidMoviePlay className="text-xl" />
               <span className="text-xs">Stories</span>
             </div>
           </Link>
-
-          {/* Botão Login/Logout */}
           <button
             onClick={handleLoginLogout}
             aria-label="Login"
@@ -217,15 +185,11 @@ const HeaderMobile: React.FC = () => {
       {/* Menu lateral móvel */}
       {menuOpen && (
         <>
-          {/* Sobreposição com opacidade */}
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-50"
             onClick={closeMenu}
           ></div>
-
-          {/* Conteúdo do menu lateral */}
           <div className="fixed top-0 left-0 w-2/3 h-full bg-gray-900 text-white z-50 shadow-lg">
-            {/* Topo com avatar, nome e email */}
             <div className="flex items-center bg-pink-800 py-6 px-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white mr-4">
                 {photoUID ? (
@@ -245,10 +209,7 @@ const HeaderMobile: React.FC = () => {
                 <p className="text-sm text-gray-200">{emailReduxProfile}</p>
               </div>
             </div>
-
-            {/* Itens do menu */}
             <div className="mt-6 space-y-4 px-4">
-              {/* Link com dropdown */}
               <div className="relative">
                 <button
                   className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg w-full text-left"
@@ -259,49 +220,41 @@ const HeaderMobile: React.FC = () => {
                 </button>
                 {accountMenuOpen && (
                   <div className="absolute ml-4 top-full pb-4 gap-12 left-0 mt-2 bg-pink-800 rounded-lg shadow-lg z-50">
-                   
-                    <Link
-                      href="#"
-                      className="flex px-10  py-6 text-white hover:bg-pink-700"
+                    <button
+                      className="flex px-10 py-6 text-white hover:bg-pink-700"
+                      onClick={handleAlterarPerfilClick}
+                    >
+                      <FaInfoCircle className="mr-2" />
+                     Dados Basicos
+                    </button>
+
+                    <button
+                      className="flex px-10 py-6 text-white hover:bg-pink-700"
                       onClick={handleAlterarContactoClick}
                     >
                       <FaInfoCircle className="mr-2" />
-                      Informações
-                    </Link>
+                      Dados Gerais
+                    </button>
 
 
-                    <Link
-                      href="#"
-                      className="flex px-10  py-6 text-white hover:bg-pink-700"
-                      onClick={handleAlterarPerfilClick}
-                    >
-                      <FaInfoCircle className="mr-4" />
-                      Outras Info
-                    </Link>
-                    
-                    
-                    <Link                    
-                      href="#"
+
+                    <button
                       className="flex px-10 py-6 text-white hover:bg-pink-700"
-                      onClick={handleAlterarFotoClick} // Mostra o componente
+                      onClick={handleAlterarFotoClick}
                     >
                       <FaPhotoVideo className="mr-2" />
                       Alterar Foto
-                    </Link>
-
-
-                    <Link
-                      href="#"
-                      className="flex px-10  py-6 text-white hover:bg-pink-700"
+                    </button>
+                    <button
+                      className="flex px-10 py-6 text-white hover:bg-pink-700"
                       onClick={handleAlterarStoryClick}
                     >
                       <FaUserEdit className="mr-2" />
                       Alterar Story
-                    </Link>
+                    </button>
                   </div>
                 )}
               </div>
-
               <Link
                 href="/Definicoes"
                 className="flex items-center text-lg hover:bg-pink-800 py-3 px-4 rounded-lg"
@@ -322,7 +275,6 @@ const HeaderMobile: React.FC = () => {
               </button>
             </div>
           </div>
- 
         </>
       )}
     </>

@@ -67,7 +67,7 @@ const FiltroDistrito: React.FC<FiltroDistritoProps> = ({
             <div className="relative mt-1">
               <p className="text-pink-800">Distrito</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+                className={`relative w-full mt-1 bg-gray-700 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">
                   {DistritoRedux || "Distrito"}

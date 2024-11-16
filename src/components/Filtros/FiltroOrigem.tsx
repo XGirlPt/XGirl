@@ -22,7 +22,7 @@ interface FiltroOrigemProps {
 }
 
 const FiltroOrigem: React.FC<FiltroOrigemProps> = ({
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
   buttonPadding = "py-1",
   rounded = "rounded-md",
 }) => {
@@ -51,7 +51,7 @@ const FiltroOrigem: React.FC<FiltroOrigemProps> = ({
             <div className="relative mt-1">
               <p className="text-pink-800">Origem</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+                className={`relative w-full mt-1 bg-gray-700 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">
                   {origemRedux || "Selecione uma Origem"}

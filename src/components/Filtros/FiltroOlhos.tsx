@@ -5,14 +5,6 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { updateOlhos } from "../../actions/ProfileActions";
 
-interface FiltroOlhosProps {
-  bgColor?: string;
-  buttonPadding?: string;
-  rounded?: string;
-  initialOlhos?: string;
-  padding?: string;
-}
-
 const olhos = [
   { id: 1, name: "Castanhos", unavailable: false },
   { id: 2, name: "Pretos", unavailable: false },
@@ -20,11 +12,22 @@ const olhos = [
   { id: 4, name: "Verdes", unavailable: false },
 ];
 
+interface FiltroOlhosProps {
+  bgColor?: string;
+  buttonPadding?: string;
+  rounded?: string;
+  onChange?: (value: string) => void;
+  padding?: string;
+}
+
+
+
+
 const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
   buttonPadding = "py-1",
   rounded = "rounded-md",
-  initialOlhos = "",
+  
 }) => {
   const dispatch = useDispatch();
 
@@ -45,14 +48,14 @@ const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
         onChange={(selectedOption: { name: string }) =>
           handleOlhosChange(selectedOption.name)
         }
-        name="olhos"
+       
       >
         {({ open }) => (
           <>
             <div className="relative mt-1">
               <p className="text-pink-800">Cor Olhos</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
+                className={`relative w-full mt-1 bg-gray-700 text-white z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm ${rounded}`}
               >
                 <span className="block truncate">
                   {olhosRedux || "Cor dos Olhos"}
@@ -66,7 +69,7 @@ const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
               </Listbox.Button>
               <Transition
                 show={open}
-                as={Fragment}
+                as={Fragment} // Isso está correto, o Fragment não precisa de outras props
                 leave="transition ease-in duration-100"
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"

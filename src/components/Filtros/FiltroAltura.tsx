@@ -55,7 +55,7 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
             <div className="relative mt-1">
               <p className="text-pink-800 ">Altura</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-slate-200 z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left ${rounded} shadow-md sm:text-sm`}
+                className={`relative w-full mt-1 bg-gray-700 text-slate-200 z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-1 pl-3 pr-10 text-left ${rounded} shadow-md sm:text-sm`}
               >
                 <span className="block truncate">
                   {alturaRedux || "Altura"}

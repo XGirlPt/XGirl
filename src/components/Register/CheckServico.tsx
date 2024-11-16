@@ -90,7 +90,7 @@ const CheckServico: React.FC<CheckServicoProps> = () => {
   return (
     <div>
       <FormGroup className="text-xs items-bottom gap-0 ">
-        <div className="grid grid-cols-3 text-xs  items-bottom ">
+        <div className="grid md:grid-cols-3 text-xs  items-bottom ">
           {Object.entries(checkboxes).map(([key, value]) => (
             <div key={key}>
               <FormControlLabel

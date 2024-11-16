@@ -310,7 +310,8 @@ const fetchProfileData = async (profile: Profile) => {
   
   const filteredProfiles = (profiles: Profile[]) => {
     return profiles.filter(profile =>
-      profile.nome.toLowerCase().includes(searchTerm.toLowerCase())
+      // Check if nome exists before calling toLowerCase
+      (profile.nome || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 

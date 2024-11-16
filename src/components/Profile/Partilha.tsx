@@ -40,51 +40,66 @@ const Partilha: React.FC<PartilhaProps> = ({
   return (
     <>
      <ToastContainer /> 
-      {mostrarPartilha && (
-        <div className="fixed inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
-          <div className="w-full md:w-2/6 h-46 mb-12 md:h-2/5 mt-36 bg-[#1E2427] rounded-lg shadow-2xl">
-            <div className="flex justify-between items-center">
-              <h1 className="text-sm md:text-lg mx-10 items-center mt-8 align-middle mb-8 text-white font-bold">
-                Partilhar o Perfil de {selectedProfile?.nome}
-              </h1>
-              <button className="text-bold font-bold" onClick={fecharPartilha}>
-                <ImCross
-                  size={16}
-                  className="text-zinc-700 hover:text-pink-600 transition-transform font-bold mx-10"
-                />
-              </button>
-            </div>
-            <div className="border border-zinc-700 border-solid border-t-0 w-full"></div>
-            <div className="flex justify-center my-6">
-              <p className="text-white">{window.location.href}</p>
-            </div>
-            <div className="border border-zinc-700 border-solid border-t-0 w-full"></div>
-            <div className="flex justify-center items-center my-6 mt-10">
-            <div className="bg-blue-600 flex flex-row justify-center items-center py-2 rounded-md w-2/4 cursor-pointer hover:bg-blue-800">
-  <a
-    href={`mailto:${selectedProfile?.email}?subject=Assunto do Email&body=Corpo do Email`}
-    className="flex items-center"
-  >
-    <MdEmail size={20} className="mr-2 text-white" />
-    <p className="text-md text-white">Partilhar por Email</p>
-  </a>
-</div>
-            </div>
-            <div className="flex justify-center items-center my-6 ">
-              <div
-                className="bg-pink-800 flex justify-center align-middle items-center py-2 rounded-md w-2/4 cursor-pointer hover:bg-pink-600"
-                onClick={copyToClipboard}
-              >
-                <MdContentCopy size={20} className="mr-2 text-white" />
-                <p className="text-md text-white">Copiar Link</p>
-              </div>
-              {copySuccess && (
-                <span className="ml-2 text-green-500">Link copiado!</span>
-              )}
-            </div>
-          </div>
+     {mostrarPartilha && (
+  <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 backdrop-blur-md z-50">
+    <div className="w-full max-w-md bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-lg md:text-xl text-white font-semibold">
+          Partilhar o Perfil de {selectedProfile?.nome}
+        </h1>
+        <button className="p-2 rounded-full hover:bg-gray-700" onClick={fecharPartilha}>
+          <ImCross
+            size={16}
+            className="text-gray-400 hover:text-pink-500 transition-colors"
+          />
+        </button>
+      </div>
+
+      {/* Separator */}
+      <div className="border-t border-gray-700 mb-6"></div>
+
+      {/* URL Display */}
+      <div className="flex justify-center my-6">
+        <p className="text-white text-sm break-words">{window.location.href}</p>
+      </div>
+
+      {/* Separator */}
+      <div className="border-t border-gray-700 my-6"></div>
+
+      {/* Share Options */}
+      <div className="flex flex-col gap-4">
+        {/* Email Sharing */}
+        <div className="bg-blue-600 hover:bg-blue-500 py-3 rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+          <a
+            href={`mailto:${selectedProfile?.email}?subject=Assunto do Email&body=Corpo do Email`}
+            className="flex items-center"
+          >
+            <MdEmail size={22} className="mr-2 text-white" />
+            <span className="text-white font-medium">Partilhar por Email</span>
+          </a>
         </div>
-      )}
+
+        {/* Copy Link */}
+        <div
+          className="bg-pink-700 hover:bg-pink-600 py-3 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+          onClick={copyToClipboard}
+        >
+          <MdContentCopy size={22} className="mr-2 text-white" />
+          <span className="text-white font-medium">Copiar Link</span>
+        </div>
+
+        {/* Copy Success Message */}
+        {copySuccess && (
+          <div className="flex justify-center mt-2">
+            <span className="text-green-500 text-sm">Link copiado!</span>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
 };

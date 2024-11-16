@@ -44,7 +44,7 @@ Stories:
 - [X] alinhar no componente page acompanhantes
 - [] stories com  butao para perfil
 - [X] objecto cover 
-- [] se certificado aparecer o certificado
+- [X] se certificado aparecer o certificado
 - [X] story big foto perfil canto sup esq
 - [X] adicionar foto na card avatar
 
@@ -77,10 +77,12 @@ Varios
 - [] link de registo tirar email e uid
 - [] foto loading profile
 - [X] login auto
-- [] Retirar Froala
+- [X] Retirar Froala
 - [] adicionar "stories icon" nas cards dos perfis que teem stories
 - [] email de confirmacao ao login 
-
+- [] login page screen full em md
+- [] melhorar login page sm
+- [] comentario a funcionar
 
 Paginas
 - [X] Termos e Condicoes

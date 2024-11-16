@@ -22,8 +22,8 @@ interface FiltroTarifaProps {
 }
 
 const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
-  bgColor = "bg-slate-600",
-  buttonPadding = "py-1",
+  bgColor = "bg-gray-700",
+  buttonPadding = "py-0",
   rounded = "rounded-md",
   onChange,
 }) => {
@@ -56,9 +56,9 @@ const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
         {({ open }) => (
           <>
             <div className="relative mt-1">
-              <p className="text-pink-800">Tarifa</p>
+              <p  className="block text-sm font-medium text-gray-300">Tarifa</p>
               <Listbox.Button
-                className={`relative w-full mt-1 bg-slate-600 text-slate-200 z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-5 rounded-xl pl-3 pr-10 text-left ${rounded} shadow-md sm:text-sm`}
+                className={`relative w-full mt-1 bg-gray-700 text-slate-200 z-100 text-xs ${bgColor} ${buttonPadding} md:text-sm cursor-default py-5 rounded-xl pl-3 pr-10 text-left ${rounded} shadow-md sm:text-sm`}
                 >
                 <span className="block truncate">{tarifaRedux}</span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

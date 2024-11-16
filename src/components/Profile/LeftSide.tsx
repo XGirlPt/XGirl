@@ -94,12 +94,26 @@ const LeftSide: React.FC<LeftSideProps> = ({
             />
           ) : (
             <div className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600">
-              Sem imagem
+             <Image
+              src={"/logo.webp"}
+              alt={selectedProfile?.nome}
+              className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600 rounded-2xl object-cover blur-2xl"
+              loading="lazy"
+              width={100}
+              height={100} 
+            />
             </div>
           )
         ) : (
-          <div className="w-72 h-96 bg-gray-300 flex justify-center items-center text-gray-600">
-            Sem imagem
+          <div className="w-72 h-96 bg-gray-300 flex rounded-xl justify-center items-center text-gray-600 object-cover">
+           <Image
+              src={"/logo.webp"}
+              alt={"foto"}
+              className="w-72 h-full bg-gray-700 rounded-xl flex justify-center items-center text-gray700 object-fill "
+              loading="lazy"
+              width={100}
+              height={100} 
+            />
           </div>
         )}
 

@@ -19,6 +19,8 @@ import { FaUserEdit, FaPhotoVideo, FaInfoCircle } from "react-icons/fa";
 import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos"; // Importando os ícones necessários
 import ModificarStories from "@/app/minha-conta/_ui/ModificarStories";
 import ModificarContacto from "@/app/minha-conta/_ui/ModificarContacto";
+import ModificarPerfil from "@/app/modificar-perfil/page";
+
 
 const HeaderMobile: React.FC = () => {
   const router = useRouter();
@@ -37,6 +39,7 @@ const HeaderMobile: React.FC = () => {
   const [showModifyPhoto, setShowModifyPhoto] = useState(false);
   const [showModifyStory, setShowModifyStory] = useState(false);
   const [showModifyContacto, setShowModifyContacto] = useState(false);
+  const [showModifyPerfil, setShowModifyPerfil] = useState(false);
 
  
 
@@ -83,7 +86,10 @@ const HeaderMobile: React.FC = () => {
     setShowModifyContacto(true); // Exibe o componente de modificar fotos
   };
 
-
+  const handleAlterarPerfilClick = () => {
+    closeMenu(); // Fecha o menu
+    setShowModifyPerfil(true); // Exibe o componente de modificar fotos
+  };
 
 
 
@@ -97,6 +103,10 @@ const HeaderMobile: React.FC = () => {
 
   const handleVoltarContacto = () => {
     setShowModifyContacto(false); // Esconde o componente de modificar fotos
+  };
+
+  const handleVoltarPerfil = () => {
+    setShowModifyPerfil(false); // Esconde o componente de modificar fotos
   };
 
 
@@ -155,6 +165,14 @@ const HeaderMobile: React.FC = () => {
     onClose={() => setShowModifyContacto(false)} // Fecha o componente
   />
 )}
+
+{showModifyPerfil && (
+  <ModificarPerfil
+    handleVoltar={handleVoltarPerfil}
+    onClose={() => setShowModifyPerfil(false)}
+  />
+)}
+
       {/* Menu fixo na parte inferior */}
       <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
         <div className="flex justify-around items-center h-16">
@@ -253,9 +271,9 @@ const HeaderMobile: React.FC = () => {
 
 
                     <Link
-                      href="/minha-conta/outras-info"
+                      href="#"
                       className="flex px-10  py-6 text-white hover:bg-pink-700"
-                      onClick={closeMenu}
+                      onClick={handleAlterarPerfilClick}
                     >
                       <FaInfoCircle className="mr-4" />
                       Outras Info

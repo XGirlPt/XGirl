@@ -80,7 +80,7 @@ const CheckPagamento: React.FC = () => {
                 label={
                   <div className="flex items-center text-white">{key}</div>
                 }
-                className="text-white mr-4"
+                className="text-white  mr-4"
               />
             </div>
           ))}

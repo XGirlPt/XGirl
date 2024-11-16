@@ -24,44 +24,47 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
 
   return (
     <>
-      {mostrarCertificado && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-75 z-50 backdrop-blur-md">
-          <div className="w-full md:w-3/5 h-auto max-w-lg mx-4 bg-[#1E2427] rounded-xl shadow-2xl p-6">
-            
-            <div className="flex justify-between items-center mb-4">
-             <div>
-              <h1 className="text-lg md:text-xl text-white font-bold">Perfil Certificado</h1>
+     {mostrarCertificado && (
+  <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 backdrop-blur-md z-50">
+    <div className="w-full max-w-md bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-lg md:text-xl text-white font-semibold">
+          Perfil Certificado
+        </h1>
+        <button onClick={fecharCertificado} className="p-2 rounded-full hover:bg-gray-700">
+          <ImCross
+            size={16}
+            className="text-gray-400 hover:text-pink-500 transition-colors"
+          />
+        </button>
+      </div>
 
-              
-              </div>
+      {/* Separator */}
+      <div className="border-t border-gray-700 mb-6"></div>
 
-              <button onClick={fecharCertificado} className="text-white hover:text-pink-800 transition-colors">
-                <ImCross size={20} />
-              </button>
-            </div>
-          
-          
-            <div className="border-b border-zinc-700 my-4"></div>
-  
-            <div className="flex items-center bg-green-600 py-1 px-1 w-1/3 rounded-md mb-6 justify-center" >
-              <span className="text-white justify-center">Certificado</span>
-              <VscVerifiedFilled size={20} className="text-white ml-2" />
-            </div>
-  
-            <div className="text-white mb-6">
-              <p className="mb-4">
-                Um perfil certificado significa que as fotos foram validadas por um moderador da equipe <span className="text-pink-800">XGirl</span> e correspondem à realidade.
-              </p>
-              <p className="mb-4">
-                Além do controle humano, um sistema automático analisa todas as fotos dos perfis certificados para garantir que não pertencem a outra pessoa na internet.
-              </p>
-              <p>
-                <strong>Perfil certificado = Encontro 100% satisfeito.</strong>
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Certificado Badge */}
+      <div className="flex items-center justify-center bg-green-600 py-2 px-4 rounded-lg mb-6">
+        <span className="text-white font-medium">Certificado</span>
+        <VscVerifiedFilled size={20} className="text-white ml-2" />
+      </div>
+
+      {/* Certificado Description */}
+      <div className="text-gray-400">
+        <p className="mb-4">
+          Um perfil certificado significa que as fotos foram validadas por um moderador da equipe <span className="text-pink-500 font-medium">XGirl</span> e correspondem à realidade.
+        </p>
+        <p className="mb-4">
+          Além do controle humano, um sistema automático analisa todas as fotos dos perfis certificados para garantir que não pertencem a outra pessoa na internet.
+        </p>
+        <p>
+          <strong className="text-gray-200">Perfil certificado = Encontro 100% satisfeito.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
   

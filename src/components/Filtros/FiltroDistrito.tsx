@@ -42,7 +42,7 @@ interface FiltroDistritoProps {
 const FiltroDistrito: React.FC<FiltroDistritoProps> = ({
   buttonPadding = "py-1",
   rounded = "rounded-md",
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
 }) => {
   const dispatch = useDispatch();
   const DistritoRedux = useSelector(

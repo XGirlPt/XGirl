@@ -17,7 +17,7 @@ import Image from "next/image";
 interface LigaProps {
   selectedProfile: {
     nome: string;
-    Tarifa: number;
+    tarifa: number;
     lingua: string[];
     telefone: string;
   };
@@ -64,74 +64,88 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
 
   return (
     <>
-      {mostrarLiga && (
-        <div className="fixed inset-0 flex justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
-          <div className="w-full md:w-2/6 h-46 md:h-2/4 mt-36 bg-gray-900 dark:bg-gray-800  rounded-lg shadow-2xl ">
-            <div className="flex justify-between items-center">
-              <h1 className="text-sm md:text-xl mx-10 items-center mt-8 align-middle mb-4 text-white font-bold">
-                Liga a {selectedProfile?.nome}
-              </h1>
-              <button className="text-bold font-bold" onClick={fecharLiga}>
-                <ImCross
-                  size={16}
-                  className="text-zinc-600 hover:text-pink-600transition-transform font-bold mx-10"
-                />
-              </button>
-            </div>
-            <div className="border-t border-neutral-600 p-2  relative"></div>
-            <div className="flex gap-6 px-6 py-6 pb-10">
-              <div className="bg-pink-800 py-2 rounded-md w-full justify-center flex z-100 hover:bg-pink-600">
-                <FiPhone size={22} className="mr-2 text-white" />
-                <p className="text-md text-white ">
-                  {selectedProfile?.telefone}
-                </p>
-              </div>
-              <div
-                className="bg-green-500 hover:bg-green-600 py-2 rounded-md w-full justify-center flex cursor-pointer z-100"
-                onClick={() =>
-                  window.open(
-                    `https://api.whatsapp.com/send?phone=41${selectedProfile?.telefone}`,
-                    "_blank"
-                  )
-                }
-              >
-                <FaWhatsapp size={22} className="mr-2 text-white" />
-                <p className="text-md text-white ">WhatsApp</p>
-              </div>
-            </div>
-            <div className="border-t border-neutral-700 p-2 relative"></div>
-            <div className="flex items-center justify-center">
-              <FaMoneyBillWave size={24} className="text-pink-600 mr-4" />
-              <p className="text-white text-lg">
-                Tarifas a partir de {selectedProfile?.Tarifa} €
-              </p>
-            </div>
-            <div className="border-t border-neutral-700  relative mt-6"></div>
-            <div className="flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-y-3 justify-center items-center my-4">
-                {linguaRedux &&
-                  linguaRedux.map((lingua: string, index: number) => (
-                    <div key={index} className="flex items-center mx-2">
-                      < Image
-  src={obterBandeira(lingua)  || "/logo.webp"}
-  alt={`${lingua} flag`}
-  className="w-6 h-6 mr-2 rounded-full object-cover grid grid-cols-3 gap-y-2"
-  layout="responsive"
-  width={100}
-  height={100}
-  
+{mostrarLiga && (
+  <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-60 backdrop-blur-md z-50">
+    <div className="w-full max-w-md bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-lg md:text-xl text-white font-semibold">
+          Liga a {selectedProfile?.nome}
+        </h1>
+        <button className="p-2 rounded-full hover:bg-gray-700" onClick={fecharLiga}>
+          <ImCross
+            size={16}
+            className="text-gray-400 hover:text-pink-500 transition-colors"
+          />
+        </button>
+      </div>
 
-/>
-                      <span className="text-white">{lingua}</span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
+      {/* Separator */}
+      <div className="border-t border-gray-700 mb-6"></div>
+
+      {/* Contact Options */}
+      <div className="flex flex-col gap-4">
+        {/* Phone */}
+        <div className="bg-pink-700 hover:bg-pink-600 py-3 rounded-lg flex items-center justify-center transition-colors">
+          <FiPhone size={22} className="mr-2 text-white" />
+          <span className="text-white font-medium">{selectedProfile?.telefone}</span>
         </div>
-      )}
+
+        {/* WhatsApp */}
+        <div
+          className="bg-green-600 hover:bg-green-500 py-3 rounded-lg flex items-center justify-center cursor-pointer transition-colors"
+          onClick={() =>
+            window.open(
+              `https://api.whatsapp.com/send?phone=41${selectedProfile?.telefone}`,
+              "_blank"
+            )
+          }
+        >
+          <FaWhatsapp size={22} className="mr-2 text-white" />
+          <span className="text-white font-medium">WhatsApp</span>
+        </div>
+      </div>
+
+      {/* Separator */}
+      <div className="border-t border-gray-700 my-6"></div>
+
+      {/* Tarifas */}
+      <div className="flex items-center justify-center mb-6">
+        <FaMoneyBillWave size={28} className="text-pink-600 mr-3" />
+        <p className="text-white text-lg font-medium">
+          Tarifas a partir de {selectedProfile?.tarifa} €
+        </p>
+      </div>
+
+      {/* Separator */}
+      <div className="border-t border-gray-700 mb-6"></div>
+
+      {/* Bandeiras */}
+      <div className="grid grid-cols-3 gap-4">
+        {linguaRedux &&
+          linguaRedux.map((lingua: string, index: number) => (
+            <div
+              key={index}
+              className="flex items-center justify-center space-x-3"
+            >
+              <Image
+                src={obterBandeira(lingua) || "/logo.webp"}
+                alt={`${lingua} flag`}
+                width={36}
+                height={36}
+                className="rounded-full object-cover border border-gray-600"
+              />
+              <span className="text-sm text-white">{lingua}</span>
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
+  
 };
 
 export default Liga;

@@ -53,7 +53,7 @@ const FiltroAge: React.FC<FiltroAgeProps> = ({
                 <Listbox.Options
                   static
                   className={`
-                    absolute mt-1 max-h-60 w-full overflow-auto bg-zinc-600 text-white text-xs md:text-sm shadow-lg ring-1 rounded-md ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
+                    absolute mt-1 max-h-60 w-full overflow-auto bg-gray-700 border border-gray-600 text-white text-xs md:text-sm shadow-lg ring-1 rounded-md ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
                     ${open ? "block" : "hidden"} 
                   `}
                 >

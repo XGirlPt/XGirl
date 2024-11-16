@@ -22,7 +22,7 @@ const altura = [
 const FiltroAltura: React.FC<FiltroAlturaProps> = ({
   buttonPadding = "py-1",
   rounded = "rounded-xl",
-  bgColor = "bg-slate-600",
+  bgColor = "bg-gray-700",
   onChange,
 }) => {
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
                 <Listbox.Options
                   static
                   className={`
-                    absolute mt-1 max-h-60 w-full overflow-auto bg-slate-600 text-white rounded-lg text-md md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
+                    absolute mt-1 max-h-60 w-full overflow-auto bg-gray-700 text-white rounded-lg text-md md:text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-10
                     ${open ? "block" : "hidden"}
                   `}
                 >
@@ -87,8 +87,8 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
                       className={({ active }) =>
                         `relative cursor-default select-none py-1 md:pl-10 pl-3 pr-4 text-md md:text- opacity-90 Z-10 ${
                           active
-                            ? "bg-slate-400 text-slate-600"
-                            : "text-gray-900"
+                            ? "bg-gray-700 text-gray-300"
+                            : "bg-gray-700 text-gray-300"
                         }`
                       }
                       value={method}

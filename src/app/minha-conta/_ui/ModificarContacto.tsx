@@ -18,8 +18,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Field, Label, Textarea } from '@headlessui/react';
 import clsx from 'clsx';
-
-
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+import { FaSmile } from "react-icons/fa"; // Importa um ícone de emoji
 
 interface ModificarContactoProps {
   handleVoltar: () => void;
@@ -70,6 +70,10 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   );
   const [editorState, setEditorState] = useState<string>("");
 
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+
+
   useEffect(() => {
     if (pagamentoRedux) {
       setSelectedPagamento(pagamentoRedux);
@@ -104,6 +108,10 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     dispatch(updateDescription(content));
   };
 
+  const onEmojiClick = (emojiObject: EmojiClickData) => {
+    setDescription(description + emojiObject.emoji);
+  };
+
   const handleLinguaChange = (updatedLingua: string[]) => {
     dispatch(updateLingua(updatedLingua));
     setSelectedLingua(updatedLingua);
@@ -122,11 +130,12 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
  
   const handleGuardar = async () => {
     const dataToUpdate = {
-      pagamento: selectedPagamento,
-      lingua: selectedLingua,
-      servico: selectedServico,
-      tarifa: selectedTarifa,
-      description: description || null,    };
+      pagamento: selectedPagamento.length > 0 ? selectedPagamento : null,
+      lingua: selectedLingua.length > 0 ? selectedLingua : null,
+      servico: selectedServico.length > 0 ? selectedServico : null,
+      tarifa: selectedTarifa.length > 0 ? selectedTarifa : null,
+      description: descriptionRedux || null,  };
+      console.log("Dados a serem atualizados:", dataToUpdate);
 
     try {
       const response = await updateProfileData(dataToUpdate, userUID);
@@ -140,11 +149,13 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
         progress: undefined,
         theme: "light",
       });
+      console.log("Resposta da base de dados:", response);
       dispatch(updatePagamento(selectedPagamento));
       dispatch(updateLingua(selectedLingua));
       dispatch(updateServico(selectedServico));
       dispatch(updateDescription(description));
       dispatch(updateTarifa(selectedTarifa));
+      
       console.log(
         "Informações de contato atualizadas com sucesso na base de dados!"
       );
@@ -165,13 +176,15 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <ToastContainer />
-      <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
-        <div className="p-10">
-          <h2 className="text-5xl text-pink-500 mb-8 font-bold text-center">
+    <ToastContainer />
+    <div className="bg-gray-800 w-full sm:w-2/3 md:w-2/3 lg:w-3/5 my- border border-zinc-600 rounded-2xl shadow-2xl overflow-y-auto flex flex-col max-h-[80vh]">
+   
+      <div className="bg-gray-700 sticky top-0 px-12 py-4 z-50">
+          <h2 className="text-3xl text-gray-300 mb-2 font-bold text-center mt-2 sticky top-0">
             Modificar Perfil
           </h2>
-
+          </div>
+          <div className="  px-12 py-8 ">
           <div className="flex flex-col mb-6">
             <div className="w-44 mb-6">
               <FiltroTarifa />
@@ -195,31 +208,52 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
               />
             </div>
 
-        
-            <div className="w-full mt-6">
-  <Field>
-    <Label className="text-md text-pink-800">Descrição</Label>
-    <Textarea
-      name="description"
-      value={description}
-      onChange={(e) => handleDescriptionChange(e.target.value)} // Ajuste aqui
-      className={clsx(
-        "w-full h-32 p-4 border rounded-lg",
-        "data-[hover]:shadow-lg data-[focus]:bg-gray-300",
-        "focus:outline-none focus:ring-2 focus:ring-pink-800 text-gray-700"
-      )}
-      placeholder="Escreva a descrição aqui..."
-    />
-  </Field>
-</div>
+            <div className="w-full mt-6 relative">
+      <Field>
+        <Label className="text-md text-pink-800">Descrição</Label>
+        <div className="relative">
+          <Textarea
+            name="description"
+            value={description}
+            onChange={(e) => handleDescriptionChange(e.target.value)}
+            className={clsx(
+              "w-full h-32 p-4 pr-10 border rounded-lg",
+              "data-[hover]:shadow-lg data-[focus]:bg-gray-300",
+              "focus:outline-none focus:ring-2 focus:ring-pink-800 text-gray-700"
+            )}
+            placeholder="Escreva a descrição aqui..."
+          />
+
+          {/* Ícone de Emoji dentro da área de texto */}
+          <FaSmile
+            className="absolute top-4 right-4 text-pink-600 cursor-pointer"
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+            size={24}
+          />
+
+          {/* Picker de Emoji */}
+          {showEmojiPicker && (
+            <div className="absolute bottom-full right-0 mb-2 z-50">
+              <EmojiPicker onEmojiClick={onEmojiClick} />
+            </div>
+          )}
+        </div>
+      </Field>
+  
+    </div>
 
 
           </div>
-        </div>
 
-        <div className="flex justify-between items-end px-8 py-6 bg-gradient-to-b from-gray-800 to-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
+
+         
+
+
+
+        </div>
+        <div className="flex w-full h-full justify-between items-end px-2 py-4 bg-gray-700 rounded-b-3xl border-t border-gray-600 sticky bottom-0">
           <button
-            className="text-white bg-gray-600 px-8 py-3 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-2"
+            className="text-white bg-gray-600 px-8 py-4 rounded-full shadow-lg transition duration-300 hover:bg-gray-500 flex items-center space-x-"
             onClick={handleVoltar}
           >
             <span>Voltar</span>
@@ -230,8 +264,10 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
           >
             Guardar
           </button>
-        </div>
+        </div> 
+      
       </div>
+      
     </div>
   );
 };

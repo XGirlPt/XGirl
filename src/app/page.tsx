@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"; // Importação do dynamic
 import Link from "next/link";
 import { fetchProfiles } from "@/services/profileService";
 import "../styles/globals.min.css";
+import Map from "@/components/Map" 
 
 // Carregamento dinâmico de componentes pesados (desativando SSR para esses componentes)
 const CaroselG = dynamic(() => import('@/components/CaroselG'), { ssr: false });
@@ -68,7 +69,7 @@ const Dashboard: React.FC = () => {
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
       </div> */}
 
-      <div className="w-full">
+      <div className="w-full mt-4">
         {profiles && profiles.length > 0 && <CaroselG profiles={profiles} />}
       </div>
 
@@ -97,6 +98,7 @@ const Dashboard: React.FC = () => {
       <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full h-[50px]"> {/* Definindo altura fixa para o texto */}
       Procura na tua Área
       </p>
+      <Map/>
 
       <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[150px]"> {/* Aumentei a min-h para 150px */}
   <InfoCard />

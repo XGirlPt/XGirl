@@ -8,6 +8,8 @@ import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
 import FiltroPeito from "@/components/Filtros/FiltroPeito";
 import FiltroPelos from "@/components/Filtros/FiltroPelos";
 import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
+import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
 import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
 import CheckContacto from "@/components/Register/CheckContacto";
 import supabase from "@/database/supabase";
@@ -39,7 +41,7 @@ interface ModificarPerfilProps {
   onClose: () => void;
 }
 
-const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
+const ModificarPerfil: React.FC<{ handleVoltar: () => void; onClose: () => void }> = ({
   handleVoltar,
   onClose,
 }) => {
@@ -92,6 +94,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
   const tatuagemRedux = useSelector(
     (state: any) => state.profile?.profile?.tatuagem
   );
+  
 
   const handleGuardar = async () => {
     const dataToUpdate = {
@@ -290,116 +293,77 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
 
   
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 backdrop-blur-md">
-      <div className="bg-gradient-to-b from-gray-900 to-gray-700 h-4/5 mt-16 mb-16 border border-zinc-600 rounded-3xl max-w-screen-lg shadow-2xl w-full overflow-y-auto flex flex-col">
-      <div className="p-10 flex-grow">
-        <div>
-        <h2 className="text-4xl text-pink-600 mb-4 font-bold text-center sticky ">
-              Informacoes Gerais
-            </h2>
-          </div>
-      <div className="flex ">
-            <div className="flex w-1/2">
-              <div className="flex flex-col justify-around w-full mx-6 items-start">
-                <div className="w-full mt-2">
-                  <p className="text-pink-800">Nome*</p>
-                  <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
-                    value={nome}
-                    onChange={handleNomeChange}
-                  />
-                </div>
-                <div className="w-full flex flex-col">
-                  <div className="flex items-end">
-                    <p className="text-pink-800">Idade</p>
-                    <p className="text-xs text-green-600 ml-4">
-                      Certifica a tua idade e ganha um prémio*
-                    </p>
-                  </div>
-                  <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
-                    value={idade}
-                    onChange={handleIdadeChange}
-                  />
-                </div>
-                <div className="w-full mt-2">
-                  <p className="text-pink-800">Numero de Telefone*</p>
-                  <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
-                    value={telefone}
-                    onChange={handleTelefoneChange}
-                    maxLength={9}
-                  />
-                </div>
-                <div className="w-full mt-2 gap-4">
-                  <p className="text-md text-pink-800">Meio de contacto</p>
-                  <CheckContacto />
-                </div>
-                <FiltroDistrito
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-700  bg-transparent backdrop-blur-md z-50 ">
+    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-[90vh]  sm:max-h-[80vh] overflow-y-auto">
+    <div className="md:p-10 flex-grow">
+    <header className="bg-pink-800 py-6 px-4 md:px-10">
+          <h1 className="text-3xl font-bold tracking-wide text-center">
+            Modificar Perfil 
+          </h1>
+          <p className="text-center text-gray-200 text-sm mt-2">
+            Modifica as informações no <strong>Xgirl.pt</strong>
+          </p>
+        </header>
+
+
+        <div className="p-8 space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Coluna Esquerda */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300">Nome*</label>
+                <input
+                  className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  value={nome}
+                  onChange={handleNomeChange}
+                  placeholder="Digite seu nome"
                 />
-                <div className="w-full flex flex-col">
-                  <div className="flex items-end">
-                    <p className="text-pink-800">Cidade</p>
-                  </div>
-                  <input
-                    className="py-2 px-2 w-full mt-1 bg-slate-600 text-white rounded-sm text-sm"
-                    value={cidade}
-                    onChange={handleCidadeChange}
-                  />
-                </div>
-                <FiltroOrigem
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300">Idade</label>
+                <input
+                  type="number"
+                  className="w-full py-3 px-4 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  value={idade}
+                  onChange={handleIdadeChange}
+                  placeholder="Sua idade"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300">Número de Telefone*</label>
+                <input
+                  className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  value={telefone}
+                  onChange={handleTelefoneChange}
+                  placeholder="Seu telefone"
+                />
+              </div>
+              <FiltroTarifa rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroDistrito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <div>
+                <label className="block text-sm font-medium text-gray-300">Cidade</label>
+                <input
+                  className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  value={cidade}
+                  onChange={handleCidadeChange}
+                  placeholder="Sua cidade"
                 />
               </div>
             </div>
 
-            <div className="flex w-1/2 mt-4">
-              <div className="flex flex-col justify-around w-full mx-6 items-start">
-                <FiltroAltura
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                  onChange={handleAlturaChange}
-                />
-                <FiltroCorpo
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                />
-                <FiltroOlhos
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                />
-                <FiltroMamas
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                  onChange={handleMamasChange}
-                />
-                <FiltroPeito
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                />
-                <FiltroPelos
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                />
-                <FiltroTatuagem
-                  rounded="rounded-sm"
-                  buttonPadding={`py-${2}`}
-                  bgColor={"bg-slate-600"}
-                />
-              </div>
+            {/* Coluna Direita */}
+            <div className="space-y-6">
+              <FiltroAltura rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-300" />
+              <FiltroCorpo rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroOlhos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroMamas rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroPeito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroPelos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroTatuagem rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroSigno rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
             </div>
           </div>
+        </div>
 
          
           </div>

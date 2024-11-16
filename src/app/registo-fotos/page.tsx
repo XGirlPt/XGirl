@@ -147,115 +147,138 @@ const RegistoFotos: React.FC = () => {
 
 
 
-  return (
-    <div className="text-gray-600 pb-20 bg-[#1b1b1b]">
-      <div className="h-full bg-[#1b1b1b] px-44">
-        
-        {/* Título Principal */}
-        <div className="w-full pt-2 mb-2">
-          <p className="text-pink-800 text-xl mt-8 pb-0 px-6">Cria o teu Perfil de Anunciante</p>
-        </div>
-  
-        {/* Seção de Fotos de Perfil */}
-        <div className="bg-[#1E2427] w-full h-auto mb-10 mt-0 border border-zinc-600 rounded-sm pb-6">
-          <div className="px-10 mt-4">
-            <p className="text-pink-800 text-2xl">Fotos de Perfil</p>
-            <p className="text-white mt-2">Podes adicionar até 10 Fotos</p>
-          </div>
-  
-          <div className="grid grid-cols-5 gap-10 mx-4 px-4 my-8">
-            {selectedPhotos.map((photo, index) => (
-              <div key={index} className="relative">
+ return (
+<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-md z-50">
+  <div className="w-full max-w-4xl bg-gray-900 text-white rounded-xl shadow-2xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
+    {/* Header */}
+    <header className="w-full px-6 pt-8 pb-4">
+      <h1 className="text-pink-800 text-2xl font-semibold">
+        Cria o teu Perfil de Anunciante
+      </h1>
+    </header>
+
+    {/* Fotos de Perfil */}
+    <section className="bg-gray-800 w-full mb-10 border border-gray-700 rounded-md pb-6">
+      <div className="px-8 pt-6">
+        <h2 className="text-pink-500 text-xl font-semibold">Fotos de Perfil</h2>
+        <p className="text-gray-300 mt-2">
+          Podes adicionar até <span className="font-semibold">10 Fotos</span>.
+        </p>
+      </div>
+
+      {/* Grid com fotos e placeholders */}
+      <div className="grid grid-cols-5 gap-6 mx-6 my-6">
+      {selectedPhotos.map((photo, index) => (
+          <div key={index} className="relative">
+            {selectedPhotos[index] ? (
+              <>
                 <BlurImage
-                  src={photo}
+                  src={selectedPhotos[index]}
                   alt={`Foto ${index}`}
                   className="w-full h-24 object-cover rounded-md border border-gray-600"
                 />
                 <IoTrashBin
                   size={24}
-                  className="absolute top-0 right-0 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1"
+                  className="absolute top-1 right-1 cursor-pointer text-white bg-gray-700 hover:bg-red-600 p-1 rounded-full transition-colors"
                   onClick={() => handleDeletePhoto(index)}
                 />
+              </>
+            ) : (
+              <div className="w-full h-24 flex items-center justify-center bg-gray-700 border border-gray-600 rounded-md text-gray-500">
+                <span className="text-sm">Adicionar Foto</span>
               </div>
-            ))}
+            )}
           </div>
-  
-          <div className="px-10 flex">
-            <label
-              htmlFor="upload-photo"
-              className="text-md text-white bg-green-600 px-10 py-2 rounded-xl cursor-pointer"
-            >
-              + Adicionar Fotos de Perfil...
-            </label>
-            <input
-              type="file"
-              id="upload-photo"
-              style={{ display: "none" }}
-              onChange={handleFileUpload}
-              multiple
-            />
-          </div>
-        </div>
-  
-
-        {/* Seção para Foto de Verificação */}
-        <div className="bg-[#1E2427] w-full h-auto mb-10 mt-0 border border-zinc-600 rounded-sm pb-6">
-          <div className="px-10 mt-4">
-            <p className="text-pink-800 text-2xl">Foto de Verificacao</p>
-            <p className="text-white mt-2">Adiciona uma foto de verificacao para obteres um Perfil Certificado </p>
-          </div>
-  
-          <div className="grid grid-cols-5 gap-10 mx-4 px-4 my-8">
-            {VselectedPhotos.map((vphoto, index) => (
-              <div key={index} className="relative">
-                <BlurImage
-                  src={vphoto}
-                  alt={`Foto ${index}`}
-                  className="w-full h-24 object-cover rounded-md border border-gray-600"
-                />
-                <IoTrashBin
-                  size={24}
-                  className="absolute top-0 right-0 cursor-pointer text-white bg-gray-600 hover:bg-red-600 p-1"
-                  onClick={() => handleDeleteVerificationPhoto()}
-                />
-              </div>
-            ))}
-          </div>
-  
-          <div className="px-10 flex">
-            <label
-              htmlFor="upload-verification-photo"
-              className="text-md text-white bg-green-600 px-10 py-2 rounded-xl cursor-pointer"
-            >
-              + Adicionar Foto de Verificacao...
-            </label>
-            <input
-              type="file"
-              id="upload-verification-photo"
-              style={{ display: "none" }}
-              onChange={handleVerificationPhotoUpload}
-            />
-          </div>
-        </div>
-        <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-sm">
-          <div className="flex justify-between w-full mb-1 mt-10 my-10 py-6 px-10">
-            <div className="w-26">
-              <Link href="/registo-contacto">
-                <p className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer">
-                  Voltar
-                </p>
-              </Link>
-            </div>
-            <Link href="/registo-pagamento">
-              <p className="text-md text-white bg-pink-800 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-600 ease-in-out transform hover:scale-105">
-                Continuar
-              </p>
-            </Link>
-          </div>
-        </div>
+        ))}
       </div>
-    </div>
-  );
+
+      <div className="px-8 flex items-center justify-start">
+        <label
+          htmlFor="upload-photo"
+          className="text-md text-white bg-green-600 px-6 py-2 rounded-lg cursor-pointer hover:bg-green-500 transition"
+        >
+          + Adicionar Fotos de Perfil...
+        </label>
+        <input
+          type="file"
+          id="upload-photo"
+          style={{ display: "none" }}
+          onChange={handleFileUpload}
+          multiple
+        />
+      </div>
+    </section>
+
+    {/* Foto de Verificação */}
+    <section className="bg-gray-800 w-full mb-10 border border-gray-700 rounded-md pb-6">
+  <div className="px-8 pt-6">
+    <h2 className="text-pink-500 text-xl font-semibold">Foto de Verificação</h2>
+    <p className="text-gray-300 mt-2">
+      Adiciona uma foto de verificação para obteres um{" "}
+      <span className="font-semibold">Perfil Certificado</span>.
+    </p>
+  </div>
+
+  {/* Placeholder para foto de verificação */}
+  <div className="flex justify-center mt-6">
+    {VselectedPhotos.length > 0 ? (
+      VselectedPhotos.map((vphoto, index) => (
+        <div key={index} className="relative w-40 h-40">
+          <BlurImage
+            src={vphoto}
+            alt={`Foto de Verificação ${index}`}
+            className="w-full h-full object-cover rounded-md border border-gray-600"
+          />
+          <IoTrashBin
+            size={24}
+            className="absolute top-2 right-2 cursor-pointer text-white bg-gray-700 hover:bg-red-600 p-1 rounded-full transition-colors"
+            onClick={() => handleDeleteVerificationPhoto()}
+          />
+        </div>
+      ))
+    ) : (
+      <div className="w-40 h-40 flex items-center justify-center bg-gray-700 border border-gray-600 rounded-md text-gray-500">
+        <span className="text-sm">Adicionar Foto</span>
+      </div>
+    )}
+  </div>
+
+  <div className="px-8 flex items-center justify-center mt-6">
+    <label
+      htmlFor="upload-verification-photo"
+      className="text-md text-white bg-green-600 px-6 py-2 rounded-lg cursor-pointer hover:bg-green-500 transition"
+    >
+      + Adicionar Foto de Verificação
+    </label>
+    <input
+      type="file"
+      id="upload-verification-photo"
+      style={{ display: "none" }}
+      onChange={handleVerificationPhotoUpload}
+    />
+  </div>
+</section>
+
+    {/* Footer */}
+    <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+      <div className="flex justify-between items-center">
+        <Link href="/registo-contacto">
+          <button className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
+            Voltar
+          </button>
+        </Link>
+        <Link href="/registo-pagamento">
+          <button className="px-6 py-3 bg-pink-800 hover:bg-pink-700 rounded-lg text-sm font-medium transition">
+            Continuar
+          </button>
+        </Link>
+      </div>
+    </footer>
+  </div>
+</div>
+
+
+ )
 };
 
 export default RegistoFotos;

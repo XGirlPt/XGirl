@@ -95,45 +95,17 @@ const RegistoContacto: React.FC = () => {
   console.log("Estado Redux completo:", reduxState);
 
   return (
-    <div className="text-gray-600 bg-gray-900">
-      <div className="h-full gray-900 px-44">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-transparent backdrop-blur-md z-50">
+    <div className="w-full max-w-4xl bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
         <div className="w-full pt-2 mb-2">
           <p className="text-pink-800 text-xl mt-8 pb-0 px-6">
             Cria o teu Perfil de Anunciante
           </p>
         </div>
 
-        <div className="bg-[#1E2427] w-full h-12 mb-2 mt-10 border border-zinc-600 flex rounded-sm">
-          <div className="flex justify-around w-full mx-6 items-center">
-            <div className="flex border-zinc-500 pt-3">
-              <p className="rounded-full border border-zinc-500 mr-2 px-2 mb-2 text-zinc-500">
-                1
-              </p>
-              <p className="mb-2 text-zinc-500">Perfil</p>
-            </div>
-            <div className="flex border-b-2 border-pink-800 pt-3">
-              <p className="rounded-full border border-pink-800 mr-2 px-2 mb-2 text-pink-800">
-                2
-              </p>
-              <p className="mb-2 text-pink-800">Contacto</p>
-            </div>
-            <div className="flex border-zinc-500 pt-3">
-              <p className="rounded-full border border-zinc-500 mr-2 px-2 mb-2 text-zinc-500">
-                3
-              </p>
-              <p className="mb-2 text-zinc-500">Fotos</p>
-            </div>
-            <div className="flex border-zinc-500 pt-3">
-              <p className="rounded-full border border-zinc-500 mr-2 px-2 mb-2 text-zinc-500">
-                4
-              </p>
-              <p className="mb-2 text-zinc-500">Mensalidade</p>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-[#1E2427] w-full h-full mb-10 mt-0 border border-zinc-600 rounded-sm">
-          <div className="flex justify-between">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-transparent backdrop-blur-md z-50">
+    <div className="w-full max-w-4xl  bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
             <div className="flex w-full">
               <div className="flex flex-col w-full mx-6 pt-4">
                 <div className="w-full mt-0">
@@ -175,8 +147,8 @@ const RegistoContacto: React.FC = () => {
           onChange={(e) => handleDescriptionChange(e.target.value)}
           className={clsx(
             "w-full h-32 p-4 border rounded-lg",
-            "data-[hover]:shadow-lg data-[focus]:bg-blue-50",
-            "focus:outline-none focus:ring-2 focus:ring-pink-500"
+            "data-[hover]:shadow-lg text-gray-600 data-[focus]:bg-gray-100",
+            "focus:outline-none focus:ring-2 focus:ring-pink-800"
           )}
           placeholder="Escreva a descrição aqui..."
         />
@@ -188,30 +160,31 @@ const RegistoContacto: React.FC = () => {
 
               </div>
             </div>
-            <div className="flex w-1/2">
-              <div className="flex flex-col justify-around w-full mx-6 items-center"></div>
-            </div>
-          </div>
 
-          <div className="flex justify-between w-full mb-6 mt-10 my-10 py-6 px-10">
-            <div className="w-26 mb-6">
-              <Link
+            <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
+          <div className="flex justify-between">
+          <Link
                 href={{
                   pathname: "/registo-entrada",
                   query: { email: userEmailRedux },
                 }}
               >
-                <p className="text-md text-white bg-zinc-400 px-10 py-2 rounded-md cursor-pointer">
-                  Voltar
-                </p>
+                <button className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
+                Voltar
+              </button>
               </Link>
-            </div>
-            <Link href="/registo-fotos">
-              <p className="text-md text-white bg-pink-800 px-10 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-600 ease-in-out transform hover:scale-105">
+              <Link href="/registo-fotos">
+              <button className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium ">
                 Continuar
-              </p>
+              </button>
             </Link>
           </div>
+        </footer>
+
+            
+          </div>
+
+        
         </div>
       </div>
     </div>

@@ -1,14 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useSelector } from "react-redux";
-import ru from "../../../public/Flags/ru.svg";
-import ale from "../../../public/Flags/ale.png";
 
-import fr from "../../../public/Flags/fr.svg";
-import ing from "../../../public/Flags/ing.png";
-import it from "../../../public/Flags/it.svg";
-import es from "../../../public/Flags/es.svg";
-import ar from "../../../public/Flags/ar.png";
-import pt from "../../../public/Flags/pt.svg";
 interface Profile {
   lingua: string[];
 }
@@ -60,7 +52,7 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
 
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-800 pl-10 pt-10 pb-10 mb-8 md:mb-0 w-full border border-zinc-700 rounded-3xl">
+    <div className="bg-gray-900 dark:bg-gray-800 pl-12 pt-10 pb-10 mb-8 md:mb-0 w-full border border-zinc-700 rounded-3xl">
       <p className="text-pink-600 text-2xl">Idiomas</p>
       <div className="grid grid-cols-2 gap-x-4 gap-y-4 mt-4">
         {linguaRedux &&

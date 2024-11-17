@@ -50,7 +50,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
 
   return (
     <div className="w-full bg-gray-900 dark:bg-gray-800 fixed z-20">
-      <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800">
+      <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800 border-b border-gray-700" >
         {/* Botão Perfil Anterior */}
         <button
           className="flex items-center px-4 py-1 border border-pink-800 text-sm rounded-md text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
@@ -67,7 +67,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
             <p className="text-zinc-400">/</p>
             <Link
               href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
-              className="text-white cursor-pointer hover:text-pink-800"
+              className="text-zinc-400 cursor-pointer hover:text-pink-800"
             >
               {currentProfile.distrito}
             </Link>

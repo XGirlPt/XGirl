@@ -20,8 +20,9 @@ import { BlurImage } from "@/components/BlurImage";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
-
-
+import Comments from "@/components/Profile/Comments"
+import PhotosAndCertificado from "@/components/Profile/PhotosAndCertificado"; // Import the new component
+import StoriesComponent from "@/components/Profile/StoriesComponent";
 
 
 function UserProfile() {
@@ -189,8 +190,8 @@ console.log("stories RDX", storiesRDX)
         profiles={profiles}
       />
       <div className="container relative">
-        <div className="w-screen bg-gray-900 flex flex-col user-profile">
-        <div className="md:flex  md:m-24 mt-24 relative">
+        <div className="w-screen bg-gray-900 flex flex-col user-profile justify-center align-middle">
+        <div className="md:flex md:mx-36 my-20 md:mt-22 relative">
         {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
@@ -232,13 +233,8 @@ console.log("stories RDX", storiesRDX)
               />
             )}
 
-            <div className="w-full md:w-3/6">
+            <div className="w-screen md:w-3/5 grid gap-10   justify-center align-middle">
 
-
-
-              <div className="grid gap-10 items-center justify-center">
-
-         
               {selectedProfile && selectedProfile.storyURL?.length > 0 && (
   <div className="flex flex-col ml-8 md:ml-10 md:mr-24">
     <p className="text-pink-700 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
@@ -283,86 +279,20 @@ console.log("stories RDX", storiesRDX)
 )}
 
 
-<div className="bg-gray-900 dark:bg-gray-800 gap-6 py-8 w-full min-h-[300px] justify-center items-center px-10 md:ml-10 md:mr-24 border border-zinc-700 rounded-3xl shadow-lg">
-  
-<div className="flex justify-between mb-8">
-  <p className="text-pink-700 text-2xl mb-4 font-semibold">
-    Fotografias de {selectedProfile?.nome}
-  </p>
-
-  {loading || isCertified === null ? (
-    <div className=" md:ml-4 p-2 rounded-md flex items-center bg-zinc-700 h-8">
-      <p className="text-white">Carregando...</p>
-    </div>
-  ) : (
-    <div
-      className={`ml-4 p-4 rounded-md flex items-center cursor-pointer transition duration-300 ease-in-out h-8 ${
-        isCertified ? "bg-green-700 hover:bg-green-600" : "bg-red-700 hover:bg-red-600"
-      }`}
-      onClick={handleCertificadoClick} // Adicione o onClick aqui para tornar a div clicável
-    >
-      <p className="text-white text-sm mr-2">
-        {isCertified ? "Certificado" : "Não Certificado"}
-      </p>
-      {isCertified ? (
-        <VscVerifiedFilled size={20} className="text-white" />
-      ) : (
-        <IoInformationCircle size={20} className="text-white" />
-      )}
-    </div>
-  )}
-</div>
-
-  {selectedProfile && selectedProfile.photoURL && selectedProfile.photoURL.length > 0 ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-  {selectedProfile.photoURL.map((media, index) => {
-    const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
-
-    return isVideo ? (
-      <video
-        key={index}
-        autoPlay
-        controlsList="nodownload"
-        className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
-      >
-        <source
-          src={media}
-          type={media.endsWith(".mp4") ? "video/mp4" : media.endsWith(".webm") ? "video/webm" : "video/ogg"}
-        />
-        Seu navegador não suporta o elemento de vídeo.
-      </video>
-    ) : (
-      <Image
-        key={index}
-        src={media}
-        alt={`Foto ${index + 1}`}
-        className="w-full h-48 object-cover cursor-pointer rounded-2xl border border-zinc-500 shadow-md transition-opacity duration-200 ease-in-out hover:opacity-75 hover:scale-105"
-        onClick={() => handlePhotoClick(index)}
-        width={160}
-        height={120}
-        loading="lazy" 
-      />
-    );
-  })}
-</div>
-
-  ) : (
-    <BlurImage
-      src={selectedProfile?.photoURL?.[0] || "/logo.webp"}
-      alt={selectedProfile?.nome || "Placeholder"}
-      className="w-full h-96 object-cover rounded-2xl border border-zinc-500 shadow-md"
-      loading="lazy" 
-      width={160}
-      height={120}
-    />
-  )}
-</div>
+<div className="grid md:mx-0 gap-y-6 justify-center items-center px-10 md:px-2 min-h-screen align-middle ">
+<PhotosAndCertificado
+                selectedProfile={selectedProfile}
+                loading={loading}
+                isCertified={isCertified}
+                handleCertificadoClick={handleCertificadoClick}
+                handlePhotoClick={handlePhotoClick}
+              />
 
                 <Sobre selectedProfile={selectedProfile as any} />
 
                 <ServicosPrestados selectedProfile={selectedProfile} />
 
-                <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 py-6 w-full px-10 mx-10 border border-zinc-700 rounded-3xl">
+                <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 items-center  py-6 w-full px-10  border border-zinc-700 rounded-3xl">
                   <p className="text-pink-700 text-2xl">Descrição</p>
                   <div className="gap-4 mt-6">
                     <div
@@ -375,15 +305,18 @@ console.log("stories RDX", storiesRDX)
                   </div>
                 </div>
 
-                <div className=" md:flex gap-4 w-full rounded-md md:mx-10">
+                <div className=" md:flex gap-6">
                   <Linguas selectedProfile={selectedProfile as any} />
                   <Tarifas selectedProfile={selectedProfile as any} />
                 </div>
+               
+                  <Comments userUID={selectedProfile?.userUID} />
+               
               </div>
             </div>
           </div>
         </div>
-      </div>
+        </div>
     </>
   );
 }

@@ -79,7 +79,7 @@ function GirlsPage() {
 
   useEffect(() => {
     const filtered = profiles.filter((profile) =>
-      profile.nome?.toLowerCase().includes(searchTerm.toLowerCase())
+      profile.nome?.toLowerCase().includes(searchTerm.toLowerCase()) // Usando encadeamento opcional
     );
     setFilteredProfiles(filtered);
     setCurrentPage(1);

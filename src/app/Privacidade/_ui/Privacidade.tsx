@@ -5,7 +5,7 @@ function Privacidade() {
   return (
     <div className="text-gray-400 bg-gray-900 dark:bg-gray-800 mx-auto max-w-5xl p-8  rounded-lg shadow-lg font-sans space-y-12">
       <h1 className="text-center text-4xl font-bold mb-12 border-b border-gray-700 pb-4 text-pink-500">
-        Política de Privacidade
+        Política de Privacidadesss
       </h1>
 
       {/** SEÇÕES DA POLÍTICA */}

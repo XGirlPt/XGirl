@@ -126,7 +126,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
   <span
   className={`text-xs font-medium text-gray-200 px-3 py-1 rounded-full bg-gray-800 ${profile.tagtimestamp && timeElapsedList[index] && timeElapsedList[index].includes("há") ? "animate-pulse" : ""}`}
 >
-  "{profile.tag}"
+&quot;{profile.tag}&quot;
 </span>
     <RiMessage2Fill className="text-yellow-500 text-md ml-2" />
   </div>

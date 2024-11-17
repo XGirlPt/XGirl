@@ -352,55 +352,70 @@ export const deleteStory = async (storyURL: string, userUID: string) => {
   }
 };
 
-
-
-// FETCH PROFILES FIRST PAGE 
+// START FECTH LANDING PAGE
 
 export async function fetchProfilesMain() {
   try {
     // Buscar apenas os dados principais do perfil (nome, cidade, foto, verificação)
     const { data: profilesData, error: profilesError } = await supabase
       .from("ProfilesData")
-      .select("userUID, nome, cidade, certificado")  // Buscar apenas os dados necessários
+      .select("userUID, nome, cidade, certificado, tag, tagtimestamp, live") // Buscar apenas os dados necessários
       .eq('status', true); // Filtro de status
 
     if (profilesError) {
       throw profilesError;
     }
 
-    // Buscar apenas a foto principal (pode ajustar conforme sua estrutura)
+    // Buscar apenas a foto principal
     const { data: photosData, error: photosError } = await supabase
       .from("profilephoto")
-      .select("userUID, imageurl") // Supondo que você tenha uma coluna 'imageurl' para as fotos
-       // Filtra para pegar apenas a foto principal
+      .select("userUID, imageurl");
 
     if (photosError) {
       throw photosError;
     }
 
-    // Agora, combine os dados para garantir que todos os campos estão presentes
+    // Buscar stories (assumindo que há uma tabela 'stories' com 'userUID' e 'storyUrl')
+    const { data: storiesData, error: storiesError } = await supabase
+      .from("stories")
+      .select("userUID, storyurl");
+
+    if (storiesError) {
+      throw storiesError;
+    }
+
+    // Combinar os dados
     const combinedProfiles = profilesData.map((profile) => {
       const mainPhoto = photosData.find(photo => photo.userUID === profile.userUID);
+      const userStories = storiesData
+        .filter(story => story.userUID === profile.userUID)
+        .map(story => story.storyurl); // Extrair apenas os URLs dos stories
+
       return {
         nome: profile.nome,
         cidade: profile.cidade,
         certificado: profile.certificado,
         photos: mainPhoto ? [mainPhoto.imageurl] : [], // Convertendo foto para um array
-        stories: [], // Preenchendo stories como array vazio
-        tag: "", // Preenchendo tag com uma string vazia
-        tagtimestamp: "", // Preenchendo tagtimestamp com uma string vazia
-        userUID: profile.userUID, // Incluindo o userUID
-        photo: mainPhoto ? mainPhoto.imageurl : "", // Definindo a foto principal
+        stories: userStories || [], // Adicionando os stories
+        tag: profile.tag,
+        tagtimestamp: profile.tagtimestamp,
+        userUID: profile.userUID,
+        photo: mainPhoto ? mainPhoto.imageurl : "",
+        live: profile.live || false,
       };
     });
 
-    console.log("Perfis combinados com fotos principais:", combinedProfiles);
+    combinedProfiles.sort((a, b) => {
+      const timeA = new Date(a.tagtimestamp).getTime();
+      const timeB = new Date(b.tagtimestamp).getTime();
+      return timeB - timeA; // Ordena do mais recente para o mais antigo
+    });
+
+    console.log("Perfis combinados com fotos principais e stories:", combinedProfiles);
     return combinedProfiles;
   } catch (error) {
     console.error("Error fetching profiles:", error.message);
     throw error;
   }
 }
-
-
-// END FETCH PROFILES FIRST PAGE. 
+// END FECTH LANDING PAGE

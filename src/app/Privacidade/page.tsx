@@ -13,7 +13,7 @@ export default function PagePage(props: PagePageProps) {
   const {} = props;
 
   return (
-    <div>
+    <div >
       <Privacidade />
     </div>
   );

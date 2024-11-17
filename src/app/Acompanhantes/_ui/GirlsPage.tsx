@@ -19,6 +19,7 @@ export interface Profile {
   tagtimestamp: string;
   certificado: boolean;
   distrito: string;
+  live: boolean;
 }
 
 const distritos = [

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic"; // Importação do dynamic
 import Link from "next/link";
 import { fetchProfilesMain } from "@/services/profileService";
 import "../styles/globals.min.css";
-import Map from "@/components/Map" 
+// import Map from "@/components/Map" 
 
 // Carregamento dinâmico de componentes pesados (desativando SSR para esses componentes)
 const CaroselG = dynamic(() => import('@/components/CaroselG'), { ssr: false });
@@ -22,6 +22,7 @@ interface Profile {
   tag: string;
   tagtimestamp: string;
   certificado: boolean;
+  live: boolean;
 }
 
 
@@ -31,12 +32,19 @@ const Dashboard: React.FC = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [showMaiores, setShowMaiores] = useState(false);
 
-  
   useEffect(() => {
     async function fetchData() {
       try {
         const combinedProfiles = await fetchProfilesMain();
-        setProfiles(combinedProfiles);
+
+        // Ordenar os perfis por `tagtimestamp` mais recente
+        const sortedProfiles = combinedProfiles.sort((a: Profile, b: Profile) => {
+          const timeA = new Date(a.tagtimestamp).getTime();
+          const timeB = new Date(b.tagtimestamp).getTime();
+          return timeB - timeA; // Ordena do mais recente para o mais antigo
+        });
+
+        setProfiles(sortedProfiles);
       } catch (error: any) {
         console.error("Error fetching profiles:", error.message);
       }
@@ -102,7 +110,7 @@ const Dashboard: React.FC = () => {
       <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full h-[50px]"> {/* Definindo altura fixa para o texto */}
       Procura na tua Área
       </p>
-      <Map/>
+      {/* <Map/> */}
 
       <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto min-h-[150px]"> {/* Aumentei a min-h para 150px */}
   <InfoCard />

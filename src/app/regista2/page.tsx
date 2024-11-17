@@ -116,9 +116,9 @@ const Regista2: React.FC = () => {
     <div className="bg-gray-600 rounded-md">
       <div className="pb-4 bg-gray-900 rounded-md">
         {/* <Header isLogged={isLoggedIn} /> */}
-        <div className=" h-full  dark:bg-gray-900 justify-center flex">
+        <div className=" h-full  dark:bg-gray-900 justify-center md:flex">
           {/* LEFT SIDE */}
-          <div className="w-1/2 mx-auto my-auto flex flex-col justify-end items-center">
+          <div className="md:w-1/2 mx-auto my-auto md:flex md:flex-col justify-end items-center">
             <div>
               <p className="text-pink-900 text-3xl pb-10 px-6 font-extrabold ">
                 XGirl.pt é o site de classificados eroticos mais completo de
@@ -164,101 +164,87 @@ const Regista2: React.FC = () => {
           </div>
 
           {/* right size */}
-          <div className="bg-gray-900 dark:bg-gray-800 mt-10 w-full border border-gray-600 my-auto rounded-2xl shadow-lg max-w-md mx-auto px-6 py-8 space-y-6">
-          <h1 className="text-2xl font-extrabold text-center text-white mb-4">
-          Cria uma nova conta 
-          </h1>
-              <div className="w-full px-6">
-                <div className="px-1 pb-2 pt-1 justify-center align-middle items-center">
-                 
+          <div className="bg-gray-900 dark:bg-gray-800 mt-10 w-full max-w-lg mx-auto border border-gray-700 rounded-2xl shadow-xl p-6 sm:p-8">
+  <h1 className="text-2xl md:text-3xl font-extrabold text-center text-white mb-6">
+    Cria uma nova conta
+  </h1>
 
-                  <div>
-        <label className="block mb-1 text-sm font-medium text-gray-500" htmlFor="email">
-          Email*
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Insere o teu email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-900 focus:border-pink-900 block w-full p-3"
-          required
-        />
-      </div>
+  <form className="space-y-6">
+    {/* Campo Email */}
+    <div>
+      <label
+        htmlFor="email"
+        className="block mb-2 text-sm font-medium text-gray-400"
+      >
+        Email*
+      </label>
+      <input
+        id="email"
+        type="email"
+        placeholder="Insere o teu email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+        required
+      />
+    </div>
 
+    {/* Opção Adicional */}
+    <div>
+      <ListRegister handleOptionSelect={handleOptionSelect} />
+    </div>
 
-                  <div className="px-1 pb-1 pt-1 justify-center align-middle items-center">
-                    <div className="flex items-center">
-                      <ListRegister handleOptionSelect={handleOptionSelect} />
-                    </div>
-                  </div>
-                 
-                 
+    {/* Campo Password */}
+    <div>
+      <label
+        htmlFor="password"
+        className="block mb-2 text-sm font-medium text-gray-400"
+      >
+        Password*
+      </label>
+      <input
+        id="password"
+        type="password"
+        placeholder="Insere a tua password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+        required
+      />
+    </div>
 
-                  <div>
-        <label className="block mb-1 text-sm font-medium text-gray-500" htmlFor="password">
-          Password *
-        </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Insere a tua password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-900 focus:border-pink-900 block w-full p-3"
-          required
-        />
-      </div>
-
-                  {/* <div className="items-center">
-                    <p className="text-pink-900 py-2">
-                      Confirma a tua Password*{" "}
-                    </p>
-                    <input
-                      type="password"
-                      className="w-full bg-gray-700 py-2 rounded-md pl-4 text-gray-600 outline-pink-900"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Confirme a sua password"
-                    />
-                  </div> */}
-
-
-
-                  <div className="mt-6">
-        <label className="block mb-2 text-sm font-medium text-gray-600" htmlFor="password">
+    {/* Confirmação de Password */}
+    <div>
+      <label
+        htmlFor="confirmPassword"
+        className="block mb-2 text-sm font-medium text-gray-400"
+      >
         Confirma a tua Password*
-        </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Insere a tua password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="shadow-sm bg-gray-700 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-900 focus:border-pink-900 block w-full p-3"
-          required
-        />
-      </div>
+      </label>
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirma a tua password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+        required
+      />
+    </div>
 
+    {/* Botão Criar Conta */}
+    <div className="mt-6">
+      <button
+        type="button"
+        onClick={handleRegister}
+        className="w-full py-3 px-6 bg-pink-500 hover:bg-pink-400 text-white text-sm font-semibold rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-300"
+      >
+        Cria a tua conta
+      </button>
+    </div>
+  </form>
+</div>
 
-
-
-
-
-
-
-
-                </div>
-              </div>
-              <div className="flex justify-center px-8 my-4">
-                <button
-                  onClick={handleRegister}
-                  className="flex justify-center items-center rounded-md cursor-pointer text-gray-600 w-56 bg-pink-900 py-2 mb-4 hover:bg-pink-900"
-                >
-                  Cria a tua conta
-                </button>
-              </div>
-            </div>
           </div>
       </div>
     </div>

@@ -351,3 +351,56 @@ export const deleteStory = async (storyURL: string, userUID: string) => {
     throw error;
   }
 };
+
+
+
+// FETCH PROFILES FIRST PAGE 
+
+export async function fetchProfilesMain() {
+  try {
+    // Buscar apenas os dados principais do perfil (nome, cidade, foto, verificação)
+    const { data: profilesData, error: profilesError } = await supabase
+      .from("ProfilesData")
+      .select("userUID, nome, cidade, certificado")  // Buscar apenas os dados necessários
+      .eq('status', true); // Filtro de status
+
+    if (profilesError) {
+      throw profilesError;
+    }
+
+    // Buscar apenas a foto principal (pode ajustar conforme sua estrutura)
+    const { data: photosData, error: photosError } = await supabase
+      .from("profilephoto")
+      .select("userUID, imageurl") // Supondo que você tenha uma coluna 'imageurl' para as fotos
+       // Filtra para pegar apenas a foto principal
+
+    if (photosError) {
+      throw photosError;
+    }
+
+    // Agora, combine os dados para garantir que todos os campos estão presentes
+    const combinedProfiles = profilesData.map((profile) => {
+      const mainPhoto = photosData.find(photo => photo.userUID === profile.userUID);
+      return {
+        nome: profile.nome,
+        cidade: profile.cidade,
+        certificado: profile.certificado,
+        photos: mainPhoto ? [mainPhoto.imageurl] : [], // Convertendo foto para um array
+        stories: [], // Preenchendo stories como array vazio
+        tag: "", // Preenchendo tag com uma string vazia
+        tagtimestamp: "", // Preenchendo tagtimestamp com uma string vazia
+        userUID: profile.userUID, // Incluindo o userUID
+        photo: mainPhoto ? mainPhoto.imageurl : "", // Definindo a foto principal
+      };
+    });
+
+    console.log("Perfis combinados com fotos principais:", combinedProfiles);
+    return combinedProfiles;
+  } catch (error) {
+    console.error("Error fetching profiles:", error.message);
+    throw error;
+  }
+}
+
+
+// END FETCH PROFILES FIRST PAGE. 

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic"; // Importação do dynamic
 import Link from "next/link";
-import { fetchProfiles } from "@/services/profileService";
+import { fetchProfilesMain } from "@/services/profileService";
 import "../styles/globals.min.css";
 import Map from "@/components/Map" 
 
@@ -12,6 +12,7 @@ const InfoCard = dynamic(() => import('@/components/InfoCard'), { ssr: false });
 const LastAnnounce = dynamic(() => import('@/components/LastAnnounce'), { ssr: false });
 const MainCard = dynamic(() => import('@/components/MainCard'), { ssr: false });
 const Maiores = dynamic(() => import('@/components/Maiores'), { ssr: false }); // Se você quiser carregar o Maiores de forma dinâmica também
+
 
 interface Profile {
   nome: string;
@@ -23,15 +24,18 @@ interface Profile {
   certificado: boolean;
 }
 
+
+
 const Dashboard: React.FC = () => {
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [showMaiores, setShowMaiores] = useState(false);
+
   
   useEffect(() => {
     async function fetchData() {
       try {
-        const combinedProfiles = await fetchProfiles();
+        const combinedProfiles = await fetchProfilesMain();
         setProfiles(combinedProfiles);
       } catch (error: any) {
         console.error("Error fetching profiles:", error.message);

@@ -3,9 +3,9 @@ import { useState } from "react";
 
 function Privacidade() {
   return (
-    <div className="text-gray-400 bg-gray-900 dark:bg-gray-800 mx-auto max-w-5xl p-8  rounded-lg shadow-lg font-sans space-y-12">
+    <div className="text-gray-400  bg-gray-800 mx-4 my-10 md:mt-44 md:mx-auto max-w-5xl p-8  rounded-lg shadow-lg font-sans space-y-12">
       <h1 className="text-center text-4xl font-bold mb-12 border-b border-gray-700 pb-4 text-pink-500">
-        Política de Privacidadesss
+        Política de Privacidade 
       </h1>
 
       {/** SEÇÕES DA POLÍTICA */}

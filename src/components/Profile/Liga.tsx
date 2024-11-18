@@ -84,7 +84,7 @@ const Liga: React.FC<LigaProps> = ({ selectedProfile, setShowLiga }) => {
         <div className="fixed inset-0 flex justify-center px-8 items-center bg-black bg-opacity-60 backdrop-blur-md z-50">
           <div
             ref={modalRef} // Vincula a referência ao modal
-            className="w-full max-w-md bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden"
+            className="w-full max-w-md bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="flex justify-between items-center mb-6">

@@ -3,50 +3,77 @@ import { useState, useEffect } from "react";
 
 function Termos({}) {
   return (
-    <div className="text-gray-200 bg-gray-900 dark:bg-gray-800 mx-36 p-8 rounded-lg shadow-lg font-sans space-y-12">
-      <h1 className="text-center text-4xl font-bold mb-12 border-b border-gray-700 pb-4">Termos e Condições Gerais de Uso e Aviso Legal</h1>
+    <div className="text-gray-200 bg-gray-800 mx-4 my-10 md:mt-20 md:mx-auto max-w-5xl p-8 rounded-lg shadow-2xl font-sans space-y-12">
+      {/* Título principal */}
+      <h1 className="text-center text-3xl md:text-5xl font-bold text-gray-100 mb-12 border-b-4 border-gray-600 pb-4">
+        Termos e Condições Gerais de Uso e Aviso Legal
+      </h1>
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2">1. OBJETO</h2>
-        <p>Este aviso legal regula o uso do site XGirl.pt, propriedade de  XGirl, LDA.</p>
-        <p>
+      {/* Seções */}
+      <section className="space-y-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-100 border-b border-gray-600 pb-2">
+          1. OBJETO
+        </h2>
+        <p className="leading-relaxed text-gray-300">
+          Este aviso legal regula o uso do site XGirl.pt, propriedade de XGirl, LDA.
+        </p>
+        <p className="leading-relaxed text-gray-300">
           O acesso e a navegação no site atribuem automaticamente a condição de USUÁRIO e implicam a aceitação plena e sem reservas de todos os termos e condições publicadas neste aviso legal. O PROPRIETÁRIO DO SITE pode modificar estas condições sem prévio aviso, sendo as alterações publicadas e notificadas assim que possível.
         </p>
-        <p>
+        <p className="leading-relaxed text-gray-300">
           Recomenda-se que o USUÁRIO leia atentamente este conteúdo antes de usar os serviços e informações disponibilizados pelo site.
         </p>
-        <p>
+        <p className="leading-relaxed text-gray-300">
           O USUÁRIO compromete-se a utilizar o site em conformidade com as leis, boa-fé, ordem pública, práticas de mercado e este Aviso Legal, sendo responsável perante o PROPRIETÁRIO DO SITE ou terceiros por quaisquer danos decorrentes do não cumprimento dessa obrigação.
         </p>
-        <p>Qualquer uso não autorizado pode resultar na suspensão do acesso e uso do site.</p>
-      </section>
-
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2">2. IDENTIFICAÇÃO</h2>
-        <p>
-          <strong>Nome legal:</strong> XGirl.pt, LDA.<br />
-          <strong>NIF:</strong> 123456789<br />
-          <strong>Endereço:</strong> Rua da Liberdade, 123, 1.º andar, Bairro Central, Lisboa, Portugal.<br />
-          <strong>E-mail de contato:</strong> info@xgirl.pt
+        <p className="leading-relaxed text-gray-300">
+          Qualquer uso não autorizado pode resultar na suspensão do acesso e uso do site.
         </p>
       </section>
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2">3. COMUNICAÇÕES</h2>
-        <p>
+      {/* Seção 2 */}
+      <section className="space-y-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-100 border-b border-gray-600 pb-2">
+          2. IDENTIFICAÇÃO
+        </h2>
+        <p className="leading-relaxed text-gray-300">
+          <strong className="text-gray-200">Nome legal:</strong> XGirl.pt, LDA.<br />
+          <strong className="text-gray-200">NIF:</strong> 123456789<br />
+          <strong className="text-gray-200">Endereço:</strong> Rua da Liberdade, 123, 1.º andar, Bairro Central, Lisboa, Portugal.<br />
+          <strong className="text-gray-200">E-mail de contato:</strong> info@xgirl.pt
+        </p>
+      </section>
+
+      {/* Seção 3 */}
+      <section className="space-y-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-100 border-b border-gray-600 pb-2">
+          3. COMUNICAÇÕES
+        </h2>
+        <p className="leading-relaxed text-gray-300">
           Os meios de contato são:<br />
-          <strong>Telefone:</strong> +351 910253456<br />
-          <strong>E-mail:</strong> info@xgirl.pt
+          <strong className="text-gray-200">Telefone:</strong> +351 910253456<br />
+          <strong className="text-gray-200">E-mail:</strong> info@xgirl.pt
         </p>
-        <p>Todas as comunicações entre USUÁRIO e PROPRIETÁRIO DO SITE serão consideradas válidas quando feitas por qualquer um dos meios mencionados acima.</p>
+        <p className="leading-relaxed text-gray-300">
+          Todas as comunicações entre USUÁRIO e PROPRIETÁRIO DO SITE serão consideradas válidas quando feitas por qualquer um dos meios mencionados acima.
+        </p>
       </section>
 
-      <section className="space-y-6">
-        <h2 className="text-2xl font-semibold border-b border-gray-700 pb-2">4. CONDIÇÕES DE ACESSO E USO</h2>
-        <p>O acesso ao site e aos seus serviços é gratuito. No entanto, alguns serviços podem exigir o preenchimento prévio de formulários de registro.</p>
-        <p>O USUÁRIO declara que todas as informações fornecidas são verdadeiras e autênticas, sendo o único responsável por qualquer informação falsa ou imprecisa.</p>
-        <p>O USUÁRIO compromete-se a utilizar de forma adequada os conteúdos e serviços do site, abstendo-se de:</p>
-        <ul className="list-disc list-inside ml-6 space-y-2">
+      {/* Seção 4 */}
+      <section className="space-y-8">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-100 border-b border-gray-600 pb-2">
+          4. CONDIÇÕES DE ACESSO E USO
+        </h2>
+        <p className="leading-relaxed text-gray-300">
+          O acesso ao site e aos seus serviços é gratuito. No entanto, alguns serviços podem exigir o preenchimento prévio de formulários de registro.
+        </p>
+        <p className="leading-relaxed text-gray-300">
+          O USUÁRIO declara que todas as informações fornecidas são verdadeiras e autênticas, sendo o único responsável por qualquer informação falsa ou imprecisa.
+        </p>
+        <p className="leading-relaxed text-gray-300">
+          O USUÁRIO compromete-se a utilizar de forma adequada os conteúdos e serviços do site, abstendo-se de:
+        </p>
+        <ul className="list-disc list-inside ml-6 text-gray-300 space-y-2">
           <li>Divulgar conteúdos que sejam ilegais, violentos, pornográficos, discriminatórios ou contrários à lei e à ordem pública.</li>
           <li>Inserir vírus ou programas que possam danificar os sistemas do site ou de terceiros.</li>
           <li>Tentar acessar áreas restritas dos sistemas do site ou de terceiros e extrair dados não autorizados.</li>

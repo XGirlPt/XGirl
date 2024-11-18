@@ -41,7 +41,7 @@ console.log("currentPhotoIndex", currentPhotoIndex)
         < Image
           src={`${selectedProfile?.photoURL[currentPhotoIndex] || "/logo.webp"}`}
           alt="Large Photo"
-          className="max-w-[80vw] max-h-[80vh] bg-red-500 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
+          className="max-w-[80vw] max-h-[80vh] bg-gray-800 transition-opacity duration-900 ease-in-out rounded-2xl blur-2xl"
           loading="lazy" 
           layout="responsive"
           width={100}

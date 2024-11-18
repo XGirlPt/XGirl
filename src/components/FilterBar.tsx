@@ -20,8 +20,8 @@ const FilterBar: React.FC<FilterBarProps> = ({ setSelectedDistrito }) => {
   };
 
   return (
-    <div className="w-full bg-[#1E2427] mb-8">
-      <div className="flex mx-auto md:mx-20 my-1 justify-between bg-[#1E2427] h-16 items-center">
+    <div className="w-full bg-gray-900 mb-8">
+      <div className="flex mx-auto md:mx-20 my-1 justify-between bg-gray-800 h-16 items-center">
         {setSelectedDistrito && (
           <ListDistritos setSelectedDistrito={setSelectedDistrito} />
         )}

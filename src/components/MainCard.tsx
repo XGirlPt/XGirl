@@ -79,7 +79,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
           className="group rounded-xl bg-gray-800 shadow-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl duration-300"
         >
           {/* Imagem e Badge */}
-          <div className="relative w-full h-64 bg-gray-700">
+          <div className="relative w-full h-64 bg-gray-800">
             {/* Live Sex Badge - Corrigido para verificar a condição corretamente */}
             {profile.live && (
               <div className="absolute flex top-4 left-4 bg-red-600 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 animate-pulse">
@@ -120,7 +120,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
           </div>
 
           {/* Rodapé com Tag e Tempo */}
-       <div className="bg-gray-900 dark:bg-gray-800 border-t border-gray-600 rounded-b-lg p-4 flex flex-col items-center">
+       <div className="bg-gray-800 border-t border-gray-600 rounded-b-lg p-4 flex flex-col items-center">
   {/* Tag com animação de atualização recente */}
   <div className="mb-2 flex items-center">
   <span

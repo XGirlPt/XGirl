@@ -7,7 +7,7 @@ import { pink } from "@mui/material/colors";
 const CheckDeslocacoes: React.FC = () => {
   return (
     <div>
-      <FormGroup className="flex flex-1 text-xs bg-[#1E2427] items-bottom gap-5">
+      <FormGroup className="flex flex-1 text-xs bg-gray-800 items-bottom gap-5">
         <div className="flex justify-between items-start">
           <div className="flex items-start">
             <FormControlLabel

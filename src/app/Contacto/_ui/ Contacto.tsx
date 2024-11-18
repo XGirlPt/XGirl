@@ -32,8 +32,8 @@ function Contacto() {
   };
 
   return (
-    <div className="text-gray-200 bg-gray-900 dark:bg-gray-800 mt-6 rounded-lg shadow-lg w-full max-w-xl mx-auto px-4 py-6 font-sans space-y-4">
-      <section className="bg-gray-900 dark:bg-gray-800 rounded-lg p-6 md:p-8">
+    <div className="text-gray-200 bg-gray-900  mt-6 rounded-lg shadow-lg w-full max-w-xl mx-auto px-4 py-6 font-sans space-y-4">
+      <section className="bg-gray-800 rounded-lg p-6 md:p-8">
         <h1 className="text-3xl md:text-4xl font-extrabold text-center text-pink-800 mb-4">Contato</h1>
         <h2 className="text-sm font-light text-center text-gray-400 mb-6">
           Tem alguma dúvida? Envie-nos uma mensagem e responderemos em até 24 horas.

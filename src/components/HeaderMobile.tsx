@@ -20,6 +20,8 @@ import ModificarFotos from "@/app/minha-conta/_ui/ModificarFotos";
 import ModificarStories from "@/app/minha-conta/_ui/ModificarStories";
 import ModificarPerfil from "@/app/minha-conta/_ui/ModificarPerfil"; // Certifique-se que o caminho está correto
 import ModificarContacto from "@/app/minha-conta/_ui/ModificarContacto";
+import { BiSolidMessageSquareAdd } from "react-icons/bi";
+
 
 const HeaderMobile: React.FC = () => {
   const router = useRouter();
@@ -149,26 +151,34 @@ const HeaderMobile: React.FC = () => {
 
 
       {/* Menu fixo na parte inferior */}
-      <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 text-white shadow-lg z-50">
+      <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 opacity-90 text-white shadow-lg z-50">
         <div className="flex justify-around items-center h-16">
           <Link href="/" aria-label="Ir para Home">
             <div className="flex flex-col items-center">
               <FontAwesomeIcon icon={faHome} className="text-xl" />
-              <span className="text-xs">Home</span>
+              <span className="text-xs"></span>
             </div>
           </Link>
           <Link href="/Acompanhantes" aria-label="Ver Acompanhantes">
             <div className="flex flex-col items-center">
               <FontAwesomeIcon icon={faUsers} className="text-xl" />
-              <span className="text-xs">Acompanhantes</span>
+              <span className="text-xs"></span>
             </div>
           </Link>
           <Link href="/Stories" aria-label="Abrir Stories">
             <div className="flex flex-col items-center">
-              <BiSolidMoviePlay className="text-xl" />
-              <span className="text-xs">Stories</span>
+              <BiSolidMessageSquareAdd className="text-xl" />
+              <span className="text-xs"></span>
             </div>
           </Link>
+
+          <Link href="/Stories" aria-label="Abrir Stories">
+            <div className="flex flex-col items-center">
+              <BiSolidMoviePlay className="text-xl" />
+              <span className="text-xs"></span>
+            </div>
+          </Link>
+
           <button
             onClick={handleLoginLogout}
             aria-label="Login"
@@ -176,7 +186,7 @@ const HeaderMobile: React.FC = () => {
           >
             <FontAwesomeIcon icon={faSignInAlt} className="text-xl" />
             <span className="text-xs">
-              {emailReduxProfile ? "Logout" : "Login"}
+              {emailReduxProfile ? "" : ""}
             </span>
           </button>
         </div>
@@ -263,6 +273,9 @@ const HeaderMobile: React.FC = () => {
                 <FontAwesomeIcon icon={faCogs} className="mr-3" />
                 Definições
               </Link>
+             
+
+
               <button
                 onClick={() => {
                   handleLoginLogout();

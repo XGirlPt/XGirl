@@ -51,7 +51,7 @@ const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
 
   
   return (
-    <aside className="bg-gradient-to-b from-gray-900 to-gray-700 px-6 mt-10 w-72 shadow-xl flex flex-col">
+    <aside className="bg-gray-800 px-6 mt-10 w-72 shadow-xl flex flex-col">
       <div className="flex justify-center mb-14">
         <Image
           src="/photos/logo1.png"

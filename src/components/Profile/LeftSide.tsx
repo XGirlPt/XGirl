@@ -118,7 +118,7 @@ const LeftSide: React.FC<LeftSideProps> = ({
         )}
 
         <div className="flex justify-center items-center w-full absolute -mt-16">
-          <div className=" bg-gray-800 h-42 md:w-3/4 p-6 px-6 rounded-2xl border border-gray-600 justify-center items-center">
+          <div className=" bg-gray-800 h-42 w-5/6 md:w-3/4 p-6 px-6 rounded-2xl border border-gray-600 justify-center items-center">
             <div>
               <p className="text-yellow-500 text-xs underline italic text-center mb-2">
                 Last Status

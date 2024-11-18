@@ -11,10 +11,10 @@ const ServicosPrestados: React.FC<ServicosPrestadosProps> = ({
   const servico = selectedProfile?.servico;
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 py-6 w-full px-10  border border-zinc-700 rounded-3xl">
+    <div className="bg-gray-800 grid gap-2 py-6 w-full px-10  border border-zinc-700 rounded-3xl">
       <p className="text-pink-600 text-2xl mb-2">Serviços Prestados</p>
       {servico && Array.isArray(servico) ? (
-        <div className="grid grid-cols-3 gap-3 w-full">
+        <div className="grid grid-cols- md:grid-cols-3 gap-3 w-full">
           {servico.map((servicoItem, index) => (
             <div key={index} className="flex items-center text-white">
               <FaCheck className="text-green-600 mr-2" /> {/* Visto verde */}

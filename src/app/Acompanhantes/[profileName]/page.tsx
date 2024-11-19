@@ -292,7 +292,7 @@ console.log("stories RDX", storiesRDX)
 
                 <ServicosPrestados selectedProfile={selectedProfile} />
 
-                <div className="bg-gray-900 dark:bg-gray-800 grid gap-2 items-center  py-6 w-full px-10  border border-zinc-700 rounded-3xl">
+                <div className="bg-gray-800 grid gap-2 items-center  py-6 w-full px-10  border border-zinc-700 rounded-3xl">
                   <p className="text-pink-700 text-2xl">Descrição</p>
                   <div className="gap-4 mt-6">
                     <div

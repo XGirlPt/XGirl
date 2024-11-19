@@ -82,7 +82,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
           <div className="relative w-full h-64 bg-gray-800">
             {/* Live Sex Badge - Corrigido para verificar a condição corretamente */}
             {profile.live && (
-              <div className="absolute flex top-4 left-4 bg-red-600 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 animate-pulse">
+              <div className="absolute flex top-4 left-2 md:left-4 bg-red-600 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 animate-pulse">
                 <MdFiberManualRecord className="text-white mr-1 text-xs items-center" />
                 <span className="text-xs">Live Cam</span>
               </div>
@@ -90,7 +90,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
 
             {/* Stories Badge - Corrigido para verificar se stories existe e tem conteúdo */}
             {Array.isArray(profile.stories) && profile.stories.length > 0 && (
-              <div className="absolute top-4 right-4 bg-pink-800 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 flex items-center">
+              <div className="absolute top-4 right-2 md:right-4 bg-pink-800 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 flex items-center">
                 <FaVideo className="text-white mr-1 text-xs" />
                 <span className="text-xs">Stories</span>
               </div>

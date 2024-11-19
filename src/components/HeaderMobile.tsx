@@ -21,6 +21,8 @@ import ModificarStories from "@/app/minha-conta/_ui/ModificarStories";
 import ModificarPerfil from "@/app/minha-conta/_ui/ModificarPerfil"; // Certifique-se que o caminho está correto
 import ModificarContacto from "@/app/minha-conta/_ui/ModificarContacto";
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import ModalAtualizarTagProps from "@/components/ModalAtualizarTagProps";
+
 
 
 const HeaderMobile: React.FC = () => {
@@ -29,6 +31,10 @@ const HeaderMobile: React.FC = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+
+
+
+
 
   const emailReduxProfile = useSelector(
     (state: any) => state.profile?.profile?.email
@@ -103,6 +109,15 @@ const HeaderMobile: React.FC = () => {
     setShowModifyContacto(false);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTag, setNewTag] = useState("");
+
+  const handleSaveTag = (tag: string) => {
+    console.log("Nova tag salva:", tag);
+    setNewTag(tag);
+    // Aqui você pode chamar a função `handleAtualizarEstado` ou qualquer outra para salvar no banco
+  };
+
 
   return (
     <>
@@ -150,48 +165,66 @@ const HeaderMobile: React.FC = () => {
       {showModifyContacto && <ModificarContacto handleVoltar={handleVoltarContacto} />}
 
 
-      {/* Menu fixo na parte inferior */}
-      <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 opacity-90 text-white shadow-lg z-50">
-        <div className="flex justify-around items-center h-16">
-          <Link href="/" aria-label="Ir para Home">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faHome} className="text-xl" />
-              <span className="text-xs"></span>
-            </div>
-          </Link>
-          <Link href="/Acompanhantes" aria-label="Ver Acompanhantes">
-            <div className="flex flex-col items-center">
-              <FontAwesomeIcon icon={faUsers} className="text-xl" />
-              <span className="text-xs"></span>
-            </div>
-          </Link>
-          <Link href="/Stories" aria-label="Abrir Stories">
-            <div className="flex flex-col items-center">
-              <BiSolidMessageSquareAdd className="text-xl" />
-              <span className="text-xs"></span>
-            </div>
-          </Link>
-
-          <Link href="/Stories" aria-label="Abrir Stories">
-            <div className="flex flex-col items-center">
-              <BiSolidMoviePlay className="text-xl" />
-              <span className="text-xs"></span>
-            </div>
-          </Link>
-
-          <button
-            onClick={handleLoginLogout}
-            aria-label="Login"
-            className="flex flex-col items-center focus:outline-none"
-          >
-            <FontAwesomeIcon icon={faSignInAlt} className="text-xl" />
-            <span className="text-xs">
-              {emailReduxProfile ? "" : ""}
-            </span>
-          </button>
-        </div>
+    {/* Menu fixo na parte inferior */}
+<div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 opacity-90 text-white shadow-lg z-50">
+  <div className="flex justify-around items-center h-16">
+    {/* Link para Home */}
+    <Link href="/" aria-label="Ir para Home">
+      <div className="flex flex-col items-center">
+        <FontAwesomeIcon icon={faHome} className="text-xl" />
+        <span className="text-xs"></span>
       </div>
+    </Link>
 
+    {/* Link para Acompanhantes */}
+    <Link href="/Acompanhantes" aria-label="Ver Acompanhantes">
+      <div className="flex flex-col items-center">
+        <FontAwesomeIcon icon={faUsers} className="text-xl" />
+        <span className="text-xs"></span>
+      </div>
+    </Link>
+
+    {/* Botão para abrir o modal "Alterar Estado" */}
+    <div className="flex flex-col items-center">
+      <button
+        onClick={() => setIsModalOpen(true)}
+        aria-label="Alterar Estado"
+        className="flex flex-col items-center focus:outline-none"
+      >
+        <BiSolidMessageSquareAdd className="text-xl" />
+        
+        
+      </button>
+    </div>
+
+    {/* Link para Stories */}
+    <Link href="/Stories" aria-label="Abrir Stories">
+      <div className="flex flex-col items-center">
+        <BiSolidMoviePlay className="text-xl" />
+        <span className="text-xs"></span>
+      </div>
+    </Link>
+
+    {/* Botão de Login/Logout */}
+    <button
+      onClick={handleLoginLogout}
+      aria-label={emailReduxProfile ? "Logout" : "Login"}
+      className="flex flex-col items-center focus:outline-none"
+    >
+      <FontAwesomeIcon icon={faSignInAlt} className="text-xl" />
+      <span className="text-xs">{emailReduxProfile ? "" : ""}</span>
+    </button>
+  </div>
+
+  {/* Modal "Alterar Estado" */}
+  {isModalOpen && (
+    <ModalAtualizarTagProps
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
+      onSave={handleSaveTag}
+    />
+  )}
+</div>
       {/* Menu lateral móvel */}
       {menuOpen && (
         <>

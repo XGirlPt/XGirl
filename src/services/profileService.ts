@@ -360,7 +360,8 @@ export async function fetchProfilesMain() {
     const { data: profilesData, error: profilesError } = await supabase
       .from("ProfilesData")
       .select("userUID, nome, cidade, certificado, tag, tagtimestamp, live") // Buscar apenas os dados necessários
-      .eq('status', true); // Filtro de status
+      .eq('status', true)
+      .limit(10); // Filtro de status
 
     if (profilesError) {
       throw profilesError;

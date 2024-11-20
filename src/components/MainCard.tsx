@@ -90,7 +90,7 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
 
             {/* Stories Badge - Corrigido para verificar se stories existe e tem conteúdo */}
             {Array.isArray(profile.stories) && profile.stories.length > 0 && (
-              <div className="absolute top-4 right-2 md:right-4 bg-pink-800 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 flex items-center">
+              <div className="absolute top-4 right-2 md:right-3 bg-pink-800 text-white text-xs font-semibold py-1 px-2 rounded-full z-50 flex items-center">
                 <FaVideo className="text-white mr-1 text-xs" />
                 <span className="text-xs">Stories</span>
               </div>

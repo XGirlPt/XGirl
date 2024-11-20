@@ -16,7 +16,7 @@ const ServicosPrestados: React.FC<ServicosPrestadosProps> = ({
       {servico && Array.isArray(servico) ? (
         <div className="grid grid-cols- md:grid-cols-3 gap-3 w-full">
           {servico.map((servicoItem, index) => (
-            <div key={index} className="flex items-center text-white">
+            <div key={index} className="flex items-center text-sm text-white">
               <FaCheck className="text-green-600 mr-2" /> {/* Visto verde */}
               {servicoItem}{" "}
               {/* Renderiza cada serviço em uma linha separada, trim() remove espaços em branco */}

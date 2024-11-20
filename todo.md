@@ -75,12 +75,12 @@ Varios
 - [X] Footer
 - [] shuffle cards
 - [] link de registo tirar email e uid
-- [] foto loading profile
+- [X] foto loading profile
 - [X] login auto
 - [X] Retirar Froala
-- [] adicionar "stories icon" nas cards dos perfis que teem stories
+- [X] adicionar "stories icon" nas cards dos perfis que teem stories
 - [] email de confirmacao ao login 
-- [] login page screen full em md
+- [X] login page screen full em md
 - [] melhorar login page sm
 - [] comentario a funcionar
 

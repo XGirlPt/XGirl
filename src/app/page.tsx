@@ -76,7 +76,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="text-gray-600 bg-gray-900 w-full overflow-x-hidden ">
+    <div className="text-gray-600 bg-black w-full overflow-x-hidden ">
       {/* <div className="mt-2 w-full">
         {showMaiores && <Maiores setShowMaiores={handleCloseMaiores} />}
       </div> */}

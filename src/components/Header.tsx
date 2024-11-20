@@ -1,5 +1,3 @@
-"use client";
-/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef } from "react";
 import { IoIosOptions, IoIosArrowDown } from "react-icons/io";
 import { BiSolidMoviePlay } from "react-icons/bi";
@@ -8,8 +6,9 @@ import { logout } from "../actions/ProfileActions";
 import { logoutClubs } from "../actions/ClubsActions";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaCog, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import Image from "next/image";
+import SearchModal from "./SearchModal";
 
 interface HeaderProps {
   blur?: boolean;
@@ -30,8 +29,11 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
 
   const [filtroAberto, setFiltroAberto] = useState<boolean>(false);
   const [languageDropdownOpen, setLanguageDropdownOpen] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -63,6 +65,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setLanguageDropdownOpen(false);
     }
+    if (modalOpen && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setModalOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -70,23 +75,23 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [modalOpen]);
 
   return (
     <nav className="hidden md:block fixed h-24 flex top-0 w-full z-40">
       {/* Header Principal */}
-      <div className="w-full bg-black h-24 flex justify-center items-center shadow-md">
-  <Link href="/" aria-label="Ir para a página inicial">
-  <Image 
+      <div className="w-full bg-black h-20 flex justify-center items-center shadow-md">
+        <Link href="/" aria-label="Ir para a página inicial">
+          <Image 
             src="/logo.webp"   
             alt="Logo" 
             width={200}
-            height={200} // Preenche o contêiner
+            height={200}
             priority
-            style={{ objectFit: 'contain' }} // Usar CSS em linha ou className para controlar o ajuste
+            style={{ objectFit: 'contain' }}
           />
-  </Link>
-</div>
+        </Link>
+      </div>
 
       {/* Navegação */}
       <div className="w-full bg-pink-800">
@@ -131,8 +136,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
           {/* Barra de Pesquisa */}
           <div className="relative py-2 px-2">
             <input
-              type="text "
+              type="text"
               placeholder="Buscar..."
+              onClick={() => setModalOpen(true)} // Abrir o modal ao clicar
               className="px-4 py-1 w-64 text-sm bg-white text-gray-300 rounded-lg focus:outline-none focus:bg-gray-300 placeholder-gray-800"
             />
           </div>
@@ -214,7 +220,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                         className="flex items-center px-5 py-3 hover:bg-pink-800 cursor-pointer transition duration-200"
                       >
                         <FaSignOutAlt className="mr-2" />
-                        Logout
+                        Sair
                       </li>
                     </ul>
                   )}
@@ -224,6 +230,14 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
           </div>
         </div>
       </div>
+
+      {/* Passando modalOpen para o SearchModal */}
+      <SearchModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
     </nav>
   );
 };

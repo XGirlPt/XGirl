@@ -15,17 +15,21 @@ interface Profile {
   tag: string;
   tagtimestamp: string;
   certificado: boolean;
-  live: boolean | string; // live pode ser booleano ou string
+  live: boolean | string;
+   // live pode ser booleano ou string
 }
 
 interface MainCardProps {
   profiles: Profile[];
   currentPage: number; // Página atual
-  itemsPerPage: number; // Itens por página
+  itemsPerPage: number; 
+  onProfileClick: () => void;
+ 
 }
 
-const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage }) => {
+const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage, onProfileClick }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
+ 
 
   const formatTimeElapsed = (minutesElapsed: number): string => {
     const hoursElapsed = minutesElapsed / 60;
@@ -71,12 +75,13 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
   const paginatedProfiles = profiles.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-6 md:gap-8 mt-10 pb-16">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-6 md:gap-8 mt-4 pb-16">
       {paginatedProfiles.map((profile, index) => (
         <Link
           key={index}
           href={`/Acompanhantes/${profile.nome}`}
           className="group rounded-xl bg-gray-800 shadow-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl duration-300"
+          onClick={onProfileClick} 
         >
           {/* Imagem e Badge */}
           <div className="relative w-full h-64 bg-gray-800">
@@ -124,18 +129,20 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
   {/* Tag com animação de atualização recente */}
   <div className="mb-2 flex items-center">
   <span
-  className={`text-xs font-medium text-gray-200 px-3 py-1 rounded-full bg-gray-800 ${profile.tagtimestamp && timeElapsedList[index] && timeElapsedList[index].includes("há") ? "animate-pulse" : ""}`}
->
-&quot;{profile.tag}&quot;
-</span>
-    <RiMessage2Fill className="text-yellow-500 text-md ml-2" />
-  </div>
+    className={`text-xs font-medium text-gray-200 px-3 py-1 rounded-full bg-gray-800 ${profile.tagtimestamp && timeElapsedList[index] && timeElapsedList[index].includes("há") ? "animate-pulse" : ""}`}
+  >
+    &quot;{profile.tag}&quot;
+  </span>
+  {/* Tamanho fixo para o ícone */}
+</div>
 
   {/* Mostrar o tempo de atualização */}
   <div className="flex items-center space-x-2">
     <p className="text-yellow-500 text-xs">
       {timeElapsedList[index]} {/* Tempo desde que a tag foi atualizada */}
     </p>
+    <RiMessage2Fill className="text-yellow-500 ml-2" />
+
   </div>
 </div>
         </Link>

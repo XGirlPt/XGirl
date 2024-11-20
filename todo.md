@@ -33,8 +33,8 @@ Perfil:
 - [X] certificado melhorar 
 - [X] toogle link copiado
 - [X] se nao houver story nao deve aparecer o titulo.
-- [] adicionar seccao comentarios
-- [] versao movel
+- [X] adicionar seccao comentarios
+- [X] versao movel
 
 
 Stories: 

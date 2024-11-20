@@ -7,8 +7,8 @@ const InfoCard: React.FC = () => {
   return (
     <div className="bg-gray-900  w-full rounded-xl h-full mb-2 flex justify-center">
       <div className="flex flex-wrap justify-center gap-4 mt-6">
-        <div className="flex flex-col h-72 justify-center items-center w-full sm:w-80 md:w-82">
-          <div className="rounded-lg shadow-lg bg-gray-800  p-4 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
+      <div className="flex flex-col h-72 justify-center items-center w-full  md:w-82" style={{minHeight: '280px'}}>
+      <div className="rounded-lg shadow-lg bg-gray-800  p-4 border border-gray-600 flex flex-col justify-center items-center transition-transform transform hover:scale-105 hover:shadow-xl">
             <p className="font-bold text-2xl mb-4 text-white">2103 Utilizadores</p>
             <p className="font-medium text-gray-300 mb-6 text-sm text-center">
               Descobre escorts de TOP, massagistas e outros serviços na tua zona

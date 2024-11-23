@@ -67,26 +67,34 @@ Definicoes:
 - [X] fazer componentes
 
 Varios
-- [] Barra de Search
+- [X] Barra de Search
 - [] Filtros
 - [] Link header a funcionar e filtrar correctamente
 - [X] melhorar certificado 
 - [] login supabase e google
 - [X] Footer
 - [] shuffle cards
-- [] link de registo tirar email e uid
+- [] url link de registo tirar email e uid
 - [X] foto loading profile
 - [X] login auto
 - [X] Retirar Froala
 - [X] adicionar "stories icon" nas cards dos perfis que teem stories
 - [] email de confirmacao ao login 
 - [X] login page screen full em md
-- [] melhorar login page sm
-- [] comentario a funcionar
+- [X] melhorar login page sm
+- [X] comentario a funcionar
+- [] rever todos os filtros
+- [] live cam ok  com registo, e base de dados
+- [] google maps
+- [] api google .env
+
 
 Paginas
 - [X] Termos e Condicoes
 - [X] Politica e Privacidade
 - [X] Contacto
 
+Mobile
+- [] Definicoes
+- [] refazer menu login/logout
 

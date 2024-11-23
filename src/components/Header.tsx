@@ -9,6 +9,7 @@ import Link from "next/link";
 import { FaUser, FaCog, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import SearchModal from "./SearchModal";
+import Filtro from "./Filtro"
 
 interface HeaderProps {
   blur?: boolean;
@@ -78,9 +79,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   }, [modalOpen]);
 
   return (
-    <nav className="hidden md:block fixed h-24 flex top-0 w-full z-40">
+    <nav className="hidden md:block fixed flex h-10 top-0 w-full z-40 ">
       {/* Header Principal */}
-      <div className="w-full bg-black h-20 flex justify-center items-center shadow-md">
+      <div className="w-full bg-black h-16  flex justify-center items-center shadow-md">
         <Link href="/" aria-label="Ir para a página inicial">
           <Image 
             src="/logo.webp"   
@@ -94,8 +95,8 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       </div>
 
       {/* Navegação */}
-      <div className="w-full bg-pink-800">
-        <div className="flex mx-auto px-5 md:px-10 h- items-center justify-between">
+      <div className="w-full bg-pink-800 ">
+        <div className="flex mx-auto px-5 md:px-10 items-center justify-between">
           {/* Links de navegação */}
           <div className="flex space-x-5 h-full text-md">
             <Link
@@ -130,8 +131,8 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               <IoIosOptions className="mr-2" />
               Filtros
             </button>
-            {filtroAberto && <div> {/* Filtro Component */} </div>}
-          </div>
+            {filtroAberto && <Filtro />}
+            </div>
 
           {/* Barra de Pesquisa */}
           <div className="relative py-2 px-2">

@@ -191,12 +191,12 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   console.log("photoURLsRedux", photoURLsRedux)
 
   return (
-    <div className="bg-gray-900 text-gray-100 h-sreen">
-       <ToastContainer />
+    <div className="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+      <ToastContainer />
       {/* Notification Bar */}
       {renderNotification()}
-
-      <div className="flex ">
+  
+      <div className="flex flex-grow">
         {/* Sidebar */}
         <BarConta
           BarOpen={BarOpen}
@@ -206,145 +206,142 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           showContacto={showContacto}
           handleFotos={() => setShowFotos(true)}
           showFotos={showFotos}
-          // handleDefinicoes={() => {}}
           handleVerPerfil={() => {}}
           handleStories={() => setShowStories(true)}
           showStories={showStories}
         />
-
+  
         {/* Main Content */}
         <main
-          className={`flex-1 pb-20 transition-all duration-300 ${
+          className={`flex-1 pb-10 transition-all duration-300 ${
             BarOpen ? "ml-64" : ""
           }`}
-          style={{ marginTop: "80px" }} // Margin-top adjusted to accommodate header height
+          style={{ marginTop: "80px" }}
         >
-
-{activeContent === "definicoes" ? (
-          <Definicoes /> // Renderiza o componente de definições
-        ) : (
-          <div className="flex flex-col items-center">
-          {/* Profile Header */}
-          <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
-            <div className="flex flex-col md:flex-row items-center">
-              <div className="relative w-32 h-32 mb-4 md:mb-0 md:mr-6">
-                {photoURLsRedux?.length > 0 ? (
-                  <BlurImage
-                    src={photoURLsRedux[0]}
-                    alt={`Foto de ${nomeRedux}`}
-                    className="w-full h-full rounded-full object-cover shadow-md"
+          {activeContent === "definicoes" ? (
+            <Definicoes />
+          ) : (
+            <div className="flex flex-col items-center space-y-6">
+              {/* Profile Header */}
+              <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-lg p-6">
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                  <div className="relative w-32 h-32">
+                    {photoURLsRedux?.length > 0 ? (
+                      <BlurImage
+                        src={photoURLsRedux[0]}
+                        alt={`Foto de ${nomeRedux}`}
+                        className="w-full h-full rounded-full object-cover shadow-lg"
+                      />
+                    ) : (
+                      <div className="w-full h-full rounded-full bg-gray-700 flex items-center justify-center">
+                        <FaUser className="text-5xl text-gray-400" />
+                      </div>
+                    )}
+                    <button
+                      className="absolute bottom-2 right-2 bg-pink-600 text-white p-2 rounded-full shadow-md hover:bg-pink-700 transition-colors"
+                      aria-label="Alterar foto de perfil"
+                    >
+                      <FaCamera />
+                    </button>
+                  </div>
+                  <div className="text-center md:text-left">
+                    <h1 className="text-3xl font-bold text-gray-200">
+                      {nomeRedux}
+                    </h1>
+                    <p className="flex items-center justify-center md:justify-start text-pink-500 mt-2">
+                      <FaMapMarkerAlt className="mr-2" />
+                      {cidadeRedux}
+                    </p>
+                    <p className="text-gray-400 mt-1">{tagRedux}</p>
+                    <p className="text-gray-300 mt-2">
+                      Visualizações do perfil: 1212
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              {/* Status Update */}
+              <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-lg p-6 space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-200 mb-4">
+                    Estado Atual
+                  </h2>
+                  <p className="text-gray-400 mb-4">
+                    {tagRedux || "Sem estado definido"}
+                  </p>
+                </div>
+  
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-200 mb-4">
+                    Atualiza o teu Estado
+                  </h2>
+                  <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input
+                      type="text"
+                      className="flex-1 p-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+                      value={newTag}
+                      onChange={(e) => setNewTag(e.target.value)}
+                      placeholder="Escreva o novo estado"
+                    />
+                    <button
+                      onClick={handleAtualizarEstado}
+                      className="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
+                    >
+                      Atualizar Estado
+                    </button>
+                  </div>
+                  <p className="text-green-400 mt-4">
+                    Tag atualizada com sucesso!
+                  </p>
+                </div>
+              </div>
+  
+              {/* Action Panels */}
+              <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-lg p-6">
+                {showModificar && (
+                  <ModificarPerfil
+                    handleVoltar={handleVoltar}
+                    onClose={() => setShowModificar(false)}
                   />
-                ) : (
-                  <div className="w-full h-full rounded-full bg-gray-600 flex items-center justify-center">
-                    <FaUser className="text-5xl text-gray-400" />
+                )}
+  
+                {showContacto && (
+                  <ModificarContacto
+                    handleVoltar={handleVoltar}
+                    onClose={() => setShowContacto(false)}
+                  />
+                )}
+  
+                {showFotos && (
+                  <div className="space-y-4">
+                    <ModificarFotos handleVoltar={handleVoltar} />
+                    <div className="flex justify-center gap-4">
+                      <button className="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors">
+                        Visualizar Fotos
+                      </button>
+                      <button className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md transition-colors">
+                        Remover Fotos
+                      </button>
+                    </div>
                   </div>
                 )}
-                <button className="absolute bottom-0 right-0 bg-pink-600 text-white p-2 rounded-full shadow-md hover:bg-pink-700 transition-colors">
-                  <FaCamera />
-                </button>
-              </div>
-              <div className="text-center md:text-left">
-                <h1 className="text-3xl font-bold">{nomeRedux}</h1>
-                <p className="flex items-center justify-center md:justify-start text-pink-600 mt-2">
-                  <FaMapMarkerAlt className="mr-2" />
-                  {cidadeRedux}
-                </p>
-                <p className="text-gray-400 mt-1">{tagRedux}</p>
-                <p className="text-gray-300 mt-2">Visualizações do perfil: 1212</p>
+  
+                {showStories && <ModificarStories handleVoltar={handleVoltar} />}
+  
+                {!showModificar && !showContacto && !showFotos && !showStories && (
+                  <div className="text-center text-gray-400">
+                    Selecione uma opção no menu para modificar as suas
+                    informações.
+                  </div>
+                )}
               </div>
             </div>
-            {/* Status Update */}
-            <div className="mt-6 bg-gray-700 p-4 rounded-lg">
-              <h2 className="text-xl font-semibold mb-2">Estado Atual</h2>
-              <p className="text-gray-300 mb-4">{tagRedux || "Sem estado definido"}</p>
-              <h2 className="text-xl font-semibold mb-2">Atualiza o teu Estado</h2>
-              <div className="flex flex-col sm:flex-row items-center">
-                <input
-                  type="text"
-                  className="w-full sm:w-auto flex-1 p-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  value={newTag}
-                  onChange={(e) => setNewTag(e.target.value)}
-                  placeholder="Escreva o novo estado"
-                />
-                <button
-                  onClick={handleAtualizarEstado}
-                  className="mt-2 sm:mt-0 sm:ml-4 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
-                >
-                  Atualizar Estado
-                </button>
-              </div>
-              
-                <p className="text-green-400 mt-2">Tag atualizada com sucesso!</p>
-              
-            </div>
-            
-            {/* Biography Section */}
-            <div className="mt-6 bg-gray-700 p-4 rounded-lg">
-              <h2 className="text-xl font-semibold mb-2">Biografia</h2>
-              <textarea
-                className="w-full p-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-                rows={3}
-                placeholder="Adicione uma breve biografia..."
-               
-              />
-              <button
-              
-                className="mt-2 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
-              >
-                Salvar Biografia
-              </button>
-            </div>
-          </div>
-        
-          {/* Action Panels */}
-          <div className="w-full max-w-4xl bg-gray-800 rounded-lg shadow-lg p-6">
-            {showModificar && (
-              <ModificarPerfil
-                handleVoltar={handleVoltar}
-                onClose={() => setShowModificar(false)}
-              />
-            )}
-        
-            {showContacto && (
-              <ModificarContacto
-                handleVoltar={handleVoltar}
-                onClose={() => setShowContacto(false)}
-              />
-            )}
-        
-            {showFotos && (
-              <div>
-                <ModificarFotos handleVoltar={handleVoltar} />
-                <button
-                  className="mt-2 px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
-                >
-                  Visualizar Fotos
-                </button>
-                <button
-                  className="mt-2 ml-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-md transition-colors"
-                >
-                  Remover Fotos
-                </button>
-              </div>
-            )}
-        
-            {showStories && (
-              <ModificarStories handleVoltar={handleVoltar} />
-            )}
-        
-            {!showModificar && !showContacto && !showFotos && !showStories && (
-              <div className="text-center text-gray-400">
-                Selecione uma opção no menu para modificar as suas informações.
-              </div>
-            )}
-          </div>
-        </div>
-        
-           )}
+          )}
         </main>
       </div>
     </div>
   );
+  
 };
 
 export default MinhaConta;

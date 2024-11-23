@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainCard from "./MainCard"; // Importando o componente de cards
-import { fetchProfilesMain } from "@/services/profileService"; // Serviço para buscar os perfis do Supabase
+import { fetchProfiles } from "@/services/profileService"; // Serviço para buscar os perfis do Supabase
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -28,14 +28,22 @@ const SearchModal: React.FC<SearchModalProps> = ({
   const [currentPage, setCurrentPage] = useState(1); // Estado para a página atual
   const itemsPerPage = 5; // Número de itens por página
   const [showMoreDistricts, setShowMoreDistricts] = useState(false); // Controla a exibição dos distritos extras
+  const safeSearchQuery = searchQuery?.toLowerCase() || "";
+
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const fetchedProfiles = await fetchProfilesMain();
-        setProfiles(fetchedProfiles);
+        const fetchedProfiles = await fetchProfiles();
+        if (Array.isArray(fetchedProfiles)) {
+          console.log("Perfis obtidos:", fetchedProfiles);
+          setProfiles(fetchedProfiles);
+        } else {
+          console.error("Os dados retornados não são um array:", fetchedProfiles);
+          setProfiles([]); // Define como array vazio em caso de erro
+        }
       } catch (error) {
-        console.error("Error fetching profiles:", error);
+        console.error("Erro ao buscar perfis:", error);
       }
     }
     fetchData();
@@ -43,12 +51,14 @@ const SearchModal: React.FC<SearchModalProps> = ({
 
   useEffect(() => {
     // Filtra os perfis com base no nome ou cidade
-    const filtered = profiles.filter((acompanhante) =>
-      acompanhante.nome.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      acompanhante.cidade.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filtered = profiles.filter((acompanhante) => {
+        if (!acompanhante || typeof acompanhante !== "object") return false;
+        const nome = acompanhante.nome?.toLowerCase() || "";
+        const distrito = acompanhante.distrito?.toLowerCase() || "";
+        return nome.includes(safeSearchQuery) || distrito.includes(safeSearchQuery);
+      });
     setFilteredProfiles(filtered);
-  }, [searchQuery, profiles]); // Refiltra sempre que searchQuery ou profiles mudam
+  }, [searchQuery, profiles]); /// Refiltra sempre que searchQuery ou profiles mudam
 
   // Lógica para paginar os perfis
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -78,7 +88,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
           <h1 className="text-lg md:text-xl text-white font-semibold">Buscar</h1>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-gray-700"
+            className="py-2 px-3 rounded-full hover:bg-gray-700"
           >
             <span className="text-gray-400 hover:text-pink-500 transition-colors">
               X

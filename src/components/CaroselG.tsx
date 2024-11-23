@@ -91,7 +91,7 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
     };
 
     return (
-      <div className="relative w-full">
+      <div className="relative w-full mt-4">
         <Slider ref={this.sliderRef} {...settings}
         className="">
           {profiles.map((profile, index) => (

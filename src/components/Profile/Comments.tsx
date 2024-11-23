@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import supabase from "@/database/supabase";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 type Comment = {
   id: number;
@@ -15,13 +16,14 @@ type CommentsProps = {
   userUID?: string; // Opcional
 };
 
-function Comments({ userUID }: CommentsProps) {
+function Comments({  }: CommentsProps) {
   const [comments, setComments] = useState<Comment[]>([]); // Tipagem de comments
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(0);
   const [authorName, setAuthorName] = useState("");
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false); // Controle da visibilidade do seletor de emojis
   const emojiInputRef = useRef<HTMLTextAreaElement | null>(null); // Ref para a área de texto
+  const userUID = useSelector((state: any) => state.profile?.profile.userUID);
 
   // Lista de emojis para o seletor
   const emojiList = ["😊", "😂", "😍", "😐", "😢", "😠", "😎", "🥳", "🤩", "🤔"];

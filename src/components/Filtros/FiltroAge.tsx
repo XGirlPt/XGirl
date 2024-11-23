@@ -1,11 +1,18 @@
 import React from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, Dispatch, SetStateAction } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { updateTatuagem } from "../../actions/ProfileActions"; // Ação para atualizar tatuagem
+import { useDispatch, useSelector } from "react-redux";
+
+interface FiltrosState {
+  age?: number[];
+}
 
 interface FiltroAgeProps {
   buttonPadding?: string;
   rounded?: string;
+  setFiltros: Dispatch<SetStateAction<FiltrosState>>;
 }
 
 const Idade = [
@@ -19,17 +26,25 @@ const Idade = [
 const FiltroAge: React.FC<FiltroAgeProps> = ({
   buttonPadding = "py-1",
   rounded = "rounded-md",
+  setFiltros,
 }) => {
+  const dispatch = useDispatch();
   return (
     <div className="w-full mb-2 md:mb-4">
       <Listbox
-        onChange={(selectedOption: any) => {
-          console.log("idade", selectedOption.name);
+        onChange={(selectedOption: { id: number; name: string }) => {
+          console.log("Idade selecionada:", selectedOption.name);
+
+          // Atualiza os filtros com o ID selecionado
+          setFiltros((prev) => ({
+            ...prev,
+            age: [selectedOption.id], // Substitua a lógica conforme necessário
+          }));
         }}
         name="idade"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Idade</p>
               <Listbox.Button
@@ -57,15 +72,16 @@ const FiltroAge: React.FC<FiltroAgeProps> = ({
                     ${open ? "block" : "hidden"} 
                   `}
                 >
-                  {Idade.map((method, methodIdx) => (
+                  {Idade.map((method) => (
                     <Listbox.Option
-                      key={methodIdx}
+                      key={method.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-1 md:pl-10 pl-3 pr-4 text-xs md:text- opacity-90 Z-10 ${
+                        `relative cursor-default select-none py-1 md:pl-10 pl-3 pr-4 text-xs md:text-sm opacity-90 ${
                           active ? "bg-zinc-500 text-white" : "text-gray-900"
                         }`
                       }
                       value={method}
+                      disabled={method.unavailable}
                     >
                       {({ selected }) => (
                         <>
@@ -77,7 +93,7 @@ const FiltroAge: React.FC<FiltroAgeProps> = ({
                             {method.name}
                           </span>
                           {selected && (
-                            <span className="absolute inset-y-0 left-0 flex items-center pl-3  text-pink-800 border-zinc-400">
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-pink-800">
                               <CheckIcon
                                 className="h-5 w-5"
                                 aria-hidden="true"
@@ -91,7 +107,7 @@ const FiltroAge: React.FC<FiltroAgeProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

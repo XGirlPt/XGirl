@@ -26,7 +26,7 @@ const FiltroPelos: React.FC<FiltroPelosProps> = ({
   const dispatch = useDispatch();
 
   const pelosRedux = useSelector(
-    (state: any) => state.profile && state.profile?.profile?.pelos
+    (state: any) => state.profile && state.profile?.profile?.pelos || null
   );
   console.log("pelos do redux", pelosRedux);
 
@@ -47,7 +47,7 @@ const FiltroPelos: React.FC<FiltroPelosProps> = ({
         name="pelos"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Pelos</p>
               <Listbox.Button
@@ -109,7 +109,7 @@ const FiltroPelos: React.FC<FiltroPelosProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

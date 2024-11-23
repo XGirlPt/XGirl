@@ -27,7 +27,7 @@ const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
   onChange,
 }) => {
   const dispatch = useDispatch();
-  const tarifaRedux = useSelector((state: any) => state.profile?.profile?.tarifa);
+  const tarifaRedux = useSelector((state: any) => state.profile?.profile?.tarifa || null);
 
   const handleTarifaChange = (newValue: number) => {
     dispatch(updateTarifa(newValue));
@@ -46,7 +46,7 @@ const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
         name="tarifa"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="block text-sm font-medium text-gray-300">Tarifa</p>
               <Listbox.Button
@@ -100,7 +100,7 @@ const FiltroTarifa: React.FC<FiltroTarifaProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

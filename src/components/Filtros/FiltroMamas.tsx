@@ -25,7 +25,7 @@ const FiltroMamas: React.FC<FiltroMamasProps> = ({
   onChange,
 }) => {
   const dispatch = useDispatch();
-  const mamasRedux = useSelector((state: any) => state.profile?.profile.mamas);
+  const mamasRedux = useSelector((state: any) => state.profile?.profile.mamas || null);
   console.log("mamas do redux", mamasRedux);
 
   const [mamasSelecionada, setMamasSelecionada] = useState(mamasRedux);
@@ -45,7 +45,7 @@ const FiltroMamas: React.FC<FiltroMamasProps> = ({
         name="mamas"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Mamas</p>
               <Listbox.Button
@@ -107,7 +107,7 @@ const FiltroMamas: React.FC<FiltroMamasProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

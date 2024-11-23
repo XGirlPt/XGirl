@@ -32,7 +32,7 @@ const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
   const dispatch = useDispatch();
 
   const olhosRedux = useSelector(
-    (state: any) => state.profile && state.profile?.profile?.olhos
+    (state: any) => state.profile && state.profile?.profile?.olhos || null
   );
   console.log("olhos do redux", olhosRedux);
 
@@ -51,7 +51,7 @@ const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
        
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Cor Olhos</p>
               <Listbox.Button
@@ -115,7 +115,7 @@ const FiltroOlhos: React.FC<FiltroOlhosProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

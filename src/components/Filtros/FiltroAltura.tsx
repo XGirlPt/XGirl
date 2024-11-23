@@ -28,7 +28,7 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
   const dispatch = useDispatch();
 
   const alturaRedux = useSelector(
-    (state: any) => state.profile?.profile?.altura
+    (state: any) => state.profile?.profile?.altura || null
   );
   console.log("Altura do redux", alturaRedux);
 
@@ -51,7 +51,7 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
         name="altura"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800 ">Altura</p>
               <Listbox.Button
@@ -117,7 +117,7 @@ const FiltroAltura: React.FC<FiltroAlturaProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

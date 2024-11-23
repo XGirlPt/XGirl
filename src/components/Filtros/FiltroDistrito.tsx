@@ -46,7 +46,7 @@ const FiltroDistrito: React.FC<FiltroDistritoProps> = ({
 }) => {
   const dispatch = useDispatch();
   const DistritoRedux = useSelector(
-    (state: any) => state.profile?.profile?.distrito
+    (state: any) => state.profile?.profile?.distrito || null
   );
   console.log("Distrito do Redux:", DistritoRedux);
 
@@ -63,7 +63,7 @@ const FiltroDistrito: React.FC<FiltroDistritoProps> = ({
         name="distrito"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Distrito</p>
               <Listbox.Button
@@ -127,7 +127,7 @@ const FiltroDistrito: React.FC<FiltroDistritoProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

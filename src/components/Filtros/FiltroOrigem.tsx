@@ -28,7 +28,7 @@ const FiltroOrigem: React.FC<FiltroOrigemProps> = ({
 }) => {
   const dispatch = useDispatch();
   const origemRedux = useSelector(
-    (state: any) => state.profile && state.profile?.profile?.origem
+    (state: any) => state.profile && state.profile?.profile?.origem || null
   );
   console.log("origem do redux", origemRedux);
 
@@ -47,7 +47,7 @@ const FiltroOrigem: React.FC<FiltroOrigemProps> = ({
         name="origem"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Origem</p>
               <Listbox.Button
@@ -111,7 +111,7 @@ const FiltroOrigem: React.FC<FiltroOrigemProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

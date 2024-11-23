@@ -7,7 +7,7 @@ import paypal from "../../public/photos/paypal.png"; // Ajuste o caminho conform
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 w-full py-8">
+    <footer className="bg-gray-800 w-full py-8 ">
       <div className="max-w-screen-xl mx-auto px-4 mb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
           {/* Logo */}

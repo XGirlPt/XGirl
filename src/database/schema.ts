@@ -160,11 +160,18 @@ export type Database = {
           altura: string | null
           cabelo: string | null
           certificado: string | null
+
           cidade: string | null
+          adress: string | null
+          distrito: string | null
+          latitude: number | null
+          longitude: number | null
+
+
           corpo: string | null
           description: string | null
           deslocacoes: string | null
-          distrito: string | null
+         
           email: string | null
           id: number
           idade: string | null

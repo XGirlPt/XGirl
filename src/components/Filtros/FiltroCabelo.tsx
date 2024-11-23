@@ -27,7 +27,7 @@ const FiltroCabelo: React.FC<FiltroCabeloProps> = ({
   const dispatch = useDispatch();
 
   const cabeloRedux = useSelector(
-    (state: any) => state.profile?.profile?.cabelo.name
+    (state: any) => state.profile?.profile?.cabelo.name || null
   );
   console.log("cabelo do redux", cabeloRedux);
 
@@ -49,7 +49,7 @@ const FiltroCabelo: React.FC<FiltroCabeloProps> = ({
         name="cabelo"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800 ">Cor Cabelo</p>
               <Listbox.Button
@@ -113,7 +113,7 @@ const FiltroCabelo: React.FC<FiltroCabeloProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

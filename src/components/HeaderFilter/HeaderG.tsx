@@ -49,7 +49,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
   const currentProfile = profiles[currentProfileIndex];
 
   return (
-    <div className="w-full bg-gray-900 dark:bg-gray-800 fixed z-20">
+    <div className="w-full bg-gray-800 fixed z-20">
       <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800 border-b border-gray-700" >
         {/* Botão Perfil Anterior */}
         <button

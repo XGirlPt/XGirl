@@ -26,7 +26,7 @@ const FiltroPeito: React.FC<FiltroPeitoProps> = ({
   const dispatch = useDispatch();
 
   const seiosRedux = useSelector(
-    (state: any) => state.profile && state.profile?.profile?.seios
+    (state: any) => state.profile && state.profile?.profile?.seios || null
   );
   console.log("seios do redux", seiosRedux);
 
@@ -47,7 +47,7 @@ const FiltroPeito: React.FC<FiltroPeitoProps> = ({
         name="seios"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Tamanho Seios</p>
               <Listbox.Button
@@ -111,7 +111,7 @@ const FiltroPeito: React.FC<FiltroPeitoProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

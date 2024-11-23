@@ -29,7 +29,7 @@ const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
   const dispatch = useDispatch();
 
   const corpoRedux = useSelector(
-    (state: RootState) => state.profile?.profile?.corpo
+    (state: RootState) => state.profile?.profile?.corpo || null
   );
   console.log("corpo do redux", corpoRedux);
 
@@ -51,7 +51,7 @@ const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
         name="corpo"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800 ">Corpo</p>
               <Listbox.Button
@@ -113,7 +113,7 @@ const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

@@ -29,7 +29,13 @@ export const SET_USER_ID = "SET_USER_ID";
 export const UPDATE_PAGAMENTO = "UPDATE_PAGAMENTO";
 export const UPDATE_SERVICO = "UPDATE_SERVICO";
 export const UPDATE_LINGUA = "UPDATE_LINGUA";
+
 export const UPDATE_CIDADE = "UPDATE_CIDADE";
+export const UPDATE_ADRESS = "UPDATE_ADRESS";
+export const UPDATE_LATITUDE = "UPDATE_LATITUDE";
+export const UPDATE_LONGITUDE = "UPDATE_LONGITUDE";
+
+
 export const UPDATE_TAG = "UPDATE_TAG"
 export const UPDATE_DESCRIPTION = "UPDATE_DESCRIPTION";
 
@@ -205,6 +211,22 @@ export const updateCidade = (cidade: any) => ({
   type: UPDATE_CIDADE,
   payload: cidade,
 });
+
+export const updateAdress = (adress: any) => ({
+  type: UPDATE_ADRESS,
+  payload: adress,
+});
+
+export const updateLatitude = (latitude: any) => ({
+  type: UPDATE_LATITUDE,
+  payload: latitude,
+});
+
+export const updateLongitude = (longitude: any) => ({
+  type: UPDATE_LONGITUDE,
+  payload: longitude,
+});
+
 
 export const updateTag = (tag: any) => ({
   type: UPDATE_TAG,

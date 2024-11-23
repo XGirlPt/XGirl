@@ -24,10 +24,11 @@ interface MainCardProps {
   currentPage: number; // Página atual
   itemsPerPage: number; 
   onProfileClick: () => void;
+  customClass?: string;
  
 }
 
-const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage, onProfileClick }) => {
+const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage, onProfileClick, a }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
  
 
@@ -47,15 +48,16 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
 
   const calculateTimeElapsed = (tagTimestamp: string): string => {
     const timestampDate = new Date(tagTimestamp);
-
+  
+    // Check if the timestamp is a valid date
     if (isNaN(timestampDate.getTime())) {
       return "Tempo indeterminado";
     }
-
+  
     const currentTime = Date.now();
     const elapsedTime = currentTime - timestampDate.getTime();
     const minutesElapsed = Math.floor(elapsedTime / (1000 * 60));
-
+  
     return formatTimeElapsed(minutesElapsed);
   };
 

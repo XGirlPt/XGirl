@@ -35,7 +35,7 @@ const FiltroSigno: React.FC<FiltroSignoProps> = ({
   onChange,
 }) => {
   const dispatch = useDispatch();
-  const signoRedux = useSelector((state: any) => state.profile?.profile?.signo);
+  const signoRedux = useSelector((state: any) => state.profile?.profile?.signo || null);
   console.log("signo do redux", signoRedux);
 
   const [signoSelecionada, setSignoSelecionada] = useState<string | null>(

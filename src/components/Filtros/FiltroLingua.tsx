@@ -26,7 +26,7 @@ const FiltroLingua: React.FC<FiltroLinguaProps> = ({ onChange }) => {
         name="linguas"
       >
         {({ open }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="text-pink-800">Idioma</p>
               <Listbox.Button className="relative w-full mt-1 bg-zinc-700 z-100 text-xs rounded-md md:text-sm cursor-default py-1 pl-3 pr-10 text-left shadow-md sm:text-sm">
@@ -86,7 +86,7 @@ const FiltroLingua: React.FC<FiltroLinguaProps> = ({ onChange }) => {
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

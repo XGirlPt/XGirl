@@ -27,15 +27,22 @@ const RegistoPagamento: React.FC = () => {
   const tatuagemRedux = useSelector((state: any) => state.profile?.profile.tatuagem);
   const tarifaredux = useSelector((state: any) => state.profile?.profile.tarifa);
   const pelosRedux = useSelector((state: any) => state.profile?.profile.pelos);
-  const distritoRedux = useSelector((state: any) => state.profile?.profile.distrito);
   const idadeRedux = useSelector((state: any) => state.profile?.profile.idade);
   const signoRedux = useSelector((state: any) => state.profile?.profile.signo);
   const userEmail = useSelector((state: any) => state.profile?.profile.email);
-  const cidadeRedux = useSelector((state: any) => state.profile?.profile.cidade);
+  const adressRedux = useSelector((state: any) => state.profile?.profile.adress);
+
   const pagamentoRedux = useSelector((state: any) => state.profile?.profile.pagamento);
   const linguaRedux = useSelector((state: any) => state.profile?.profile.lingua);
   const servicoRedux = useSelector((state: any) => state.profile?.profile.servico);
   const descriptionRedux = useSelector((state: any) => state.profile?.profile.description);
+
+
+  const cidadeRedux = useSelector((state: any) => state.profile?.profile.cidade);
+  const distritoRedux = useSelector((state: any) => state.profile?.profile.distrito);
+const latitudeRedux = useSelector((state: any) => state.profile?.profile.latitude);
+const longitudeRedux = useSelector((state: any) => state.profile?.profile.longitude);
+
 
   const handleSubmit = async (event: React.MouseEvent) => {
     try {
@@ -55,8 +62,13 @@ const RegistoPagamento: React.FC = () => {
         mamas: mamasRedux,
         pelos: pelosRedux,
         signo: signoRedux,
+
         distrito: distritoRedux,
         cidade: cidadeRedux,
+        adress: adressRedux,
+        longitude: longitudeRedux,
+        latitude: latitudeRedux,
+
         telefone: telefoneRedux,
         pagamento: pagamentoRedux,
         servico: servicoRedux,

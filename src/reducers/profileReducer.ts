@@ -7,7 +7,7 @@ import {
   UPDATE_NOME,
   UPDATE_MAMAS,
   UPDATE_ALTURA,
-  UPDATE_DISTRITO,
+
   UPDATE_ORIGEM,
   UPDATE_CORPO,
   UPDATE_CABELO,
@@ -17,7 +17,13 @@ import {
   UPDATE_TELEFONE,
   UPDATE_PELOS,
   UPDATE_IDADE,
+
   UPDATE_CIDADE,
+  UPDATE_ADRESS,
+  UPDATE_DISTRITO,
+  UPDATE_LATITUDE,
+  UPDATE_LONGITUDE,
+  
   UPDATE_TAG,
 
   UPDATE_DESCRIPTION,
@@ -57,10 +63,15 @@ interface Profile {
   idade?: number | null;
   altura?: number | null;
   cabelo?: string | null;
+
   cidade?: string | null;
+  adress?:  string | null;
+  distrito?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   tag?: string | null;
   mamas?: string | null;
-  distrito?: string | null;
+  
   origem?: string | null;
   signo?: string | null;
   corpo?: string | null;
@@ -135,8 +146,25 @@ interface UpdateIdadeAction {
   payload: number;
 }
 
+
+
 interface UpdateCidadeAction {
   type: typeof UPDATE_CIDADE;
+  payload: string;
+}
+
+interface UpdateAdressAction {
+  type: typeof UPDATE_ADRESS;
+  payload: string;
+}
+
+interface UpdateLatitudeAction {
+  type: typeof UPDATE_LATITUDE;
+  payload: string;
+}
+
+interface UpdateLongitudeAction {
+  type: typeof UPDATE_LONGITUDE;
   payload: string;
 }
 
@@ -282,11 +310,18 @@ type ProfileActionTypes =
   | AddProfileDataAction
   | UpdateNomeAction
   | UpdateIdadeAction
+
   | UpdateCidadeAction
+  | UpdateAdressAction
+  | UpdateDistritoAction
+  | UpdateLatitudeAction
+  | UpdateLongitudeAction
+
+
   | UpdateTagAction
   | UpdateMamasAction
   | UpdateAlturaAction
-  | UpdateDistritoAction
+ 
   | UpdateOrigemAction
   | UpdateSignoAction
   | UpdateCorpoAction
@@ -426,6 +461,35 @@ const rootReducer = (
           cidade: action.payload,
         },
       };
+
+
+      case UPDATE_ADRESS:
+        return {
+          ...state,
+          profile: {
+            ...state.profile,
+            adress: action.payload,
+          },
+        };
+
+        case UPDATE_LATITUDE:
+          return {
+            ...state,
+            profile: {
+              ...state.profile,
+              latitude: action.payload,
+            },
+          };
+
+          case UPDATE_LONGITUDE:
+            return {
+              ...state,
+              profile: {
+                ...state.profile,
+                longitude: action.payload,
+              },
+            };
+
 
       case UPDATE_TAG:
         return {

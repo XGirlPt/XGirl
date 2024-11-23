@@ -21,7 +21,8 @@ const SearchModal: React.FC<SearchModalProps> = ({
   searchQuery,
   setSearchQuery,
 }) => {
-  if (!isOpen) return null;
+  // Evitar a chamada de hooks condicional
+  if (!isOpen) return null; // Retorne early, mas não afete os hooks
 
   const [profiles, setProfiles] = useState<any[]>([]); // Armazenar os perfis obtidos do Supabase
   const [filteredProfiles, setFilteredProfiles] = useState<any[]>([]); // Perfis filtrados com base no searchQuery
@@ -30,7 +31,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
   const [showMoreDistricts, setShowMoreDistricts] = useState(false); // Controla a exibição dos distritos extras
   const safeSearchQuery = searchQuery?.toLowerCase() || "";
 
-
+  // useEffect para buscar dados de perfis
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,6 +50,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
     fetchData();
   }, []);
 
+  // useEffect para filtrar perfis com base no searchQuery
   useEffect(() => {
     // Filtra os perfis com base no nome ou cidade
     const filtered = profiles.filter((acompanhante) => {

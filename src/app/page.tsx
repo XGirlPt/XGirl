@@ -166,6 +166,7 @@ const Dashboard: React.FC = () => {
       <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full h-[50px]"> {/* Definindo altura fixa para o texto */}
       Procura na tua Área
       </p>
+      
       <Map profiles={profiles} /> {/* Aqui renderiza o mapa com os perfis */}
 
       <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto">

@@ -55,7 +55,7 @@ function Map({ profiles }: MapProps) {
   }
 
   return (
-    <div className="px-36 pb-20">
+    <div className="px-4 md:px-36 pb-20">
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={zoom}

@@ -33,9 +33,6 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]); // Alterado para array de strings
   const [selectedNome, setSelectedNome] = useState<string[]>([]); // Alterado para array de strings
   const [selectedPhotoURL, setSelectedPhotoURL] = useState<string>(""); // Alterado para string única
-
-
-  selectedPhotoURL
  
 
   const dispatch = useDispatch();

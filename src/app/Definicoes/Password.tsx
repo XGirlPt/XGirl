@@ -55,7 +55,7 @@ const Password: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-800 p-8 rounded-lg mb-6 shadow-lg ">
+    <div className="bg-gray-800 p-8 rounded-lg mb-6 shadow-lg  z-50">
       <h2 className="text-3xl font-bold mb-6 text-pink-500 flex items-center">
         <FaLock className="mr-2 text-4xl" /> Alterar Senha
       </h2>
@@ -109,14 +109,14 @@ const Password: React.FC = () => {
           Alterar Senha
         </button>
 
-        <p className="mt-4 text-gray-400 text-sm">
-          Dicas para criar uma senha forte:
+        <div className="mt-4 text-gray-400 text-sm">
+        Dicas para criar uma senha forte:
           <ul className="list-disc list-inside">
             <li>Use pelo menos 8 caracteres.</li>
             <li>Inclua letras maiúsculas e minúsculas.</li>
             <li>Adicione números e símbolos.</li>
           </ul>
-        </p>
+        </div>
       </form>
 
       <ToastContainer />

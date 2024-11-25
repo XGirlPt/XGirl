@@ -27,7 +27,7 @@ const FiltroCabelo: React.FC<FiltroCabeloProps> = ({
   const dispatch = useDispatch();
 
   const cabeloRedux = useSelector(
-    (state: any) => state.profile?.profile?.cabelo.name || null
+    (state: any) => state.profile?.profile?.cabelo || null
   );
   console.log("cabelo do redux", cabeloRedux);
 

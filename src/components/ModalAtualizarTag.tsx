@@ -67,7 +67,7 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
   };
 
   return (
-    <>
+    <div>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -76,12 +76,14 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
         pauseOnHover
         draggable
         theme="dark"
-        style={{ zIndex: 10500 }} 
+        style={{ zIndex: 10500 }}
       />
-        <div className="fixed inset-0 flex justify-center px-8 items-center bg-black bg-opacity-60 backdrop-blur-md z-50">
-        <div
-          className="w-full max-w-md bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden mx-4"
-        >
+      {/* Overlay */}
+      <div className="fixed inset-0 flex justify-center items-center px-8 bg-black bg-opacity-60 backdrop-blur-md z-50">
+          <div
+           // Vincula a referência ao modal
+            className="w-full max-w-md bg-gray-800 p-6 rounded-xl shadow-2xl overflow-hidden"
+          >
           {/* Header */}
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-lg md:text-xl text-white font-semibold">
@@ -97,10 +99,10 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
               />
             </button>
           </div>
-
+  
           {/* Separator */}
           <div className="border-t border-gray-700 mb-6"></div>
-
+  
           {/* Description */}
           <div className="text-gray-400 mb-6">
             <p>
@@ -110,7 +112,7 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
               personalizar seu perfil!
             </p>
           </div>
-
+  
           {/* Input Field */}
           <div>
             <label htmlFor="tagInput" className="block text-sm text-gray-300 mb-2">
@@ -125,7 +127,7 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
               className="w-full p-3 bg-gray-700 rounded-md text-gray-100 focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
           </div>
-
+  
           {/* Buttons */}
           <div className="flex justify-end mt-6">
             <button
@@ -143,8 +145,9 @@ const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
+  
 };
 
 export default ModalAtualizarTag;

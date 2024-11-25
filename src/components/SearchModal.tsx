@@ -78,7 +78,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 flex justify-center items-center px-4 bg-black bg-opacity-60 backdrop-blur-md z-50"
+      className="fixed inset-0 flex justify-center items-center px-4 bg-black bg-opacity-60 backdrop-blur-lg "
       onClick={onClose} // Fechar o modal ao clicar fora dele
     >
       <div

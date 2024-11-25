@@ -31,7 +31,7 @@ const ListRegister: React.FC<ListRegisterProps> = ({ handleOptionSelect }) => {
         }}
       >
         {({ open }: { open: boolean }) => (
-          <>
+          <div>
             <div className="relative mt-1">
               <p className="block mb-1 text-sm font-medium text-gray-300">
                 Tipo de Conta
@@ -70,7 +70,7 @@ const ListRegister: React.FC<ListRegisterProps> = ({ handleOptionSelect }) => {
                       value={method}
                     >
                       {({ selected }: { selected: boolean }) => (
-                        <>
+                        <div>
                           <span
                             className={`block truncate ${
                               selected ? "font-medium" : "font-normal"
@@ -83,14 +83,14 @@ const ListRegister: React.FC<ListRegisterProps> = ({ handleOptionSelect }) => {
                               <CheckIcon className="h-5 w-5" aria-hidden="true" />
                             </span>
                           )}
-                        </>
+                        </div>
                       )}
                     </Listbox.Option>
                   ))}
                 </Listbox.Options>
               </Transition>
             </div>
-          </>
+          </div>
         )}
       </Listbox>
     </div>

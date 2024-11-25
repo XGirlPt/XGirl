@@ -87,7 +87,7 @@ Varios
 - [] live cam ok  com registo, e base de dados
 - [] google maps
 - [] api google .env
-
+- [] Filtros apenas 1 componente
 
 Paginas
 - [X] Termos e Condicoes

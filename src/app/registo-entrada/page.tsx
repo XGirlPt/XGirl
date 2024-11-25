@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent, useRef } from "react";
+import { useState, useEffect, ChangeEvent,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateNome,
@@ -9,10 +9,22 @@ import {
   updateDistrito,
   updateAdress,
   updateLongitude,
-  updateLatitude
+  updateLatitude,
 } from "@/actions/ProfileActions";
+import { Switch, FormControlLabel } from "@mui/material";
 import Link from "next/link";
-
+import FiltroAltura from "@/components/Filtros/FiltroAltura";
+import FiltroCabelo from "@/components/Filtros/FiltroCabelo";
+import FiltroCorpo from "@/components/Filtros/FiltroCorpo";
+import FiltroMamas from "@/components/Filtros/FiltroMamas";
+import FiltroLingua from "@/components/Filtros/FiltroLingua";
+import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
+import FiltroPeito from "@/components/Filtros/FiltroPeito";
+import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
+import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
+import FiltroPelos from "@/components/Filtros/FiltroPelos";
+import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import supabase from "@/database/supabase";
 
 declare global {
   interface Window {
@@ -33,7 +45,6 @@ const RegistoEntrada = () => {
   const autocompleteRef = useRef<any>(null);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-
 
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
   const idadeRedux = useSelector((state: any) => state.profile?.profile?.idade);
@@ -81,20 +92,22 @@ const RegistoEntrada = () => {
     dispatch(updateAdress(event.target.value));
   };
 
-  const toggleAdressOption = () => {
-    setUseAdress((prev) => {
-      const newValue = !prev;
-      if (!newValue) {
-        setCidade("");
-        setDistrito("");
-        dispatch(updateCidade(""));
-        dispatch(updateDistrito(""));
-      } else {
-        setAdress("");
-        dispatch(updateAdress(""));
-      }
-      return newValue;
-    });
+  const handleFiltroTatuagem = (filtro: any) => {
+    // Aqui você pode atualizar o estado geral de filtros
+    console.log("Filtro de Tatuagem atualizado:", filtro);
+};
+
+  const toggleAdressOption = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setUseAdress(checked);
+    if (checked) {
+      setCidade("");
+      setDistrito("");
+      dispatch(updateCidade(""));
+      dispatch(updateDistrito(""));
+    } else {
+      setAdress("");
+      dispatch(updateAdress(""));
+    }
   };
 
   const handleSelectAddress = (address: string, lat: number, lng: number) => {
@@ -105,7 +118,6 @@ const RegistoEntrada = () => {
     dispatch(updateLatitude(lat));
     dispatch(updateLongitude(lng));
   };
-
 
   // Carregamento dinâmico do script do Google
   useEffect(() => {
@@ -120,22 +132,14 @@ const RegistoEntrada = () => {
         setGoogleLoaded(true);
       }
     };
-  
+
     loadGoogleAPI();
   }, []);
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     if (googleLoaded && useAdress && window.google && !autocompleteRef.current) {
       const input = document.getElementById("adress-input") as HTMLInputElement;
-      
+
       if (input && !autocompleteRef.current) {
         // Garantir que o Google Maps foi carregado antes de usar o Autocomplete
         if (window.google && window.google.maps && window.google.maps.places) {
@@ -143,7 +147,7 @@ const RegistoEntrada = () => {
             types: ["geocode"],
             componentRestrictions: { country: "pt" },
           });
-      
+
           autocompleteRef.current.addListener("place_changed", () => {
             const place = autocompleteRef.current.getPlace();
             if (place?.formatted_address) {
@@ -158,7 +162,7 @@ const RegistoEntrada = () => {
         }
       }
     }
-  
+
     return () => {
       if (autocompleteRef.current) {
         autocompleteRef.current.unbindAll();
@@ -166,8 +170,18 @@ const RegistoEntrada = () => {
       }
     };
   }, [googleLoaded, useAdress]);
-  
-  
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error || !data.session) {
+        console.log("Erro ao verificar sessão:", error);
+      } else {
+        console.log("Sessão iniciada:", data.session);
+      }
+    };
+    getSession();
+  }, []);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-transparent backdrop-blur-md z-50">
@@ -216,16 +230,16 @@ const RegistoEntrada = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-300">Escolha a opção</label>
-              <div className="flex items-center space-x-4">
-                <button
-                  className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                    useAdress ? "bg-pink-800" : "bg-gray-700"
-                  }`}
-                  onClick={toggleAdressOption}
-                >
-                  {useAdress ? "Usar Cidade e Distrito" : "Usar Morada Completa"}
-                </button>
-              </div>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={useAdress}
+                    onChange={toggleAdressOption}
+                    color="primary"
+                  />
+                }
+                label="Usar Morada Completa"
+              />
 
               {useAdress ? (
                 <div className="mt-6">
@@ -261,6 +275,17 @@ const RegistoEntrada = () => {
                 </div>
               )}
             </div>
+            <div className="space-y-6">
+              <FiltroAltura rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-300" />
+              <FiltroCorpo rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroOlhos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroMamas rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroPeito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroPelos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroTatuagem rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroSigno rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+            </div>
+
           </div>
         </div>
 
@@ -272,7 +297,7 @@ const RegistoEntrada = () => {
               </button>
             </Link>
             <Link href="/registo-contacto">
-              <button className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium ">
+              <button className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium">
                 Criar Conta
               </button>
             </Link>

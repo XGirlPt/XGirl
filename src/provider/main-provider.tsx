@@ -19,7 +19,7 @@ export function MainProvider(props: MainProviderProps) {
       <div className="block md:hidden ">
         <HeaderMobile />
       </div>
-      <main className="md:pt-24">{children}</main>
+      <main className="md:mt-24">{children}</main>
       <footer className="">
         <Footer />
       </footer>

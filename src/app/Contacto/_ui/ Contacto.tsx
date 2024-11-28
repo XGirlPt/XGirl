@@ -11,7 +11,7 @@ function Contacto() {
   const [message, setMessage] = useState("");
   const [recaptchaValue, setRecaptchaValue] = useState(null);
 
-  const recaptchaRef = useRef(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
 
   const handleRecaptchaChange = (value) => {

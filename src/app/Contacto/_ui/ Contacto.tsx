@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import emailjs from "emailjs-com"; // Importando o EmailJS
 import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,9 @@ function Contacto() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [recaptchaValue, setRecaptchaValue] = useState(null);
+
+  const recaptchaRef = useRef(null);
+
 
   const handleRecaptchaChange = (value) => {
     setRecaptchaValue(value); // Atualiza o estado do reCAPTCHA
@@ -48,6 +51,9 @@ function Contacto() {
 
         // Reseta o reCAPTCHA
         setRecaptchaValue(null);
+        if (recaptchaRef.current) {
+          recaptchaRef.current.reset(); // Reseta a aparência do reCAPTCHA
+        }
       })
       .catch((err) => {
         console.error("FAILED...", err);
@@ -135,6 +141,7 @@ function Contacto() {
         <ReCAPTCHA
           sitekey="6LfQCIsqAAAAAMQdYB7cd_pvfwbyL5mnPMUZ1ipa" // Substitua pela sua chave pública do Google reCAPTCHA
           onChange={handleRecaptchaChange}
+          ref={recaptchaRef}
           className="mt-4"
         />
 

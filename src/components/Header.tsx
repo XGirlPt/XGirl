@@ -118,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               Home
             </Link>
             <Link
-              href="/Acompanhantes"
+              href="/acompanhantes"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
                 pathname === "/Acompanhantes"
                   ? "bg-pink-900"
@@ -128,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               Acompanhantes
             </Link>
             <Link
-              href="/Stories"
+              href="/stories"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
                 pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-800"
               } transition duration-200`}

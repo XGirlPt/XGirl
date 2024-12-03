@@ -211,7 +211,7 @@ const HeaderMobile: React.FC = () => {
           </Link>
 
           {/* Ícone Acompanhantes */}
-          <Link href="/Acompanhantes" aria-label="Ver Acompanhantes">
+          <Link href="/acompanhantes" aria-label="Ver Acompanhantes">
             <div className="flex flex-col items-center">
               <FontAwesomeIcon icon={faUsers} className="text-xl" />
               <span className="text-xs"></span>
@@ -257,7 +257,7 @@ const HeaderMobile: React.FC = () => {
               </div>
 
               {/* Ícone Stories (deslogado) */}
-              <Link href="/Stories" aria-label="Ver Stories">
+              <Link href="/stories" aria-label="Ver Stories">
                 <div className="flex flex-col items-center">
                   <BiSolidMoviePlay className="text-xl" />
                   <span className="text-xs"></span>

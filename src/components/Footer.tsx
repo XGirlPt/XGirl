@@ -13,21 +13,18 @@ function Footer() {
           {/* Logo */}
           <div className="mb-8">
             <Link href="/">
-              
-
-            <div className="w-36 h-12 object-contain mx-auto md:mx-0 mb-4">
-              <Image
-                src="/photos/logo1.png"
-                alt="logo"
-                width={144}
-                height={48}
-              />
-</div>
-
-
+              <div className="w-36 h-12 object-contain mx-auto md:mx-0 mb-4">
+                <Image
+                  src="/photos/logo1.png"
+                  alt="logo"
+                  width={144}
+                  height={48}
+                />
+              </div>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              Descubra os melhores serviços de escort nas principais regiões de Portugal.
+              Descubra os melhores serviços de escort nas principais regiões de
+              Portugal.
             </p>
           </div>
 
@@ -35,28 +32,43 @@ function Footer() {
             <p className="text-xl text-white py-2">Links Rápidos</p>
             <ul className="space-y-1">
               <li>
-                <Link href="/Acompanhantes?distrito=Lisboa"
-                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort em Lisboa
+                <Link
+                  href="/acompanhantes?distrito=Lisboa"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Escort em Lisboa
                 </Link>
               </li>
               <li>
-                <Link href="/girls?distrito=Porto"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort no Porto
+                <Link
+                  href="/girls?distrito=Porto"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Escort no Porto
                 </Link>
               </li>
               <li>
-                <Link href="/girls?distrito=Faro"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort em Faro
+                <Link
+                  href="/girls?distrito=Faro"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Escort em Faro
                 </Link>
               </li>
               <li>
-                <Link href="/girls?distrito=Madeira"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort na Madeira
+                <Link
+                  href="/girls?distrito=Madeira"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Escort na Madeira
                 </Link>
               </li>
               <li>
-                <Link href="/girls?distrito=Acores"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort nos Açores
+                <Link
+                  href="/girls?distrito=Acores"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Escort nos Açores
                 </Link>
               </li>
             </ul>
@@ -67,28 +79,43 @@ function Footer() {
             <p className="text-xl text-white py-2">Informações Úteis</p>
             <ul className="space-y-1">
               <li>
-                <Link href="/Termos"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Termos e Condições
+                <Link
+                  href="/termos"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Termos e Condições
                 </Link>
               </li>
               <li>
-                <Link href="/Privacidade"
-                 className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Política de Privacidade
+                <Link
+                  href="/privacidade"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Política de Privacidade
                 </Link>
               </li>
               <li>
-                <Link href="/ajuda"
-                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Ajuda
+                <Link
+                  href="/ajuda"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Ajuda
                 </Link>
               </li>
               <li>
-                <Link href="/Contacto"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Contacto
+                <Link
+                  href="/contacto"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Contacto
                 </Link>
               </li>
               <li>
-                <Link href="/blog"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Blog
+                <Link
+                  href="/blog"
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"
+                >
+                  Blog
                 </Link>
               </li>
             </ul>
@@ -99,53 +126,31 @@ function Footer() {
             <p className="text-xl text-white py-2">Métodos de Pagamento</p>
             <ul className="flex justify-center md:justify-start space-x-4">
               <li>
-
                 <div className="h-6 w-6">
-
-                <Image
-                  src={visa}
-                  alt="Visa"
-                  width={32}
-                  height={20}
-                  
-                />
+                  <Image src={visa} alt="Visa" width={32} height={20} />
                 </div>
               </li>
-            
-            
+
               <li>
-              <div className="h-6 w-6"> 
-                <Image
-                  src={mastercard}
-                  alt="Mastercard"
-                  width={32}
-                  height={20}            
-                /></div>
+                <div className="h-6 w-6">
+                  <Image
+                    src={mastercard}
+                    alt="Mastercard"
+                    width={32}
+                    height={20}
+                  />
+                </div>
               </li>
-              
-              
+
               <li>
-                <div className="h-6 w-6"> 
-                <Image
-                  src={btc}
-                  alt="Bitcoin"
-                  width={32}
-                  height={20}    
-                /></div>
-      
+                <div className="h-6 w-6">
+                  <Image src={btc} alt="Bitcoin" width={32} height={20} />
+                </div>
               </li>
               <li>
-              <div className="h-6 w-6"> 
-
-                <Image
-                  src={paypal}
-                  alt="Paypal"
-                  width={32}
-                  height={20}
-                
-                />
-                          </div>
-
+                <div className="h-6 w-6">
+                  <Image src={paypal} alt="Paypal" width={32} height={20} />
+                </div>
               </li>
             </ul>
           </div>

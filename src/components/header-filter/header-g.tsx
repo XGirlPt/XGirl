@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Profile } from "@/types";
 
-
 interface HeaderGProps {
   currentProfileIndex: number;
   setCurrentProfileIndex: Dispatch<SetStateAction<number>>;
@@ -27,30 +26,30 @@ const HeaderG: React.FC<HeaderGProps> = ({
     // Verifica se há um próximo perfil válido
     const nextIndex = (currentProfileIndex + 1) % profiles.length;
     const nextProfile = profiles[nextIndex];
-    
+
     if (nextProfile) {
       setCurrentProfileIndex(nextIndex);
-      router.push(`/Acompanhantes/${nextProfile.nome}`);
+      router.push(`/acompanhantes/${nextProfile.nome}`);
     }
   };
 
   const handlePrevProfile = () => {
     // Verifica se há um perfil anterior válido
-    const prevIndex = (currentProfileIndex - 1 + profiles.length) % profiles.length;
+    const prevIndex =
+      (currentProfileIndex - 1 + profiles.length) % profiles.length;
     const prevProfile = profiles[prevIndex];
-    
+
     if (prevProfile) {
       setCurrentProfileIndex(prevIndex);
-      router.push(`/Acompanhantes/${prevProfile.nome}`);
+      router.push(`/acompanhantes/${prevProfile.nome}`);
     }
   };
 
-  
   const currentProfile = profiles[currentProfileIndex];
 
   return (
     <div className="w-full bg-gray-800 fixed z-20">
-      <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800 border-b border-gray-700" >
+      <div className="flex justify-between items-center px-4 h-14 bg-gray-900 dark:bg-gray-800 border-b border-gray-700">
         {/* Botão Perfil Anterior */}
         <button
           className="flex items-center px-4 py-1 border border-pink-800 text-sm rounded-md text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"
@@ -59,14 +58,16 @@ const HeaderG: React.FC<HeaderGProps> = ({
           <IoIosArrowRoundBack size={20} className="mr-1" />
           <span className="hidden sm:inline">Anterior</span>
         </button>
-  
+
         {/* Informações do Perfil */}
         {currentProfile && currentProfile.distrito && (
           <div className="flex items-center text-center text-sm space-x-2">
             <p className="text-zinc-400">Girls</p>
             <p className="text-zinc-400">/</p>
             <Link
-              href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
+              href={`/acompanhantes?distrito=${encodeURIComponent(
+                currentProfile.distrito
+              )}`}
               className="text-zinc-400 cursor-pointer hover:text-pink-800"
             >
               {currentProfile.distrito}
@@ -75,7 +76,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
             <p className="text-pink-800">{currentProfile.nome}</p>
           </div>
         )}
-  
+
         {/* Botão Próximo Perfil */}
         <button
           className="flex items-center px-4 py-1 border border-pink-800 text-sm rounded-md text-white bg-pink-800 hover:bg-pink-900 hover:text-zinc-300 transition duration-300 ease-in-out transform"

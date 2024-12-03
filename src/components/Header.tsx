@@ -120,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <Link
               href="/acompanhantes"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/Acompanhantes"
+                pathname === "/acompanhantes"
                   ? "bg-pink-900"
                   : "hover:bg-pink-800"
               } transition duration-200`}
@@ -130,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <Link
               href="/stories"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/Stories" ? "bg-pink-900" : "hover:bg-pink-800"
+                pathname === "/stories" ? "bg-pink-900" : "hover:bg-pink-800"
               } transition duration-200`}
             >
               <BiSolidMoviePlay className="mr-2" />
@@ -226,7 +226,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                       </li>
                       <li
                         onClick={() => {
-                          router.push("/Definicoes");
+                          router.push("/definicoes");
                           setLanguageDropdownOpen(false);
                         }}
                         className="flex items-center px-5 py-3 hover:bg-pink-800 cursor-pointer transition duration-200"

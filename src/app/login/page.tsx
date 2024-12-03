@@ -1,16 +1,20 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import supabase from '@/database/supabase';
-import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure, addProfileData } from '@/actions/ProfileActions';
-import { fetchProfileFromDatabase } from '@/services/profileService';
+"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import supabase from "@/database/supabase";
+import { useDispatch } from "react-redux";
+import {
+  loginSuccess,
+  loginFailure,
+  addProfileData,
+} from "@/actions/ProfileActions";
+import { fetchProfileFromDatabase } from "@/services/profileService";
 
 const Login = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>(''); // Estado para mensagem de erro
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>(""); // Estado para mensagem de erro
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -23,7 +27,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
+    const token = localStorage.getItem("userToken");
     if (token) {
       dispatch(loginSuccess(token));
     }
@@ -31,20 +35,22 @@ const Login = () => {
 
   useEffect(() => {
     const handleAuthStateChange = async (event: string) => {
-      if (event === 'SIGNED_IN') {
-        const returnUrl = localStorage.getItem('returnUrl');
+      if (event === "SIGNED_IN") {
+        const returnUrl = localStorage.getItem("returnUrl");
         if (returnUrl) {
           router.push(returnUrl);
-          localStorage.removeItem('returnUrl');
+          localStorage.removeItem("returnUrl");
         } else {
-          router.push('/');
+          router.push("/");
         }
       } else {
-        router.push('/login');
+        router.push("/login");
       }
     };
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      handleAuthStateChange
+    );
 
     return () => {
       authListener.subscription.unsubscribe();
@@ -56,20 +62,20 @@ const Login = () => {
       const data = await fetchProfileFromDatabase(userUID);
       dispatch(addProfileData(data));
     } catch (error: any) {
-      console.error('Erro ao buscar dados do perfil:', error.message);
+      console.error("Erro ao buscar dados do perfil:", error.message);
     }
   };
 
   const handleLogin = async () => {
-    setErrorMessage(''); // Limpa a mensagem de erro ao tentar fazer login
+    setErrorMessage(""); // Limpa a mensagem de erro ao tentar fazer login
     const { data: user, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      console.error('Erro ao fazer login:', error.message);
-      setErrorMessage('Email ou senha incorretos. Tente novamente.'); // Atualiza a mensagem de erro
+      console.error("Erro ao fazer login:", error.message);
+      setErrorMessage("Email ou senha incorretos. Tente novamente."); // Atualiza a mensagem de erro
       dispatch(loginFailure(error));
     } else {
       if (user) {
@@ -84,12 +90,12 @@ const Login = () => {
         );
 
         const tokenID = user.session.refresh_token;
-        localStorage.setItem('userToken', tokenID);
-        localStorage.setItem('email', email);
+        localStorage.setItem("userToken", tokenID);
+        localStorage.setItem("email", email);
 
-        router.push('/Acompanhantes');
+        router.push("/acompanhantes");
       } else {
-        console.log('O objeto de usuário retornado está vazio ou undefined.');
+        console.log("O objeto de usuário retornado está vazio ou undefined.");
       }
     }
   };
@@ -98,9 +104,11 @@ const Login = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 to-gray-300 px-4 pb-20">
       {/* Texto motivador */}
       <p className="text-center text-gray-400 text-sm mb-6">
-        Descubra momentos únicos com <span className="text-pink-500 font-bold">total privacidade</span> e <span className="text-pink-500 font-bold">segurança</span>.
+        Descubra momentos únicos com{" "}
+        <span className="text-pink-500 font-bold">total privacidade</span> e{" "}
+        <span className="text-pink-500 font-bold">segurança</span>.
       </p>
-  
+
       <div className="bg-gray-800 w-full max-w-md md:w-1/3 rounded-lg shadow-2xl border border-gray-700 px-6 py-8 space-y-6">
         {/* Header */}
         <h1 className="text-3xl md:text-4xl font-extrabold text-center text-pink-600 mb-2">
@@ -109,20 +117,23 @@ const Login = () => {
         <p className="text-center text-gray-400 text-sm mb-4">
           Encontre experiências únicas e inesquecíveis ao alcance de um clique.
         </p>
-  
+
         {/* Benefícios */}
         <ul className="list-disc list-inside text-gray-300 text-sm space-y-1">
           <li>
-            <span className="text-pink-500">Perfis exclusivos:</span> Encontre acompanhantes que atendem às suas preferências.
+            <span className="text-pink-500">Perfis exclusivos:</span> Encontre
+            acompanhantes que atendem às suas preferências.
           </li>
           <li>
-            <span className="text-pink-500">Privacidade garantida:</span> Conexões seguras e discretas.
+            <span className="text-pink-500">Privacidade garantida:</span>{" "}
+            Conexões seguras e discretas.
           </li>
           <li>
-            <span className="text-pink-500">Fácil e rápido:</span> Registe-se e inicie em minutos.
+            <span className="text-pink-500">Fácil e rápido:</span> Registe-se e
+            inicie em minutos.
           </li>
         </ul>
-  
+
         {/* Formulário */}
         <div className="space-y-4">
           {/* Campo de Email */}
@@ -159,7 +170,7 @@ const Login = () => {
               </svg>
             </div>
           </div>
-  
+
           {/* Campo de Password */}
           <div>
             <label
@@ -194,7 +205,7 @@ const Login = () => {
               </svg>
             </div>
           </div>
-  
+
           {/* Mensagem de erro */}
           {errorMessage && (
             <div className="text-center bg-pink-100 text-pink-600 border border-pink-500 rounded-lg p-2 text-sm">
@@ -202,7 +213,7 @@ const Login = () => {
             </div>
           )}
         </div>
-  
+
         {/* Botão de Login */}
         <button
           onClick={handleLogin}
@@ -210,7 +221,7 @@ const Login = () => {
         >
           Conectar
         </button>
-  
+
         {/* Link para registro */}
         <div className="text-center">
           <p className="text-gray-400 text-sm">Ainda não tens uma conta?</p>
@@ -224,8 +235,6 @@ const Login = () => {
       </div>
     </div>
   );
-  
-  
 };
 
 export default Login;

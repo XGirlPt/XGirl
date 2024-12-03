@@ -29,7 +29,7 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
       {/* Exibir 5 avatares em telas pequenas */}
       <div className="sm:flex md:hidden flex gap-4">
         {profilesToDisplay.slice(0, 5).map((profile, index) => (
-          <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
+          <Link key={index} href={`/acompanhantes/${profile.nome}`} passHref>
             <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
               <div className="relative w-12 md:w-24 h-12 md:h-24 rounded-full overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
                 {profile.photos && profile.photos.length > 0 ? (
@@ -57,7 +57,7 @@ const CaroselRound: React.FC<CaroselRoundProps> = ({ profiles }) => {
       {/* Exibir 10 avatares em telas médias ou grandes */}
       <div className="hidden md:flex">
         {profilesToDisplay.slice(0, 10).map((profile, index) => (
-          <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
+          <Link key={index} href={`/acompanhantes/${profile.nome}`} passHref>
             <div className="relative flex flex-col items-center cursor-pointer transition-transform transform hover:scale-105">
               <div className="relative w-12 md:w-24 h-12 md:h-24 rounded-full  mx-2 overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out">
                 {profile.photos && profile.photos.length > 0 ? (

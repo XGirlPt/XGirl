@@ -35,21 +35,17 @@ const BarConta: React.FC<BarContaProps> = ({
   showFotos,
   handleStories,
   showStories,
- 
 }) => {
   const router = useRouter(); // Inicializar useRouter
   const userUID = useSelector((state: any) => state.profile?.profile.userUID); // Capturar UID do usuário
-  console.log("user uid", userUID)
-const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
+  console.log("user uid", userUID);
+  const nomeRedux = useSelector((state: any) => state.profile?.profile.nome);
 
   const handleVerPerfil = () => {
     // Redirecionar para a página de perfil
-    router.push(`/Acompanhantes/${nomeRedux}`);
-  
+    router.push(`/acompanhantes/${nomeRedux}`);
   };
 
-
-  
   return (
     <aside className="bg-gray-800 px-6 mt-10 w-72 shadow-xl flex flex-col">
       <div className="flex justify-center mb-14">
@@ -103,9 +99,7 @@ const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
           <span className="ml-4 hidden lg:block">Os Meus Stories</span>
         </button>
 
-        <button 
-
-       className="flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg bg-gray-800">
+        <button className="flex items-center justify-center w-full p-4 rounded-xl transition-all hover:bg-pink-500 text-white shadow-lg bg-gray-800">
           <FaCog className="text-2xl" />
           <span className="ml-4 hidden lg:block">Definições</span>
         </button>

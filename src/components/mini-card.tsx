@@ -9,7 +9,7 @@ interface MiniCardProps {
 
 const MiniCard: React.FC<MiniCardProps> = ({ nome, cidade, photo }) => {
   return (
-    <Link href={`/Acompanhantes/${nome}`} passHref>
+    <Link href={`/acompanhantes/${nome}`} passHref>
       <div className="cursor-pointer w-full max-w-xs rounded-lg shadow-md bg-gray-800 overflow-hidden text-center hover:shadow-lg transition-shadow duration-200">
         {/* Imagem */}
         <div className="h-44 object-cover">

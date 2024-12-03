@@ -145,6 +145,7 @@ const Dashboard: React.FC = () => {
 
       <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6 w-full">
       {t('dashboard.escort_title')}
+
       </p>
 
       {/* <div className="hidden md:block w-full justify-center md:mx-32 mt-8">

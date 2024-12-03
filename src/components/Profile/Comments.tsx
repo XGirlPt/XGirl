@@ -35,7 +35,7 @@ function Comments() {
   // Verificação e busca de comentários
   useEffect(() => {
     if (!userUID) {
-      console.error("userUID estáeee indefinido ou inválido.");
+      console.error("userUID está indefiddddnido ou inválido.");
       return;
     }
     fetchComments();

@@ -8,8 +8,6 @@ import FiltroOlhos from "@/components/filtros/filtro-olhos";
 import FiltroPeito from "@/components/filtros/filtro-peito";
 import FiltroPelos from "@/components/filtros/filtro-pelos";
 import FiltroTatuagem from "@/components/filtros/filtro-tatuagem";
-import FiltroOrigem from "@/components/filtros/filtro-origem";
-import CheckContacto from "@/components/register/check-contacto";
 import FiltroSigno from "@/components/filtros/filtro-signo";
 import FiltroTarifa from "@/components/filtros/filtro-tarifa";
 import supabase from "@/database/supabase";
@@ -31,11 +29,9 @@ import {
   updateSeios,
   updatePelos,
   updateTatuagem,
-  updateSigno,
-  updateTarifa,
 } from "@/actions/ProfileActions";
 import { useParams } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface ModificarPerfilProps {

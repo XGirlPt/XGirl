@@ -1,29 +1,28 @@
 "use client";
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
-import FotoBig from "@/components/Profile/FotoBig";
-import StoryBig from "@/components/Profile/StoryBig";
+import FotoBig from "@/components/profile/foto-big";
+import StoryBig from "@/components/profile/story-big";
 
-import Liga from "@/components/Profile/Liga";
-import Partilha from "@/components/Profile/Partilha";
-import Certificado from "@/components/Certificado";
-import Sobre from "@/components/Profile/Sobre";
+import Liga from "@/components/profile/liga";
+import Partilha from "@/components/profile/partilha";
+import Certificado from "@/components/certificado";
+import Sobre from "@/components/profile/sobre";
 import supabase from "@/database/supabase";
-import ServicosPrestados from "@/components/Profile/ServicosPrestados";
-import Tarifas from "@/components/Profile/Tarifas";
-import HeaderG from "@/components/HeaderFilter/HeaderG";
-import LeftSide from "@/components/Profile/LeftSide";
-import Linguas from "@/components/Profile/idioma";
+import ServicosPrestados from "@/components/profile/servicos-prestados";
+import Tarifas from "@/components/profile/tarifas";
+import HeaderG from "@/components/header-filter/header-g";
+import LeftSide from "@/components/profile/left-side";
+import Linguas from "@/components/profile/idioma";
 import { useParams } from "next/navigation";
 import { Profile } from "@/types";
-import { BlurImage } from "@/components/BlurImage";
-import Image from 'next/image';
+import { BlurImage } from "@/components/blur-image";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
-import Comments from "@/components/Profile/Comments"
-import PhotosAndCertificado from "@/components/Profile/PhotosAndCertificado"; // Import the new component
+import Comments from "@/components/profile/comments";
+import PhotosAndCertificado from "@/components/profile/photos-and-certificado"; // Import the new component
 import StoriesComponent from "@/components/Profile/StoriesComponent";
-
 
 function UserProfile() {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
@@ -37,7 +36,6 @@ function UserProfile() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [StoryIndex, setStoryIndex] = useState(0);
 
-
   const [showLiga, setShowLiga] = useState(false);
   const [showPartilha, setShowPartilha] = useState(false);
   const [showCertificado, setShowCertificado] = useState(false);
@@ -45,29 +43,29 @@ function UserProfile() {
 
   const [thumbnails, setThumbnails] = useState<string[]>([]);
 
-
   const userUID = useSelector((state: any) => state.profile?.profile.userUID);
-console.log("uid", userUID)
+  console.log("uid", userUID);
 
-const photoURLsRedux = useSelector(
-  (state: any) => state.profile?.profile.photos
-);
-console.log("fotos redux", photoURLsRedux)
+  const photoURLsRedux = useSelector(
+    (state: any) => state.profile?.profile.photos
+  );
+  console.log("fotos redux", photoURLsRedux);
 
-const storyURLsRedux = useSelector(
-  (state: any) => state.profile?.profile.stories);
-console.log("stories redux", storyURLsRedux);
+  const storyURLsRedux = useSelector(
+    (state: any) => state.profile?.profile.stories
+  );
+  console.log("stories redux", storyURLsRedux);
 
-const storiesRDX = selectedProfile?.storyURL
-console.log("stories RDX", storiesRDX)
-  
+  const storiesRDX = selectedProfile?.storyURL;
+  console.log("stories RDX", storiesRDX);
+
   const fetchProfiles = async () => {
     try {
       const { data, error } = await supabase
-      .from("ProfilesData")
-      .select("*")
-      .eq('status', true);
-      
+        .from("ProfilesData")
+        .select("*")
+        .eq("status", true);
+
       if (error) {
         throw error;
       }
@@ -90,52 +88,45 @@ console.log("stories RDX", storiesRDX)
           .select("*")
           .eq("nome", decodeURIComponent(profileName))
           .single();
-  
+
         if (profileError) {
           throw profileError;
         }
-  
+
         const { data: photoData, error: photoError } = await supabase
           .from("profilephoto")
           .select("*")
-          .eq("userUID", profileData.userUID)
-         
-  
+          .eq("userUID", profileData.userUID);
+
         if (photoError) {
           throw photoError;
         }
-  
+
         // Log dos dados de fotos recebidos para inspecionar
         console.log("Dados de fotos recebidos do Supabase:", photoData);
-  
+
         const photoURLs = photoData.map((photo) => photo.imageurl);
         console.log("URLs das fotos mapeadas:", photoURLs);
-    
 
-  
         // Log dos dados combinados (perfil + fotos)
-  
 
         const { data: storyData, error: storyError } = await supabase
-        .from("stories")
-        .select("*")
-        .eq("userUID", profileData.userUID)
-       
+          .from("stories")
+          .select("*")
+          .eq("userUID", profileData.userUID);
 
-      if (storyError) {
-        throw storyError;
-      }
+        if (storyError) {
+          throw storyError;
+        }
 
-      const storyURL = storyData.map((story) => story.storyurl);
-      console.log("URLs dos stories mapeadas:", storyURL);
+        const storyURL = storyData.map((story) => story.storyurl);
+        console.log("URLs dos stories mapeadas:", storyURL);
 
-      
-      const combinedProfileData = {
-        ...profileData,
-        photoURL: photoData.map((photo) => photo.imageurl) || [], // Garante que seja sempre um array
-        storyURL: storyData?.map((story)=> story.storyurl) || []
-      };
-
+        const combinedProfileData = {
+          ...profileData,
+          photoURL: photoData.map((photo) => photo.imageurl) || [], // Garante que seja sempre um array
+          storyURL: storyData?.map((story) => story.storyurl) || [],
+        };
 
         setIsCertified(profileData.certificado); // Atualize o estado com a certificação
         setSelectedProfile(combinedProfileData); // Atualize o perfil selecionado
@@ -145,10 +136,9 @@ console.log("stories RDX", storiesRDX)
         setLoading(false); // Encerra o carregamento
       }
     }
-  
+
     fetchProfile();
   }, [profileName]);
-  
 
   const handleLigaMeClick = () => setShowLiga(!showLiga);
   const handleCertificadoClick = () => setShowCertificado(!showCertificado);
@@ -157,7 +147,7 @@ console.log("stories RDX", storiesRDX)
     setShowLargePhoto(true);
     setPhotoIndex(index);
   };
-  
+
   const handleStoryClick = (index: number) => {
     setShowLargeStory(true);
     setStoryIndex(index);
@@ -181,7 +171,6 @@ console.log("stories RDX", storiesRDX)
   console.log("Foto URLs:", selectedProfile?.photoURL);
   console.log("Selected Profile:", selectedProfile);
 
-
   return (
     <>
       <HeaderG
@@ -191,8 +180,8 @@ console.log("stories RDX", storiesRDX)
       />
       <div className="container relative">
         <div className="w-screen bg-gray-900 flex flex-col user-profile justify-center align-middle">
-        <div className="md:flex md:mx-36 my-20 md:mt-22 relative">
-        {showLiga && (
+          <div className="md:flex md:mx-36 my-20 md:mt-22 relative">
+            {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
                 setShowLiga={setShowLiga}
@@ -225,7 +214,7 @@ console.log("stories RDX", storiesRDX)
               />
             )}
 
-{showLargeStory && (
+            {showLargeStory && (
               <StoryBig
                 selectedProfile={selectedProfile as any}
                 onClose={() => setShowLargeStory(false)}
@@ -234,59 +223,62 @@ console.log("stories RDX", storiesRDX)
             )}
 
             <div className="w-screen md:w-3/5 grid gap-10   justify-center align-middle">
-
               {selectedProfile && selectedProfile.storyURL?.length > 0 && (
-  <div className="flex flex-col ml-8 md:ml-10 md:mr-24">
-    <p className="text-pink-700 text-2xl mb-4 font-semibold">Stories de {selectedProfile.nome}</p>
-    <div className="flex md:grid grid-cols-1  md:grid-cols-4 gap-6 md:gap-2">
-      {selectedProfile.storyURL.map((media, index) => {
-        if (!media) return null;
-        const isVideo = media.endsWith(".mp4") || media.endsWith(".mov") || media.endsWith(".webm");
-        const thumbnailSrc = thumbnails[index] ;
+                <div className="flex flex-col ml-8 md:ml-10 md:mr-24">
+                  <p className="text-pink-700 text-2xl mb-4 font-semibold">
+                    Stories de {selectedProfile.nome}
+                  </p>
+                  <div className="flex md:grid grid-cols-1  md:grid-cols-4 gap-6 md:gap-2">
+                    {selectedProfile.storyURL.map((media, index) => {
+                      if (!media) return null;
+                      const isVideo =
+                        media.endsWith(".mp4") ||
+                        media.endsWith(".mov") ||
+                        media.endsWith(".webm");
+                      const thumbnailSrc = thumbnails[index];
 
-        return (
-          <div key={index} className="relative flex" >
-            {isVideo ? (
-              <div>
-                <video
-                  src={thumbnailSrc}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
-                  onClick={() => handleStoryClick(index)}
-                  width={300}
-                  height={200}
-                  priority={index === 0}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white text-3xl">▶️</span>
+                      return (
+                        <div key={index} className="relative flex">
+                          {isVideo ? (
+                            <div>
+                              <video
+                                src={thumbnailSrc}
+                                alt={`Thumbnail ${index + 1}`}
+                                className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
+                                onClick={() => handleStoryClick(index)}
+                                width={300}
+                                height={200}
+                                priority={index === 0}
+                              />
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-white text-3xl">▶️</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <video
+                              src={media}
+                              className="relative w-20 h-20 md:w-24 md:h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105"
+                              onClick={() => handleStoryClick(index)}
+                              controls={false}
+                              muted
+                              playsInline
+                            />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <video
-                src={media}
-                className="relative w-20 h-20 md:w-24 md:h-24 rounded-full cursor-pointer object-cover overflow-hidden border-2 border-pink-800 transition duration-300 ease-in-out transform hover:scale-105"
-                onClick={() => handleStoryClick(index)}
-                controls={false}
-                muted
-                playsInline
-              />
-            )}
-          </div>
-        );
-      })}
-    </div>
-  </div>
-)}
+              )}
 
-
-<div className="grid md:mx-0 gap-y-6 justify-center items-center px-10 md:px-2 min-h-screen align-middle ">
-<PhotosAndCertificado
-                selectedProfile={selectedProfile}
-                loading={loading}
-                isCertified={isCertified}
-                handleCertificadoClick={handleCertificadoClick}
-                handlePhotoClick={handlePhotoClick}
-              />
+              <div className="grid md:mx-0 gap-y-6 justify-center items-center px-10 md:px-2 min-h-screen align-middle ">
+                <PhotosAndCertificado
+                  selectedProfile={selectedProfile}
+                  loading={loading}
+                  isCertified={isCertified}
+                  handleCertificadoClick={handleCertificadoClick}
+                  handlePhotoClick={handlePhotoClick}
+                />
 
                 <Sobre selectedProfile={selectedProfile as any} />
 
@@ -309,14 +301,13 @@ console.log("stories RDX", storiesRDX)
                   <Linguas selectedProfile={selectedProfile as any} />
                   <Tarifas selectedProfile={selectedProfile as any} />
                 </div>
-               
-                  <Comments userUID={selectedProfile?.userUID} />
-               
+
+                <Comments userUID={selectedProfile?.userUID} />
               </div>
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </>
   );
 }

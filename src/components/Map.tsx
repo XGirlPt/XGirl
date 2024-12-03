@@ -1,6 +1,11 @@
-import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 import { useState } from "react";
-import MiniCard from "@/components/MiniCard";
+import MiniCard from "@/components/mini-card";
 
 interface Profile {
   id: number;
@@ -30,12 +35,13 @@ function Map({ profiles }: MapProps) {
     (profile) => profile.latitude && profile.longitude
   );
 
-  const center = validCoordinates.length > 0
-    ? {
-        lat: validCoordinates[0].latitude!,
-        lng: validCoordinates[0].longitude!,
-      }
-    : defaultCenter;
+  const center =
+    validCoordinates.length > 0
+      ? {
+          lat: validCoordinates[0].latitude!,
+          lng: validCoordinates[0].longitude!,
+        }
+      : defaultCenter;
 
   const zoom = validCoordinates.length > 0 ? 10 : 8;
 
@@ -56,11 +62,7 @@ function Map({ profiles }: MapProps) {
 
   return (
     <div className="px-4 md:px-36 pb-20">
-      <GoogleMap
-        mapContainerStyle={mapStyles}
-        zoom={zoom}
-        center={center}
-      >
+      <GoogleMap mapContainerStyle={mapStyles} zoom={zoom} center={center}>
         {validCoordinates.map((profile, index) => (
           <Marker
             key={index}
@@ -83,7 +85,13 @@ function Map({ profiles }: MapProps) {
               pixelOffset: new google.maps.Size(0, -30),
             }}
           >
-            <div style={{ maxWidth: "220px", overflow: "hidden", textAlign: "center" }}>
+            <div
+              style={{
+                maxWidth: "220px",
+                overflow: "hidden",
+                textAlign: "center",
+              }}
+            >
               <MiniCard
                 nome={selectedProfile.nome}
                 cidade={selectedProfile.cidade}

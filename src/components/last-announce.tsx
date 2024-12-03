@@ -3,7 +3,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { RiMessage2Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
-import { BlurImage } from "./BlurImage";
+import { BlurImage } from "./blur-image";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 interface Profile {
@@ -19,7 +19,10 @@ interface LastAnnounceProps {
 }
 
 const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
-  const nomeRedux = useSelector((state: { profile: { profileData: { nome: string } } }) => state.profile?.profileData?.nome);
+  const nomeRedux = useSelector(
+    (state: { profile: { profileData: { nome: string } } }) =>
+      state.profile?.profileData?.nome
+  );
 
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
 
@@ -29,11 +32,13 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
     if (hoursElapsed > 48) {
       return "Há mais de 48 horas";
     } else if (minutesElapsed < 60) {
-      return `Há ${minutesElapsed} minuto${minutesElapsed !== 1 ? 's' : ''}`;
+      return `Há ${minutesElapsed} minuto${minutesElapsed !== 1 ? "s" : ""}`;
     } else {
       const hours = Math.floor(hoursElapsed);
       const minutes = minutesElapsed % 60;
-      return `Há ${hours} hora${hours !== 1 ? 's' : ''}${minutes > 0 ? ` ${minutes} minuto${minutes !== 1 ? 's' : ''}` : ''}`;
+      return `Há ${hours} hora${hours !== 1 ? "s" : ""}${
+        minutes > 0 ? ` ${minutes} minuto${minutes !== 1 ? "s" : ""}` : ""
+      }`;
     }
   };
 
@@ -52,11 +57,15 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
   };
 
   useEffect(() => {
-    const timeElapsed = profiles.map(profile => calculateTimeElapsed(profile.tagtimestamp));
+    const timeElapsed = profiles.map((profile) =>
+      calculateTimeElapsed(profile.tagtimestamp)
+    );
     setTimeElapsedList(timeElapsed);
 
     const interval = setInterval(() => {
-      const updatedTimeElapsed = profiles.map(profile => calculateTimeElapsed(profile.tagtimestamp));
+      const updatedTimeElapsed = profiles.map((profile) =>
+        calculateTimeElapsed(profile.tagtimestamp)
+      );
       setTimeElapsedList(updatedTimeElapsed);
     }, 60000);
 
@@ -76,13 +85,13 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
           <div className="relative">
             <div className="image-container overflow-hidden">
               <Image
-                src={profile.photos[0]  || "/logo.webp"}
+                src={profile.photos[0] || "/logo.webp"}
                 alt={profile.nome}
                 className="w-full h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50"
                 priority
                 width={100}
                 height={100}
-             />
+              />
             </div>
             <p className="flex items-center absolute bottom-0 left-1/2 transform -translate-x-1/2 pb-2 text-white text-md px-2 rounded">
               <FaMapMarkerAlt className="text-pink-700 mr-2" /> {profile.cidade}
@@ -96,7 +105,9 @@ const LastAnnounce: React.FC<LastAnnounceProps> = ({ profiles }) => {
             <p className="text-white text-xs italic">{profile.tag}</p>
 
             <div className="flex justify-center items-center mt-2">
-              <p className="text-yellow-500 text-xs italic">{timeElapsedList[index]}</p>
+              <p className="text-yellow-500 text-xs italic">
+                {timeElapsedList[index]}
+              </p>
               <RiMessage2Fill className="text-yellow-500 ml-2" />
             </div>
           </div>

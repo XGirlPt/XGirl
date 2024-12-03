@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import CardsGirl from "@/components/CardsGirl";
-import CaroselRound from "@/components/CaroselRound";
-import Footer from "@/components/Footer";
+import Header from "@/components/header";
+import CardsGirl from "@/components/cards-girl";
+import CaroselRound from "@/components/carosel-round";
+import Footer from "@/components/footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
-import MainCard from "@/components/MainCard";
+import MainCard from "@/components/main-card";
 import { Listbox } from "@headlessui/react";
 import { FiChevronDown } from "react-icons/fi";
 
@@ -41,7 +41,7 @@ const distritos = [
   "Setúbal",
   "Viana do Castelo",
   "Vila Real",
-  "Viseu"
+  "Viseu",
 ];
 function GirlsPage() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -53,20 +53,18 @@ function GirlsPage() {
   const searchParams = useSearchParams();
   const itemsPerPage = 15;
 
-
-
   useEffect(() => {
     async function fetchData() {
       try {
         const fetchedProfiles: Profile[] = await fetchProfiles();
         setProfiles(fetchedProfiles);
-        
+
         const distrito = searchParams.get("distrito");
         // Filtra os perfis com base no distrito da URL, se estiver presente
         const profilesToDisplay = distrito
           ? fetchedProfiles.filter((profile) => profile.distrito === distrito)
           : fetchedProfiles;
-        
+
         setFilteredProfiles(profilesToDisplay);
       } catch (error) {
         console.error("Erro ao buscar perfis:", error);
@@ -75,12 +73,10 @@ function GirlsPage() {
     fetchData();
   }, [searchParams]);
 
-
-
-
   useEffect(() => {
-    const filtered = profiles.filter((profile) =>
-      profile.nome?.toLowerCase().includes(searchTerm.toLowerCase()) // Usando encadeamento opcional
+    const filtered = profiles.filter(
+      (profile) =>
+        profile.nome?.toLowerCase().includes(searchTerm.toLowerCase()) // Usando encadeamento opcional
     );
     setFilteredProfiles(filtered);
     setCurrentPage(1);
@@ -108,16 +104,14 @@ function GirlsPage() {
     const filtered = profiles.filter(
       (profile) =>
         profile.nome.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedDistrito === "Distrito" || profile.distrito === selectedDistrito)
+        (selectedDistrito === "Distrito" ||
+          profile.distrito === selectedDistrito)
     );
     setFilteredProfiles(filtered);
     setCurrentPage(1);
   }, [searchTerm, selectedDistrito, profiles]);
 
   const totalProfiles = profiles.length;
-
-
- 
 
   return (
     <div className="bg-gray-900 text-white w-screen">
@@ -129,13 +123,15 @@ function GirlsPage() {
           Descubra as melhores profissionais de todo o país
         </p>
       </div>
-  
+
       <CaroselRound profiles={filteredProfiles} />
-  
+
       <div className="px-4 md:px-36 mb-2">
-        <h2 className="text-xl md:text-2xl pink-500 mb-2">Buscar Acompanhante</h2>
+        <h2 className="text-xl md:text-2xl pink-500 mb-2">
+          Buscar Acompanhante
+        </h2>
       </div>
-  
+
       <div className="px-4 md:px-36 w-full md:w-2/4 mb-4 flex flex-col md:flex-row items-center gap-2">
         <div className="relative w-full md:w-1/3">
           <Listbox value={selectedDistrito} onChange={handleDistritoSelect}>
@@ -169,14 +165,20 @@ function GirlsPage() {
                 >
                   {distrito}{" "}
                   <span className="text-sm text-gray-500">
-                    ({profiles.filter((profile) => profile.distrito === distrito).length})
+                    (
+                    {
+                      profiles.filter(
+                        (profile) => profile.distrito === distrito
+                      ).length
+                    }
+                    )
                   </span>
                 </Listbox.Option>
               ))}
             </Listbox.Options>
           </Listbox>
         </div>
-  
+
         <div className="flex-1">
           <input
             type="text"
@@ -187,10 +189,14 @@ function GirlsPage() {
           />
         </div>
       </div>
-  
+
       <div className="px-4 md:px-36">
-        <MainCard profiles={filteredProfiles} currentPage={currentPage} itemsPerPage={itemsPerPage} />
-  
+        <MainCard
+          profiles={filteredProfiles}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+
         <div className="flex justify-center items-center mt-4">
           <button
             onClick={goToPreviousPage}
@@ -211,7 +217,6 @@ function GirlsPage() {
       </div>
     </div>
   );
-  
 }
 
 export default GirlsPage;

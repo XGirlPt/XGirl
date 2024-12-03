@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import FilterBar from "@/components/FilterBar";
+import Header from "@/components/header";
+import FilterBar from "@/components/filter-bar";
 import { fetchProfiles } from "@/services/profileService";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Link from "next/link";
-import { BlurImage } from "@/components/BlurImage";
+import { BlurImage } from "@/components/blur-image";
 
 interface Profile {
   nome: string;
@@ -106,7 +106,7 @@ function Destaques() {
                       // eslint-disable-next-line @next/next/no-img-element
                       <BlurImage
                         key={photoIndex}
-                        src={photo  || "/logo.webp"}
+                        src={photo || "/logo.webp"}
                         alt={`Profile ${profile.nome}`}
                         className="w-full h-full object-cover rounded-2xl hover:opacity-60 overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-zinc-600 hover:shadow-xl cursor-pointer"
                         style={{ height: `${imageHeight}px` }} // Definir a altura da imagem

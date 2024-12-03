@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ListDistritos from "./HeaderFilter/ListDistritos";
-import ListCidade from "./HeaderFilter/ListCidade";
-import ListCategory from "./HeaderFilter/ListCategory";
-import Filtro from "./Filtro";
+import ListDistritos from "./header-filter/list-distritos";
+import ListCidade from "./header-filter/list-cidade";
+import ListCategory from "./header-filter/list-category";
+import Filtro from "./filtro";
 interface Distrito {
   id: number;
   name: string;

@@ -1,17 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { LuFilter } from "react-icons/lu";
 import { ImCross } from "react-icons/im";
-import FiltroAge from "./Filtros/FiltroAge";
-import FiltroTarifa from "./Filtros/FiltroTarifa";
-import FiltroLingua from "./Filtros/FiltroLingua";
-import FiltroPeito from "./Filtros/FiltroPeito";
-import FiltroMamas from "./Filtros/FiltroMamas";
-import FiltroPelos from "./Filtros/FiltroPelos";
-import FiltroAltura from "./Filtros/FiltroAltura";
-import FiltroOlhos from "./Filtros/FiltroOlhos";
-import FiltroCorpo from "./Filtros/FiltroCorpo";
-import FiltroTatuagem from "./Filtros/FiltroTatuagem";
-import FiltroOrigem from "./Filtros/FiltroOrigem";
+import FiltroAge from "./filtros/filtro-age";
+import FiltroTarifa from "./filtros/filtro-tarifa";
+import FiltroLingua from "./filtros/filtro-lingua";
+import FiltroPeito from "./filtros/filtro-peito";
+import FiltroMamas from "./filtros/filtro-mamas";
+import FiltroPelos from "./filtros/filtro-pelos";
+import FiltroAltura from "./filtros/filtro-altura";
+import FiltroOlhos from "./filtros/filtro-olhos";
+import FiltroCorpo from "./filtros/filtro-corpo";
+import FiltroTatuagem from "./filtros/filtro-tatuagem";
+import FiltroOrigem from "./filtros/filtro-origem";
 import { fetchProfiles } from "@/services/profileService";
 
 interface FiltrosState {
@@ -61,15 +61,26 @@ const Filtro: React.FC = () => {
     const applyFilters = (profiles: any[], filters: FiltrosState) => {
       return profiles.filter((profile) => {
         if (filters.age && !filters.age.includes(profile.age)) return false;
-        if (filters.tarifa && !filters.tarifa.includes(profile.tarifa)) return false;
-        if (filters.lingua && !filters.lingua.some((lang) => profile.languages.includes(lang))) return false;
+        if (filters.tarifa && !filters.tarifa.includes(profile.tarifa))
+          return false;
+        if (
+          filters.lingua &&
+          !filters.lingua.some((lang) => profile.languages.includes(lang))
+        )
+          return false;
         if (filters.peito && filters.peito !== profile.peito) return false;
         if (filters.mamas && filters.mamas !== profile.mamas) return false;
-        if (filters.pelos !== undefined && filters.pelos !== profile.pelos) return false;
-        if (filters.altura && !filters.altura.includes(profile.altura)) return false;
+        if (filters.pelos !== undefined && filters.pelos !== profile.pelos)
+          return false;
+        if (filters.altura && !filters.altura.includes(profile.altura))
+          return false;
         if (filters.olhos && filters.olhos !== profile.olhos) return false;
         if (filters.corpo && filters.corpo !== profile.corpo) return false;
-        if (filters.tatuagem !== undefined && filters.tatuagem !== profile.tatuagem) return false;
+        if (
+          filters.tatuagem !== undefined &&
+          filters.tatuagem !== profile.tatuagem
+        )
+          return false;
         if (filters.origem && filters.origem !== profile.origem) return false;
 
         return true;
@@ -98,12 +109,17 @@ const Filtro: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-lg md:text-xl text-white font-semibold">Filtros</h1>
+              <h1 className="text-lg md:text-xl text-white font-semibold">
+                Filtros
+              </h1>
               <button
                 onClick={() => setMostrarFiltro(false)}
                 className="p-2 rounded-full hover:bg-gray-700 transition-colors"
               >
-                <ImCross size={16} className="text-gray-400 hover:text-pink-500 transition-colors" />
+                <ImCross
+                  size={16}
+                  className="text-gray-400 hover:text-pink-500 transition-colors"
+                />
               </button>
             </div>
 

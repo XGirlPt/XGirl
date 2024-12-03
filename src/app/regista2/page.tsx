@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { FaClock, FaMoneyBillWave, FaStar, FaGift } from "react-icons/fa";
 import { TfiCup } from "react-icons/tfi";
 import supabase from "@/database/supabase";
-import ListRegister from "@/components/Register/ListRegister";
+import ListRegister from "@/components/register/list-register";
 import { registerUser } from "@/actions/ProfileActions";
 import { useRouter } from "next/navigation";
 
@@ -165,87 +165,86 @@ const Regista2: React.FC = () => {
 
           {/* right size */}
           <div className="bg-gray-900 dark:bg-gray-800 mt-10 w-full max-w-lg mx-auto border border-gray-700 rounded-2xl shadow-xl p-6 sm:p-8">
-  <h1 className="text-2xl md:text-3xl font-extrabold text-center text-white mb-6">
-    Cria uma nova conta
-  </h1>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-center text-white mb-6">
+              Cria uma nova conta
+            </h1>
 
-  <form className="space-y-6">
-    {/* Campo Email */}
-    <div>
-      <label
-        htmlFor="email"
-        className="block mb-2 text-sm font-medium text-gray-400"
-      >
-        Email*
-      </label>
-      <input
-        id="email"
-        type="email"
-        placeholder="Insere o teu email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
-        required
-      />
-    </div>
+            <form className="space-y-6">
+              {/* Campo Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-400"
+                >
+                  Email*
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Insere o teu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+                  required
+                />
+              </div>
 
-    {/* Opção Adicional */}
-    <div>
-      <ListRegister handleOptionSelect={handleOptionSelect} />
-    </div>
+              {/* Opção Adicional */}
+              <div>
+                <ListRegister handleOptionSelect={handleOptionSelect} />
+              </div>
 
-    {/* Campo Password */}
-    <div>
-      <label
-        htmlFor="password"
-        className="block mb-2 text-sm font-medium text-gray-400"
-      >
-        Password*
-      </label>
-      <input
-        id="password"
-        type="password"
-        placeholder="Insere a tua password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
-        required
-      />
-    </div>
+              {/* Campo Password */}
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-400"
+                >
+                  Password*
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Insere a tua password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+                  required
+                />
+              </div>
 
-    {/* Confirmação de Password */}
-    <div>
-      <label
-        htmlFor="confirmPassword"
-        className="block mb-2 text-sm font-medium text-gray-400"
-      >
-        Confirma a tua Password*
-      </label>
-      <input
-        id="confirmPassword"
-        type="password"
-        placeholder="Confirma a tua password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
-        required
-      />
-    </div>
+              {/* Confirmação de Password */}
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="block mb-2 text-sm font-medium text-gray-400"
+                >
+                  Confirma a tua Password*
+                </label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="Confirma a tua password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="bg-gray-800 border border-gray-600 text-gray-200 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-3"
+                  required
+                />
+              </div>
 
-    {/* Botão Criar Conta */}
-    <div className="mt-6">
-      <button
-        type="button"
-        onClick={handleRegister}
-        className="w-full py-3 px-6 bg-pink-500 hover:bg-pink-400 text-white text-sm font-semibold rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-300"
-      >
-        Cria a tua conta
-      </button>
-    </div>
-  </form>
-</div>
-
+              {/* Botão Criar Conta */}
+              <div className="mt-6">
+                <button
+                  type="button"
+                  onClick={handleRegister}
+                  className="w-full py-3 px-6 bg-pink-500 hover:bg-pink-400 text-white text-sm font-semibold rounded-lg shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                >
+                  Cria a tua conta
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
       </div>
     </div>
   );

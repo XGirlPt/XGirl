@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import FiltroAltura from "@/components/Filtros/FiltroAltura";
-import FiltroCorpo from "@/components/Filtros/FiltroCorpo";
-import FiltroMamas from "@/components/Filtros/FiltroMamas";
-import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
-import FiltroPeito from "@/components/Filtros/FiltroPeito";
-import FiltroPelos from "@/components/Filtros/FiltroPelos";
-import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
-import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
-import CheckContacto from "@/components/Register/CheckContacto";
-import FiltroSigno from "@/components/Filtros/FiltroSigno";
-import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
+import FiltroAltura from "@/components/filtros/filtro-altura";
+import FiltroCorpo from "@/components/filtros/filtro-corpo";
+import FiltroMamas from "@/components/filtros/filtro-mamas";
+import FiltroOlhos from "@/components/filtros/filtro-olhos";
+import FiltroPeito from "@/components/filtros/filtro-peito";
+import FiltroPelos from "@/components/filtros/filtro-pelos";
+import FiltroTatuagem from "@/components/filtros/filtro-tatuagem";
+import FiltroOrigem from "@/components/filtros/filtro-origem";
+import CheckContacto from "@/components/register/check-contacto";
+import FiltroSigno from "@/components/filtros/filtro-signo";
+import FiltroTarifa from "@/components/filtros/filtro-tarifa";
 import supabase from "@/database/supabase";
-import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
+import FiltroDistrito from "@/components/filtros/filtro-distrito";
 import { updateProfileData } from "@/services/profileService";
 import {
   updateNome,
@@ -35,8 +35,8 @@ import {
   updateTarifa,
 } from "@/actions/ProfileActions";
 import { useParams } from "next/navigation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface ModificarPerfilProps {
   handleVoltar: () => void;
@@ -97,9 +97,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
     (state: any) => state.profile?.profile?.tatuagem
   );
 
-  const signoRedux = useSelector(
-    (state: any) => state.profile?.profile?.signo
-  );
+  const signoRedux = useSelector((state: any) => state.profile?.profile?.signo);
 
   const handleGuardar = async () => {
     const dataToUpdate = {
@@ -118,12 +116,11 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
       olhos,
       seios,
       tatuagem,
-      
     };
-  
+
     try {
       await updateProfileData(dataToUpdate, userUIDd);
-      toast.success('Alteração efetuada com sucesso!', {
+      toast.success("Alteração efetuada com sucesso!", {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,
@@ -136,7 +133,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
       // onClose(); // Fechar modal ou realizar outra ação de sucesso
     } catch (error) {
       console.error("Erro ao atualizar perfil na base de dados:" + error);
-      toast.error('Erro ao atualizar perfil na base de dados: ' + error, {
+      toast.error("Erro ao atualizar perfil na base de dados: " + error, {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,
@@ -146,11 +143,8 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
         progress: undefined,
         theme: "dark",
       });
-    
     }
-   
   };
-  
 
   useEffect(() => {
     if (userUID) {
@@ -200,7 +194,6 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
     if (seiosRedux) setSeios(seiosRedux);
     if (tatuagemRedux) setTatuagem(tatuagemRedux);
     if (signoRedux) setTatuagem(signoRedux);
-
   }, [
     nomeRedux,
     idadeRedux,
@@ -217,7 +210,6 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
     seiosRedux,
     tatuagemRedux,
     signoRedux,
-    
   ]);
 
   // INPUT ONCHANGE START
@@ -270,7 +262,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
     setOrigem(newValue);
   };
 
-  const handleCorpoChange = (newValue: string) => { 
+  const handleCorpoChange = (newValue: string) => {
     dispatch(updateCorpo(newValue));
     setCorpo(newValue);
   };
@@ -300,17 +292,14 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
     setTatuagem(newValue);
   };
 
-  
   return (
-    
-         
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-700  bg-transparent backdrop-blur-md z-50 ">
-    <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-2/3 md:h-4/5 sm:max-h-[80vh] overflow-y-auto">
-      {/* Conteúdo da modal */}
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-700  bg-transparent backdrop-blur-md z-50 ">
+      <div className="md:w-full md:max-w-4xl bg-gray-800 text-white rounded-xl border border-gray-500 shadow-xl my-24 mx-12 overflow-hidden h-2/3 md:h-4/5 sm:max-h-[80vh] overflow-y-auto">
+        {/* Conteúdo da modal */}
         {/* Header */}
         <header className="bg-pink-800 py-6 px-4 md:px-10">
           <h1 className="text-xl md:text-3xl font-bold tracking-wide text-center">
-            Modifica o teu Perfil 
+            Modifica o teu Perfil
           </h1>
           <p className="text-center text-gray-200 text- md:text-sm mt-2">
             Complete as informações para começar no <strong>Xgirl.pt</strong>
@@ -323,7 +312,9 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
             {/* Coluna Esquerda */}
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300">Nome*</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Nome*
+                </label>
                 <input
                   className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   value={nome}
@@ -332,7 +323,9 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300">Idade</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Idade
+                </label>
                 <input
                   type="number"
                   className="w-full py-3 px-4 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -342,7 +335,9 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300">Número de Telefone*</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Número de Telefone*
+                </label>
                 <input
                   className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   value={telefone}
@@ -350,10 +345,20 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
                   placeholder="Seu telefone"
                 />
               </div>
-              <FiltroTarifa rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroDistrito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroTarifa
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroDistrito
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
               <div>
-                <label className="block text-sm font-medium text-gray-300">Cidade</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Cidade
+                </label>
                 <input
                   className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   value={cidade}
@@ -365,42 +370,69 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
 
             {/* Coluna Direita */}
             <div className="space-y-6">
-              <FiltroAltura rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-300" />
-              <FiltroCorpo rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroOlhos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroMamas rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroPeito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroPelos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroTatuagem rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroSigno rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroAltura
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-300"
+              />
+              <FiltroCorpo
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroOlhos
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroMamas
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroPeito
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroPelos
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroTatuagem
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroSigno
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
             </div>
           </div>
         </div>
 
-
         <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
-        <div className="flex justify-between">         
-           <button
-           className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
-            onClick={handleVoltar}
-          >
-            <span>Voltar</span>
-          </button>
-          <button
-            className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium "
-            onClick={handleGuardar}
-          >
-            Guardar
-          </button>
-        </div>
+          <div className="flex justify-between">
+            <button
+              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
+              onClick={handleVoltar}
+            >
+              <span>Voltar</span>
+            </button>
+            <button
+              className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium "
+              onClick={handleGuardar}
+            >
+              Guardar
+            </button>
+          </div>
         </footer>
-</div>
       </div>
-
+    </div>
   );
-
-  
-  
 };
 
 export default ModificarPerfil;

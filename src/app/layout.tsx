@@ -1,15 +1,15 @@
 import { Inter } from "next/font/google";
-import ReduxProvider from "@/provider/redux-provider";
+import ReduxProvider from "@/provider/ReduxProvider";
 import { Metadata } from "next";
-import { MainProvider } from "@/provider/main-provider";
-import 'normalize.css'; // Carrega o normalize.css
+import { MainProvider } from "@/provider/MainProvider";
+import "normalize.css"; // Carrega o normalize.css
 import "./globals.css";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em Portugal",
+  title:
+    "XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em Portugal",
   description:
     "Descubra os melhores anúncios classificados eróticos em Portugal com o XGirl. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal.",
   authors: [{ name: "XGirl" }],
@@ -30,11 +30,8 @@ export const metadata: Metadata = {
     ],
     url: "https://www.xgirl.pt/",
   },
-  metadataBase: new URL('https://www.xgirl.pt/') // Adiciona a base URL aqui
+  metadataBase: new URL("https://www.xgirl.pt/"), // Adiciona a base URL aqui
 };
-
-
-
 
 export default function RootLayout({
   children,
@@ -44,10 +41,19 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <head>
-        <title>XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em Portugal</title>
-        <meta name="description" content="Descubra os melhores anúncios classificados eróticos em Portugal com o XGirl. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal." />
+        <title>
+          XGirl - Classificados Eróticos, Escort e Acompanhantes de luxo em
+          Portugal
+        </title>
+        <meta
+          name="description"
+          content="Descubra os melhores anúncios classificados eróticos em Portugal com o XGirl. Explore uma ampla gama de serviços eróticos e encontre as melhores acompanhantes e escorts de luxo em Portugal."
+        />
         <meta name="author" content="XGirl" />
-        <meta name="keywords" content="Classificados eróticos Portugal, acompanhantes, Escort, serviços eróticos, classificados adultos, X-Girl" />
+        <meta
+          name="keywords"
+          content="Classificados eróticos Portugal, acompanhantes, Escort, serviços eróticos, classificados adultos, X-Girl"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="language" content="Portuguese" />
         <meta name="robots" content="index, follow" />

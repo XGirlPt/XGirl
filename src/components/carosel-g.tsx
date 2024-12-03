@@ -7,7 +7,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BlurImage } from "./BlurImage";
+import { BlurImage } from "./blur-image";
 import Image from "next/image";
 
 interface Profile {
@@ -92,30 +92,26 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
 
     return (
       <div className="relative w-full mt-4 md:mt-24">
-        <Slider ref={this.sliderRef} {...settings}
-        className="">
+        <Slider ref={this.sliderRef} {...settings} className="">
           {profiles.map((profile, index) => (
             <div key={index} className="px-2">
               <div className="relative ">
-                <Link href={`/Acompanhantes/${profile.nome}`} >
+                <Link href={`/Acompanhantes/${profile.nome}`}>
                   <Image
-                    src={profile.photos[0]
-                    || "/logo.webp"}
+                    src={profile.photos[0] || "/logo.webp"}
                     alt={profile.nome}
                     className="w-full h-52 md:h-72 object-cover transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 rounded-xl "
-                    priority 
-                    
+                    priority
                     width={100}
                     height={100}
-
                   />
                 </Link>
                 <p className="absolute bottom-7 left-1/2 transform -translate-x-1/2 pb-2 text-white font-bold text-md md:text-xl px-2 rounded whitespace-nowrap flex items-center">
-              {profile.nome}
-              {profile.certificado && (
-                <VscVerifiedFilled className="text-green-400 ml-2" />
-              )}
-            </p>
+                  {profile.nome}
+                  {profile.certificado && (
+                    <VscVerifiedFilled className="text-green-400 ml-2" />
+                  )}
+                </p>
                 <p className="absolute bottom-0 left-0 right-0 text-white text-center py-2">
                   {profile.cidade}{" "}
                   <FaMapMarkerAlt className="text-rose-800 inline-block" />

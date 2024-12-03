@@ -8,8 +8,8 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaUser, FaCog, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import Image from "next/image";
-import SearchModal from "./SearchModal";
-import Filtro from "./Filtro"
+import SearchModal from "./search-modal";
+import Filtro from "./filtro";
 
 interface HeaderProps {
   blur?: boolean;
@@ -26,10 +26,13 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   const emailReduxClubs = useSelector(
     (state: any) => state.clubs && state.clubs.email
   );
-  const photoUID = useSelector((state: any) => state.profile?.profile?.photos?.[0]);
+  const photoUID = useSelector(
+    (state: any) => state.profile?.profile?.photos?.[0]
+  );
 
   const [filtroAberto, setFiltroAberto] = useState<boolean>(false);
-  const [languageDropdownOpen, setLanguageDropdownOpen] = useState<boolean>(false);
+  const [languageDropdownOpen, setLanguageDropdownOpen] =
+    useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -63,10 +66,17 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
   };
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setLanguageDropdownOpen(false);
     }
-    if (modalOpen && modalRef.current && !modalRef.current.contains(event.target as Node)) {
+    if (
+      modalOpen &&
+      modalRef.current &&
+      !modalRef.current.contains(event.target as Node)
+    ) {
       setModalOpen(false);
     }
   };
@@ -83,13 +93,13 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
       {/* Header Principal */}
       <div className="w-full bg-black h-16  flex justify-center items-center shadow-md">
         <Link href="/" aria-label="Ir para a página inicial">
-          <Image 
-            src="/logo.webp"   
-            alt="Logo" 
+          <Image
+            src="/logo.webp"
+            alt="Logo"
             width={200}
             height={200}
             priority
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: "contain" }}
           />
         </Link>
       </div>
@@ -110,7 +120,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
             <Link
               href="/Acompanhantes"
               className={`nav-link flex items-center px-4 py-3 text-white h-full ${
-                pathname === "/Acompanhantes" ? "bg-pink-900" : "hover:bg-pink-800"
+                pathname === "/Acompanhantes"
+                  ? "bg-pink-900"
+                  : "hover:bg-pink-800"
               } transition duration-200`}
             >
               Acompanhantes
@@ -132,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               Filtros
             </button>
             {filtroAberto && <Filtro />}
-            </div>
+          </div>
 
           {/* Barra de Pesquisa */}
           <div className="relative py-2 px-2">
@@ -146,13 +158,15 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
 
           {/* Área de usuário e configurações */}
           <div className="flex items-center space-x-2 h-full text-sm">
-            <p className="text-gray-300 ml-2"></p> 
+            <p className="text-gray-300 ml-2"></p>
             {!emailReduxProfile && !emailReduxClubs ? (
               <>
                 <Link
                   href="/login"
                   className={`nav-link flex items-center py-3  px-4 text-white h-full ${
-                    pathname === "/login" ? "bg-pink-800 py-4" : "hover:bg-pink-800"
+                    pathname === "/login"
+                      ? "bg-pink-800 py-4"
+                      : "hover:bg-pink-800"
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -161,7 +175,9 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                 <Link
                   href="/regista2"
                   className={`nav-link flex items-center px-4 py-4  text-white h-full ${
-                    pathname === "/regista2" ? "bg-pink-800 py-4" : "hover:bg-pink-800 "
+                    pathname === "/regista2"
+                      ? "bg-pink-800 py-4"
+                      : "hover:bg-pink-800 "
                   } transition duration-200`}
                 >
                   <FaUser className="mr-2 text-sm" />
@@ -170,14 +186,14 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
               </>
             ) : (
               <div className="flex items-center space-x-4 cursor-pointer">
-                <span className="text-gray-300 flex">  {emailReduxProfile}</span>
+                <span className="text-gray-300 flex"> {emailReduxProfile}</span>
                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-4 border-pink-800 transition-transform hover:scale-110">
                   {photoUID ? (
                     <Image
-                      src={photoUID  || "/logo.webp"}
+                      src={photoUID || "/logo.webp"}
                       alt="Profile Photo"
                       className="w-full h-full object-cover rounded-full"
-                      loading="lazy" 
+                      loading="lazy"
                       width={100}
                       height={100}
                     />
@@ -195,7 +211,10 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                     <IoIosArrowDown className="text-xl ml-1" />
                   </button>
                   {languageDropdownOpen && (
-                    <ul ref={dropdownRef} className="absolute right-0 mt-2 w-48 bg-pink-900 text-white shadow-lg rounded-lg py-2">
+                    <ul
+                      ref={dropdownRef}
+                      className="absolute right-0 mt-2 w-48 bg-pink-900 text-white shadow-lg rounded-lg py-2"
+                    >
                       <li
                         onClick={() => {
                           router.push("/minha-conta");
@@ -203,8 +222,7 @@ const Header: React.FC<HeaderProps> = ({ blur }) => {
                         }}
                         className="flex items-center px-5 py-3 hover:bg-pink-800 cursor-pointer transition duration-200"
                       >
-                        <FaUser className="mr-2" />
-                        A Minha Conta
+                        <FaUser className="mr-2" />A Minha Conta
                       </li>
                       <li
                         onClick={() => {

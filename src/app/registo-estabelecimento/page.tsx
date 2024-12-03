@@ -3,11 +3,11 @@ import { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import supabase from "@/database/supabase";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ListCategoriaBar from "@/components/Register/ListCategoriaBar";
-import FiltroPrice from "@/components/Filtros/FiltroTarifa";
-import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import ListCategoriaBar from "@/components/register/list-categoria-bar";
+import FiltroPrice from "@/components/filtros/filtro-tarifa";
+import FiltroDistrito from "@/components/filtros/filtro-distrito";
 import { updateClubsNome, updateClubsTelefone } from "@/actions/ClubsActions";
 
 const RegistoEstabelecimento: React.FC = () => {

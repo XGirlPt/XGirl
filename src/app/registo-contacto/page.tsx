@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CheckDeslocacoes from "@/components/Register/CheckDeslocacoes";
-import CheckPagamento from "@/components/Register/CheckPagamento";
-import CheckLinguas from "@/components/Register/CheckLinguas";
-import CheckServico from "@/components/Register/CheckServico";
-import FiltroPrice from "@/components/Filtros/FiltroTarifa";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import CheckDeslocacoes from "@/components/register/check-deslocacoes";
+import CheckPagamento from "@/components/register/check-pagamento";
+import CheckLinguas from "@/components/register/check-linguas";
+import CheckServico from "@/components/register/check-servico";
+import FiltroPrice from "@/components/filtros/filtro-tarifa";
 import {
   updateDescription,
   updatePagamento,
@@ -18,10 +18,8 @@ import {
 } from "@/actions/ProfileActions";
 import dynamic from "next/dynamic";
 
-import { Field, Label, Textarea } from '@headlessui/react';
-import clsx from 'clsx';
-
-
+import { Field, Label, Textarea } from "@headlessui/react";
+import clsx from "clsx";
 
 const RegistoContacto: React.FC = () => {
   const dispatch = useDispatch();
@@ -96,16 +94,15 @@ const RegistoContacto: React.FC = () => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-transparent backdrop-blur-md z-50">
-    <div className="w-full max-w-4xl bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
+      <div className="w-full max-w-4xl bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
         <div className="w-full pt-2 mb-2">
           <p className="text-pink-800 text-xl mt-8 pb-0 px-6">
             Cria o teu Perfil de Anunciante
           </p>
         </div>
 
-
         <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-transparent backdrop-blur-md z-50">
-    <div className="w-full max-w-4xl  bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
+          <div className="w-full max-w-4xl  bg-gray-800 text-white rounded-xl shadow-xl overflow-hidden h-[90vh] sm:h-auto sm:max-h-[80vh] overflow-y-auto">
             <div className="flex w-full">
               <div className="flex flex-col w-full mx-6 pt-4">
                 <div className="w-full mt-0">
@@ -136,56 +133,45 @@ const RegistoContacto: React.FC = () => {
                   />
                 </div>
 
-
-         
-
-<div className="w-full mt-6">
-      <Field>
-        <Label className="text-md text-pink-800">Descrição</Label>
-        <Textarea
-          name="description"
-          value={description}
-          onChange={(e) => handleDescriptionChange(e.target.value)}
-          className={clsx(
-            "w-full h-32 p-4 border rounded-lg",
-            "data-[hover]:shadow-lg text-gray-600 data-[focus]:bg-gray-100",
-            "focus:outline-none focus:ring-2 focus:ring-pink-800"
-          )}
-          placeholder="Escreva a descrição aqui..."
-        />
-      </Field>
-    </div>
-
-
-
-
+                <div className="w-full mt-6">
+                  <Field>
+                    <Label className="text-md text-pink-800">Descrição</Label>
+                    <Textarea
+                      name="description"
+                      value={description}
+                      onChange={(e) => handleDescriptionChange(e.target.value)}
+                      className={clsx(
+                        "w-full h-32 p-4 border rounded-lg",
+                        "data-[hover]:shadow-lg text-gray-600 data-[focus]:bg-gray-100",
+                        "focus:outline-none focus:ring-2 focus:ring-pink-800"
+                      )}
+                      placeholder="Escreva a descrição aqui..."
+                    />
+                  </Field>
+                </div>
               </div>
             </div>
 
             <footer className="bg-gray-800 border-t border-gray-700 p-4 sticky bottom-0">
-          <div className="flex justify-between">
-          <Link
-                href={{
-                  pathname: "/registo-entrada",
-                  query: { email: userEmailRedux },
-                }}
-              >
-                <button className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
-                Voltar
-              </button>
-              </Link>
-              <Link href="/registo-fotos">
-              <button className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium ">
-                Continuar
-              </button>
-            </Link>
+              <div className="flex justify-between">
+                <Link
+                  href={{
+                    pathname: "/registo-entrada",
+                    query: { email: userEmailRedux },
+                  }}
+                >
+                  <button className="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition">
+                    Voltar
+                  </button>
+                </Link>
+                <Link href="/registo-fotos">
+                  <button className="px-6 py-3 bg-pink-800 hover:bg-pink-900 rounded-lg text-sm font-medium ">
+                    Continuar
+                  </button>
+                </Link>
+              </div>
+            </footer>
           </div>
-        </footer>
-
-            
-          </div>
-
-        
         </div>
       </div>
     </div>

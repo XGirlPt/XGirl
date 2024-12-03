@@ -1,40 +1,41 @@
 "use client";
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import CardsGirl from "@/components/CardsGirl";
-import CaroselRound from "@/components/CaroselRound";
-import Footer from "@/components/Footer";
+import Header from "@/components/header";
+import CardsGirl from "@/components/cards-girl";
+import CaroselRound from "@/components/carosel-round";
+import Footer from "@/components/footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
 import { Profile } from "@/types";
-import StoryCard from "@/components/StoryCard";
-import StoryBigS from "@/components/StoryBigS";
-import CitySelector from "@/components/CitySelector";
-
+import StoryCard from "@/components/story-card";
+import StoryBigS from "@/components/story-big-s";
+import CitySelector from "@/components/city-selector";
 
 function StoriesPage({}) {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const searchParams = useSearchParams();
   const [selectedStory, setSelectedStory] = useState<string | null>(null);
-  const [selectedCidade, setSelectedCidade] = useState<string | null>(null); 
+  const [selectedCidade, setSelectedCidade] = useState<string | null>(null);
   const [selectedPhotos, setselectedPhotos] = useState<string[]>([]); // Alterado para array de strings
-  const [selectedNome, setselectedNome] = useState<string | null>(null); 
-  const [selectedphotoURL, setselectedPhotoURL] = useState<string | null>(null); 
+  const [selectedNome, setselectedNome] = useState<string | null>(null);
+  const [selectedphotoURL, setselectedPhotoURL] = useState<string | null>(null);
 
-
-  
   const [showLargeStory, setShowLargeStory] = useState(false);
 
-  const handleStoryClick = (story: string, cidade: string, photos: string[], nome: string,  photoURL: string) => {
+  const handleStoryClick = (
+    story: string,
+    cidade: string,
+    photos: string[],
+    nome: string,
+    photoURL: string
+  ) => {
     setSelectedStory(story); // Ajuste aqui
     setSelectedCidade(cidade);
     setselectedPhotos(photos); // Agora deve ser um array
     setselectedNome(nome); // Ajuste aqui
-    setShowLargeStory(true)
-    setselectedPhotoURL(photoURL); // Ajuste aqui
-
-    ; // Mostra o StoryBigS
+    setShowLargeStory(true);
+    setselectedPhotoURL(photoURL); // Ajuste aqui // Mostra o StoryBigS
   };
 
   useEffect(() => {
@@ -54,11 +55,6 @@ function StoriesPage({}) {
     fetchData();
   }, [searchParams]);
 
-
-
-
-
-  
   useEffect(() => {
     console.log("Cidade selecionada:", selectedCidade); // Log para verificar a cidade selecionada
     if (selectedCidade) {
@@ -72,8 +68,6 @@ function StoriesPage({}) {
     }
   }, [selectedCidade, profiles]);
 
-
-
   return (
     <div className="text-gray-600 bg-gray-900">
       <div className="px-2 md:px-36">
@@ -86,18 +80,22 @@ function StoriesPage({}) {
       </div>
       <CaroselRound profiles={filteredProfiles} />
       <p className="text-pink-800 text-3xl text-center justify-center pt-8 md:pt-4">
-          Ultimos Stories
-        </p>
+        Ultimos Stories
+      </p>
       <div className="px-8 md:px-36">
-      {showLargeStory && (
-  <StoryBigS
-    profile={filteredProfiles.find(profile => profile.nome === selectedNome)} // Encontre o perfil correspondente
-    onClose={() => setShowLargeStory(false)}
-   
-    />
-)}
-<StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick}  />
-</div>
+        {showLargeStory && (
+          <StoryBigS
+            profile={filteredProfiles.find(
+              (profile) => profile.nome === selectedNome
+            )} // Encontre o perfil correspondente
+            onClose={() => setShowLargeStory(false)}
+          />
+        )}
+        <StoryCard
+          profiles={filteredProfiles}
+          onStoryClick={handleStoryClick}
+        />
+      </div>
     </div>
   );
 }

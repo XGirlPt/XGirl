@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FaMapMarkerAlt, FaUser, FaCamera } from "react-icons/fa";
@@ -7,17 +7,15 @@ import ModificarPerfil from "./_ui/ModificarPerfil";
 import ModificarContacto from "./_ui/ModificarContacto";
 import ModificarFotos from "./_ui/ModificarFotos";
 import ModificarStories from "./_ui/ModificarStories";
-import { BlurImage } from "@/components/BlurImage";
+import { BlurImage } from "@/components/blur-image";
 import { useDispatch } from "react-redux";
 import { updateTag } from "@/actions/ProfileActions";
 import Definicoes from "./_ui/Definicoes";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import BarConta from "@/components/BarConta";
-
+import "react-toastify/dist/ReactToastify.css";
+import BarConta from "@/components/bar-conta";
 
 interface MinhaContaProps {}
-
 
 const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [showModificar, setShowModificar] = useState(false);
@@ -31,17 +29,23 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [newTag, setNewTag] = useState<string>("");
   const [certificado, setCertificado] = useState<boolean | null>(null); // Guardar o estado do certificado
 
-
-  const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
+  const emailRedux = useSelector(
+    (state: any) => state.profile?.user?.user?.email
+  );
   const tagRedux = useSelector((state: any) => state.profile?.profile?.tag);
-  const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
+  const cidadeRedux = useSelector(
+    (state: any) => state.profile?.profile?.cidade
+  );
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
-  const photoURLsRedux = useSelector((state: any) => state.profile?.profile?.photos);
-  const vphotoURLsRedux = useSelector((state: any) => state.profile?.profile?.vphotos);
-
+  const photoURLsRedux = useSelector(
+    (state: any) => state.profile?.profile?.photos
+  );
+  const vphotoURLsRedux = useSelector(
+    (state: any) => state.profile?.profile?.vphotos
+  );
 
   const dispatch = useDispatch(); // Instanciar o dispatch
-  
+
   const [nome, setNome] = useState<string | undefined>(nomeRedux);
 
   useEffect(() => {
@@ -52,33 +56,30 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     setShowModificar(false);
     setShowContacto(false);
     setShowFotos(false);
-    setShowStories(false)
+    setShowStories(false);
   };
-
 
   const [activeContent, setActiveContent] = useState("minhaConta");
 
-
   // New function to handle updating the tag
   const handleAtualizarEstado = async () => {
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
     if (sessionError || !session) {
       console.error("Erro ao obter sessão:", sessionError);
       return;
     }
-  
+
     const userUID = session.user.id; // Use o ID do usuário da sessão
     console.log("userId:", userUID); // Verifique se isso é o que você espera
-  
 
-
-
-    
     const { data, error } = await supabase
-      .from('ProfilesData') // Certifique-se de que 'profiles' é o nome correto da sua tabela
+      .from("ProfilesData") // Certifique-se de que 'profiles' é o nome correto da sua tabela
       .update({ tag: newTag }) // Atualiza a coluna 'tag' com o novo valor
       .eq("userUID", userUID);
-  
+
     if (error) {
       console.error("Erro ao atualizar o estado:", error.message || error);
     } else {
@@ -87,14 +88,15 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
 
       setNewTag(""); // Limpa o campo após a atualização
       toast.success("Nova tag foi alterada com sucesso!");
-
     }
   };
 
-
   useEffect(() => {
     const fetchCertificado = async () => {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
       if (sessionError || !session) {
         console.error("Erro ao obter sessão:", sessionError);
         return;
@@ -103,13 +105,13 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
       const userUID = session.user.id;
 
       const { data, error } = await supabase
-        .from('ProfilesData') // Substitua pelo nome correto da sua tabela
-        .select('certificado')
-        .eq('userUID', userUID)
+        .from("ProfilesData") // Substitua pelo nome correto da sua tabela
+        .select("certificado")
+        .eq("userUID", userUID)
         .single();
 
       if (error) {
-        console.error("Erro ao buscar certificado:", error.message );
+        console.error("Erro ao buscar certificado:", error.message);
       } else {
         setCertificado(data?.certificado); // Atualiza o estado com o valor do certificado
       }
@@ -121,7 +123,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   // Função para determinar a cor e mensagem da notificação com base no valor de "certificado"
   const renderNotification = () => {
     if (!showNotification) return null; // Não renderiza nada se a notificação não estiver visível
-  
+
     if (certificado === true) {
       return (
         <div className="bg-green-600 text-white px-4 py-3 flex justify-between items-center">
@@ -154,7 +156,10 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     } else if (certificado === false) {
       return (
         <div className="bg-red-600 text-white px-4 py-3 flex justify-between items-center">
-          <span>❌ O teu perfil não está certificado. Clica Aqui para adicionar uma foto de verificação para certificar o teu perfil.</span>
+          <span>
+            ❌ O teu perfil não está certificado. Clica Aqui para adicionar uma
+            foto de verificação para certificar o teu perfil.
+          </span>
           <button
             onClick={() => {
               setShowNotification(false); // Esconde a notificação
@@ -167,17 +172,20 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
       );
     }
 
-  
     return null;
   };
-  
-  
 
   useEffect(() => {
     const getSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
       if (error || !session) {
-        console.log("Sessão não iniciada ou erro ao verificar a sessão:", error);
+        console.log(
+          "Sessão não iniciada ou erro ao verificar a sessão:",
+          error
+        );
       } else {
         console.log("Sessão iniciada:", session);
         console.log("Usuário:", session.user);
@@ -187,15 +195,15 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
     getSession();
   }, []);
 
-  console.log("vphotoURLsRedux", vphotoURLsRedux)
-  console.log("photoURLsRedux", photoURLsRedux)
+  console.log("vphotoURLsRedux", vphotoURLsRedux);
+  console.log("photoURLsRedux", photoURLsRedux);
 
   return (
     <div className="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
       <ToastContainer />
       {/* Notification Bar */}
       {renderNotification()}
-  
+
       <div className="flex flex-grow">
         {/* Sidebar */}
         <BarConta
@@ -210,7 +218,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           handleStories={() => setShowStories(true)}
           showStories={showStories}
         />
-  
+
         {/* Main Content */}
         <main
           className={`flex-1 pb-10 transition-all duration-300 ${
@@ -259,7 +267,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                   </div>
                 </div>
               </div>
-  
+
               {/* Status Update */}
               <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-lg p-6 space-y-6">
                 <div>
@@ -270,7 +278,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                     {tagRedux || "Sem estado definido"}
                   </p>
                 </div>
-  
+
                 <div>
                   <h2 className="text-xl font-semibold text-gray-200 mb-4">
                     Atualiza o teu Estado
@@ -295,7 +303,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                   </p>
                 </div>
               </div>
-  
+
               {/* Action Panels */}
               <div className="w-full max-w-4xl bg-gray-800 rounded-xl shadow-lg p-6">
                 {showModificar && (
@@ -304,14 +312,14 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                     onClose={() => setShowModificar(false)}
                   />
                 )}
-  
+
                 {showContacto && (
                   <ModificarContacto
                     handleVoltar={handleVoltar}
                     onClose={() => setShowContacto(false)}
                   />
                 )}
-  
+
                 {showFotos && (
                   <div className="space-y-4">
                     <ModificarFotos handleVoltar={handleVoltar} />
@@ -325,15 +333,20 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                     </div>
                   </div>
                 )}
-  
-                {showStories && <ModificarStories handleVoltar={handleVoltar} />}
-  
-                {!showModificar && !showContacto && !showFotos && !showStories && (
-                  <div className="text-center text-gray-400">
-                    Selecione uma opção no menu para modificar as suas
-                    informações.
-                  </div>
+
+                {showStories && (
+                  <ModificarStories handleVoltar={handleVoltar} />
                 )}
+
+                {!showModificar &&
+                  !showContacto &&
+                  !showFotos &&
+                  !showStories && (
+                    <div className="text-center text-gray-400">
+                      Selecione uma opção no menu para modificar as suas
+                      informações.
+                    </div>
+                  )}
               </div>
             </div>
           )}
@@ -341,7 +354,6 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
       </div>
     </div>
   );
-  
 };
 
 export default MinhaConta;

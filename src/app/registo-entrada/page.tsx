@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, ChangeEvent,useRef } from "react";
+import { useState, useEffect, ChangeEvent, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateNome,
@@ -13,17 +13,17 @@ import {
 } from "@/actions/ProfileActions";
 import { Switch, FormControlLabel } from "@mui/material";
 import Link from "next/link";
-import FiltroAltura from "@/components/Filtros/FiltroAltura";
-import FiltroCabelo from "@/components/Filtros/FiltroCabelo";
-import FiltroCorpo from "@/components/Filtros/FiltroCorpo";
-import FiltroMamas from "@/components/Filtros/FiltroMamas";
-import FiltroLingua from "@/components/Filtros/FiltroLingua";
-import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
-import FiltroPeito from "@/components/Filtros/FiltroPeito";
-import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
-import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
-import FiltroPelos from "@/components/Filtros/FiltroPelos";
-import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import FiltroAltura from "@/components/filtros/filtro-altura";
+import FiltroCabelo from "@/components/filtros/filtro-cabelo";
+import FiltroCorpo from "@/components/filtros/filtro-corpo";
+import FiltroMamas from "@/components/filtros/filtro-mamas";
+import FiltroLingua from "@/components/filtros/filtro-lingua";
+import FiltroOlhos from "@/components/filtros/filtro-olhos";
+import FiltroPeito from "@/components/filtros/filtro-peito";
+import FiltroTatuagem from "@/components/filtros/filtro-tatuagem";
+import FiltroOrigem from "@/components/filtros/filtro-origem";
+import FiltroPelos from "@/components/filtros/filtro-pelos";
+import FiltroSigno from "@/components/filtros/filtro-signo";
 import supabase from "@/database/supabase";
 
 declare global {
@@ -48,10 +48,18 @@ const RegistoEntrada = () => {
 
   const nomeRedux = useSelector((state: any) => state.profile?.profile?.nome);
   const idadeRedux = useSelector((state: any) => state.profile?.profile?.idade);
-  const telefoneRedux = useSelector((state: any) => state.profile?.profile?.telefone);
-  const cidadeRedux = useSelector((state: any) => state.profile?.profile?.cidade);
-  const distritoRedux = useSelector((state: any) => state.profile?.profile?.distrito);
-  const adressRedux = useSelector((state: any) => state.profile?.profile?.adress);
+  const telefoneRedux = useSelector(
+    (state: any) => state.profile?.profile?.telefone
+  );
+  const cidadeRedux = useSelector(
+    (state: any) => state.profile?.profile?.cidade
+  );
+  const distritoRedux = useSelector(
+    (state: any) => state.profile?.profile?.distrito
+  );
+  const adressRedux = useSelector(
+    (state: any) => state.profile?.profile?.adress
+  );
 
   useEffect(() => {
     setNome(nomeRedux || "");
@@ -60,7 +68,14 @@ const RegistoEntrada = () => {
     setCidade(cidadeRedux || "");
     setDistrito(distritoRedux || "");
     setAdress(adressRedux || "");
-  }, [nomeRedux, idadeRedux, telefoneRedux, cidadeRedux, distritoRedux, adressRedux]);
+  }, [
+    nomeRedux,
+    idadeRedux,
+    telefoneRedux,
+    cidadeRedux,
+    distritoRedux,
+    adressRedux,
+  ]);
 
   const handleNomeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setNome(event.target.value);
@@ -95,9 +110,12 @@ const RegistoEntrada = () => {
   const handleFiltroTatuagem = (filtro: any) => {
     // Aqui você pode atualizar o estado geral de filtros
     console.log("Filtro de Tatuagem atualizado:", filtro);
-};
+  };
 
-  const toggleAdressOption = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+  const toggleAdressOption = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => {
     setUseAdress(checked);
     if (checked) {
       setCidade("");
@@ -137,16 +155,24 @@ const RegistoEntrada = () => {
   }, []);
 
   useEffect(() => {
-    if (googleLoaded && useAdress && window.google && !autocompleteRef.current) {
+    if (
+      googleLoaded &&
+      useAdress &&
+      window.google &&
+      !autocompleteRef.current
+    ) {
       const input = document.getElementById("adress-input") as HTMLInputElement;
 
       if (input && !autocompleteRef.current) {
         // Garantir que o Google Maps foi carregado antes de usar o Autocomplete
         if (window.google && window.google.maps && window.google.maps.places) {
-          autocompleteRef.current = new window.google.maps.places.Autocomplete(input, {
-            types: ["geocode"],
-            componentRestrictions: { country: "pt" },
-          });
+          autocompleteRef.current = new window.google.maps.places.Autocomplete(
+            input,
+            {
+              types: ["geocode"],
+              componentRestrictions: { country: "pt" },
+            }
+          );
 
           autocompleteRef.current.addListener("place_changed", () => {
             const place = autocompleteRef.current.getPlace();
@@ -199,7 +225,9 @@ const RegistoEntrada = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300">Nome*</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Nome*
+                </label>
                 <input
                   className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   value={nome}
@@ -208,7 +236,9 @@ const RegistoEntrada = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300">Idade</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Idade
+                </label>
                 <input
                   type="number"
                   className="w-full py-3 px-4 bg-gray-700 border border-gray-600 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -218,7 +248,9 @@ const RegistoEntrada = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300">Número de Telefone*</label>
+                <label className="block text-sm font-medium text-gray-300">
+                  Número de Telefone*
+                </label>
                 <input
                   className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                   value={telefone}
@@ -229,7 +261,9 @@ const RegistoEntrada = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300">Escolha a opção</label>
+              <label className="block text-sm font-medium text-gray-300">
+                Escolha a opção
+              </label>
               <FormControlLabel
                 control={
                   <Switch
@@ -243,7 +277,9 @@ const RegistoEntrada = () => {
 
               {useAdress ? (
                 <div className="mt-6">
-                  <label className="block text-sm font-medium text-gray-300">Morada Completa</label>
+                  <label className="block text-sm font-medium text-gray-300">
+                    Morada Completa
+                  </label>
                   <input
                     id="adress-input"
                     className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
@@ -255,7 +291,9 @@ const RegistoEntrada = () => {
               ) : (
                 <div className="mt-6 space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300">Cidade</label>
+                    <label className="block text-sm font-medium text-gray-300">
+                      Cidade
+                    </label>
                     <input
                       className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                       value={cidade}
@@ -264,7 +302,9 @@ const RegistoEntrada = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300">Distrito</label>
+                    <label className="block text-sm font-medium text-gray-300">
+                      Distrito
+                    </label>
                     <input
                       className="w-full py-3 px-4 bg-gray-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
                       value={distrito}
@@ -276,16 +316,47 @@ const RegistoEntrada = () => {
               )}
             </div>
             <div className="space-y-6">
-              <FiltroAltura rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-300" />
-              <FiltroCorpo rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroOlhos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroMamas rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroPeito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroPelos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroTatuagem rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroSigno rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroAltura
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-300"
+              />
+              <FiltroCorpo
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroOlhos
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroMamas
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroPeito
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroPelos
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroTatuagem
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
+              <FiltroSigno
+                rounded="rounded-lg"
+                buttonPadding="py-3"
+                bgColor="bg-gray-700"
+              />
             </div>
-
           </div>
         </div>
 

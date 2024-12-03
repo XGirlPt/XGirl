@@ -1,15 +1,19 @@
 // MobileModal.tsx
 import React from "react";
-import Email from "../app/Definicoes/Email"; // Importa o componente de email
-import Password from "../app/Definicoes/Password"; // Importa o componente de alteração de senha
+import Email from "../app/definicoes/Email"; // Importa o componente de email
+import Password from "../app/definicoes/Password"; // Importa o componente de alteração de senha
 
 interface MobileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  modalType: 'email' | 'password'; // Tipos possíveis para o modal
+  modalType: "email" | "password"; // Tipos possíveis para o modal
 }
 
-const MobileModal: React.FC<MobileModalProps> = ({ isOpen, onClose, modalType }) => {
+const MobileModal: React.FC<MobileModalProps> = ({
+  isOpen,
+  onClose,
+  modalType,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -22,7 +26,7 @@ const MobileModal: React.FC<MobileModalProps> = ({ isOpen, onClose, modalType })
           &times;
         </button>
         {/* Renderiza o componente baseado no tipo do modal */}
-        {modalType === 'email' ? <Email /> : <Password />}
+        {modalType === "email" ? <Email /> : <Password />}
       </div>
     </div>
   );

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import supabase from "@/database/supabase";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ListCategoriaBar from "@/components/Register/ListCategoriaBar";
-import FiltroPrice from "@/components/Filtros/FiltroTarifa";
-import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
+import ListCategoriaBar from "@/components/register/ListCategoriaBar";
+import FiltroPrice from "@/components/filtros/FiltroTarifa";
+import FiltroDistrito from "@/components/filtros/FiltroDistrito";
 import { updateClubsNome, updateClubsTelefone } from "@/actions/ClubsActions";
 
 const RegistoEstabelecimento: React.FC = () => {

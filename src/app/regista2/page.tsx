@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { FaClock, FaMoneyBillWave, FaStar, FaGift } from "react-icons/fa";
 import { TfiCup } from "react-icons/tfi";
 import supabase from "@/database/supabase";
-import ListRegister from "@/components/Register/ListRegister";
+import ListRegister from "@/components/register/ListRegister";
 import { registerUser } from "@/actions/ProfileActions";
 import { useRouter } from "next/navigation";
 

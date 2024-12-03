@@ -5,6 +5,7 @@ import Link from "next/link";
 import { fetchProfiles } from "@/services/profileService";
 import "../styles/globals.min.css";
 import Map from "@/components/Map";
+import { useTranslation } from "react-i18next"; // Importando o hook
 
 // Carregamento dinâmico de componentes pesados (desativando SSR para esses componentes)
 const CaroselG = dynamic(() => import('@/components/CaroselG'), { ssr: false });
@@ -53,6 +54,7 @@ const Dashboard: React.FC = () => {
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [showMaiores, setShowMaiores] = useState(false);
+  const { t } = useTranslation(); // Usando o hook para pegar as traduções
 
   useEffect(() => {
     async function fetchData() {
@@ -142,7 +144,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <p className="text-pink-800 text-xl md:text-3xl flex justify-center mt-8 mb-6 w-full">
-        Escort Girls e Massagistas eróticas em Portugal
+      {t('dashboard.escort_title')}
       </p>
 
       {/* <div className="hidden md:block w-full justify-center md:mx-32 mt-8">
@@ -150,8 +152,8 @@ const Dashboard: React.FC = () => {
       </div> */}
 
       <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-        <Link href="/girls">
-          <p className="text-white text-3xl flex mt-8">Anúncios em Destaque</p>
+        <Link href="/acompanhantes">
+          <p className="text-white text-3xl flex mt-8">{t('dashboard.featured_ads')}</p>
         </Link>
       </div>
 
@@ -164,7 +166,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <p className="text-pink-800 text-2xl flex justify-center pb-5 w-full h-[50px]"> {/* Definindo altura fixa para o texto */}
-      Procura na tua Área
+      {t('dashboard.search_area')}
       </p>
       
       <Map profiles={profiles} /> {/* Aqui renderiza o mapa com os perfis */}
@@ -176,7 +178,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 max-w-full">
-        <p className="text-white text-3xl flex mt-8">Novidades</p>
+        <p className="text-white text-3xl flex mt-8">{t('dashboard.news')}</p>
       </div>
       <div className="w-full px-4 sm:px-10 md:px-16 lg:px-32 xl:px-48 max-w-full">
         <LastAnnounce profiles={profiles} />

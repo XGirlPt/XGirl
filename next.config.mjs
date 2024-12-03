@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
-
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+
+  
+
   images: {
-    domains: ['ulcggrutwonkxbiuigdu.supabase.co'],
+    domains: ['ulcggrutwonkxbiuigdu.supabase.co'], // Define domínios permitidos para carregar imagens
   },
+
   webpack(config) {
     // Adiciona suporte para arquivos SVG
     config.module.rules.push({
@@ -19,8 +19,9 @@ const nextConfig = {
   },
 };
 
+// Configuração do Bundle Analyzer
 const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE === 'true', // Ativa a análise se a variável ANALYZE for true
 });
 
 export default bundleAnalyzer(nextConfig);

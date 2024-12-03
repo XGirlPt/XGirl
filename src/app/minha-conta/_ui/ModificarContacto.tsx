@@ -8,10 +8,10 @@ import {
   updateDescription,
   updateTarifa,
 } from "@/actions/ProfileActions";
-import CheckPagamento from "@/components/Register/CheckPagamento";
-import CheckLinguas from "@/components/Register/CheckLinguas";
-import CheckServico from "@/components/Register/CheckServico";
-import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
+import CheckPagamento from "@/components/register/CheckPagamento";
+import CheckLinguas from "@/components/register/CheckLinguas";
+import CheckServico from "@/components/register/CheckServico";
+import FiltroTarifa from "@/components/filtros/FiltroTarifa";
 import { updateProfileData } from "@/services/profileService";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";

@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { BlurImage } from "@/components/BlurImage";
 import { Profile } from "@/types";
 import  LoaderBar  from "@/components/LoaderBar";
-import StoryBigConta from "@/components/Profile/StoryBigConta";
+import StoryBigConta from "@/components/profile/StoryBigConta";
 
 
 

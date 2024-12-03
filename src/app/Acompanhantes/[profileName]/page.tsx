@@ -1,27 +1,27 @@
 "use client";
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
-import FotoBig from "@/components/Profile/FotoBig";
-import StoryBig from "@/components/Profile/StoryBig";
+import FotoBig from "@/components/profile/FotoBig";
+import StoryBig from "@/components/profile/StoryBig";
 
-import Liga from "@/components/Profile/Liga";
-import Partilha from "@/components/Profile/Partilha";
+import Liga from "@/components/profile/Liga";
+import Partilha from "@/components/profile/Partilha";
 import Certificado from "@/components/Certificado";
-import Sobre from "@/components/Profile/Sobre";
+import Sobre from "@/components/profile/Sobre";
 import supabase from "@/database/supabase";
-import ServicosPrestados from "@/components/Profile/ServicosPrestados";
-import Tarifas from "@/components/Profile/Tarifas";
-import HeaderG from "@/components/HeaderFilter/HeaderG";
-import LeftSide from "@/components/Profile/LeftSide";
-import Linguas from "@/components/Profile/idioma";
+import ServicosPrestados from "@/components/profile/ServicosPrestados";
+import Tarifas from "@/components/profile/Tarifas";
+import HeaderG from "@/components/headerFilter/HeaderG";
+import LeftSide from "@/components/profile/LeftSide";
+import Linguas from "@/components/profile/idioma";
 import { useParams } from "next/navigation";
 import { Profile } from "@/types";
 import { BlurImage } from "@/components/BlurImage";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
-import Comments from "@/components/Profile/Comments"
-import PhotosAndCertificado from "@/components/Profile/PhotosAndCertificado"; // Import the new component
+import Comments from "@/components/profile/Comments"
+import PhotosAndCertificado from "@/components/profile/PhotosAndCertificado"; // Import the new component
 import StoriesComponent from "@/components/Profile/StoriesComponent";
 
 

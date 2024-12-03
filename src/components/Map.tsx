@@ -42,7 +42,7 @@ function Map({ profiles }: MapProps) {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyC9gd59nW47Bg63ksUnNd2HmigKDUDGA7E",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",  // Usando a chave do .env
   });
 
   if (!isLoaded) {

@@ -4,7 +4,8 @@ import { Metadata } from "next";
 import { MainProvider } from "@/provider/main-provider";
 import 'normalize.css'; // Carrega o normalize.css
 import "./globals.css";
-
+import { LanguageProvider } from "@/context/LanguageContext";
+import '../i18n/i18n'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -65,8 +66,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gray-900`}>
         <ReduxProvider>
+        <LanguageProvider>
           <MainProvider>{children}</MainProvider>
+          </LanguageProvider>
         </ReduxProvider>
+
       </body>
     </html>
   );

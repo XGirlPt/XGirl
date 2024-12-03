@@ -5,11 +5,11 @@ import Link from "next/link";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CheckDeslocacoes from "@/components/Register/CheckDeslocacoes";
-import CheckPagamento from "@/components/Register/CheckPagamento";
-import CheckLinguas from "@/components/Register/CheckLinguas";
-import CheckServico from "@/components/Register/CheckServico";
-import FiltroPrice from "@/components/Filtros/FiltroTarifa";
+import CheckDeslocacoes from "@/components/register/CheckDeslocacoes";
+import CheckPagamento from "@/components/register/CheckPagamento";
+import CheckLinguas from "@/components/register/CheckLinguas";
+import CheckServico from "@/components/register/CheckServico";
+import FiltroPrice from "@/components/filtros/FiltroTarifa";
 import {
   updateDescription,
   updatePagamento,

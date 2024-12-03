@@ -4,8 +4,11 @@ import mastercard from "../../public/photos/mastercard.png"; // Ajuste o caminho
 import visa from "../../public/photos/visa.png"; // Ajuste o caminho conforme necessário
 import btc from "../../public/photos/btc.png"; // Ajuste o caminho conforme necessário
 import paypal from "../../public/photos/paypal.png"; // Ajuste o caminho conforme necessário
+import { useTranslation } from "react-i18next"; // Importando o hook
 
 function Footer() {
+  const { t } = useTranslation(); // Usando o hook para pegar as traduções
+
   return (
     <footer className="bg-gray-800 w-full py-8 ">
       <div className="max-w-screen-xl mx-auto px-4 mb-10">
@@ -27,36 +30,36 @@ function Footer() {
 
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              Descubra os melhores serviços de escort nas principais regiões de Portugal.
+            {t("footer.discover_services")}
             </p>
           </div>
 
           <div className="mb-8">
-            <p className="text-xl text-white py-2">Links Rápidos</p>
+            <p className="text-xl text-white py-2">{t("footer.quick_links")}</p>
             <ul className="space-y-1">
               <li>
                 <Link href="/Acompanhantes?distrito=Lisboa"
-                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort em Lisboa
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.escorts_in_lisboa")}
                 </Link>
               </li>
               <li>
                 <Link href="/girls?distrito=Porto"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort no Porto
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">{t("footer.escorts_in_porto")}
                 </Link>
               </li>
               <li>
                 <Link href="/girls?distrito=Faro"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort em Faro
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.escorts_in_faro")}
                 </Link>
               </li>
               <li>
                 <Link href="/girls?distrito=Madeira"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort na Madeira
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.escorts_in_madeira")}
                 </Link>
               </li>
               <li>
                 <Link href="/girls?distrito=Acores"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Escort nos Açores
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.escorts_in_acores")}
                 </Link>
               </li>
             </ul>
@@ -64,31 +67,31 @@ function Footer() {
 
           {/* Informações Úteis */}
           <div className="mb-8">
-            <p className="text-xl text-white py-2">Informações Úteis</p>
+            <p className="text-xl text-white py-2">{t("footer.useful_information")}</p>
             <ul className="space-y-1">
               <li>
                 <Link href="/Termos"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Termos e Condições
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">{t("footer.terms_and_conditions")}
                 </Link>
               </li>
               <li>
                 <Link href="/Privacidade"
-                 className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Política de Privacidade
+                 className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">  {t("footer.privacy_policy")}
                 </Link>
               </li>
               <li>
                 <Link href="/ajuda"
-                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Ajuda
+                  className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.help")}
                 </Link>
               </li>
               <li>
                 <Link href="/Contacto"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Contacto
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.contact")}
                 </Link>
               </li>
               <li>
                 <Link href="/blog"
-                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">Blog
+                   className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]">  {t("footer.blog")}
                 </Link>
               </li>
             </ul>
@@ -96,7 +99,7 @@ function Footer() {
 
           {/* Redes Sociais e Métodos de Pagamento */}
           <div className="mb-8">
-            <p className="text-xl text-white py-2">Métodos de Pagamento</p>
+            <p className="text-xl text-white py-2">{t("footer.payment_methods")}</p>
             <ul className="flex justify-center md:justify-start space-x-4">
               <li>
 
@@ -152,7 +155,7 @@ function Footer() {
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-500 mb-24">
-          &copy; {new Date().getFullYear()} XGirl. Todos os direitos reservados.
+          &copy; {new Date().getFullYear()}  {t("footer.all_rights_reserved")}
         </p>
       </div>
     </footer>

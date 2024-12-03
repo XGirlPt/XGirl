@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import FiltroAltura from "@/components/Filtros/FiltroAltura";
-import FiltroCorpo from "@/components/Filtros/FiltroCorpo";
-import FiltroMamas from "@/components/Filtros/FiltroMamas";
-import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
-import FiltroPeito from "@/components/Filtros/FiltroPeito";
-import FiltroPelos from "@/components/Filtros/FiltroPelos";
-import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
-import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
-import CheckContacto from "@/components/Register/CheckContacto";
-import FiltroSigno from "@/components/Filtros/FiltroSigno";
-import FiltroTarifa from "@/components/Filtros/FiltroTarifa";
+import FiltroAltura from "@/components/filtros/FiltroAltura";
+import FiltroCorpo from "@/components/filtros/FiltroCorpo";
+import FiltroMamas from "@/components/filtros/FiltroMamas";
+import FiltroOlhos from "@/components/filtros/FiltroOlhos";
+import FiltroPeito from "@/components/filtros/FiltroPeito";
+import FiltroPelos from "@/components/filtros/FiltroPelos";
+import FiltroTatuagem from "@/components/filtros/FiltroTatuagem";
+import FiltroOrigem from "@/components/filtros/FiltroOrigem";
+import CheckContacto from "@/components/register/CheckContacto";
+import FiltroSigno from "@/components/filtros/FiltroSigno";
+import FiltroTarifa from "@/components/filtros/FiltroTarifa";
 import supabase from "@/database/supabase";
-import FiltroDistrito from "@/components/Filtros/FiltroDistrito";
+import FiltroDistrito from "@/components/filtros/FiltroDistrito";
 import { updateProfileData } from "@/services/profileService";
 import {
   updateNome,

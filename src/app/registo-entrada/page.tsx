@@ -13,17 +13,17 @@ import {
 } from "@/actions/ProfileActions";
 import { Switch, FormControlLabel } from "@mui/material";
 import Link from "next/link";
-import FiltroAltura from "@/components/Filtros/FiltroAltura";
-import FiltroCabelo from "@/components/Filtros/FiltroCabelo";
-import FiltroCorpo from "@/components/Filtros/FiltroCorpo";
-import FiltroMamas from "@/components/Filtros/FiltroMamas";
-import FiltroLingua from "@/components/Filtros/FiltroLingua";
-import FiltroOlhos from "@/components/Filtros/FiltroOlhos";
-import FiltroPeito from "@/components/Filtros/FiltroPeito";
-import FiltroTatuagem from "@/components/Filtros/FiltroTatuagem";
-import FiltroOrigem from "@/components/Filtros/FiltroOrigem";
-import FiltroPelos from "@/components/Filtros/FiltroPelos";
-import FiltroSigno from "@/components/Filtros/FiltroSigno";
+import FiltroAltura from "@/components/filtros/FiltroAltura";
+import FiltroCabelo from "@/components/filtros/FiltroCabelo";
+import FiltroCorpo from "@/components/filtros/FiltroCorpo";
+import FiltroMamas from "@/components/filtros/FiltroMamas";
+import FiltroLingua from "@/components/filtros/FiltroLingua";
+import FiltroOlhos from "@/components/filtros/FiltroOlhos";
+import FiltroPeito from "@/components/filtros/FiltroPeito";
+import FiltroTatuagem from "@/components/filtros/FiltroTatuagem";
+import FiltroOrigem from "@/components/filtros/FiltroOrigem";
+import FiltroPelos from "@/components/filtros/FiltroPelos";
+import FiltroSigno from "@/components/filtros/FiltroSigno";
 import supabase from "@/database/supabase";
 
 declare global {

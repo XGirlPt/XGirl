@@ -97,7 +97,7 @@ class CarouselG extends Component<CarouselGProps, CarouselGState> {
           {profiles.map((profile, index) => (
             <div key={index} className="px-2">
               <div className="relative ">
-                <Link href={`/Acompanhantes/${profile.nome}`} >
+                <Link href={`/acompanhantes/${profile.nome}`} >
                   <Image
                     src={profile.photos[0]
                     || "/logo.webp"}

@@ -28,7 +28,7 @@ const InfoCard: React.FC = () => {
             <p className="font-medium text-gray-300 mb-6 text-sm text-center">
               Descobre os últimos comentários postados sobre escorts na tua região
             </p>
-            <Link href="/Acompanhantes">
+            <Link href="/acompanhantes">
               <p className="text-md text-white bg-pink-800 px-8 py-2 rounded-md cursor-pointer transition duration-300 hover:bg-pink-700 ease-in-out">
                 Ver Anúncios
               </p>

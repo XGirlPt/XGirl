@@ -3,6 +3,7 @@ import supabase from "@/database/supabase";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
+// Tipagem para comentários
 type Comment = {
   id: number;
   userUID: string;
@@ -12,33 +13,39 @@ type Comment = {
   created_at: string;
 };
 
-type CommentsProps = {
-  userUID?: string; // Opcional
-};
+// Tipagem para as props do componente
+// type CommentsProps = {
+//   userUID?: string; // Opcional
+// };
 
-function Comments({  }: CommentsProps) {
-  const [comments, setComments] = useState<Comment[]>([]); // Tipagem de comments
+function Comments() {
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(0);
   const [authorName, setAuthorName] = useState("");
-  const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false); // Controle da visibilidade do seletor de emojis
-  const emojiInputRef = useRef<HTMLTextAreaElement | null>(null); // Ref para a área de texto
-  const userUID = useSelector((state: any) => state.profile?.profile.userUID);
+  const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
+  const emojiInputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  // Obtém o userUID do Redux ou da prop
+  const userUID = useSelector((state: any) => state.profile?.profile?.userUID) 
 
   // Lista de emojis para o seletor
   const emojiList = ["😊", "😂", "😍", "😐", "😢", "😠", "😎", "🥳", "🤩", "🤔"];
 
-  // Verificação de userUID
+  // Verificação e busca de comentários
   useEffect(() => {
     if (!userUID) {
-      console.error("userUID está indefinido ou inválido.");
+      console.error("userUID estáeee indefinido ou inválido.");
       return;
     }
     fetchComments();
   }, [userUID]);
 
   const fetchComments = async () => {
-    if (!userUID) return;
+    if (!userUID) {
+      console.warn("Tentativa de buscar comentários sem userUID.");
+      return;
+    }
 
     try {
       const { data, error } = await supabase
@@ -48,7 +55,7 @@ function Comments({  }: CommentsProps) {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setComments(data);
+      setComments(data || []);
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Erro ao buscar comentários:", error.message);
@@ -64,20 +71,26 @@ function Comments({  }: CommentsProps) {
       return;
     }
 
+    if (!userUID) {
+      alert("Erro: Usuário não autenticado. Não é possível enviar comentários.");
+      return;
+    }
+
     try {
-      const { data, error } = await supabase.from("comments").insert([
+      const { error } = await supabase.from("comments").insert([
         {
           userUID,
-          authorName: authorName,
+          authorName,
           rating,
           comment: newComment,
         },
       ]);
       if (error) throw error;
+
       setNewComment("");
       setRating(0);
       setAuthorName("");
-      fetchComments(); // Recarregar os comentários após o envio
+      fetchComments();
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error("Erro ao enviar comentário:", error.message);
@@ -87,26 +100,30 @@ function Comments({  }: CommentsProps) {
     }
   };
 
-  // Função para alternar a visibilidade do seletor de emojis
   const toggleEmojiPicker = () => {
     setIsEmojiPickerVisible(!isEmojiPickerVisible);
   };
 
-  // Função para inserir emoji no campo de comentário na posição do cursor
   const addEmojiToComment = (emoji: string) => {
     if (emojiInputRef.current) {
-      const cursorPosition = emojiInputRef.current.selectionStart;
+      const cursorPosition = emojiInputRef.current.selectionStart || 0;
       const newText = newComment.slice(0, cursorPosition) + emoji + newComment.slice(cursorPosition);
       setNewComment(newText);
-      emojiInputRef.current.selectionStart = cursorPosition + emoji.length; // Atualiza a posição do cursor após o emoji
-      emojiInputRef.current.selectionEnd = cursorPosition + emoji.length;
     }
-    setIsEmojiPickerVisible(false); // Fecha o seletor após selecionar o emoji
+    setIsEmojiPickerVisible(false);
   };
+
+  // Renderiza mensagem de erro se userUID não estiver disponível
+  if (!userUID) {
+    return (
+      <div className="text-red-500">
+        Erro: Usuário não autenticado. Certifique-se de estar logado para visualizar e enviar comentários.
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
-      {/* Card para exibir comentários */}
       <div className="bg-gray-800 p-6 rounded-2xl border border-zinc-700 shadow-md">
         <h2 className="text-pink-700 text-2xl mb-4">Comentários</h2>
         <div className="space-y-2">
@@ -127,12 +144,9 @@ function Comments({  }: CommentsProps) {
                       </span>
                     ))}
                   </div>
-                  <div className="flex items-center">
-                    <p className="text-pink-500 text-sm font-semibold">
-                      {comment.authorName || "Anônimo"}
-                    </p>
-                    <span className="ml-2 text-lg">😊</span> {/* Coloque o emoji aqui */}
-                  </div>
+                  <p className="text-pink-500 text-sm font-semibold">
+                    {comment.authorName || "Anônimo"}
+                  </p>
                 </div>
                 <p className="text-white">{comment.comment}</p>
                 <p className="text-gray-500 text-sm mt-2">
@@ -144,7 +158,6 @@ function Comments({  }: CommentsProps) {
         </div>
       </div>
 
-      {/* Card para novo comentário */}
       <div className="bg-gray-800 p-6 rounded-2xl border border-zinc-700 shadow-md relative">
         <h3 className="text-pink-700 text-lg mb-4">Deixe seu comentário</h3>
         <input
@@ -166,7 +179,6 @@ function Comments({  }: CommentsProps) {
           ))}
         </div>
 
-        {/* Caixa de comentário com ref para o emoji */}
         <textarea
           ref={emojiInputRef}
           className="w-full bg-gray-800 text-white p-4 rounded-md mb-4 border border-zinc-700"
@@ -175,29 +187,6 @@ function Comments({  }: CommentsProps) {
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
-
-        {/* Ícone de emoji dentro da caixa de comentário */}
-        <span
-          onClick={toggleEmojiPicker}
-          className="absolute right-4 bottom-4 text-2xl cursor-pointer"
-        >
-          😀
-        </span>
-
-        {/* Seletor de emojis dentro da caixa de comentário */}
-        {isEmojiPickerVisible && (
-          <div className="mt-4 grid grid-cols-5 gap-2 absolute bg-white border border-gray-300 rounded-md p-2 z-10 bottom-16 right-4">
-            {emojiList.map((emoji) => (
-              <span
-                key={emoji}
-                className="text-2xl cursor-pointer"
-                onClick={() => addEmojiToComment(emoji)}
-              >
-                {emoji}
-              </span>
-            ))}
-          </div>
-        )}
 
         <button
           onClick={handleCommentSubmit}

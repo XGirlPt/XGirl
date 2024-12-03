@@ -1,17 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { LuFilter } from "react-icons/lu";
 import { ImCross } from "react-icons/im";
-import FiltroAge from "./Filtros/FiltroAge";
-import FiltroTarifa from "./Filtros/FiltroTarifa";
-import FiltroLingua from "./Filtros/FiltroLingua";
-import FiltroPeito from "./Filtros/FiltroPeito";
-import FiltroMamas from "./Filtros/FiltroMamas";
-import FiltroPelos from "./Filtros/FiltroPelos";
-import FiltroAltura from "./Filtros/FiltroAltura";
-import FiltroOlhos from "./Filtros/FiltroOlhos";
-import FiltroCorpo from "./Filtros/FiltroCorpo";
-import FiltroTatuagem from "./Filtros/FiltroTatuagem";
-import FiltroOrigem from "./Filtros/FiltroOrigem";
+import FiltroAge from "./filtros/FiltroAge";
+import FiltroTarifa from "./filtros/FiltroTarifa";
+import FiltroLingua from "./filtros/FiltroLingua";
+import FiltroPeito from "./filtros/FiltroPeito";
+import FiltroMamas from "./filtros/FiltroMamas";
+import FiltroPelos from "./filtros/FiltroPelos";
+import FiltroAltura from "./filtros/FiltroAltura";
+import FiltroOlhos from "./filtros/FiltroOlhos";
+import FiltroCorpo from "./filtros/FiltroCorpo";
+import FiltroTatuagem from "./filtros/FiltroTatuagem";
+import FiltroOrigem from "./filtros/FiltroOrigem";
 import { fetchProfiles } from "@/services/profileService";
 
 interface FiltrosState {

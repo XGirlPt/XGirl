@@ -1,7 +1,7 @@
 // MobileModal.tsx
 import React from "react";
-import Email from "../app/Definicoes/Email"; // Importa o componente de email
-import Password from "../app/Definicoes/Password"; // Importa o componente de alteração de senha
+import Email from "../app/definicoes/Email"; // Importa o componente de email
+import Password from "../app/definicoes/Password"; // Importa o componente de alteração de senha
 
 interface MobileModalProps {
   isOpen: boolean;

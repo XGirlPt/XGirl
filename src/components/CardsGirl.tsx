@@ -17,7 +17,7 @@ const CardsGirl: React.FC<CardsGirlProps> = ({ profiles }) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 xxl:grid-cols-6 gap-8 mt-10 pb-16 w-full">
       {shuffledProfiles.map((profile, index) => (
-        <Link key={index} href={`/Acompanhantes/${profile.nome}`} passHref>
+        <Link key={index} href={`/acompanhantes/${profile.nome}`} passHref>
           <div className="relative border border-zinc-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 bg-pink-200 hover:bg-pink-800 hover:opacity-50 blur-50">
             <Image
               src={profile.photos[0]  || "/logo.webp"}

@@ -1,9 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import Header from "@/components/header";
-import CardsGirl from "@/components/cards-girl";
 import CaroselRound from "@/components/carosel-round";
-import Footer from "@/components/footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
 import MainCard from "@/components/main-card";

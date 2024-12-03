@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { IoInformationCircle } from "react-icons/io5";
 import FotoBig from "@/components/profile/foto-big";
 import StoryBig from "@/components/profile/story-big";
 
@@ -15,14 +14,10 @@ import HeaderG from "@/components/header-filter/header-g";
 import LeftSide from "@/components/profile/left-side";
 import Linguas from "@/components/profile/idioma";
 import { useParams } from "next/navigation";
-import { Profile } from "@/types";
-import { BlurImage } from "@/components/blur-image";
-import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
+
+import { useSelector } from "react-redux";
 import Comments from "@/components/profile/comments";
 import PhotosAndCertificado from "@/components/profile/photos-and-certificado"; // Import the new component
-import StoriesComponent from "@/components/Profile/StoriesComponent";
 
 function UserProfile() {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
@@ -243,12 +238,11 @@ function UserProfile() {
                             <div>
                               <video
                                 src={thumbnailSrc}
-                                alt={`Thumbnail ${index + 1}`}
                                 className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
                                 onClick={() => handleStoryClick(index)}
                                 width={300}
                                 height={200}
-                                priority={index === 0}
+                                // priority={index === 0}
                               />
                               <div className="absolute inset-0 flex items-center justify-center">
                                 <span className="text-white text-3xl">▶️</span>

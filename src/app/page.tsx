@@ -170,7 +170,7 @@ const Dashboard: React.FC = () => {
       {t('dashboard.search_area')}
       </p>
       
-      <Map profiles={profiles} /> {/* Aqui renderiza o mapa com os perfis */}
+      {/* <Map profiles={profiles} /> Aqui renderiza o mapa com os perfis */}
 
       <div className="hidden sm:block w-full px-4 max-w-screen-lg mx-auto">
         <div className="min-h-[150px] bg-gray-800 animate-pulse rounded">

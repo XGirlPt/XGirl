@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 import FotoBig from "@/components/profile/FotoBig";
 import StoryBig from "@/components/profile/StoryBig";
-
 import Liga from "@/components/profile/Liga";
 import Partilha from "@/components/profile/Partilha";
 import Certificado from "@/components/Certificado";
@@ -22,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
 import Comments from "@/components/profile/Comments"
 import PhotosAndCertificado from "@/components/profile/PhotosAndCertificado"; // Import the new component
-import StoriesComponent from "@/components/Profile/StoriesComponent";
+// import StoriesComponent from "@/components/Profile/StoriesComponent";
 
 
 function UserProfile() {
@@ -310,7 +309,7 @@ console.log("stories RDX", storiesRDX)
                   <Tarifas selectedProfile={selectedProfile as any} />
                 </div>
                
-                  <Comments userUID={selectedProfile?.userUID} />
+                  {/* <Comments userUID={selectedProfile?.userUID} /> */}
                
               </div>
             </div>

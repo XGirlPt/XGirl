@@ -7,10 +7,10 @@ const nextConfig = {
   },
 
   webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'), // Ou o caminho correto para o seu diretório
+    };
     return config;
   },
 };

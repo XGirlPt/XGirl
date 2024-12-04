@@ -7,7 +7,7 @@ import Liga from "../../../components/profile/Liga";
 import Partilha from "../../../components/profile/Partilha";
 import Certificado from "../../../components/Certificado";
 import Sobre from "../../../components/profile/Sobre";
-import supabase from "../../..//database/supabase";
+import supabase from "../../../database/supabase";
 import ServicosPrestados from "../../../components/profile/ServicosPrestados";
 import Tarifas from "../../../components/profile/Tarifas";
 import HeaderG from "../../../components/headerFilter/HeaderG";

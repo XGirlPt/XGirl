@@ -76,7 +76,7 @@ const Certificado: React.FC<CertificadoProps> = ({ setShowCertificado }) => {
                 Além do controle humano, um sistema automático analisa todas as fotos dos perfis certificados para garantir que não pertencem a outra pessoa na internet.
               </p>
               <p>
-                <strong className="text-gray-200">Perfil certificado = Encontro 100% satisfeito.</strong>
+                <strong className="text-gray-200">Perfil certificado = Encontro 100% satisfeito!</strong>
               </p>
             </div>
           </div>

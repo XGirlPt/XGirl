@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 // import FotoBig from "../../../components/profile/FotoBig"
-import StoryBig from "../../../components/profile/StoryBig";
-import Liga from "../../../components/profile/Liga";
-import Partilha from "../../../components/profile/Partilha";
-import Certificado from "../../../components/Certificado";
+// import StoryBig from "../../../components/profile/StoryBig";
+// import Liga from "../../../components/profile/Liga";
+// import Partilha from "../../../components/profile/Partilha";
+// import Certificado from "../../../components/Certificado";
 import Sobre from "../../../components/profile/Sobre";
 import supabase from "../../../database/supabase";
 import ServicosPrestados from "../../../components/profile/ServicosPrestados";
@@ -190,24 +190,24 @@ console.log("stories RDX", storiesRDX)
       <div className="container relative">
         <div className="w-screen bg-gray-900 flex flex-col user-profile justify-center align-middle">
         <div className="md:flex md:mx-36 my-20 md:mt-22 relative">
-        {showLiga && (
+        {/* {showLiga && (
               <Liga
                 selectedProfile={selectedProfile as any}
                 setShowLiga={setShowLiga}
               />
-            )}
-            {showPartilha && (
+            )} */}
+            {/* {showPartilha && (
               <Partilha
                 selectedProfile={selectedProfile as any}
                 setShowPartilha={setShowPartilha}
               />
-            )}
-            {showCertificado && (
+            )} */}
+            {/* {showCertificado && (
               <Certificado
                 selectedProfile={selectedProfile as any}
                 setShowCertificado={setShowCertificado}
               />
-            )}
+            )} */}
 
             <LeftSide
               selectedProfile={selectedProfile as any}
@@ -223,13 +223,13 @@ console.log("stories RDX", storiesRDX)
               />
             )} */}
 
-{showLargeStory && (
+{/* {showLargeStory && (
               <StoryBig
                 selectedProfile={selectedProfile as any}
                 onClose={() => setShowLargeStory(false)}
                 currentIndex={StoryIndex}
               />
-            )}
+            )} */}
 
             <div className="w-screen md:w-3/5 grid gap-10   justify-center align-middle">
 

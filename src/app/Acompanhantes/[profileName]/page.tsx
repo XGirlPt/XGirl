@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
-import FotoBig from "../../../components/profile/FotoBig"
+// import FotoBig from "../../../components/profile/FotoBig"
 import StoryBig from "../../../components/profile/StoryBig";
 import Liga from "../../../components/profile/Liga";
 import Partilha from "../../../components/profile/Partilha";
@@ -215,13 +215,13 @@ console.log("stories RDX", storiesRDX)
               handlePartilhaClick={handlePartilhaClick}
             />
 
-            {showLargePhoto && (
+            {/* {showLargePhoto && (
               <FotoBig
                 selectedProfile={selectedProfile as any}
                 onClose={() => setShowLargePhoto(false)}
                 currentIndex={photoIndex}
               />
-            )}
+            )} */}
 
 {showLargeStory && (
               <StoryBig

@@ -3,25 +3,23 @@ import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
 import FotoBig from "../../../components/profile/FotoBig"
 import StoryBig from "../../../components/profile/StoryBig";
-
 import Liga from "../../../components/profile/Liga";
-import Partilha from "../../..//components/profile/Partilha";
-import Certificado from "@/components/Certificado";
-import Sobre from "@/components/profile/Sobre";
-import supabase from "@/database/supabase";
-import ServicosPrestados from "@/components/profile/ServicosPrestados";
-import Tarifas from "@/components/profile/Tarifas";
-import HeaderG from "@/components/headerFilter/HeaderG";
-import LeftSide from "@/components/profile/LeftSide";
-import Linguas from "@/components/profile/idioma";
+import Partilha from "../../../components/profile/Partilha";
+import Certificado from "../../../components/Certificado";
+import Sobre from "../../../components/profile/Sobre";
+import supabase from "../../..//database/supabase";
+import ServicosPrestados from "../../../components/profile/ServicosPrestados";
+import Tarifas from "../../../components/profile/Tarifas";
+import HeaderG from "../../../components/headerFilter/HeaderG";
+import LeftSide from "../../../components/profile/LeftSide";
+import Linguas from "../../../components/profile/idioma";
 import { useParams } from "next/navigation";
-import  Profile  from "@/types";
-import { BlurImage } from "@/components/BlurImage";
+import  Profile  from "../../../types";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
-import Comments from "@/components/profile/Comments"
-import PhotosAndCertificado from "@/components/profile/PhotosAndCertificado"; // Import the new component
+import Comments from "../../../components/profile/Comments"
+import PhotosAndCertificado from "../../../components/profile/PhotosAndCertificado"; // Import the new component
 // import StoriesComponent from "@/components/profile/StoriesComponent";
 
 

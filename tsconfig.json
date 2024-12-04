@@ -12,7 +12,9 @@
     "resolveJsonModule": true,  // Permite importar arquivos JSON
     "isolatedModules": true,  // Garante que cada arquivo seja tratado como um módulo independente
     "jsx": "preserve",  // Preserva JSX para ser tratado pelo Babel (requerido por Next.js)
-    "incremental": true,  // Habilita builds incrementais para melhorar desempenho
+    "incremental": true,
+    
+    
     "paths": {
       "@/*": ["./src/*"]  // Mapeia atalhos para importar arquivos da pasta src
     },

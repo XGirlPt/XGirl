@@ -46,7 +46,7 @@ const nomeRedux =  useSelector((state: any) => state.profile?.profile.nome);
 
   const handleVerPerfil = () => {
     // Redirecionar para a página de perfil
-    router.push(`/Acompanhantes/${nomeRedux}`);
+    router.push(`/acompanhantes/${nomeRedux}`);
   
   };
 

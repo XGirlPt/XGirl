@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { IoInformationCircle } from "react-icons/io5";
-import FotoBig from "@/components/profile/FotoBig";
-import StoryBig from "@/components/profile/StoryBig";
+import FotoBig from "../../../components/profile/FotoBig"
+import StoryBig from "../../../components/profile/StoryBig";
 
-import Liga from "@/components/profile/Liga";
-import Partilha from "@/components/profile/Partilha";
+import Liga from "../../../components/profile/Liga";
+import Partilha from "../../..//components/profile/Partilha";
 import Certificado from "@/components/Certificado";
 import Sobre from "@/components/profile/Sobre";
 import supabase from "@/database/supabase";

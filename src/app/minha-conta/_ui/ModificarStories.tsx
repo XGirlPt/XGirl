@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
 import { BlurImage } from "@/components/BlurImage";
-import { Profile } from "@/types";
+import  Profile  from "@/types";
 import  LoaderBar  from "@/components/LoaderBar";
 import StoryBigConta from "@/components/profile/StoryBigConta";
 
@@ -69,11 +69,14 @@ console.log("stories RDX", storiesRDX)
           dispatch(updateStories(storyData.map((story) => story.storyurl))); // Aqui você chama o dispatch
         }
       } catch (error) {
-        console.error("Erro ao buscar stories:", error.message);
-      }   finally {
+        if (error instanceof Error) {
+          console.error("Erro ao buscar stories:", error.message);
+        } else {
+          console.error("Erro desconhecido:", error);
+        }
+      } finally {
         setLoading(false); // Desativa o loading ao final da operação
-      }
-    };
+      }}
   
     if (userUID) {
       fetchStories(); // Chame a função para buscar as histórias apenas se o userUID estiver definido
@@ -153,7 +156,7 @@ console.log("stories RDX", storiesRDX)
               progress: undefined,
               theme: "light",
             });
-            console.error(error);
+          
           }
           throw new Error("Erro ao inserir URLs das stories na tabela stories: " + storyError.message)
           ;

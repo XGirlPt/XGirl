@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { LoadScript } from "@react-google-maps/api";
 
 interface Props {
   onSelect: (address: string, lat: number, lng: number) => void;
@@ -7,7 +6,7 @@ interface Props {
 
 const AddressAutocomplete: React.FC<Props> = ({ onSelect }) => {
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   // Função para lidar com o carregamento do script do Google
@@ -21,21 +20,32 @@ const AddressAutocomplete: React.FC<Props> = ({ onSelect }) => {
       const script = document.createElement("script");
       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC9gd59nW47Bg63ksUnNd2HmigKDUDGA7E&libraries=places`;
       script.onload = handleScriptLoad;
+      script.onerror = () => {
+        setIsLoading(false);
+        console.error("Erro ao carregar o script do Google Maps");
+      };
       document.body.appendChild(script);
     };
 
     loadScript();
+
+    // Cleanup script on component unmount
+    return () => {
+      const scriptTags = document.querySelectorAll(`script[src*="maps.googleapis.com"]`);
+      scriptTags.forEach((script) => script.remove());
+    };
   }, []); // Executa uma vez quando o componente for montado
 
   // Função para inicializar o Autocomplete quando o campo de entrada ganha foco
   const handleLoad = () => {
-    if (inputRef.current && !autocompleteRef.current) {
+    if (inputRef.current && !autocompleteRef.current && window.google) {
       autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, {
         types: ["geocode"],
         componentRestrictions: { country: "PT" },
       });
 
-      autocompleteRef.current.addListener("place_changed", () => {
+      // Ensure autocompleteRef.current is not null before accessing it
+      autocompleteRef.current?.addListener("place_changed", () => {
         const place = autocompleteRef.current?.getPlace();
         if (place && place.geometry) {
           const lat = place.geometry.location?.lat();

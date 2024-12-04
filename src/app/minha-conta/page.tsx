@@ -14,6 +14,7 @@ import Definicoes from "./_ui/Definicoes";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import BarConta from "@/components/BarConta";
+import Router from "next/router";
 
 
 interface MinhaContaProps {}
@@ -30,6 +31,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   const [BarOpen, setBarOpen] = useState(false);
   const [newTag, setNewTag] = useState<string>("");
   const [certificado, setCertificado] = useState<boolean | null>(null); // Guardar o estado do certificado
+  const storyURLs = useSelector((state: any) => state.profile?.profile?.storyURLs);
 
 
   const emailRedux = useSelector((state: any) => state.profile?.user?.user?.email);
@@ -56,6 +58,10 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
   };
 
 
+  const handleVerPerfil = () => {
+    // Assuming 'nomeRedux' contains the profile name or ID
+    Router.push(`/Acompanhantes/${nomeRedux}`);
+  };
   const [activeContent, setActiveContent] = useState("minhaConta");
 
 
@@ -206,7 +212,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
           showContacto={showContacto}
           handleFotos={() => setShowFotos(true)}
           showFotos={showFotos}
-          handleVerPerfil={() => {}}
+          handleVerPerfil={handleVerPerfil} // Pass the function here
           handleStories={() => setShowStories(true)}
           showStories={showStories}
         />
@@ -326,7 +332,7 @@ const MinhaConta: React.FC<MinhaContaProps> = () => {
                   </div>
                 )}
   
-                {showStories && <ModificarStories handleVoltar={handleVoltar} />}
+  {showStories && <ModificarStories handleVoltar={handleVoltar} storyURLs={storyURLs} />}
   
                 {!showModificar && !showContacto && !showFotos && !showStories && (
                   <div className="text-center text-gray-400">

@@ -28,11 +28,19 @@ const Password: React.FC = () => {
     }
 
     // Verifique a senha atual
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: user.email,
-      password: currentPassword,
-    });
+    let signInError: any; // Declare signInError outside of the if block
 
+    if (user.email) {
+      const response = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPassword,
+      });
+      signInError = response.error; // Assign the error to the signInError variable
+    } else {
+      // Handle the case where user.email is undefined
+      console.error("Email is undefined");
+    }
+    
     if (signInError) {
       setError('A palavra-passe atual está incorreta.');
       return;

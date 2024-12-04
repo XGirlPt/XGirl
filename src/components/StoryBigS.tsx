@@ -21,19 +21,24 @@ interface Profile {
 interface StoryBigSProps {
   story: string | null; 
   cidade: string | null; 
-  photos: string | null;   // Array de fotos
+  photos: string[] | null;  // Update to accept an array of strings
   nome: string | null; 
   onClose: () => void;  
-  profiles: Profile[];
   firstPhotos: string; 
+  profiles: Profile[];
 
 }
 
-const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome,  onClose }) => {
-  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+const StoryBigS: React.FC<StoryBigSProps> = ({  cidade, story, firstPhotos, nome, profiles, onClose }) => {
   const dispatch = useDispatch();
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [selectedNome, setSelectedNome] = useState<string>(""); // single string
 
+  if (!profiles || profiles.length === 0) {
+    return <div>No profile found</div>; // Fallback UI if no profile is found
+  }
 
+  const profile = profiles[0]; 
  
  
   // Função para verificar se a URL é de vídeo ou imagem

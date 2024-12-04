@@ -3,13 +3,14 @@ import { useState } from "react";
 import MiniCard from "@/components/MiniCard";
 
 interface Profile {
-  id: number;
+  id: number; // Make sure 'id' is always included
   nome: string;
-  photos: string[];
   cidade: string;
-  latitude: number;
-  longitude: number;
+  photos: string[];
+  latitude?: number; // Make latitude optional, as not all profiles might have it initially
+  longitude?: number; // Same for longitude
 }
+
 
 interface MapProps {
   profiles: Profile[];
@@ -26,7 +27,8 @@ function Map({ profiles }: MapProps) {
     lng: -10.13,
   };
 
-  const validCoordinates = profiles.filter(
+  // Ensure profiles is an array before calling .filter()
+  const validCoordinates = (profiles || []).filter(
     (profile) => profile.latitude && profile.longitude
   );
 

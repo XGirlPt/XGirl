@@ -24,8 +24,15 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('userToken');
-    if (token) {
-      dispatch(loginSuccess(token));
+    const storedEmail = localStorage.getItem('email'); // Recuperando o email
+    const storedUser = localStorage.getItem('user'); // Recuperando o user (se necessário)
+
+    if (token && storedEmail && storedUser) {
+      dispatch(loginSuccess({
+        email: storedEmail, // Passando o email
+        token,              // Passando o token
+        user: JSON.parse(storedUser),
+      }));
     }
   }, [dispatch]);
 
@@ -47,7 +54,7 @@ const Login = () => {
     const { data: authListener } = supabase.auth.onAuthStateChange(handleAuthStateChange);
 
     return () => {
-      authListener.subscription.unsubscribe();
+      authListener?.subscription.unsubscribe();
     };
   }, [router]);
 
@@ -78,8 +85,9 @@ const Login = () => {
 
         dispatch(
           loginSuccess({
-            email: user.user.email,
-            userUID: user.user.id,
+            email: user.user.email || '',  // Garantindo que email não seja undefined
+            token: user.session.refresh_token,
+            user: user.user
           })
         );
 
@@ -87,7 +95,7 @@ const Login = () => {
         localStorage.setItem('userToken', tokenID);
         localStorage.setItem('email', email);
 
-        router.push('/Acompanhantes');
+        router.push('/acompanhantes');
       } else {
         console.log('O objeto de usuário retornado está vazio ou undefined.');
       }
@@ -224,8 +232,6 @@ const Login = () => {
       </div>
     </div>
   );
-  
-  
 };
 
 export default Login;

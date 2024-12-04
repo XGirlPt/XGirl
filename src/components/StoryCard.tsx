@@ -19,6 +19,8 @@ interface Profile {
   tagtimestamp: string;
   certificado: boolean;
   firstPhotos: string;
+  profiles: Profile[];
+
 }
 
 interface StoryCardProps {
@@ -31,7 +33,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   const [showStoryModal, setShowStoryModal] = useState(false); 
   const [selectedCidade, setSelectedCidade] = useState<string | null>(null); // Estado para controlar a história selecionada
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]); // Alterado para array de strings
-  const [selectedNome, setSelectedNome] = useState<string[]>([]); // Alterado para array de strings
+  const [selectedNome, setSelectedNome] = useState<string>(""); // single string
   const [selectedPhotoURL, setSelectedPhotoURL] = useState<string>(""); // Alterado para string única
  
 
@@ -97,19 +99,19 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
   // Extrai a primeira foto de cada perfil
   const firstPhotos = profilesWithStories.map((profile) => {
     return profile.photos && profile.photos.length > 0 ? profile.photos[0] : null;
-  });
-  
+  }).filter(photo => photo !== null) as string[]; 
+
   console.log("Primeiras fotos dos perfis", firstPhotos);  
 
-
-  const handleCardClick = (story: string, profile: Profile) => {
+  const handleCardClick = (story: string, profile: Profile, photos: string[], firstPhotos: string[]) => {
     setSelectedStory(story);
     setShowStoryModal(true);
     setSelectedCidade(profile.cidade);
     setSelectedPhotos(profile.photos);
-    setSelectedNome(profile.nome);
-    setSelectedPhotoURL(profile.photos[0]); // Passe a primeira foto como string única
-};
+    setSelectedNome(profile.nome); // 'profile.nome' is a string, so it will work now
+    setSelectedPhotoURL(profile.photos[0]); // Pass the first photo URL
+  };
+
   const closeStoryModal = () => {
     setSelectedStory(null);
     setShowStoryModal(false); // Fecha o modal
@@ -121,14 +123,16 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
     <div className="rounded-xl h-full">
       {/* Renderiza o StoryBigS se showStoryModal estiver true */}
       {showStoryModal && (
-        <StoryBigS
-          story={selectedStory}
-          onClose={closeStoryModal}
-          firstPhotos={selectedPhotoURL}
-          cidade={selectedCidade}
-          nome={selectedNome}
-        />
-      )}
+  <StoryBigS
+    story={selectedStory}
+    onClose={closeStoryModal}
+    firstPhotos={selectedPhotoURL}
+    cidade={selectedCidade}
+    nome={selectedNome}
+    photos={selectedPhotos} // Assuming you want to pass the photos array
+    profiles={profiles} // Pass the entire profiles array
+  />
+)}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-5 xxl:grid-cols- gap-2 md:gap-8 mt-10 pb-16 md:pb-16">
         {profilesWithStories.map((profile, profileIndex) =>
           profile.stories.map((story, storyIndex) => (
@@ -136,7 +140,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
               key={`${profileIndex}-${storyIndex}`}
               className="relative border border-zinc-800 rounded-2xl overflow-hidden shadow-md transform transition duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
               onClick={() => handleCardClick(story, profile, profile.photos, firstPhotos)}
-            >
+              >
               <div className="relative rounded-lg overflow-hidden h-full group">
                 {/* Banner de destaque no topo */}
                 <div className="h-8 md:h-8 w-full bg-pink-800 flex justify-center items-center z-10 absolute top-0 left-0">
@@ -150,7 +154,6 @@ const StoryCard: React.FC<StoryCardProps> = ({ profiles }) => {
                 <div className="relative w-full h-full overflow-hidden">
                   <video
                     src={story}
-                    alt="Thumbnail"
                     className="w-full h-full object-cover border border-zinc-500 shadow-md transition-transform duration-500 ease-in-out transform group-hover:scale-110" 
                   />
                 </div>

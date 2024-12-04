@@ -9,16 +9,17 @@ function Contacto() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [recaptchaValue, setRecaptchaValue] = useState(null);
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-
-  const handleRecaptchaChange = (value) => {
+  // Explicitly defining the type for 'value'
+  const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value); // Atualiza o estado do reCAPTCHA
   };
 
-  const handleSubmit = (e) => {
+  // Typing the event as React.FormEvent<HTMLFormElement>
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Previne o envio padrão do formulário
 
     // Validação do reCAPTCHA
@@ -118,7 +119,7 @@ function Contacto() {
             </label>
             <textarea
               id="message"
-              rows="4"
+              rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               className="block p-2 w-full text-sm text-white bg-gray-700 rounded-lg border border-gray-600 focus:ring-pink-500 focus:border-pink-500"

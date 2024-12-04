@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { supabase } from "../../database/supabase";
-import { Profile } from "@/types";
+import Profile  from "@/types";
 import Image from "next/image";
 import SideBarAdmin from "../../components/SideBarAdmin";
 import Certificado from "@/components/Certificado";
@@ -66,7 +66,12 @@ const AdminPage: React.FC = () => {
       const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setPendingProfiles(profilesWithPhotos);
     } catch (error) {
-      console.error("Error fetching pending profiles:", error.message);
+      // Type narrowing to ensure we can access the `message` property
+      if (error instanceof Error) {
+        console.error("Error fetching pending profiles:", error.message);
+      } else {
+        console.error("Unknown error fetching pending profiles:", error);
+      }
     }
   };
 
@@ -88,7 +93,11 @@ const fetchApprovedProfiles = async () => {
     const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
     setApprovedProfiles(profilesWithPhotos);
   } catch (error) {
-    console.error("Error fetching approved profiles:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching aproved profiles:", error.message);
+    } else {
+      console.error("Unknown error fetching aproved profiles:", error);
+    }
   }
 };
 
@@ -118,8 +127,13 @@ const fetchProfileData = async (profile: Profile) => {
       const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setInactiveProfiles(profilesWithPhotos);
     } catch (error) {
-      console.error("Error fetching inactive profiles:", error.message);
+      if (error instanceof Error) {
+        console.error("Error fetching inactive profiles:", error.message);
+      } else {
+        console.error("Unknown error fetching inactive profiles:", error);
+      }
     }
+  
   };
 
   const fetchcertificatedProfiles = async () => {
@@ -136,8 +150,13 @@ const fetchProfileData = async (profile: Profile) => {
       const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setCertificatedProfiles(profilesWithPhotos);
     } catch (error) {
-      console.error("Error fetching active profiles:", error.message);
+      if (error instanceof Error) {
+        console.error("Error fetching certificated profiles:", error.message);
+      } else {
+        console.error("Unknown error fetching certificated profiles:", error);
+      }
     }
+  
   };
 
 
@@ -155,8 +174,13 @@ const fetchProfileData = async (profile: Profile) => {
       const profilesWithPhotos = await Promise.all(data.map(fetchProfileData));
       setNoncertificatedProfiles(profilesWithPhotos);
     } catch (error) {
-      console.error("Error fetching active profiles:", error.message);
+      if (error instanceof Error) {
+        console.error("Error fetching Noncertificated profiles:", error.message);
+      } else {
+        console.error("Unknown error fetching Noncertificated profiles:", error);
+      }
     }
+  
   };
  
 
@@ -222,7 +246,11 @@ const fetchProfileData = async (profile: Profile) => {
         }
       }
     } catch (error) {
-      console.error("Error approving profile:", error.message);
+      if (error instanceof Error) {
+        console.error("Error approving profile:", error.message);
+      } else {
+        console.error("Unknown error approving profile:", error);
+      }
       toast.error('Erro ao aprovar o perfil. Tente novamente.');
     }
   };
@@ -248,11 +276,14 @@ const fetchProfileData = async (profile: Profile) => {
         }
       }
     } catch (error) {
-      console.error("Error rejecting profile:", error.message);
+      if (error instanceof Error) {
+        console.error("Error rejecting profile:", error.message);
+      } else {
+        console.error("Unknown error rejecting profile:", error);
+      }
       toast.error('Erro ao rejeitar o perfil. Tente novamente.');
     }
   };
-
 
   const handleRejectCertificado = async (id: number) => {
     try {
@@ -272,10 +303,15 @@ const fetchProfileData = async (profile: Profile) => {
         }
       }
     } catch (error) {
-      console.error("Error rejecting profile:", error.message);
-      toast.error('Erro ao rejeitar o perfil. Tente novamente.');
+      if (error instanceof Error) {
+        console.error("Error rejecting certificado profile:", error.message);
+      } else {
+        console.error("Unknown error rejecting certificado profile:", error);
+      }
+      toast.error('Erro ao rejecting certificado o perfil. Tente novamente.');
     }
   };
+
 
   const handleAceptCertificado = async (id: number) => {
     try {
@@ -297,8 +333,12 @@ const fetchProfileData = async (profile: Profile) => {
         }
       }
     } catch (error) {
-      console.error("Error rejecting profile:", error.message);
-      toast.error('Erro ao rejeitar o perfil. Tente novamente.');
+      if (error instanceof Error) {
+        console.error("Error rejecting certificado profile:", error.message);
+      } else {
+        console.error("Unknown error rejecting certificado profile:", error);
+      }
+      toast.error('Erro ao rejecting certificado o perfil. Tente novamente.');
     }
   };
   
@@ -340,32 +380,33 @@ const fetchProfileData = async (profile: Profile) => {
               className="flex flex-col p-6 bg-gray-800 rounded-lg shadow-lg space-y-4"
             >
               <div className="flex items-center space-x-6">
-                {profile.photoURL ? (
-                  <Image
-                    src={profile.photoURL || "/logo.webp"}
-                
-                    alt={`Profile Photo`}
-                    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
-                    width={80}
-                    height={80}
-                    loading="lazy" 
-                  />
-                ) : (
-                  <p className="text-white">Sem fotos</p>
-                )}
-
+              {profile.photoURL ? (
+  <Image
+    src={Array.isArray(profile.photoURL) ? profile.photoURL[0] : profile.photoURL || "/logo.webp"}  // Check if it's an array and get the first element
+    alt="Profile Photo"
+    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
+    width={80}
+    height={80}
+    loading="lazy"
+  />
+) : (
+  <p className="text-white">Sem fotos</p>
+)}
 {profile.vphotoURL ? (
-                  <Image
-                    src={profile.vphotoURL  || "/logo.webp"}
-                    alt={`Profile Photo`}
-                    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
-                    width={80}
-                    height={80}
-                    loading="lazy" 
-                  />
-                ) : (
-                  <p className="text-white">Sem fotos</p>
-                )}
+  <Image
+    src={Array.isArray(profile.vphotoURL) ? profile.vphotoURL[0] : profile.vphotoURL || "/logo.webp"}  // Check if it's an array and get the first element
+    alt="Verification Photo"
+    className="w-20 h-20 object-cover rounded-full border-2 border-gray-700"
+    width={80}
+    height={80}
+    loading="lazy"
+  />
+) : (
+  <p className="text-white">Sem fotos</p>
+)}
+
+
+
                 <div className="flex-1 text-white">
                   <p className="font-semibold text-xl">Nome: {profile.nome}</p>
                   <p>Email: {profile.email}</p>

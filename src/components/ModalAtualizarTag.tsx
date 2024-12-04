@@ -9,11 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 interface ModalAtualizarTagProps {
   isOpen: boolean;
   onClose: () => void;
+  onSave: (tag: string) => void; 
 }
 
 const ModalAtualizarTag: React.FC<ModalAtualizarTagProps> = ({
   isOpen,
-  onClose,
+   onClose, 
+   onSave
+
 }) => {
   const [tagInput, setTagInput] = useState("");
 

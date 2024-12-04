@@ -14,19 +14,20 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation"; // Importar useRouter
 
 interface BarContaProps {
+  BarOpen: boolean; // Add this line to define the BarOpen prop
   handleModificar: () => void;
   showModificar: boolean;
   handleContacto: () => void;
   showContacto: boolean;
   handleFotos: () => void;
   showFotos: boolean;
+  handleVerPerfil: () => void;
   handleStories: () => void;
   showStories: boolean;
-  handleDefinicoes: () => void;
-  showDefinicoes: boolean;
 }
 
 const BarConta: React.FC<BarContaProps> = ({
+  // Now you can use the BarOpen prop here
   handleModificar,
   showModificar,
   handleContacto,
@@ -35,6 +36,7 @@ const BarConta: React.FC<BarContaProps> = ({
   showFotos,
   handleStories,
   showStories,
+
  
 }) => {
   const router = useRouter(); // Inicializar useRouter

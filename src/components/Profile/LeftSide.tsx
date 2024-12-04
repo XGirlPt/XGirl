@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RiMessage2Fill } from "react-icons/ri";
 import { FiPhone } from "react-icons/fi";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { Profile } from "@/types";
+import  Profile  from "@/types";
 import Image from "next/image"; 
 // import '../../styles/globals.min.css';
 

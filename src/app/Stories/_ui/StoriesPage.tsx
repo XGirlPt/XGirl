@@ -6,7 +6,7 @@ import CaroselRound from "@/components/CaroselRound";
 import Footer from "@/components/Footer";
 import { fetchProfiles } from "@/services/profileService";
 import { useSearchParams } from "next/navigation";
-import { Profile } from "@/types";
+import  Profile  from "@/types";
 import StoryCard from "@/components/StoryCard";
 import StoryBigS from "@/components/StoryBigS";
 import CitySelector from "@/components/CitySelector";
@@ -89,14 +89,18 @@ function StoriesPage({}) {
           Ultimos Stories
         </p>
       <div className="px-8 md:px-36">
+    
+{/*     
       {showLargeStory && (
   <StoryBigS
-    profile={filteredProfiles.find(profile => profile.nome === selectedNome)} // Encontre o perfil correspondente
+    profiles={filteredProfiles as Profile[]}  // Type assertion to ensure it's treated as Profile[]
     onClose={() => setShowLargeStory(false)}
-   
-    />
-)}
-<StoryCard profiles={filteredProfiles} onStoryClick={handleStoryClick}  />
+    
+  />
+)} */}
+
+
+{/* <StoryCard  /> */}
 </div>
     </div>
   );

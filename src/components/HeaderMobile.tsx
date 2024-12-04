@@ -53,7 +53,9 @@ const HeaderMobile: React.FC = () => {
   const [settingsMenuOpen, setSettingsMenuOpen] = useState(false);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false); // Novo estado para modal de senha
-
+  const storyURLsRedux = useSelector(
+    (state: any) => state.profile?.profile.stories || []
+  );
   const toggleEmailModal = () => {
     setIsEmailModalOpen((prev) => !prev);
   };
@@ -102,6 +104,9 @@ const HeaderMobile: React.FC = () => {
     }
   };
 
+  const handleClose = () => {
+    setShowModifyPerfil(false); // This would hide the modal
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -196,9 +201,31 @@ const HeaderMobile: React.FC = () => {
 
       {/* Renderização Condicional dos Componentes */}
       {showModifyPhoto && <ModificarFotos handleVoltar={handleVoltarFoto} />}
-      {showModifyStory && <ModificarStories handleVoltar={handleVoltarStory}  />}
-      {showModifyPerfil && <ModificarPerfil handleVoltar={handleVoltarPerfil} />}
-      {showModifyContacto && <ModificarContacto handleVoltar={handleVoltarContacto} />}
+    
+    
+     {showModifyStory && (
+  <ModificarStories
+    handleVoltar={handleVoltarStory}
+    storyURLs={storyURLsRedux || []} // Passe um array vazio caso esteja indefinido
+  />
+)}     
+
+
+{showModifyPerfil && (
+  <ModificarPerfil 
+    handleVoltar={handleVoltarPerfil} 
+    onClose={handleClose} // Add this line with the function for onClose
+  />
+)}     
+     
+     {showModifyContacto && (
+  <ModificarContacto 
+    handleVoltar={handleVoltarContacto} 
+    onClose={handleClose} // Assuming you want to use handleClose as the onClose function
+  />
+)}
+     
+     
       {/* Menu fixo na parte inferior */}
       <div className="block md:hidden fixed bottom-0 left-0 w-full bg-pink-800 opacity-90 text-white shadow-lg z-50">
   <div className="flex justify-around items-center h-16">
@@ -475,7 +502,11 @@ const HeaderMobile: React.FC = () => {
                 Logout
               </button>
             </div>
-            <MobileModal isOpen={isEmailModalOpen} onClose={toggleEmailModal} />
+            <MobileModal
+  isOpen={isEmailModalOpen}
+  onClose={toggleEmailModal}
+  modalType="email"  // Add the modalType prop here
+/>
 
           </div>
         </>

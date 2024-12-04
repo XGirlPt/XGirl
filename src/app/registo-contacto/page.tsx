@@ -17,6 +17,7 @@ import {
   updateServico,
 } from "@/actions/ProfileActions";
 import dynamic from "next/dynamic";
+import FiltroTarifa from "@/components/filtros/FiltroTarifa";
 
 import { Field, Label, Textarea } from '@headlessui/react';
 import clsx from 'clsx';
@@ -25,6 +26,7 @@ import clsx from 'clsx';
 
 const RegistoContacto: React.FC = () => {
   const dispatch = useDispatch();
+  const [filtros, setFiltros] = useState<any>([]); // Ajuste o tipo conforme necessário
 
   const userEmailRedux = useSelector(
     (state: any) => state.profile?.profile?.email
@@ -54,6 +56,10 @@ const RegistoContacto: React.FC = () => {
   const [description, setDescription] = useState<string>(
     descriptionRedux || ""
   );
+
+  const handleSetFiltros = (novosFiltros: any) => {
+    setFiltros(novosFiltros);
+  };
 
   useEffect(() => {
     setSelectedPagamento(pagamentoRedux || []);
@@ -110,8 +116,8 @@ const RegistoContacto: React.FC = () => {
               <div className="flex flex-col w-full mx-6 pt-4">
                 <div className="w-full mt-0">
                   <p className="text-pink-800">Preço*</p>
-                  <FiltroPrice />
-                </div>
+                  <FiltroTarifa setFiltros={handleSetFiltros} />;
+                  </div>
 
                 <div className="w-3/4 mt-2 gap-4">
                   <p className="text-md text-pink-800">Meio de contacto</p>

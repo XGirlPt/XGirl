@@ -113,7 +113,7 @@ const Filtro: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <FiltroAge setFiltros={setFiltros} />
                 <FiltroTarifa setFiltros={setFiltros} />
-                <FiltroLingua setFiltros={setFiltros} />
+                {/* <FiltroLingua setFiltros={setFiltros} />
                 <FiltroPelos setFiltros={setFiltros} />
                 <FiltroMamas setFiltros={setFiltros} />
                 <FiltroPeito setFiltros={setFiltros} />
@@ -121,7 +121,7 @@ const Filtro: React.FC = () => {
                 <FiltroAltura setFiltros={setFiltros} />
                 <FiltroCorpo setFiltros={setFiltros} />
                 <FiltroTatuagem setFiltros={setFiltros} />
-                <FiltroOrigem setFiltros={setFiltros} />
+                <FiltroOrigem setFiltros={setFiltros} /> */}
               </div>
 
               <div className="flex justify-end mt-8">

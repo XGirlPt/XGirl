@@ -1,10 +1,19 @@
 import React from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, Dispatch, SetStateAction } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
+interface FiltrosState {
+  Lingua?: number[];
+}
+
 interface FiltroLinguaProps {
+  bgColor?: string;
+  buttonPadding?: string;
+  rounded?: string;
   onChange?: (value: string) => void;
+  setFiltros: Dispatch<SetStateAction<FiltrosState>>;
+
 }
 
 const linguas = [
@@ -15,8 +24,12 @@ const linguas = [
   { id: 5, name: "Italiano", unavailable: false },
   { id: 6, name: "Russo", unavailable: false },
 ];
-
-const FiltroLingua: React.FC<FiltroLinguaProps> = ({ onChange }) => {
+ 
+const FiltroLingua: React.FC<FiltroLinguaProps> = ({  bgColor = "bg-gray-700",
+  buttonPadding = "py-0",
+  rounded = "rounded-md",
+  onChange,
+  setFiltros,}) => {
   return (
     <div className="w-full mb-2 md:mb-4">
       <Listbox

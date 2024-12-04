@@ -13,8 +13,7 @@ interface FiltroTatuagemProps {
   bgColor?: string;
   buttonPadding?: string;
   rounded?: string;
-  setFiltros: React.Dispatch<React.SetStateAction<FiltrosState>>;
-
+  padding?: string;
 }
 
 const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
@@ -23,7 +22,6 @@ const FiltroTatuagem: React.FC<FiltroTatuagemProps> = ({
   rounded = "rounded-md",
 }) => {
   const dispatch = useDispatch();
-
 
   
   // Obter o valor inicial de tatuagem do Redux

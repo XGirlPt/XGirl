@@ -1,9 +1,12 @@
 import supabase from "../database/supabase";
 import { updateStories } from "@/actions/ProfileActions";
 import { Dispatch } from "redux";
+import Profile from "@/types";
 
-
-
+interface ProfileUpdateData {
+  
+  // Defina outras propriedades aqui conforme necessário
+}
 
 
 // FETCH PROFILE START
@@ -72,7 +75,11 @@ export async function fetchProfiles() {
     console.log("Perfis combinados com fotos:", combinedProfiles);
     return combinedProfiles; // Retornar os perfis combinados com as fotos
   } catch (error) {
-    console.error("Error fetching profiles:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching profiles:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }
@@ -92,7 +99,11 @@ export async function fetchProfilePhotos() {
 
     return photosData;
   } catch (error) {
-    console.error("Error fetching profile photos:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching profiles photos:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }
@@ -112,7 +123,11 @@ export async function fetchProfileStories() {
 
     return storiesData;
   } catch (error) {
-    console.error("Error fetching profile stories:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching stories:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }
@@ -133,7 +148,11 @@ export async function fetchVPhotos() {
 
     return VphotosData;
   } catch (error) {
-    console.error("Error fetching verification photos:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching verification foto:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }
@@ -159,7 +178,11 @@ export async function fetchClubs() {
      
     }));
   } catch (error) {
-    console.error("Error fetching clubs:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching estabelecimentos:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }
@@ -223,14 +246,18 @@ export const fetchProfileFromDatabase = async (userUID: string) => {
     console.log("Dados do perfil recuperados:", profileWithPhotos); // Adicione este log para verificar os dados recuperados
     return profileWithPhotos;
   } catch (error) {
-    console.error("Erro ao buscar dados do perfil:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching profile data:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 };
 
 // UPDATE DATA PERFIL START
 
-export async function updateProfileData(dataToUpdate, userUID) {
+export async function updateProfileData(dataToUpdate: ProfileUpdateData, userUID: string): Promise<void> {
   try {
     console.log("Data to update:", dataToUpdate);
     console.log("User UID:", userUID);
@@ -249,13 +276,18 @@ export async function updateProfileData(dataToUpdate, userUID) {
       // Aqui você pode adicionar qualquer ação que deseja executar após a atualização do perfil
     }
   } catch (error) {
-    console.error("Erro ao atualizar o perfil:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching updating profile data:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
+    throw error;
   }
 }
 // END UPDATE DATA PERFIL
 
 // UPDATE PROFILE TAG START
-export async function updateProfileTag(userUID, newTagValue) {
+export async function updateProfileTag(userUID: string, newTagValue: string): Promise<void> {
   try {
     const { data, error } = await supabase
       .from("ProfilesData")
@@ -271,7 +303,12 @@ export async function updateProfileTag(userUID, newTagValue) {
       console.log("Tag do perfil atualizada com sucesso:", data);
     }
   } catch (error) {
-    console.error("Erro ao atualizar a tag do perfil:", error.message);
+    if (error instanceof Error) {
+      console.error("Error updating tag :", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
+    throw error;
   }
 }
 // END UPDATE PROFILE TAG
@@ -415,7 +452,11 @@ export async function fetchProfilesMain() {
     console.log("Perfis combinados com fotos principais e stories:", combinedProfiles);
     return combinedProfiles;
   } catch (error) {
-    console.error("Error fetching profiles:", error.message);
+    if (error instanceof Error) {
+      console.error("Error fetching profile data:", error.message); // Access message safely
+    } else {
+      console.error("Unknown error:", error); // Handle other unknown error types
+    }
     throw error;
   }
 }

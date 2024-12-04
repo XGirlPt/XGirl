@@ -28,8 +28,7 @@ const FiltroCorpo: React.FC<FiltroCorpoProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const corpoRedux = useSelector(
-    (state: RootState) => state.profile?.profile?.corpo || null
+  const corpoRedux = useSelector((state: any) => state.profile?.profile?.corpo || null
   );
   console.log("corpo do redux", corpoRedux);
 

@@ -50,7 +50,7 @@ export const UPDATE_PROFILES = "UPDATE_PROFILES";
 export const SET_SELECTED_PROFILE = "SET_SELECTED_PROFILE";
 
 
-export const loginSuccess = (userData: { email: string; token: string; user: any }) => {
+export const loginSuccess = (userData: { email: string; token: string; user: any;}) => {
   if (!userData || !userData.token || !userData.email) {
     console.error("Dados de login incompletos:", userData);
     return {

@@ -23,12 +23,12 @@ interface MainCardProps {
   profiles: Profile[];
   currentPage: number; // Página atual
   itemsPerPage: number; 
-  onProfileClick: () => void;
+  onProfileClick?: (profile: Profile) => void; // `?` makes it optional
   customClass?: string;
  
 }
 
-const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage, onProfileClick, a }) => {
+const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage, onProfileClick }) => {
   const [timeElapsedList, setTimeElapsedList] = useState<string[]>([]);
  
 
@@ -79,12 +79,17 @@ const MainCard: React.FC<MainCardProps> = ({ profiles, currentPage, itemsPerPage
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xxl:grid-cols-5 gap-6 md:gap-8 mt-4 pb-16">
       {paginatedProfiles.map((profile, index) => (
-        <Link
-          key={index}
-          href={`/acompanhantes/${profile.nome}`}
-          className="group rounded-xl bg-gray-800 shadow-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl duration-300"
-          onClick={onProfileClick} 
-        >
+       <Link
+       key={index}
+       href={`/acompanhantes/${profile.nome}`}
+       className="group rounded-xl bg-gray-800 shadow-lg overflow-hidden transition-all transform hover:scale-105 hover:shadow-2xl duration-300"
+       onClick={(event) => {
+         event.preventDefault(); // Prevent default behavior if necessary
+         if (onProfileClick) {
+           onProfileClick(profile); // Pass the profile to the onProfileClick function
+         }
+       }}
+     >
           {/* Imagem e Badge */}
           <div className="relative w-full h-64 bg-gray-800">
             {/* Live Sex Badge - Corrigido para verificar a condição corretamente */}

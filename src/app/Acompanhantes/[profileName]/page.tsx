@@ -15,14 +15,14 @@ import HeaderG from "@/components/headerFilter/HeaderG";
 import LeftSide from "@/components/profile/LeftSide";
 import Linguas from "@/components/profile/idioma";
 import { useParams } from "next/navigation";
-import { Profile } from "@/types";
+import  Profile  from "@/types";
 import { BlurImage } from "@/components/BlurImage";
 import Image from 'next/image';
 import { useDispatch, useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc"; // Não esqueça de importar o ícone
 import Comments from "@/components/profile/Comments"
 import PhotosAndCertificado from "@/components/profile/PhotosAndCertificado"; // Import the new component
-import StoriesComponent from "@/components/Profile/StoriesComponent";
+// import StoriesComponent from "@/components/profile/StoriesComponent";
 
 
 function UserProfile() {
@@ -249,14 +249,14 @@ console.log("stories RDX", storiesRDX)
             {isVideo ? (
               <div>
                 <video
-                  src={thumbnailSrc}
-                  alt={`Thumbnail ${index + 1}`}
-                  className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
-                  onClick={() => handleStoryClick(index)}
-                  width={300}
-                  height={200}
-                  priority={index === 0}
-                />
+  src={thumbnailSrc}
+  aria-label={`Thumbnail ${index + 1}`} // ✅ Correto para acessibilidade
+  title={`Thumbnail ${index + 1}`} // ✅ Opcional, mostra um tooltip
+  className="rounded-2xl border border-zinc-500 shadow-md transition-transform duration-200 ease-in-out hover:scale-105"
+  onClick={() => handleStoryClick(index)}
+  width={300}
+  height={200}
+/>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-white text-3xl">▶️</span>
                 </div>
@@ -310,7 +310,7 @@ console.log("stories RDX", storiesRDX)
                   <Tarifas selectedProfile={selectedProfile as any} />
                 </div>
                
-                  <Comments userUID={selectedProfile?.userUID} />
+                  {/* <Comments userUID={selectedProfile?.userUID} /> */}
                
               </div>
             </div>

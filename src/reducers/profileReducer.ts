@@ -477,7 +477,7 @@ const rootReducer = (
             ...state,
             profile: {
               ...state.profile,
-              latitude: action.payload,
+              latitude: parseFloat(action.payload),  // Convert string to number
             },
           };
 
@@ -486,7 +486,8 @@ const rootReducer = (
               ...state,
               profile: {
                 ...state.profile,
-                longitude: action.payload,
+                longitude: parseFloat(action.payload),  // Convert string to number
+
               },
             };
 

@@ -232,8 +232,8 @@ const RegistoFotos: React.FC = () => {
           <IoTrashBin
             size={24}
             className="absolute top-2 right-2 cursor-pointer text-white bg-gray-700 hover:bg-red-600 p-1 rounded-full transition-colors"
-            onClick={() => handleDeleteVerificationPhoto()}
-          />
+            onClick={() => handleDeleteVerificationPhoto(index)}
+            />
         </div>
       ))
     ) : (

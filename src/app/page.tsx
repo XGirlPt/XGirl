@@ -6,6 +6,7 @@ import { fetchProfiles } from "@/services/profileService";
 import "../styles/globals.min.css";
 import Map from "@/components/Map";
 import { useTranslation } from "react-i18next"; // Importando o hook
+import { useDispatch, useSelector } from "react-redux";
 
 // Carregamento dinâmico de componentes pesados (desativando SSR para esses componentes)
 const CaroselG = dynamic(() => import('@/components/CaroselG'), { ssr: false });
@@ -15,6 +16,7 @@ const MainCard = dynamic(() => import('@/components/MainCard'), { ssr: false });
 const Maiores = dynamic(() => import('@/components/Maiores'), { ssr: false }); // Se você quiser carregar o Maiores de forma dinâmica também
 
 interface Profile {
+  id: number; 
   nome: string;
   cidade: string;
   adress: string;

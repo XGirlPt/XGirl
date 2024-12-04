@@ -85,7 +85,7 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/Contacto"
+                <Link href="/contacto"
                    className="text-[#D53F8C] cursor-pointer hover:underline hover:text-[#C2136A]"> {t("footer.contact")}
                 </Link>
               </li>

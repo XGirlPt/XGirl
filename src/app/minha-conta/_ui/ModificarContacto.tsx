@@ -31,6 +31,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
   onClose,
 }) => {
   const dispatch = useDispatch();
+  const [filtros, setFiltros] = useState<any>([]); // Ajuste o tipo de `filtros` conforme necessário
 
   const userUID = useSelector((state: any) => state.profile?.profile?.userUID);
   const pagamentoRedux = useSelector(
@@ -72,7 +73,10 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-
+  const handleSetFiltros = (novosFiltros: any) => {
+    setFiltros(novosFiltros);
+  };
+  
 
   useEffect(() => {
     if (pagamentoRedux) {
@@ -98,6 +102,8 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     }
   }, [servicoRedux]);
 
+ 
+
   const handlePaymentChange = (updatedPagamento: string[]) => {
     dispatch(updatePagamento(updatedPagamento));
     setSelectedPagamento(updatedPagamento);
@@ -117,16 +123,15 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
     setSelectedLingua(updatedLingua);
   };
 
-  const handleTarifaChange = (updatedTarifa: string[]) => {
-    dispatch(updateTarifa(updatedTarifa));
-    setSelectedTarifa(updatedTarifa);
-  };
+
 
   const handleServicoChange = (updatedServico: string[]) => {
     dispatch(updateServico(updatedServico));
     setSelectedServico(updatedServico);
   };
 
+  
+  
  
   const handleGuardar = async () => {
     const dataToUpdate = {
@@ -193,7 +198,7 @@ const ModificarContacto: React.FC<ModificarContactoProps> = ({
 
             
             <div className="w-44 mb-6">
-              <FiltroTarifa />
+            <FiltroTarifa setFiltros={handleSetFiltros} />
             </div>
 
             <div className="w-full mt-2">

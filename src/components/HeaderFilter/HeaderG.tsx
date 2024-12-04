@@ -3,7 +3,7 @@ import { useState, useEffect, SetStateAction, Dispatch } from "react";
 import { supabase } from "../../database/supabase";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Profile } from "@/types";
+import  Profile  from "@/types";
 
 
 interface HeaderGProps {
@@ -20,7 +20,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
   const router = useRouter();
 
   const handleDistrictClick = (district: string) => {
-    router.push(`/girl?distrito=${encodeURIComponent(district)}`);
+    router.push(`/acompanhantes?distrito=${encodeURIComponent(district)}`);
   };
 
   const handleNextProfile = () => {
@@ -30,7 +30,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
     
     if (nextProfile) {
       setCurrentProfileIndex(nextIndex);
-      router.push(`/Acompanhantes/${nextProfile.nome}`);
+      router.push(`/acompanhantes/${nextProfile.nome}`);
     }
   };
 
@@ -41,7 +41,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
     
     if (prevProfile) {
       setCurrentProfileIndex(prevIndex);
-      router.push(`/Acompanhantes/${prevProfile.nome}`);
+      router.push(`/acompanhantes/${prevProfile.nome}`);
     }
   };
 
@@ -66,7 +66,7 @@ const HeaderG: React.FC<HeaderGProps> = ({
             <p className="text-zinc-400">Girls</p>
             <p className="text-zinc-400">/</p>
             <Link
-              href={`/Acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
+              href={`/acompanhantes?distrito=${encodeURIComponent(currentProfile.distrito)}`}
               className="text-zinc-400 cursor-pointer hover:text-pink-800"
             >
               {currentProfile.distrito}

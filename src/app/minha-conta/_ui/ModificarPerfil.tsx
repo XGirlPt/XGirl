@@ -49,6 +49,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { userUID } = useParams<{ userUID: string }>();
+  const [filtros, setFiltros] = useState<any>([]); // Ajuste o tipo de `filtros` conforme necessário
 
   const [nome, setNome] = useState<string>("");
   const [idade, setIdade] = useState<string>("");
@@ -100,6 +101,9 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
   const signoRedux = useSelector(
     (state: any) => state.profile?.profile?.signo
   );
+  const handleSetFiltros = (novosFiltros: any) => {
+    setFiltros(novosFiltros);
+  };
 
   const handleGuardar = async () => {
     const dataToUpdate = {
@@ -350,7 +354,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
                   placeholder="Seu telefone"
                 />
               </div>
-              <FiltroTarifa rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroTarifa setFiltros={handleSetFiltros} rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
               <FiltroDistrito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
               <div>
                 <label className="block text-sm font-medium text-gray-300">Cidade</label>
@@ -371,7 +375,7 @@ const ModificarPerfil: React.FC<ModificarPerfilProps> = ({
               <FiltroMamas rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
               <FiltroPeito rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
               <FiltroPelos rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
-              <FiltroTatuagem rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
+              <FiltroTatuagem  rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
               <FiltroSigno rounded="rounded-lg" buttonPadding="py-3" bgColor="bg-gray-700" />
             </div>
           </div>

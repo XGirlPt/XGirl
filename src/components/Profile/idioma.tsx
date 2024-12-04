@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { useSelector } from "react-redux";
-import Map from "../Map";
 
 interface Profile {
   lingua: string[];
@@ -68,7 +67,6 @@ const Linguas: React.FC<LinguasProps> = ({ selectedProfile }) => {
             </div>
           ))}
       </div>
-      {selectedProfile && <Map profile={selectedProfile} />}
 
     </div>
   );
